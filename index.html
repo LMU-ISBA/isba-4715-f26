@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- TEMPLATE: Update title with your course code and name -->
-    <title>{{COURSE_CODE}} - {{COURSE_NAME}} | {{SEMESTER}}</title>
+    <title>ISBA 4715 - Developing Business Applications Using SQL | Spring 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
         }
 
         .container {
-            max-width: 720px;
+            max-width: 960px;
             margin: 0 auto;
             background: var(--bg);
             min-height: 100vh;
@@ -196,6 +196,20 @@
             padding: 0.75rem 0.5rem;
             text-align: left;
             border-bottom: 1px solid var(--border-light);
+        }
+
+        .schedule-table td:nth-child(2),
+        .schedule-table td:nth-child(4) {
+            white-space: nowrap;
+        }
+
+        .schedule-table ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .schedule-table li {
+            margin-bottom: 0.1rem;
         }
 
         .schedule-table th {
@@ -466,13 +480,13 @@
         <header class="header">
             <div class="header-content">
                 <!-- TEMPLATE: Update with your course information -->
-                <h1 class="course-title">{{COURSE_CODE}}</h1>
-                <p class="course-subtitle">{{COURSE_NAME}}</p>
+                <h1 class="course-title">ISBA 4715</h1>
+                <p class="course-subtitle">Developing Business Applications Using SQL</p>
                 <div class="course-info-bar">
-                    <span class="info-item">{{SEMESTER}}</span>
-                    <span class="info-item">{{DAYS_TIMES}}</span>
-                    <span class="info-item">{{LOCATION}}</span>
-                    <span class="info-item">{{CREDIT_HOURS}} Credits</span>
+                    <span class="info-item">Spring 2026</span>
+                    <span class="info-item">MW 9:55 am - 11:35 am</span>
+                    <span class="info-item">Hilton 115</span>
+                    <span class="info-item">4 Credits</span>
                 </div>
             </div>
         </header>
@@ -492,39 +506,42 @@
                 <h2 class="section-title">Course Overview</h2>
                 <div class="card">
                     <h3 class="card-title">Course Description</h3>
-                    <p>{{COURSE_DESCRIPTION}}</p>
+                    <p>This course introduces the use of SQL for creating and interacting with relational databases as well as for developing applications using application program interfaces and query programming languages. Students will gain hands-on experience in server level database installation, use of query languages for database creation, manipulation and information retrievals, and web-based applications that would interact with back-end databases for data and information management.</p>
                 </div>
 
                 <div class="card">
                     <h3 class="card-title">Prerequisites</h3>
-                    <p>{{PREREQUISITES}}</p>
-                </div>
-
-                <div class="card">
-                    <h3 class="card-title">CBA Core Learning Outcomes</h3>
-                    <ul>
-                        <li>{{CBA_LEARNING_OUTCOME_1}}</li>
-                        <li>{{CBA_LEARNING_OUTCOME_2}}</li>
-                        <li>{{CBA_LEARNING_OUTCOME_3}}</li>
-                    </ul>
+                    <p>BCOR 2710 and ISBA 3710 with a grade of C- or higher</p>
                 </div>
 
                 <div class="card">
                     <h3 class="card-title">Course Learning Outcomes</h3>
                     <ul>
-                        <li>{{COURSE_LEARNING_OUTCOME_1}}</li>
-                        <li>{{COURSE_LEARNING_OUTCOME_2}}</li>
-                        <li>{{COURSE_LEARNING_OUTCOME_3}}</li>
-                        <li>{{COURSE_LEARNING_OUTCOME_4}}</li>
+                        <li>Become a data analyst: use SQL for data exploration and analysis</li>
+                        <li>Become a data engineer: use modern technologies to extract, transform, and load data</li>
+                        <li>Become a data professional: communicate data findings to both technical and non-technical audiences</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">ISBA Major Learning Outcomes</h3>
+                    <ul>
+                        <li>Utilize competencies gained from hands-on experience in core information technologies including programming languages, database management systems and other software used to create and store data, interact with databases in a SQL environment and develop database applications through web and mobile interfaces</li>
+                        <li>Apply critical thinking and problem-solving skills when analyzing business problems</li>
+                        <li>Identify problems, structure problems, propose an IT solution, and solve the problem</li>
+                        <li>Develop proficiency in one or more mainstream programming language, such as SQL, PHP, JavaScript, and Python</li>
+                        <li>Effectively communicate complex technological concepts including oral communications and written communications</li>
                     </ul>
                 </div>
 
                 <div class="card">
                     <h3 class="card-title">Required Materials</h3>
+                    <p>No textbook required. Optional references available through the <a href="https://go.oreilly.com/loyola-marymount">library's O'Reilly subscription</a>:</p>
                     <ul>
-                        <li>{{TEXTBOOK_OR_MATERIALS}}</li>
-                        <li>{{SOFTWARE_OR_TOOLS}}</li>
+                        <li><a href="https://learning.oreilly.com/library/view/learning-sql-3rd/9781492057604/">"Learning SQL" 3rd Edition</a> by Beaulieu</li>
+                        <li><a href="https://learning.oreilly.com/library/view/fundamentals-of-data/9781098108298/">"Fundamentals of Data Engineering"</a> by Reis & Housley</li>
                     </ul>
+                    <p style="margin-top: 1rem;">Software and tools: PostgreSQL, AWS RDS, Airbyte, GitHub, dbt, and visualization tools (Looker/Tableau/Power BI)</p>
                 </div>
 
                 <div class="card">
@@ -549,7 +566,7 @@
                         </div>
                         <div class="instructor-detail-item">
                             <strong>Office Hours:</strong>
-                            <span>{{OFFICE_HOURS}} | <a href="https://calendly.com/greg-lontok">Schedule via Calendly</a></span>
+                            <span>Tue, Thu 12:00 pm - 2:00 pm, Fri 10:00 am - 12:00 pm | <a href="https://calendly.com/greg-lontok">Schedule via Calendly</a></span>
                         </div>
                         <div class="instructor-detail-item">
                             <strong>LinkedIn:</strong>
@@ -571,42 +588,221 @@
                         <tr>
                             <th>Week</th>
                             <th>Date</th>
-                            <th>Day</th>
                             <th>Topic</th>
                             <th>Due</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- TEMPLATE: Add your weekly schedule -->
                         <tr>
                             <td>1</td>
-                            <td>{{WEEK_1_DATE}}</td>
-                            <td>{{WEEK_1_DAY}}</td>
-                            <td>{{WEEK_1_TOPIC}}</td>
-                            <td>{{WEEK_1_DUE}}</td>
+                            <td>Mon, Jan 12</td>
+                            <td><ul><li>5-Step Analytics Framework</li><li>Filtering</li></ul></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td>{{WEEK_1_DATE_2}}</td>
-                            <td>{{WEEK_1_DAY_2}}</td>
-                            <td>{{WEEK_1_TOPIC_2}}</td>
-                            <td>{{WEEK_1_DUE_2}}</td>
+                            <td>Wed, Jan 14</td>
+                            <td><ul><li>Aggregations</li><li>Grouping</li></ul></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>{{WEEK_2_DATE}}</td>
-                            <td>{{WEEK_2_DAY}}</td>
-                            <td>{{WEEK_2_TOPIC}}</td>
-                            <td>{{WEEK_2_DUE}}</td>
+                            <td>Mon, Jan 19</td>
+                            <td><strong>No Class - MLK Day</strong></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>{{WEEK_2_DATE_2}}</td>
-                            <td>{{WEEK_2_DAY_2}}</td>
-                            <td>{{WEEK_2_TOPIC_2}}</td>
-                            <td>{{WEEK_2_DUE_2}}</td>
+                            <td>Wed, Jan 21</td>
+                            <td><ul><li>RFM Analysis</li><li>Relational Data Model</li><li>JOINs</li></ul></td>
+                            <td></td>
                         </tr>
-                        <!-- Add more rows as needed -->
+                        <tr>
+                            <td>3</td>
+                            <td>Mon, Jan 26</td>
+                            <td>Traffic Source Analytics</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Wed, Jan 28</td>
+                            <td><ul><li>Dates</li><li>Strings</li></ul></td>
+                            <td>Lesson Exercises 01</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Mon, Feb 2</td>
+                            <td><ul><li>Quiz 01 (30 min)</li><li>UNION</li></ul></td>
+                            <td>Quiz 01</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Wed, Feb 4</td>
+                            <td>Conditional Logic with CASE</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Mon, Feb 9</td>
+                            <td>VIEWs</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Wed, Feb 11</td>
+                            <td>VIEWs</td>
+                            <td>Lesson Exercises 02</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Mon, Feb 16</td>
+                            <td>Subqueries</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Wed, Feb 18</td>
+                            <td>Common Table Expressions (CTE)</td>
+                            <td>Lesson Exercises 03</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Mon, Feb 23</td>
+                            <td><ul><li>CTE</li><li>Window Functions</li></ul></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Wed, Feb 25</td>
+                            <td><ul><li>Window Functions</li><li>Presentation Skills</li></ul></td>
+                            <td>Lesson Exercises 04</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Mon, Mar 2</td>
+                            <td><strong>No Class - Spring Break</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Wed, Mar 4</td>
+                            <td><strong>No Class - Spring Break</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Mon, Mar 9</td>
+                            <td>Assignment 01 Presentations</td>
+                            <td><ul><li>Lesson Exercises 05</li><li>Assignment 01</li></ul></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Wed, Mar 11</td>
+                            <td>Data Analyst Interview Prep</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Mon, Mar 16</td>
+                            <td>Quiz 02 (30 min)</td>
+                            <td>Quiz 02</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Wed, Mar 18</td>
+                            <td>Data Analyst Interview (Midterm)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Mon, Mar 23</td>
+                            <td>Data Engineering</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Wed, Mar 25</td>
+                            <td><ul><li>Cloud Relational Databases with AWS RDS</li><li>Extract and Load with Airbyte</li></ul></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Mon, Mar 30</td>
+                            <td>APIs</td>
+                            <td>Lesson Exercises 06</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Wed, Apr 1</td>
+                            <td><strong>No Class - Easter Holiday</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Mon, Apr 6</td>
+                            <td>Web Scraping</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Wed, Apr 8</td>
+                            <td>Data Lakes & Data Warehouses</td>
+                            <td>Lesson Exercises 07</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Mon, Apr 13</td>
+                            <td><ul><li>Assignment 02 Presentations</li><li>Project Overview</li></ul></td>
+                            <td><ul><li>Assignment 02</li><li>Lesson Exercises 08</li></ul></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>Wed, Apr 15</td>
+                            <td><ul><li>Production Data Pipeline</li><li>PostgreSQL</li><li>GitHub</li></ul></td>
+                            <td>Project Proposal</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>Mon, Apr 20</td>
+                            <td><ul><li>Production Data Pipeline Continued</li><li>Environment Variables</li></ul></td>
+                            <td>Lesson Exercises 09</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>Wed, Apr 22</td>
+                            <td>Automation with GitHub Actions</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>Mon, Apr 27</td>
+                            <td><ul><li>Transformations with dbt</li><li>Dimensional Modeling</li></ul></td>
+                            <td>Project Milestone 01</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>Wed, Apr 29</td>
+                            <td><ul><li>Visualization with Looker/Tableau/Power BI</li><li>Optimizing Queries with Indexes</li></ul></td>
+                            <td>Lesson Exercises 10</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>Mon, May 4</td>
+                            <td>Data Engineer Interview Prep</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>Wed, May 6</td>
+                            <td><strong>Reading Day - No Class</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>Mon, May 11</td>
+                            <td><strong>Finals Week</strong> - Data Engineer and Data Analyst Interview</td>
+                            <td>Project Milestone 02</td>
+                        </tr>
                     </tbody>
                 </table>
             </section>
@@ -616,18 +812,29 @@
                 <h2 class="section-title">Grading</h2>
                 <div class="card">
                     <h3 class="card-title">Grade Breakdown</h3>
-                    <!-- TEMPLATE: Update with your grading weights -->
                     <div class="grading-item">
-                        <span>Assignments</span>
-                        <span>{{ASSIGNMENTS_WEIGHT}}%</span>
+                        <span>2 Group Assignments (10% each)</span>
+                        <span>20%</span>
                     </div>
                     <div class="grading-item">
-                        <span>Midterm Exam/Project</span>
-                        <span>{{MIDTERM_WEIGHT}}%</span>
+                        <span>2 Quizzes (5% each)</span>
+                        <span>10%</span>
                     </div>
                     <div class="grading-item">
-                        <span>Final Exam/Project</span>
-                        <span>{{FINAL_WEIGHT}}%</span>
+                        <span>10 Lesson Exercises (1% each)</span>
+                        <span>10%</span>
+                    </div>
+                    <div class="grading-item">
+                        <span>Midterm Interview</span>
+                        <span>15%</span>
+                    </div>
+                    <div class="grading-item">
+                        <span>Project</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="grading-item">
+                        <span>Final Interview</span>
+                        <span>20%</span>
                     </div>
                     <div class="grading-item">
                         <span>Total</span>
@@ -696,7 +903,7 @@
                     </div>
                     <div class="tip-card">
                         <h4>Build a Professional Relationship</h4>
-                        <p>Treat this class like a career opportunity. Ask questions, <a href="{{LINKEDIN_URL}}">connect with me on LinkedIn</a>, and seek feedback. Faculty often recommend students for jobs, but only if they know and trust you.</p>
+                        <p>Treat this class like a career opportunity. Ask questions, <a href="https://www.linkedin.com/in/lontok/">connect with me on LinkedIn</a>, and seek feedback. Faculty often recommend students for jobs, but only if they know and trust you.</p>
                     </div>
                     <div class="tip-card">
                         <h4>Practice Professionalism Daily</h4>
@@ -789,7 +996,7 @@
         </main>
 
         <footer>
-            <p>Loyola Marymount University | {{SEMESTER}}</p>
+            <p>Loyola Marymount University | Spring 2026</p>
             <p>&copy; Greg Lontok</p>
         </footer>
     </div>
