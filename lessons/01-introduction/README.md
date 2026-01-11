@@ -51,7 +51,15 @@ Your mission: Use SQL to diagnose the problem and recommend a solution.
 
 ## Key Concepts
 
-### Analytics Framework
+### 5-Step Analytics Framework
+
+1. **Define** — What's the question?
+2. **Collect** — Get the right data
+3. **Analyze** — Descriptive → Diagnostic
+4. **Communicate** — Insight with recommendation
+5. **Act** — Implement the decision
+
+### Types of Analytics
 - **Descriptive Analytics**: What happened? (totals, trends)
 - **Diagnostic Analytics**: Why did it happen? (drill-down, segmentation)
 
