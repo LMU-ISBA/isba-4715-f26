@@ -219,3 +219,7 @@ custom-gpt/
 # Class exercises and slides (private)
 class-exercises/
 slides/
+
+# Instructor answer keys (keep private from students)
+INSTRUCTOR-*
+**/INSTRUCTOR-*
