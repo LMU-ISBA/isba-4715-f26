@@ -51,17 +51,40 @@ Your mission: Use SQL to diagnose the problem and recommend a solution.
 
 ## Key Concepts
 
-### 5-Step Analytics Framework
+### 5-Step Analytics Framework (DC ACT)
 
-1. **Define** — What's the question?
-2. **Collect** — Get the right data
-3. **Analyze** — Descriptive → Diagnostic
-4. **Communicate** — Insight with recommendation
-5. **Act** — Implement the decision
+1. **Define** the business problem
+2. **Collect** and prepare the data
+3. **Analyze** the data and generate insights
+4. **Communicate** the insights, recommendations, and predictions
+5. **Act** and track the change
 
 ### Types of Analytics
 - **Descriptive Analytics**: What happened? (totals, trends)
 - **Diagnostic Analytics**: Why did it happen? (drill-down, segmentation)
+
+### How to Generate Insights
+
+Look for:
+- Highest/lowest values?
+- Anomalies/outliers?
+- Unexpected/surprising results?
+- Trends or patterns?
+- Correlations/relationships?
+- In a group?
+- Compared to other groups?
+- **ACTIONABLE?**
+
+### Insight Patterns
+
+| Pattern | Question |
+|---------|----------|
+| Trends | What's changing over time? |
+| Ranking | What's best/worst? |
+| Contribution | Who/what drives the total? |
+| Comparisons | How do groups stack up? |
+| Outliers | What stands out? |
+| Relationships | What moves together? |
 
 ### The Discovery Path
 1. Look at overall metrics
