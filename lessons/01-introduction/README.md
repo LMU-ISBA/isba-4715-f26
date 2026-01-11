@@ -1,5 +1,9 @@
 # Lesson 01: Introduction to SQL Analytics
 
+## Why SQL?
+
+SQL is [one of the most valuable skills](https://www.craigkerstiens.com/2019/02/12/sql-one-of-the-most-valuable-skills/) you can learn for a career in business, data, or technology. It's the universal language for working with data.
+
 ## Overview
 
 In this lesson, we'll **review foundational SQL concepts** and **learn new techniques** while solving a real business problem. You'll apply SQL skills to diagnose why a company's orders dropped — the same analytical approach used by data analysts in industry.
