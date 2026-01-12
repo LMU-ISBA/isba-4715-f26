@@ -127,7 +127,9 @@ lesson-01-fname-lname.sql
 In the worksheet, find **1.1 First Look at the Data** and type the following query below it:
 
 ```sql
-SELECT * FROM orders LIMIT 5;
+SELECT *
+FROM orders
+LIMIT 5;
 ```
 
 ### Execute
