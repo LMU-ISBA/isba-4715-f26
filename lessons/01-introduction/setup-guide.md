@@ -79,7 +79,38 @@ Enter the following information (provided by your instructor):
 
 ---
 
-## Part 4: Run Your First Query
+## Part 4: Organize Your Files
+
+### Create a Lesson Exercises Folder
+1. Create a folder on your computer called `lesson-exercises`
+   - Example: `Documents/lesson-exercises/`
+2. You'll save all your SQL work here throughout the semester
+
+### Save Your SQL Script
+1. In DBeaver, go to **File > Save As**
+2. Navigate to your `lesson-exercises` folder
+3. Save the file using this naming convention:
+
+```
+lesson-01-firstname-lastname.sql
+```
+
+**Example:** `lesson-01-jane-doe.sql`
+
+### Naming Rules
+- Use **kebab-case** (lowercase with hyphens): `lesson-01-jane-doe.sql`
+- Always include the **lesson number**: `lesson-01`, `lesson-02`, etc.
+- Always include your **first and last name**
+- No spaces in file names
+
+### Why This Matters
+- Standardized names make grading easier
+- You'll always know which lesson a file belongs to
+- Your work stays organized all semester
+
+---
+
+## Part 5: Run Your First Query
 
 ### Test Query
 In the SQL editor, type:
