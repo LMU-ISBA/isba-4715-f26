@@ -124,7 +124,7 @@ lesson-01-fname-lname.sql
 ## Part 5: Run Your First Query
 
 ### Test Query
-In the SQL editor, type:
+In the worksheet, find **1.1 First Look at the Data** and type the following query below it:
 
 ```sql
 SELECT * FROM orders LIMIT 5;
