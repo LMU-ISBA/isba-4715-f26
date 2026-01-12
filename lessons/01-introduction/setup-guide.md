@@ -103,7 +103,7 @@ You'll save all your SQL work in `lesson-exercises` throughout the semester.
 3. Save the file using this naming convention:
 
 ```
-lesson-01-firstname-lastname.sql
+lesson-01-fname-lname.sql
 ```
 
 **Example:** `lesson-01-jane-doe.sql`
