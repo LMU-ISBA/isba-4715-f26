@@ -71,6 +71,7 @@ When writing SQL queries in worksheets and instructor keys:
 - Put major keywords on their own line: `SELECT`, `FROM`, `WHERE`, `GROUP BY`, `ORDER BY`
 - Indent columns and conditions with 4 spaces
 - Put each column on its own line in multi-column SELECTs
+- Put each expression on its own line in multi-expression GROUP BY and ORDER BY clauses
 
 **Naming:**
 - Avoid reserved words as aliases (`year`, `month`, `date`, `order`)
@@ -90,6 +91,11 @@ SELECT
     COUNT(*) AS total_orders,
     ROUND(SUM(order_value), 2) AS total_revenue
 FROM orders
-GROUP BY YEAR(order_date), MONTH(order_date), MONTHNAME(order_date)
-ORDER BY YEAR(order_date), MONTH(order_date);
+GROUP BY
+    YEAR(order_date),
+    MONTH(order_date),
+    MONTHNAME(order_date)
+ORDER BY
+    YEAR(order_date),
+    MONTH(order_date);
 ```
