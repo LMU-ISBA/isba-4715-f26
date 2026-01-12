@@ -73,7 +73,7 @@ Enter the following information (provided by your instructor):
 3. Click the **Data** tab to preview rows
 
 ### Open the Lesson Worksheet
-1. Download the worksheet file: [lesson-01-fname-lname.sql](lesson-01-fname-lname.sql)
+1. Download the worksheet file: [lesson-01-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/01-introduction/lesson-01-fname-lname.sql)
 2. In DBeaver, go to **File > Open File**
 3. Navigate to where you downloaded the file and open it
 4. The worksheet will open in a new SQL editor tab
