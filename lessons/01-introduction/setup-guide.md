@@ -113,6 +113,17 @@ You'll save all your SQL work in `lesson-exercises` throughout the semester.
 4. Navigate to your `lesson-exercises` folder and open your renamed file
 5. The worksheet will open in a new SQL editor tab
 
+### Confirm Your Database Connection
+After opening the worksheet, check that you're connected to the database:
+
+1. Look at the **database dropdown** in the toolbar at the top of the SQL editor
+2. If it shows **"N/A"** or is blank, you need to select your database:
+   - Click the dropdown
+   - Select your **campus_bites** connection
+3. You should see **campus_bites** displayed as the active connection
+
+> **Why this matters:** Your SQL queries will fail if the editor isn't connected to a database. Always verify the connection before running queries.
+
 ---
 
 ## Part 6: Run Your First Query
