@@ -32,7 +32,7 @@ Your mission: Use SQL to diagnose the problem and recommend a solution.
 | File | Description |
 |------|-------------|
 | [setup-guide.md](setup-guide.md) | How to install DBeaver and connect to the database |
-| [lesson-01-worksheet.sql](lesson-01-worksheet.sql) | SQL exercises to complete during class (open in DBeaver) |
+| [lesson-01-fname-lname.sql](lesson-01-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
 
 ## Before Class
 

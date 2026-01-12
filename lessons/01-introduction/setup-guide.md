@@ -72,10 +72,11 @@ Enter the following information (provided by your instructor):
 2. Click the **Properties** tab to see column definitions
 3. Click the **Data** tab to preview rows
 
-### Open SQL Editor
-1. Right-click your connection
-2. Select **SQL Editor > Open SQL Script**
-3. A new SQL editor tab opens where you can write queries
+### Open the Lesson Worksheet
+1. Download the worksheet file: [lesson-01-fname-lname.sql](lesson-01-fname-lname.sql)
+2. In DBeaver, go to **File > Open File**
+3. Navigate to where you downloaded the file and open it
+4. The worksheet will open in a new SQL editor tab
 
 ---
 

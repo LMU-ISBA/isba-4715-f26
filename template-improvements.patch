@@ -1,0 +1,151 @@
+From: Greg Lontok <gregory.lontok@lmu.edu>
+Subject: [PATCH] Template improvements from ISBA 4715
+
+This patch includes:
+1. CSS: Schedule table enhancements for bullet lists and date column formatting
+2. HTML: Removed redundant "Day" column from schedule table
+3. New CLAUDE.md file for Claude Code guidance
+
+---
+ CLAUDE.md   | 52 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ index.html  | 25 +++++++++++--------------
+ 2 files changed, 63 insertions(+), 14 deletions(-)
+ create mode 100644 CLAUDE.md
+
+diff --git a/CLAUDE.md b/CLAUDE.md
+new file mode 100644
+index 0000000..e69de29
+--- /dev/null
++++ b/CLAUDE.md
+@@ -0,0 +1,52 @@
++# CLAUDE.md
++
++This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
++
++## Repository Purpose
++
++This is a course syllabus template that generates a responsive, print-optimized syllabus website deployed via GitHub Pages.
++
++## Commands
++
++### Setup
++```bash
++./scripts/setup-course.sh    # Interactive script to replace placeholders with course info
++```
++
++### Deployment
++The site auto-deploys to GitHub Pages on push to `main` via `.github/workflows/pages.yml`. No build step required - static HTML is deployed directly.
++
++### Local Preview
++Open `index.html` directly in a browser - no server needed.
++
++## Architecture
++
++### Content Structure
++- `index.html` - Main syllabus website (standalone, no framework dependencies)
++- `frameworks.md` - Course frameworks/models reference
++- `interviews/` - Study guides for midterm and final interviews
++- `project/` - Project requirements and milestone documentation
++- `gpts/` - Custom GPT configurations (instructions.md + ui-config.md + knowledge/)
++
++### Template System
++Files use `{{PLACEHOLDER}}` syntax for course-specific values. The setup script replaces:
++- Course identifiers: `{{COURSE_CODE}}`, `{{COURSE_NAME}}`, `{{SEMESTER}}`
++- Instructor info: `{{INSTRUCTOR_NAME}}`, `{{INSTRUCTOR_EMAIL}}`
++- Logistics: `{{DAYS_TIMES}}`, `{{LOCATION}}`, `{{OFFICE_HOURS}}`
++
++After setup, remaining `{{PLACEHOLDER}}` values require manual editing.
++
++### Custom GPTs
++Two GPT templates for student support:
++- `dataset-generator/` - Creates practice datasets for projects
++- `interview-coach/` - Interview practice based on study guides
++
++Each GPT folder contains:
++- `instructions.md` - System prompt (copy to OpenAI GPT builder)
++- `ui-config.md` - Recommended OpenAI UI settings
++- `knowledge/` - Files to upload to GPT
++
++## Key Patterns
++
++### Editing the Syllabus
++The `index.html` is a self-contained file with embedded CSS. Key sections:
++- Header: Course title, subtitle, info badges
++- Navigation: Sticky nav with smooth scroll
++- Sections: Overview, Instructor, Schedule, Grading, Tips, Policies
++
++CSS variables in `:root` control theming (colors, radius, shadows).
++
++### Study Guide Templates
++Both `midterm-study-guide.md` and `final-study-guide.md` follow the same structure:
++- Interview logistics (date, duration, format)
++- Key concepts with terms tables
++- Frameworks with components
++- Sample questions with evaluation guidance
++- Rubric criteria
+diff --git a/index.html b/index.html
+index b56b0f3..1234567 100644
+--- a/index.html
++++ b/index.html
+@@ -196,6 +196,19 @@
+             border-bottom: 1px solid var(--border-light);
+         }
+
++        .schedule-table td:nth-child(2) {
++            white-space: nowrap;
++        }
++
++        .schedule-table ul {
++            margin: 0;
++            padding-left: 1.2rem;
++        }
++
++        .schedule-table li {
++            margin-bottom: 0.1rem;
++        }
++
+         .schedule-table th {
+             background: transparent;
+             color: var(--text-muted);
+@@ -568,7 +581,6 @@
+                         <tr>
+                             <th>Week</th>
+                             <th>Date</th>
+-                            <th>Day</th>
+                             <th>Topic</th>
+                             <th>Due</th>
+                         </tr>
+@@ -578,7 +590,6 @@
+                         <tr>
+                             <td>1</td>
+                             <td>{{WEEK_1_DATE}}</td>
+-                            <td>{{WEEK_1_DAY}}</td>
+                             <td>{{WEEK_1_TOPIC}}</td>
+                             <td>{{WEEK_1_DUE}}</td>
+                         </tr>
+@@ -586,7 +597,6 @@
+                         <tr>
+                             <td>1</td>
+                             <td>{{WEEK_1_DATE_2}}</td>
+-                            <td>{{WEEK_1_DAY_2}}</td>
+                             <td>{{WEEK_1_TOPIC_2}}</td>
+                             <td>{{WEEK_1_DUE_2}}</td>
+                         </tr>
+@@ -594,7 +604,6 @@
+                         <tr>
+                             <td>2</td>
+                             <td>{{WEEK_2_DATE}}</td>
+-                            <td>{{WEEK_2_DAY}}</td>
+                             <td>{{WEEK_2_TOPIC}}</td>
+                             <td>{{WEEK_2_DUE}}</td>
+                         </tr>
+@@ -602,7 +611,6 @@
+                         <tr>
+                             <td>2</td>
+                             <td>{{WEEK_2_DATE_2}}</td>
+-                            <td>{{WEEK_2_DAY_2}}</td>
+                             <td>{{WEEK_2_TOPIC_2}}</td>
+                             <td>{{WEEK_2_DUE_2}}</td>
+                         </tr>
+--
+2.39.0
