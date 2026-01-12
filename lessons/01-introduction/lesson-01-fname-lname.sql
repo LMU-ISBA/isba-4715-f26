@@ -26,6 +26,8 @@
 
 -- 1.1 First Look at the Data
 -- Write a query to see the first 5 rows of the orders table.
+-- Type your query below, then press Ctrl+Enter (Windows) or Cmd+Enter (Mac) to run it.
+
 -- ANSWER: What columns do you see?
 
 
