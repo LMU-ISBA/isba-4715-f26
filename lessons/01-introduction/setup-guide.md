@@ -127,7 +127,7 @@ lesson-01-fname-lname.sql
 In the SQL editor, type:
 
 ```sql
-SELECT * FROM orders LIMIT 10;
+SELECT * FROM orders LIMIT 5;
 ```
 
 ### Execute
@@ -136,7 +136,7 @@ SELECT * FROM orders LIMIT 10;
 
 ### View Results
 - Results appear in the bottom panel
-- You should see 10 rows of order data
+- You should see 5 rows of order data
 
 ---
 
