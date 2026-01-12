@@ -21,7 +21,7 @@ Your mission: Use SQL to identify what drove the growth and recommend how to rep
 
 | File | Description |
 |------|-------------|
-| [lesson-02-worksheet.sql](lesson-02-worksheet.sql) | SQL exercises to complete during class (open in DBeaver) |
+| [lesson-02-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/02-diagnostic-analytics/lesson-02-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
 
 ## Prerequisites
 
