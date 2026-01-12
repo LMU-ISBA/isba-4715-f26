@@ -81,10 +81,20 @@ Enter the following information (provided by your instructor):
 
 ## Part 4: Organize Your Files
 
-### Create a Lesson Exercises Folder
-1. Create a folder on your computer called `lesson-exercises`
-   - Example: `Documents/lesson-exercises/`
-2. You'll save all your SQL work here throughout the semester
+### Create Your Course Folder Structure
+1. Create a folder for this class called `isba-4715-sql`
+   - Example: `Documents/isba-4715-sql/`
+2. Inside that folder, create a subfolder called `lesson-exercises`
+   - Example: `Documents/isba-4715-sql/lesson-exercises/`
+
+Your folder structure should look like:
+```
+Documents/
+└── isba-4715-sql/
+    └── lesson-exercises/
+```
+
+You'll save all your SQL work in `lesson-exercises` throughout the semester.
 
 ### Save Your SQL Script
 1. In DBeaver, go to **File > Save As**
