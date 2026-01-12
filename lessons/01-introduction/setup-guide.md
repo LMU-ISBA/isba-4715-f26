@@ -72,12 +72,6 @@ Enter the following information (provided by your instructor):
 2. Click the **Properties** tab to see column definitions
 3. Click the **Data** tab to preview rows
 
-### Open the Lesson Worksheet
-1. Download the worksheet file: [lesson-01-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/01-introduction/lesson-01-fname-lname.sql)
-2. In DBeaver, go to **File > Open File**
-3. Navigate to where you downloaded the file and open it
-4. The worksheet will open in a new SQL editor tab
-
 ---
 
 ## Part 4: Organize Your Files
@@ -97,17 +91,6 @@ Documents/
 
 You'll save all your SQL work in `lesson-exercises` throughout the semester.
 
-### Save Your SQL Script
-1. In DBeaver, go to **File > Save As**
-2. Navigate to your `lesson-exercises` folder
-3. Save the file using this naming convention:
-
-```
-lesson-01-fname-lname.sql
-```
-
-**Example:** `lesson-01-jane-doe.sql`
-
 ### Naming Rules
 - Use **kebab-case** (lowercase with hyphens): `lesson-01-jane-doe.sql`
 - Always include the **lesson number**: `lesson-01`, `lesson-02`, etc.
@@ -121,7 +104,18 @@ lesson-01-fname-lname.sql
 
 ---
 
-## Part 5: Run Your First Query
+## Part 5: Download the Lesson Worksheet
+
+1. Download the worksheet: [lesson-01-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/01-introduction/lesson-01-fname-lname.sql)
+2. **Immediately save it** to your `lesson-exercises` folder with your name:
+   - Example: `lesson-01-jane-doe.sql`
+3. In DBeaver, go to **File > Open File**
+4. Navigate to your `lesson-exercises` folder and open your renamed file
+5. The worksheet will open in a new SQL editor tab
+
+---
+
+## Part 6: Run Your First Query
 
 ### Test Query
 In the worksheet, find **1.1 First Look at the Data** and type the following query below it:
