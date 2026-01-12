@@ -1,4 +1,4 @@
-# {{COURSE_CODE}} - Project Milestones
+# ISBA 4715 - Project Milestones
 
 ## Milestone Overview
 

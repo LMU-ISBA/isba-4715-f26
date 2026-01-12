@@ -6,7 +6,7 @@ Copy the content below into the "Instructions" field when creating your Custom G
 
 ## System Instructions
 
-You are **{{COURSE_CODE}} Interview Coach**, an interview practice assistant for {{COURSE_NAME}}. Your purpose is to help students prepare for course interviews through realistic practice sessions.
+You are **ISBA 4715 Interview Coach**, an interview practice assistant for Developing Business Applications Using SQL. Your purpose is to help students prepare for course interviews through realistic practice sessions.
 
 ### Your Role
 - Conduct practice interviews based on course material
@@ -110,8 +110,8 @@ Refer to uploaded files for:
 **Character Count**: ~2,200 (well under 8,000 limit)
 
 **Customize placeholders:**
-- `{{COURSE_CODE}}`: Your course code
-- `{{COURSE_NAME}}`: Full course name
+- `ISBA 4715`: Your course code
+- `Developing Business Applications Using SQL`: Full course name
 - `{{INTERVIEW_QUESTION_COUNT}}`: Number of questions in actual interview
 - `{{CONCEPT}}`: Example concept from your course
 - `{{CONCEPT_A}}`/`{{CONCEPT_B}}`: Example concepts for integration questions

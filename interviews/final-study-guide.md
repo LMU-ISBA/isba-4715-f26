@@ -1,4 +1,4 @@
-# {{COURSE_CODE}} - Final Interview Study Guide
+# ISBA 4715 - Final Interview Study Guide
 
 ## Overview
 

@@ -6,10 +6,10 @@ Settings for configuring your Custom GPT in OpenAI's interface.
 
 ## Basic Information
 
-**Name**: {{COURSE_CODE}} Interview Coach
+**Name**: ISBA 4715 Interview Coach
 
 **Description**:
-Practice for {{COURSE_NAME}} interviews with an AI coach. Get realistic questions, immediate feedback, and personalized study recommendations.
+Practice for Developing Business Applications Using SQL interviews with an AI coach. Get realistic questions, immediate feedback, and personalized study recommendations.
 
 **Instructions**: See `instructions.md`
 

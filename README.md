@@ -178,9 +178,9 @@ syllabus/
 1. Update the `<title>` tag with your course code and name
 2. Modify CSS variables in `:root` for your institution's colors
 3. Replace all `{{PLACEHOLDER}}` values:
-   - `{{COURSE_CODE}}` - e.g., "BCOR 3750"
-   - `{{COURSE_NAME}}` - e.g., "Strategic Management"
-   - `{{SEMESTER}}` - e.g., "Fall 2025"
+   - `ISBA 4715` - e.g., "BCOR 3750"
+   - `Developing Business Applications Using SQL` - e.g., "Strategic Management"
+   - `Spring 2026` - e.g., "Fall 2025"
    - Course details, schedule, grading, policies
 
 4. Add a header image to `images/header.jpg`

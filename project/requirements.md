@@ -1,4 +1,4 @@
-# {{COURSE_CODE}} - Project Requirements
+# ISBA 4715 - Project Requirements
 
 ## Project Overview
 
@@ -71,7 +71,7 @@ By completing this project, students will:
 - {{REFERENCE_2}}
 
 ### Support
-- Office Hours: {{OFFICE_HOURS}}
+- Office Hours: Tue, Thu 12:00 pm - 2:00 pm, Fri 10:00 am - 12:00 pm
 - TA Support: {{TA_SUPPORT}}
 - Discussion Forum: {{FORUM_INFO}}
 

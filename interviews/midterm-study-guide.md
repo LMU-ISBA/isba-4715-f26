@@ -1,4 +1,4 @@
-# {{COURSE_CODE}} - Midterm Interview Study Guide
+# ISBA 4715 - Midterm Interview Study Guide
 
 ## Overview
 
