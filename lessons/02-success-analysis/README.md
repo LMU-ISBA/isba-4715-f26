@@ -11,9 +11,9 @@ By the end of this lesson, you will be able to:
 
 ## The Scenario
 
-You're still the data analyst at **Campus Bites**. After fixing the late-night delivery issue (from Lesson 01), the CEO has great news:
+You're still the data analyst at **Campus Bites**. The CEO has great news:
 
-> "Revenue is up 33% this month! What's working — and how do we do more of it?"
+> "Revenue is up 33% in May! What's working — and how do we do more of it?"
 
 Your mission: Use SQL to identify what drove the growth and recommend how to replicate it.
 
@@ -21,7 +21,7 @@ Your mission: Use SQL to identify what drove the growth and recommend how to rep
 
 | File | Description |
 |------|-------------|
-| [lesson-02-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/02-diagnostic-analytics/lesson-02-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
+| [lesson-02-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/02-success-analysis/lesson-02-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
 
 ## Prerequisites
 
