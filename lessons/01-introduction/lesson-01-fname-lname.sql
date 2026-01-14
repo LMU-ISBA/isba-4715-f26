@@ -1,5 +1,5 @@
 -- ============================================================================
--- LESSON 01: Campus Bites Analytics - Diagnosing a Problem
+-- LESSON 01: Problem Analysis with Descriptive & Diagnostic Analytics
 -- ============================================================================
 --
 -- SCENARIO: You're a data analyst at Campus Bites, a campus food delivery

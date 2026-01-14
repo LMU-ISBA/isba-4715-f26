@@ -1,4 +1,4 @@
-# Lesson 01: Introduction to SQL Analytics
+# Lesson 01: Problem Analysis with Descriptive & Diagnostic Analytics
 
 ## Why SQL?
 
