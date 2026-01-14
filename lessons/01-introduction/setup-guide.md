@@ -19,7 +19,7 @@ Databases use a **client-server architecture**:
 │   YOUR LAPTOP   │ ───────────────────────► │   AWS SERVER    │
 │                 │                          │                 │
 │    DBeaver      │  ──── SQL Query ───────► │     MySQL       │
-│    (Client)     │  ◄─── Results ──────────  │    (Server)     │
+│    (Client)     │  ◄─── Results ─────────  │    (Server)     │
 └─────────────────┘                          └─────────────────┘
 ```
 
