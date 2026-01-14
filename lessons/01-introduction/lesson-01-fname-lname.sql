@@ -217,12 +217,14 @@
 
 
 -- Challenge 3: Your Own Analysis
--- Write a query that answers a business question you're curious about.
+-- Write one or more queries that answer a business question you're curious about.
 -- YOUR QUESTION: ___________________________________________________________
 
 
 
--- YOUR FINDING: ____________________________________________________________
+-- INSIGHT STATEMENT: _______________________________________________________
+--
+-- _________________________________________________________________________
 
 
 -- ============================================================================
