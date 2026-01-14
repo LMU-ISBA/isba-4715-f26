@@ -2,8 +2,8 @@
 -- LESSON 02: Success Analysis with Descriptive & Diagnostic Analytics
 -- ============================================================================
 --
--- SCENARIO: After fixing the late-night delivery issue (Lesson 01), business
--- stabilized. Now the CEO says: "Revenue is up 33% this month! What's working?"
+-- SCENARIO: After addressing the issue from Lesson 01, business
+-- stabilized. Now the CEO says: "Revenue is up 33% in May! What's working?"
 --
 -- YOUR MISSION: Use SQL to find what drove the growth and how to replicate it.
 --

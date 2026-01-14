@@ -3,7 +3,7 @@
 -- ============================================================================
 --
 -- SCENARIO: You're a data analyst at Campus Bites, a campus food delivery
--- service. The CEO says: "Orders dropped 20% last month. What happened?"
+-- service. The CEO says: "Orders dropped 20% in October. What happened?"
 --
 -- YOUR MISSION: Use SQL to find out what caused the drop and recommend actions.
 --
