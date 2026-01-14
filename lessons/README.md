@@ -13,10 +13,10 @@ Hands-on SQL lessons using the **Campus Bites** case study — a campus food del
 
 Campus Bites is a food delivery service for college students. Through these lessons, you'll use SQL to analyze real business problems:
 
-### Lesson 01: Diagnosing a Problem
+### Lesson 01: Problem Analysis
 The CEO says orders dropped 20% last month. You'll discover that **Grad Students stopped ordering** because late-night delivery was cut.
 
-### Lesson 02: Diagnosing Success
+### Lesson 02: Success Analysis
 After fixing the late-night issue, revenue jumps 33% in May. You'll discover that **Dorm Students went viral** with a promo code during finals season.
 
 ## Database Connection
@@ -44,9 +44,9 @@ Each lesson folder contains:
 | File | Description |
 |------|-------------|
 | `README.md` | Lesson overview and objectives |
-| `worksheet.md` | Student exercises |
-| `setup-guide.md` | Setup instructions (if needed) |
-| `INSTRUCTOR-*.md` | Instructor-only materials |
+| `lesson-XX-fname-lname.sql` | Student worksheet (rename with your name) |
+| `setup-guide.md` | Setup instructions (Lesson 01 only) |
+| `INSTRUCTOR-answer-key.md` | Instructor-only materials |
 
 ## SQL Concepts Covered
 
