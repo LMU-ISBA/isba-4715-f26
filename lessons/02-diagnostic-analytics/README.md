@@ -1,4 +1,4 @@
-# Lesson 02: Diagnostic Analytics — Diagnosing Success
+# Lesson 02: Success Analysis with Descriptive & Diagnostic Analytics
 
 ## Learning Objectives
 

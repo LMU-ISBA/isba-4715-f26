@@ -1,5 +1,5 @@
 -- ============================================================================
--- LESSON 02: Campus Bites Analytics - Diagnosing Success
+-- LESSON 02: Success Analysis with Descriptive & Diagnostic Analytics
 -- ============================================================================
 --
 -- SCENARIO: After fixing the late-night delivery issue (Lesson 01), business
