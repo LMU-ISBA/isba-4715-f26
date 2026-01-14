@@ -94,6 +94,3 @@ Look for:
 5. Confirm with multiple signals
 6. Make a recommendation
 
-## Duration
-
-100 minutes (includes 20 min syllabus review)

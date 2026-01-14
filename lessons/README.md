@@ -4,10 +4,10 @@ Hands-on SQL lessons using the **Campus Bites** case study — a campus food del
 
 ## Lessons Overview
 
-| Lesson | Topic | Scenario | Duration |
-|--------|-------|----------|----------|
-| [01-introduction](01-introduction/) | Introduction to SQL Analytics | "Orders dropped 20%" | 100 min |
-| [02-diagnostic-analytics](02-diagnostic-analytics/) | Diagnostic Analytics | "Revenue up 33%" | 100 min |
+| Lesson | Topic | Scenario |
+|--------|-------|----------|
+| [01-introduction](01-introduction/) | Problem Analysis | "Orders dropped 20%" |
+| [02-success-analysis](02-success-analysis/) | Success Analysis | "Revenue up 33%" |
 
 ## The Campus Bites Story
 

@@ -83,7 +83,3 @@ Look for:
 | Comparisons | How do groups stack up? |
 | Outliers | What stands out? |
 | Relationships | What moves together? |
-
-## Duration
-
-100 minutes
