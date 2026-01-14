@@ -6,6 +6,31 @@ This guide walks you through connecting DBeaver to a MySQL database hosted on Am
 
 ---
 
+## What is DBeaver?
+
+**DBeaver** is a database management tool that lets you connect to databases, write SQL queries, and view results — all in one application.
+
+### Why DBeaver?
+
+| Reason | Why It Matters |
+|--------|----------------|
+| **Free & Open Source** | No cost, no license restrictions |
+| **Cross-Platform** | Works on Windows, Mac, and Linux |
+| **Multi-Database** | Connects to MySQL, PostgreSQL, SQLite, and 80+ other databases |
+| **Industry Standard** | Used by data analysts and developers at real companies |
+| **Beginner-Friendly** | Visual interface with syntax highlighting and auto-complete |
+
+### What You'll Use It For
+
+- **Write SQL queries** in the built-in editor with syntax highlighting
+- **Execute queries** and see results instantly in a table format
+- **Explore databases** by browsing tables, columns, and relationships
+- **Save your work** as `.sql` files you can reopen and resubmit
+
+> **Think of DBeaver as your SQL workspace** — like how Excel is your workspace for spreadsheets, DBeaver is your workspace for databases.
+
+---
+
 ## Part 1: Install DBeaver
 
 ### Download
