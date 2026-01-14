@@ -23,7 +23,7 @@ By the end of this lesson, you will be able to:
 
 You're a data analyst at **Campus Bites**, a campus food delivery service. The CEO says:
 
-> "Orders dropped 20% last month. What happened — and how do we fix it?"
+> "Orders dropped 20% in October. What happened — and how do we fix it?"
 
 Your mission: Use SQL to diagnose the problem and recommend a solution.
 
