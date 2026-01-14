@@ -32,9 +32,9 @@ Your mission: Use SQL to diagnose the problem and recommend a solution.
 | File | Description |
 |------|-------------|
 | [setup-guide.md](setup-guide.md) | How to install DBeaver and connect to the database |
-| [lesson-01-fname-lname.sql](lesson-01-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
+| [lesson-01-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/01-introduction/lesson-01-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
 
-## Before Class
+## Database Setup
 
 1. Download and install [DBeaver Community Edition](https://dbeaver.io/download/)
 2. Follow the [setup guide](setup-guide.md) to connect to the database

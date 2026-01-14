@@ -185,9 +185,3 @@ LIMIT 5;
 - **SQL Editor**: Right-click connection > SQL Editor
 - **Refresh**: Right-click > Refresh (or F5)
 - **Export Data**: Right-click results > Export Data
-
----
-
-## Next Steps
-
-Once connected, proceed to the **SQL Lesson** to start analyzing the Campus Bites data!
