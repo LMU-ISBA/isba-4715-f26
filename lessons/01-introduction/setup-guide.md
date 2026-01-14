@@ -8,7 +8,27 @@ This guide walks you through connecting DBeaver to a MySQL database hosted on Am
 
 ## What is DBeaver?
 
-**DBeaver** is a database management tool that lets you connect to databases, write SQL queries, and view results — all in one application.
+**DBeaver** is a **database client** — a tool that lets you connect to databases, write SQL queries, and view results — all in one application.
+
+### The Client-Server Model
+
+Databases use a **client-server architecture**:
+
+```
+┌─────────────────┐         Internet         ┌─────────────────┐
+│   YOUR LAPTOP   │ ───────────────────────► │   AWS SERVER    │
+│                 │                          │                 │
+│    DBeaver      │  ◄─── SQL Query ───────  │     MySQL       │
+│    (Client)     │  ──── Results ─────────► │    (Server)     │
+└─────────────────┘                          └─────────────────┘
+```
+
+| Component | Role | In Our Setup |
+|-----------|------|--------------|
+| **Server** | Stores data, processes queries, returns results | MySQL running on AWS |
+| **Client** | Sends queries, displays results, provides user interface | DBeaver on your laptop |
+
+**Why this matters:** The database (MySQL) runs on a remote server in the cloud — not on your laptop. DBeaver is the tool you use to "talk to" that remote database. When you write a SQL query and press Execute, DBeaver sends it over the internet to the server, which processes it and sends back the results.
 
 ### Why DBeaver?
 
