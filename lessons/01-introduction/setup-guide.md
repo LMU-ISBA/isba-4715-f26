@@ -1,4 +1,4 @@
-# DBeaver Setup Guide
+# Setup Guide to Connect to the Database
 
 ## Connecting to Campus Bites Database on AWS RDS
 
