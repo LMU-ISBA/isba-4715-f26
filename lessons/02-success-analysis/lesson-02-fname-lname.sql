@@ -162,10 +162,10 @@
 -- 2. Who drove it? (Which customer segment)
 --    ANSWER: _______________________________________________________________
 --
--- 3. Why? (What caused the growth)
+-- 3. When? (What time period saw the most growth)
 --    ANSWER: _______________________________________________________________
 --
--- 4. When? (What time period saw the most growth)
+-- 4. Why? (What caused the growth)
 --    ANSWER: _______________________________________________________________
 
 -- YOUR INSIGHT STATEMENT:
