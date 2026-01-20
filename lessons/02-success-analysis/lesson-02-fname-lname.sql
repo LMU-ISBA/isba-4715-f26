@@ -117,8 +117,21 @@
 
 
 
+-- 3.1b April vs May by Time Period (Combining Patterns)
+-- Write a query showing April and May orders side-by-side for each time period.
+-- This combines two patterns you've learned:
+--   1. CASE WHEN for time period categorization (from 3.1)
+--   2. SUM(CASE WHEN) pivot columns (from 2.1b)
+--
+-- ANSWER: Afternoon had _____ orders in April and _____ in May
+
+
+
+
 -- 3.2 Compare April vs May by Time Period
--- Write a query to compare April vs May by time period.
+-- Write a query to compare April vs May by time period WITH the change calculation.
+-- This builds on 3.1b — add the order_change column to quantify growth.
+-- HINT: Add a third column: may - april AS order_change
 --
 -- ANSWER: Which time period grew the most? _____________
 -- ANSWER: By how many orders? _____________
