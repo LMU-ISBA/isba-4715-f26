@@ -30,7 +30,6 @@
 
 -- 1.1 Focus on Spring Semester
 -- Write a query to show orders and revenue by month for January-June 2026.
--- HINT: Filter with WHERE order_date >= '2026-01-01'
 --
 -- ANSWER: Which month had the spike in orders? _____________
 -- ANSWER: How many orders that month? _____________
@@ -77,8 +76,22 @@
 
 
 
+-- 2.1b April vs May Total Orders (Pivot Pattern Intro)
+-- Write a query to compare April vs May total orders using CASE WHEN.
+-- This "pivot" pattern puts months side-by-side instead of as rows.
+-- Pattern: SUM(CASE WHEN MONTH(order_date) = 4 THEN 1 ELSE 0 END) AS april_orders
+--
+-- ANSWER: April orders = _____________
+-- ANSWER: May orders = _____________
+-- ANSWER: Change = _____________
+
+
+
+
 -- 2.2 Compare April vs May by Segment
 -- Write a query to compare April vs May orders by segment using CASE WHEN.
+-- This builds on 2.1b — add GROUP BY customer_segment to see each segment's pivot.
+-- HINT: Use the same SUM(CASE WHEN...) pattern from 2.1b, just add GROUP BY
 --
 -- ANSWER: Which segment grew the most? _____________
 -- ANSWER: By how many orders? _____________
