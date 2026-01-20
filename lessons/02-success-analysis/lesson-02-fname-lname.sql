@@ -143,9 +143,21 @@
 -- PART 4: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
 -- ============================================================================
 
+-- 4.0b Overall Promo Usage (Percentage Pattern Intro)
+-- Write a query to calculate the overall promo usage % for Spring 2026.
+-- This introduces the percentage pattern before adding GROUP BY.
+-- Pattern: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(order_id)
+-- Note: Use 100.0 (not 100) to get decimal division!
+--
+-- ANSWER: What % of Spring 2026 orders used a promo code? __________%
+
+
+
+
 -- 4.1 Promo Code Usage by Month
 -- Write a query to show promo code usage % by month for Spring 2026.
--- HINT: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)
+-- This builds on 4.0b — add GROUP BY month to see the trend over time.
+-- HINT: Use the same percentage pattern from 4.0b, add GROUP BY for year/month
 --
 -- ANSWER: What was the promo usage % in April? __________%
 -- ANSWER: What was the promo usage % in May? __________%
