@@ -52,6 +52,17 @@
 
 
 
+-- 1.2b Compare Spring 2026 vs Fall 2025
+-- Write a query comparing Fall 2025 vs Spring 2026 using CASE WHEN.
+-- This shows how the business improved after fixing the late-night issue.
+-- HINT: Use CASE WHEN order_date < '2026-01-01' THEN 'Fall 2025' ELSE 'Spring 2026'
+--
+-- ANSWER: Which semester had more orders? _____________
+-- ANSWER: Did average delivery time improve? _____________
+
+
+
+
 -- 1.3 Month-over-Month Change
 -- Write a query using LAG() to calculate month-over-month % change
 -- in revenue for Spring 2026.
@@ -252,6 +263,11 @@
 
 -- Challenge 1: Promo Impact on Order Value
 -- Do promo orders have higher or lower order values than non-promo orders?
+-- Write a query comparing avg order value for promo vs non-promo orders.
+--
+-- ANSWER: Do promo orders have higher or lower values? _____________
+-- ANSWER: What is the avg order value for promo orders? $_____________
+-- ANSWER: What is the avg order value for non-promo orders? $_____________
 
 
 
@@ -273,9 +289,15 @@
 -- Review: SELECT, FROM, WHERE
 -- Review: COUNT(), SUM(), AVG(), ROUND()
 -- Review: GROUP BY, ORDER BY
--- Reinforced: CASE WHEN for categorization
+-- Reinforced: CASE WHEN for categorization (time periods, semesters)
 -- Reinforced: LAG() for period-over-period comparison
 -- Reinforced: Date functions: MONTH(), MONTHNAME(), HOUR(), YEAR()
+--
+-- NEW PATTERNS LEARNED:
+-- • Pivot Pattern: SUM(CASE WHEN condition THEN 1 ELSE 0 END)
+--   Puts values side-by-side as columns instead of rows
+-- • Percentage Pattern: SUM(CASE WHEN...) * 100.0 / COUNT(order_id)
+--   Calculates what % of rows match a condition
 -- ============================================================================
 --
 -- KEY TAKEAWAY: The same diagnostic framework works for PROBLEMS and
