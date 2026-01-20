@@ -202,19 +202,13 @@
 -- ON YOUR OWN
 -- ============================================================================
 
--- Challenge 1: Cuisine Preferences by Segment
--- Which cuisine type is most popular for Dorm students vs other segments?
-
-
-
-
--- Challenge 2: Promo Impact on Order Value
+-- Challenge 1: Promo Impact on Order Value
 -- Do promo orders have higher or lower order values than non-promo orders?
 
 
 
 
--- Challenge 3: Your Own Analysis
+-- Challenge 2: Your Own Analysis
 -- Write one or more queries that answer a business question you're curious about.
 -- YOUR QUESTION: ___________________________________________________________
 
