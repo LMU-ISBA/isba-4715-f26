@@ -12,11 +12,11 @@
 -- ============================================================================
 -- | Concept                  | Status     | Used In    |
 -- |--------------------------|------------|------------|
--- | SELECT, FROM, WHERE      | Review     | Parts 1-2  |
--- | COUNT, SUM, AVG, ROUND   | Review     | Parts 1-2  |
--- | GROUP BY, ORDER BY       | Review     | Parts 2-6  |
--- | CASE WHEN                | Reinforce  | Parts 3-6  |
--- | LAG() window function    | Reinforce  | Part 2     |
+-- | SELECT, FROM, WHERE      | Review     | Part 1     |
+-- | COUNT, SUM, AVG, ROUND   | Review     | Part 1     |
+-- | GROUP BY, ORDER BY       | Review     | Parts 1-5  |
+-- | CASE WHEN                | Reinforce  | Parts 2-5  |
+-- | LAG() window function    | Reinforce  | Part 1     |
 -- | Date functions           | Reinforce  | All Parts  |
 -- ============================================================================
 -- This lesson applies the same diagnostic framework to a POSITIVE trend.
@@ -25,7 +25,7 @@
 
 
 -- ============================================================================
--- PART 1: CONNECT AND EXPLORE
+-- PART 1: DESCRIPTIVE ANALYTICS - What Happened?
 -- ============================================================================
 
 -- 1.1 Focus on Spring Semester
@@ -53,11 +53,7 @@
 
 
 
--- ============================================================================
--- PART 2: DESCRIPTIVE ANALYTICS - What Happened?
--- ============================================================================
-
--- 2.1 Month-over-Month Change
+-- 1.3 Month-over-Month Change
 -- Write a query using LAG() to calculate month-over-month % change
 -- in revenue for Spring 2026.
 --
@@ -68,10 +64,10 @@
 
 
 -- ============================================================================
--- PART 3: DIAGNOSTIC ANALYTICS - WHO Drove the Growth?
+-- PART 2: DIAGNOSTIC ANALYTICS - WHO Drove the Growth?
 -- ============================================================================
 
--- 3.1 Orders by Customer Segment (Spring Semester)
+-- 2.1 Orders by Customer Segment (Spring Semester)
 -- Write a query to show orders, revenue, and avg order value by segment
 -- for Spring 2026.
 --
@@ -81,7 +77,7 @@
 
 
 
--- 3.2 Compare April vs May by Segment
+-- 2.2 Compare April vs May by Segment
 -- Write a query to compare April vs May orders by segment using CASE WHEN.
 --
 -- ANSWER: Which segment grew the most? _____________
@@ -92,10 +88,10 @@
 
 
 -- ============================================================================
--- PART 4: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
+-- PART 3: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
 -- ============================================================================
 
--- 4.1 Promo Code Usage by Month
+-- 3.1 Promo Code Usage by Month
 -- Write a query to show promo code usage % by month for Spring 2026.
 -- HINT: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)
 --
@@ -106,7 +102,7 @@
 
 
 
--- 4.2 Promo Usage by Segment (May only)
+-- 3.2 Promo Usage by Segment (May only)
 -- Write a query to show promo usage % by segment for May 2026 only.
 --
 -- ANSWER: Which segment had the highest promo usage? _____________
@@ -116,10 +112,10 @@
 
 
 -- ============================================================================
--- PART 5: DIAGNOSTIC ANALYTICS - WHEN Did They Order?
+-- PART 4: DIAGNOSTIC ANALYTICS - WHEN Did They Order?
 -- ============================================================================
 
--- 5.1 Time of Day Analysis (May only)
+-- 4.1 Time of Day Analysis (May only)
 -- Write a query to count orders by time period for May 2026.
 -- Use the same time categories as Lesson 01:
 --   - Morning: 6 AM - 12 PM
@@ -132,7 +128,7 @@
 
 
 
--- 5.2 Compare April vs May by Time Period
+-- 4.2 Compare April vs May by Time Period
 -- Write a query to compare April vs May by time period.
 --
 -- ANSWER: Which time period grew the most? _____________
@@ -142,10 +138,10 @@
 
 
 -- ============================================================================
--- PART 6: CONFIRM THE CONNECTION
+-- PART 5: CONFIRM THE CONNECTION
 -- ============================================================================
 
--- 6.1 Dorm Students in May - Deep Dive
+-- 5.1 Dorm Students in May - Deep Dive
 -- Write a query to analyze Dorm students in May 2026 by time period.
 -- Include: order count, promo order count, average order value
 --
@@ -156,7 +152,7 @@
 
 
 -- ============================================================================
--- PART 7: YOUR ANALYSIS
+-- PART 6: YOUR ANALYSIS
 -- ============================================================================
 
 -- THE COMPLETE STORY:
