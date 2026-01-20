@@ -8,7 +8,16 @@
 -- YOUR MISSION: Use SQL to find what drove the growth and how to replicate it.
 --
 -- ============================================================================
--- WHAT WE'LL PRACTICE
+-- WHAT WE'LL COVER
+-- ============================================================================
+-- | Concept                  | Status     | Used In    |
+-- |--------------------------|------------|------------|
+-- | SELECT, FROM, WHERE      | Review     | Parts 1-2  |
+-- | COUNT, SUM, AVG, ROUND   | Review     | Parts 1-2  |
+-- | GROUP BY, ORDER BY       | Review     | Parts 2-6  |
+-- | CASE WHEN                | Reinforce  | Parts 3-6  |
+-- | LAG() window function    | Reinforce  | Part 2     |
+-- | Date functions           | Reinforce  | All Parts  |
 -- ============================================================================
 -- This lesson applies the same diagnostic framework to a POSITIVE trend.
 -- Same techniques, different question: "What's working?" vs "What's broken?"
@@ -59,7 +68,7 @@
 
 
 -- ============================================================================
--- PART 3: DIAGNOSTIC - WHO Drove the Growth?
+-- PART 3: DIAGNOSTIC ANALYTICS - WHO Drove the Growth?
 -- ============================================================================
 
 -- 3.1 Orders by Customer Segment (Spring Semester)
@@ -83,7 +92,7 @@
 
 
 -- ============================================================================
--- PART 4: DIAGNOSTIC - WHY Did They Grow?
+-- PART 4: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
 -- ============================================================================
 
 -- 4.1 Promo Code Usage by Month
@@ -107,7 +116,7 @@
 
 
 -- ============================================================================
--- PART 5: DIAGNOSTIC - WHEN Did They Order?
+-- PART 5: DIAGNOSTIC ANALYTICS - WHEN Did They Order?
 -- ============================================================================
 
 -- 5.1 Time of Day Analysis (May only)
@@ -221,14 +230,17 @@
 
 
 -- ============================================================================
--- KEY TAKEAWAY
+-- SQL CONCEPTS COVERED
 -- ============================================================================
--- The same diagnostic framework works for PROBLEMS and OPPORTUNITIES:
---   1. Descriptive: What happened?
---   2. Diagnostic: WHO / WHY / WHEN?
---   3. Confirm with multiple signals
---   4. Recommend action
+-- Review: SELECT, FROM, WHERE
+-- Review: COUNT(), SUM(), AVG(), ROUND()
+-- Review: GROUP BY, ORDER BY
+-- Reinforced: CASE WHEN for categorization
+-- Reinforced: LAG() for period-over-period comparison
+-- Reinforced: Date functions: MONTH(), MONTHNAME(), HOUR(), YEAR()
+-- ============================================================================
 --
--- "Analytics isn't just for finding problems. The same techniques help you
---  find what's WORKING so you can do more of it."
+-- KEY TAKEAWAY: The same diagnostic framework works for PROBLEMS and
+-- OPPORTUNITIES. Analytics isn't just for finding problems — it helps you
+-- find what's WORKING so you can do more of it.
 -- ============================================================================

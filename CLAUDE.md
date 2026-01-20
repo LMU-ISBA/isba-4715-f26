@@ -33,6 +33,51 @@ The `index.html` is a self-contained file with embedded CSS. Key sections:
 
 CSS variables in `:root` control theming (colors, radius, shadows).
 
+## SQL Worksheet Template
+
+Student worksheet files (`lesson-XX-fname-lname.sql`) should follow this structure:
+
+### Header Section
+```sql
+-- ============================================================================
+-- LESSON XX: [Title]
+-- ============================================================================
+--
+-- SCENARIO: [Business context and problem/opportunity]
+--
+-- YOUR MISSION: [What students will accomplish]
+--
+-- ============================================================================
+-- WHAT WE'LL COVER
+-- ============================================================================
+-- | Concept                  | Status     | Used In    |
+-- |--------------------------|------------|------------|
+-- | [Concept 1]              | Review     | Parts X-Y  |
+-- | [Concept 2]              | NEW        | Part Z     |
+-- | [Concept 3]              | Reinforce  | All Parts  |
+-- ============================================================================
+```
+
+### Part Naming Conventions
+- Use `PART X: [CATEGORY] - [Question]` format
+- Categories: `DESCRIPTIVE ANALYTICS`, `DIAGNOSTIC ANALYTICS`, `CONFIRM THE CONNECTION`
+- Questions should be action-oriented: "What Happened?", "WHO Drove the Drop?", "WHY Did They Grow?"
+
+### Standard Sections (in order)
+1. **PART 1-N**: Analytical exercises with numbered sub-questions (1.1, 1.2, etc.)
+2. **YOUR ANALYSIS**: Complete story synthesis with insight statement and recommendation
+3. **ON YOUR OWN**: Challenge problems for independent practice
+4. **SQL CONCEPTS COVERED**: Summary list of concepts (Review/NEW/Reinforced)
+
+### Exercise Format
+```sql
+-- X.Y [Exercise Title]
+-- [Instructions and hints]
+-- HINT: [SQL hint if needed]
+--
+-- ANSWER: [Blank for student] _____________
+```
+
 ## SQL Best Practices
 When writing SQL queries in worksheets and instructor keys:
 
