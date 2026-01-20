@@ -88,34 +88,10 @@
 
 
 -- ============================================================================
--- PART 3: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
+-- PART 3: DIAGNOSTIC ANALYTICS - WHEN Did They Order?
 -- ============================================================================
 
--- 3.1 Promo Code Usage by Month
--- Write a query to show promo code usage % by month for Spring 2026.
--- HINT: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)
---
--- ANSWER: What was the promo usage % in April? __________%
--- ANSWER: What was the promo usage % in May? __________%
--- ANSWER: What happened to promo usage? _____________
-
-
-
-
--- 3.2 Promo Usage by Segment (May only)
--- Write a query to show promo usage % by segment for May 2026 only.
---
--- ANSWER: Which segment had the highest promo usage? _____________
--- ANSWER: What was their promo %? __________%
-
-
-
-
--- ============================================================================
--- PART 4: DIAGNOSTIC ANALYTICS - WHEN Did They Order?
--- ============================================================================
-
--- 4.1 Time of Day Analysis (May only)
+-- 3.1 Time of Day Analysis (May only)
 -- Write a query to count orders by time period for May 2026.
 -- Use the same time categories as Lesson 01:
 --   - Morning: 6 AM - 12 PM
@@ -128,11 +104,35 @@
 
 
 
--- 4.2 Compare April vs May by Time Period
+-- 3.2 Compare April vs May by Time Period
 -- Write a query to compare April vs May by time period.
 --
 -- ANSWER: Which time period grew the most? _____________
 -- ANSWER: By how many orders? _____________
+
+
+
+
+-- ============================================================================
+-- PART 4: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
+-- ============================================================================
+
+-- 4.1 Promo Code Usage by Month
+-- Write a query to show promo code usage % by month for Spring 2026.
+-- HINT: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)
+--
+-- ANSWER: What was the promo usage % in April? __________%
+-- ANSWER: What was the promo usage % in May? __________%
+-- ANSWER: What happened to promo usage? _____________
+
+
+
+
+-- 4.2 Promo Usage by Segment (May only)
+-- Write a query to show promo usage % by segment for May 2026 only.
+--
+-- ANSWER: Which segment had the highest promo usage? _____________
+-- ANSWER: What was their promo %? __________%
 
 
 
