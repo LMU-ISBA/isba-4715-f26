@@ -178,10 +178,20 @@
 -- ============================================================================
 -- PART 5: CONFIRM THE CONNECTION
 -- ============================================================================
+-- HOW DO WE KNOW TO LOOK HERE?
+-- Our diagnostic analysis revealed three separate signals:
+--   • Part 2 (WHO): Dorm students drove most of the growth
+--   • Part 3 (WHEN): Afternoon orders spiked dramatically
+--   • Part 4 (WHY): Promo usage exploded in May
+--
+-- These three findings point to the same story. Now we confirm it by
+-- filtering to ONLY Dorm students in May and checking if all three
+-- signals overlap.
 
 -- 5.1 Dorm Students in May - Deep Dive
 -- Write a query to analyze Dorm students in May 2026 by time period.
 -- Include: order count, promo order count, average order value
+-- This confirms whether Dorm + Afternoon + Promo all connect.
 --
 -- ANSWER: When did Dorm students order most in May? _____________
 -- ANSWER: How many promo orders in the Afternoon? _____________
