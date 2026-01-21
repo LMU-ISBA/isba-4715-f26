@@ -221,5 +221,5 @@ class-exercises/
 slides/
 
 # Instructor answer keys (keep private from students)
-INSTRUCTOR-*
-**/INSTRUCTOR-*
+*INSTRUCTOR-key*
+**/*INSTRUCTOR-key*
