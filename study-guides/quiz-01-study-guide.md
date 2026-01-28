@@ -13,6 +13,7 @@
 **Important Notes:**
 - This quiz is **OPEN BOOK** (notes, lessons, MySQL docs allowed)
 - **AI tools are permitted**, but you must be able to explain your work. If asked to explain and you cannot, you will lose all points for that task.
+- **Add comments** to explain your thinking and approach — you can receive partial credit for correct logic even if the SQL has errors
 - **Quiz 2 will be CLOSED BOOK** (like the midterm interview)
 - Practice working efficiently - you won't have time to reference everything
 
@@ -169,15 +170,14 @@ Filter to Off-Campus students only. Compare their April vs May 2026 orders by ti
 
 ## Strategic Tips & Time Management
 
+**Before the Quiz:**
+- Review Lesson Exercises 01 and Lesson Exercises 02
+- The quiz follows the same analytical patterns
+
 **Before You Start (2 min):**
 - Read the entire scenario and all 3 questions
 - Identify: Which months? Which table? What's being compared?
 - Note the time period definitions if given
-
-**Query Strategy (~8 min each):**
-- **Query 1** (Descriptive): Usually simplest - LAG for % change
-- **Query 2** (WHO): Pivot pattern - GROUP BY segment, compare months
-- **Query 3** (WHEN): Combines filtering + CASE WHEN + pivot
 
 **Time-Saving Tips:**
 - Copy-paste repeated CASE WHEN blocks (SELECT → GROUP BY)
