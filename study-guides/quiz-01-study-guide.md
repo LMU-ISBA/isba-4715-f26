@@ -1,5 +1,5 @@
 # Quiz 1 Study Guide
-**Lessons 01-02 | 40 Minutes | Open Book**
+**Wed, Feb 4 | Lessons 01-02 | 40 Minutes | Open Book**
 
 ## What to Expect
 
