@@ -29,7 +29,8 @@
 -- ============================================================================
 
 -- 1.1 Focus on Spring Semester
--- Write a query to show orders and revenue by month for January-June 2026.
+-- Write a query to show orders and revenue by month for Spring 2026 (March-May).
+-- HINT: WHERE order_date BETWEEN '2026-03-01' AND '2026-05-31'
 --
 -- ANSWER: Which month had the spike in orders? _____________
 -- ANSWER: How many orders that month? _____________
@@ -38,8 +39,9 @@
 
 
 -- 1.2 Spring Semester Metrics
--- Write a query to calculate overall metrics for Spring 2026:
+-- Write a query to calculate overall metrics for Spring 2026 (March-May):
 --   - Total orders, revenue, avg order value, avg delivery time
+-- HINT: Use the same BETWEEN filter from 1.1
 --
 -- ANSWER:
 -- | Metric              | Value |
@@ -55,7 +57,8 @@
 -- 1.2b Compare Spring 2026 vs Fall 2025
 -- Write a query comparing Fall 2025 vs Spring 2026 using CASE WHEN.
 -- This shows how the business improved after fixing the late-night issue.
--- HINT: Use CASE WHEN order_date < '2026-01-01' THEN 'Fall 2025' ELSE 'Spring 2026'
+-- HINT: Filter to Fall 2025 OR Spring 2026 dates, then use CASE WHEN to label:
+--       CASE WHEN order_date < '2026-01-01' THEN 'Fall 2025' ELSE 'Spring 2026' END
 --
 -- ANSWER: Which semester had more orders? _____________
 -- ANSWER: Did average delivery time improve? _____________
@@ -65,7 +68,7 @@
 
 -- 1.3 Month-over-Month Change
 -- Write a query using LAG() to calculate month-over-month % change
--- in revenue for Spring 2026.
+-- in revenue for Spring 2026 (March-May).
 --
 -- ANSWER: What was the revenue % change in May? __________%
 -- ANSWER: What was the order count % change in May? __________%
@@ -79,7 +82,7 @@
 
 -- 2.1 Orders by Customer Segment (Spring Semester)
 -- Write a query to show orders, revenue, and avg order value by segment
--- for Spring 2026.
+-- for Spring 2026 (March-May).
 --
 -- ANSWER: Which segment has the most orders? _____________
 -- ANSWER: Which segment has the highest average order value? _____________
@@ -154,8 +157,8 @@
 -- PART 4: DIAGNOSTIC ANALYTICS - WHY Did They Grow?
 -- ============================================================================
 
--- 4.0b Overall Promo Usage (Percentage Pattern Intro)
--- Write a query to calculate the overall promo usage % for Spring 2026.
+-- 4.0 Overall Promo Usage (Percentage Pattern Intro)
+-- Write a query to calculate the overall promo usage % for Spring 2026 (March-May).
 -- This introduces the percentage pattern before adding GROUP BY.
 -- Pattern: SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(order_id)
 -- Note: Use 100.0 (not 100) to get decimal division!
@@ -166,9 +169,9 @@
 
 
 -- 4.1 Promo Code Usage by Month
--- Write a query to show promo code usage % by month for Spring 2026.
--- This builds on 4.0b — add GROUP BY month to see the trend over time.
--- HINT: Use the same percentage pattern from 4.0b, add GROUP BY for year/month
+-- Write a query to show promo code usage % by month for Spring 2026 (March-May).
+-- This builds on 4.0 — add GROUP BY month to see the trend over time.
+-- HINT: Use the same percentage pattern from 4.0, add GROUP BY for year/month
 --
 -- ANSWER: What was the promo usage % in April? __________%
 -- ANSWER: What was the promo usage % in May? __________%
