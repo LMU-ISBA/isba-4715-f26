@@ -223,3 +223,6 @@ slides/
 # Instructor answer keys (keep private from students)
 lesson-*-key.*
 **/lesson-*-key.*
+
+# Quizzes (keep private from students)
+quizzes/
