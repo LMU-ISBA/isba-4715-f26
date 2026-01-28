@@ -6,7 +6,7 @@
 **Format:**
 - **One business scenario** with a problem to diagnose or a success to replicate
 - **3 SQL queries**: Descriptive (WHAT) → Diagnostic WHO → Diagnostic WHEN
-- **Final insight**: 2-3 sentence synthesis combining all findings
+- **Final insight**: Insight slide title (1 sentence that tells the complete story)
 - **Answer blanks**: You'll fill in specific answers based on query results
 - **40 minutes total**: ~10-12 min per query + ~5 min for insight
 
@@ -187,9 +187,9 @@ Filter to Off-Campus students only. Compare their April vs May 2026 orders by ti
 
 **Final Insight (6 min):**
 - Review all your answers first
-- Structure: "What happened? → Who drove it? → When specifically?"
-- Use numbers: "X segment drove Y% of the Z% drop in [time period]"
-- Keep it business-focused (CEO should understand it)
+- Write as an **insight slide title** - one sentence that tells the complete story
+- Include numbers: "[Segment] drove [X]% of the [Y]% [change] in [time period]"
+- Example: "Grad Students drove 89% of the 20% order drop, concentrated in Evening hours"
 
 **If You Get Stuck:**
 - Check lessons for similar query patterns
