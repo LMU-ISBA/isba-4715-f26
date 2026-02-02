@@ -12,6 +12,7 @@
 
 -- ============================================================================
 -- PRACTICE 1: WHAT Happened? (Basic Month Comparison)
+-- Maps to: Quiz Query 1
 -- ============================================================================
 -- Compare April vs May 2026 total orders and revenue.
 -- Calculate the percentage change using LAG().
@@ -34,6 +35,7 @@
 
 -- ============================================================================
 -- PRACTICE 2: WHO Drove It? (Segment Deep Dive)
+-- Maps to: Quiz Query 2
 -- ============================================================================
 -- Which customer segment had the highest order growth from April to May 2026?
 -- Show April orders, May orders, and the change for each segment.
@@ -57,6 +59,7 @@
 
 -- ============================================================================
 -- PRACTICE 3: WHEN Did It Happen? (Time Period Analysis)
+-- Maps to: Quiz Query 3 (simplified version)
 -- ============================================================================
 -- For Greek Life customers in Spring 2026, which time period had the most orders?
 --
@@ -83,7 +86,8 @@
 
 
 -- ============================================================================
--- PRACTICE 4: Combined Analysis (WHO + WHEN)
+-- PRACTICE 4: WHO + WHEN Combined (Advanced)
+-- Maps to: Quiz Query 3 (full version)
 -- ============================================================================
 -- Filter to Off-Campus students only.
 -- Compare their April vs May 2026 orders by time period.

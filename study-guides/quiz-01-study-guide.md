@@ -154,16 +154,16 @@ ORDER BY change ASC;
 
 📥 **[Download the practice problems SQL file](quiz-01-study-guide.sql)** to work through in your database client.
 
-### Practice 1: Basic Month Comparison
+### Practice 1: WHAT Happened? (Basic Month Comparison)
 Compare April vs May 2026 total orders and revenue. Calculate the percentage change.
 
-### Practice 2: Segment Deep Dive
+### Practice 2: WHO Drove It? (Segment Deep Dive)
 Which customer segment had the highest order growth from April to May 2026? Show April orders, May orders, and the change.
 
-### Practice 3: Time Period Analysis
+### Practice 3: WHEN Did It Happen? (Time Period Analysis)
 For Greek Life customers in Spring 2026, which time period (Morning/Afternoon/Evening/Late Night) had the most orders?
 
-### Practice 4: Combined Analysis
+### Practice 4: WHO + WHEN Combined (Advanced)
 Filter to Off-Campus students only. Compare their April vs May 2026 orders by time period. Which time period grew the most for them?
 
 **Answers will be posted 24 hours before the quiz.**
