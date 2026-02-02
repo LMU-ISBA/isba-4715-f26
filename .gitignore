@@ -224,5 +224,9 @@ slides/
 lesson-*-key.*
 **/lesson-*-key.*
 
+# Facilitator guides (keep private from students)
+*-facilitator-guide.*
+**/*-facilitator-guide.*
+
 # Quizzes (keep private from students)
 quizzes/
