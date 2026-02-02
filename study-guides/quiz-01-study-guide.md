@@ -1,5 +1,5 @@
-# Quiz 1 Study Guide
-**Wed, Feb 4 | Lessons 01-02 | 40 Minutes | Open Book**
+# Quiz 01 Study Guide
+**Wed, Feb 4 | Lessons 01-02 | 50 Minutes | Open Book**
 
 ## What to Expect
 
@@ -8,7 +8,7 @@
 - **3 SQL queries**: Descriptive (WHAT) → Diagnostic WHO → Diagnostic WHEN
 - **Final insight**: Insight slide title (1 sentence that tells the complete story)
 - **Answer blanks**: You'll fill in specific answers based on query results
-- **40 minutes total**: ~10-12 min per query + ~5 min for insight
+- **50 minutes total**: ~12-15 min per query + ~5 min for insight
 
 **Important Notes:**
 - This quiz is **OPEN BOOK** (notes, lessons, MySQL docs allowed)
