@@ -152,7 +152,7 @@ ORDER BY change ASC;
 
 **Use the Campus Bites database to answer these questions.**
 
-📥 **[Download the practice problems SQL file](quiz-01-study-guide.sql)** to work through in your database client.
+📥 **<a href="quiz-01-study-guide.sql" download>Download the practice problems SQL file</a>** to work through in your database client.
 
 ### Practice 1: WHAT Happened? (Basic Month Comparison)
 Compare April vs May 2026 total orders and revenue. Calculate the percentage change.
