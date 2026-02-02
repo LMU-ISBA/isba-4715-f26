@@ -119,7 +119,7 @@
 -- ============================================================================
 --
 -- 1. LAG() for month-over-month:
---    LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date))
+--    LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date))
 --
 -- 2. Pivot pattern for segment comparison:
 --    SUM(CASE WHEN MONTH(order_date) = 4 THEN 1 ELSE 0 END) AS april_orders

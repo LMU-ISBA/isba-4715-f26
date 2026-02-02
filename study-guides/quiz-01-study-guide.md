@@ -27,11 +27,11 @@
 ```sql
 SELECT
     MONTHNAME(order_date) AS month_name,
-    COUNT(*) AS orders,
-    LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)) AS prev_month_orders,
+    COUNT(order_id) AS orders,
+    LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)) AS prev_month_orders,
     ROUND(
-        (COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)))
-        * 100.0 / LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)),
+        (COUNT(order_id) - LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)))
+        * 100.0 / LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)),
         1
     ) AS pct_change
 FROM orders
@@ -69,7 +69,7 @@ SELECT
         WHEN HOUR(order_time) >= 17 AND HOUR(order_time) < 22 THEN 'Evening'
         ELSE 'Late Night'
     END AS time_period,
-    COUNT(*) AS orders
+    COUNT(order_id) AS orders
 FROM orders
 GROUP BY
     CASE
@@ -93,7 +93,7 @@ SELECT
 -- Percentage with conditional counting
 SELECT
     SUM(CASE WHEN promo_code_used = 'Yes' THEN 1 ELSE 0 END) * 100.0
-    / COUNT(*) AS promo_pct
+    / COUNT(order_id) AS promo_pct
 ```
 
 **Key Pattern**: Multiply by `100.0` (not `100`) to force decimal division
@@ -108,11 +108,11 @@ SELECT
 -- Step 1: See the drop with LAG
 SELECT
     MONTHNAME(order_date) AS month_name,
-    COUNT(*) AS orders,
-    LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)) AS prev_month,
+    COUNT(order_id) AS orders,
+    LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)) AS prev_month,
     ROUND(
-        (COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)))
-        * 100.0 / LAG(COUNT(*)) OVER (ORDER BY MONTH(order_date)),
+        (COUNT(order_id) - LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)))
+        * 100.0 / LAG(COUNT(order_id)) OVER (ORDER BY MONTH(order_date)),
         1
     ) AS pct_change
 FROM orders
