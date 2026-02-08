@@ -69,9 +69,9 @@ Single-table queries can only answer questions about one dataset. But real busin
 
 | Question | Tables Needed |
 |----------|--------------|
-| "Who are our best customers?" | orders + users |
-| "What products sell most?" | order_items + products |
-| "Which products get refunded?" | order_items + order_item_refunds |
+| "Who are our best customers?" | ________ + ________ |
+| "What products sell most?" | ________ + ________ |
+| "Which products get refunded?" | ________ + ________ |
 
 ### JOIN Types in This Lesson
 
