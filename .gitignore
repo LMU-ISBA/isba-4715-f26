@@ -216,9 +216,10 @@ planning/
 custom-gpt-configs/
 custom-gpt/
 
-# Class exercises and slides (private)
+# Class exercises, slides, and meeting summaries (private)
 class-exercises/
 slides/
+meeting-summaries/
 
 # Instructor answer keys (keep private from students)
 lesson-*-key.*
@@ -230,3 +231,13 @@ lesson-*-key.*
 
 # Quizzes (keep private from students)
 quizzes/
+
+# Grading tools and PRDs (keep private from students)
+tools/
+prds/
+
+# Student submissions (private)
+**/submissions/
+
+# Google OAuth credentials
+client_secret*.json

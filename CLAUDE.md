@@ -113,3 +113,10 @@ ORDER BY
     YEAR(order_date),
     MONTH(order_date);
 ```
+
+## Active Technologies
+- Python 3.11+ + click (CLI), mysql-connector-python (database), anthropic (LLM), PyYAML (config), rich (terminal UI), Jinja2 (report templates), python-dotenv (credentials) (001-quiz-grader)
+- MySQL (read-only queries against Campus Bites DB) + JSON files (grading state persistence) + YAML files (quiz configuration) (001-quiz-grader)
+
+## Recent Changes
+- 001-quiz-grader: Added Python 3.11+ + click (CLI), mysql-connector-python (database), anthropic (LLM), PyYAML (config), rich (terminal UI), Jinja2 (report templates), python-dotenv (credentials)
