@@ -26,6 +26,9 @@
 -- | INNER JOIN ... ON        | NEW        | Parts 3-4  |
 -- | LEFT JOIN ... ON         | NEW        | Part 5     |
 -- | IS NULL                  | NEW        | Part 5     |
+-- | RANK() OVER ()           | NEW        | Part 6     |
+-- | DENSE_RANK() OVER ()     | NEW        | Part 6     |
+-- | NTILE(n) OVER ()         | NEW        | Part 6     |
 -- ============================================================================
 -- RFM Analysis identifies your best customers using three metrics:
 --   R (Recency)   = How recently did they buy? (fewer days = better)
@@ -318,7 +321,76 @@
 
 
 -- ============================================================================
--- PART 6: YOUR ANALYSIS
+-- PART 6: WINDOW FUNCTIONS - Ranking and Scoring Customers
+-- ============================================================================
+-- A window function performs a calculation across a set of rows
+-- WITHOUT collapsing them like GROUP BY does.
+--
+-- Syntax:
+--   function_name() OVER (ORDER BY column)
+--
+-- Key window functions:
+--   RANK()       — assigns a rank (1, 2, 3...); ties share a rank, then SKIP
+--   DENSE_RANK() — assigns a rank; ties share a rank, NO skipping
+--   NTILE(n)     — divides rows into n equal-sized buckets (1 to n)
+--
+-- Example:  RANK() OVER (ORDER BY SUM(price_usd) DESC) AS spending_rank
+-- ============================================================================
+
+-- 6.1 Your First Window Function: RANK()
+-- Take your top customers query from 3.2 and add a spending_rank column.
+-- NEW: RANK() OVER (ORDER BY expression DESC) assigns rank 1, 2, 3...
+-- The window function goes in the SELECT alongside your other columns.
+-- LIMIT 15 to see the top-ranked customers.
+--
+-- HINT: Add this column to your 3.2 SELECT:
+--       RANK() OVER (ORDER BY SUM(o.price_usd) DESC) AS spending_rank
+--
+-- ANSWER: Who is ranked #1? _____________
+-- ANSWER: Do any customers share the same rank? _____________
+
+
+
+
+-- 6.2 RANK() vs DENSE_RANK() — What Happens with Ties?
+-- Rank customers by frequency (number of orders) using BOTH functions.
+-- Remember: ~98% of customers ordered exactly once (from Part 2.3).
+--
+-- HINT: Add both to your SELECT:
+--       RANK() OVER (ORDER BY COUNT(o.order_id) DESC) AS freq_rank,
+--       DENSE_RANK() OVER (ORDER BY COUNT(o.order_id) DESC) AS freq_dense_rank
+--
+-- ANSWER: What RANK() does a one-time buyer get? _____________
+-- ANSWER: What DENSE_RANK() does a one-time buyer get? _____________
+-- ANSWER: Why are those numbers so different? _____________
+
+
+
+
+-- 6.3 NTILE() — Scoring Customers Like the Pros
+-- In Part 2.4, we used CASE WHEN with hardcoded averages for High/Low.
+-- NTILE(5) automatically divides customers into 5 equal groups (quintiles).
+-- Apply NTILE(5) to each RFM dimension using your 2.1 subquery as the
+-- inner query, then add the three NTILE columns in the outer SELECT.
+--
+-- IMPORTANT: For recency, lower days = better, so ORDER BY recency ASC
+--            gives score 1 to the MOST recent customers.
+--            For frequency and monetary, higher = better, so ORDER BY ... DESC.
+--
+-- HINT:
+--   NTILE(5) OVER (ORDER BY recency ASC)   AS r_score,
+--   NTILE(5) OVER (ORDER BY frequency DESC) AS f_score,
+--   NTILE(5) OVER (ORDER BY monetary DESC)  AS m_score
+--
+-- ANSWER: What r_score do the most recent customers get? _____________
+-- ANSWER: What does a customer scoring 1-1-1 mean? _____________
+-- ANSWER: How is this better than the High/Low approach in Part 2.4? _____________
+
+
+
+
+-- ============================================================================
+-- PART 7: YOUR ANALYSIS
 -- ============================================================================
 
 -- THE COMPLETE STORY:
@@ -417,12 +489,16 @@
 -- NEW: LEFT JOIN ... ON — include ALL left-table rows (NULLs for no match)
 -- NEW: IS NULL — check for missing values from LEFT JOIN
 -- NEW: Table aliases — shortcut names for tables (orders o, users u)
+-- NEW: RANK() OVER () — assigns rank with gaps after ties
+-- NEW: DENSE_RANK() OVER () — assigns rank without gaps after ties
+-- NEW: NTILE(n) OVER () — divides rows into n equal-sized groups
 --
 -- KEY PATTERNS LEARNED:
 -- • RFM Pattern: GROUP BY customer, then DATEDIFF + COUNT + SUM
 -- • Subquery Pattern: SELECT ... FROM (inner_query) AS alias
 -- • JOIN Pattern: FROM table1 alias1 JOIN table2 alias2 ON key = key
 -- • NULL Pattern: LEFT JOIN + COUNT(right_table.id) for rates
+-- • Window Pattern: function() OVER (ORDER BY ...) for ranking/scoring
 -- ============================================================================
 --
 -- KEY TAKEAWAY: Real business questions often require connecting data across

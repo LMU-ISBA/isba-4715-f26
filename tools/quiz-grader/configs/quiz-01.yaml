@@ -1,0 +1,225 @@
+quiz:
+  id: "quiz-01"
+  name: "Quiz 01: Descriptive & Diagnostic Analytics"
+  total_points: 100
+  database: "campus_bites"
+
+submissions:
+  dir: "../../../quizzes/quiz-01/submissions/Quiz 01 Download Feb 6, 2026 310 PM"
+  glob: "**/*.sql"
+  exclude:
+    - "*answer-key*"
+    - "*INSTRUCTOR*"
+    - "index.html"
+
+tasks:
+  - id: "task-01"
+    name: "Descriptive Analytics: What Happened?"
+    points: 20
+    section_marker: "PART 1|TASK 01|Task 1"
+    criteria:
+      - id: "t1-sql-approach"
+        name: "SQL query calculates month-over-month change"
+        points: 5
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's SQL approach to calculating month-over-month change.
+          The quiz asks: "Calculate the month-over-month change from May to June 2026."
+          Any valid SQL technique is acceptable (LAG, CASE WHEN, subqueries, self-join, etc.).
+          Full marks (5): Query produces May and June order counts and/or the
+          change between them. SQL is syntactically reasonable and would return
+          correct or near-correct results.
+          Partial (2-4): Query attempts the comparison but has errors, missing
+          months, or only shows one month without comparison.
+          Low (1): Query runs but doesn't address the month-over-month question.
+          Zero (0): No query or completely unrelated SQL.
+
+      - id: "t1-correct-results"
+        name: "Correctly identifies order counts and change"
+        points: 5
+        type: "subjective"
+        rubric_text: |
+          Evaluate whether the student's query produces correct results.
+          The correct values are: May = 137 orders, June = 113 orders, change = -24.
+          Full marks (5): Query results show both months with correct counts
+          (137 and 113) and the change (-24 or equivalent).
+          Partial (2-4): Gets one month right, or shows a decline but wrong
+          numbers, or correct numbers but missing the change calculation.
+          Low (1): Results are present but substantially wrong.
+          Zero (0): No results or completely incorrect.
+
+      - id: "t1-insight-quality"
+        name: "Quality of descriptive insight"
+        points: 10
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's descriptive analytics insight.
+          Full marks (10): States the specific month-over-month change
+          with exact numbers (137→113 orders, -17.5%), identifies the
+          trend clearly, and uses data to support the conclusion.
+          Partial marks (5-9): Identifies the decline but missing
+          specific numbers or percentage calculation.
+          Low marks (1-4): Vague reference to decline without data.
+          Zero (0): No insight provided or completely incorrect.
+
+  - id: "task-02"
+    name: "Diagnostic Analytics: WHO Drove the Drop?"
+    points: 35
+    section_marker: "PART 2|TASK 02|Task 2"
+    criteria:
+      - id: "t2-sql-approach"
+        name: "SQL query compares segments between May and June"
+        points: 8
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's SQL approach to comparing customer segments.
+          The quiz asks: "Compare May vs June 2026 orders by customer segment.
+          Show May orders, June orders, totals, percentages, and order change."
+          Any valid SQL technique is acceptable (CASE WHEN, subqueries, self-join,
+          pivot, window functions, etc.).
+          Full marks (8): Query breaks down orders by customer segment with
+          May vs June comparison. SQL is syntactically reasonable and addresses
+          all requested columns (May orders, June orders, totals, percentages,
+          order change).
+          Partial (4-7): Query compares segments but missing some requested
+          elements (e.g., no percentages, or no order change calculation).
+          Low (1-3): Query attempts segment breakdown but has significant issues.
+          Zero (0): No query or completely unrelated SQL.
+
+      - id: "t2-correct-results"
+        name: "Correctly identifies all 4 segments with accurate counts"
+        points: 12
+        type: "subjective"
+        rubric_text: |
+          Evaluate whether the student's query produces correct results.
+          The correct values are:
+          - Dorm: May=60, June=40, change=-20
+          - Grad Student: May=16, June=19, change=+3
+          - Greek Life: May=29, June=25, change=-4
+          - Off-Campus: May=32, June=29, change=-3
+          Full marks (12): All 4 segments present with correct or near-correct
+          counts for both months.
+          Partial (6-11): Most segments correct but one or two have wrong
+          counts, or a segment is missing.
+          Low (1-5): Some segments shown but counts are substantially wrong.
+          Zero (0): No results or completely incorrect.
+
+      - id: "t2-insight-who"
+        name: "Correctly identifies Dorm students as primary driver"
+        points: 15
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's diagnostic insight about WHO drove the drop.
+          Full marks (15): Clearly identifies Dorm students as responsible
+          for 83.3% of the total decline (-20 of -24 orders), supports
+          with specific numbers from their query results.
+          Partial (8-14): Identifies Dorm but without precise percentage.
+          Low (1-7): Names a segment but wrong or unsupported.
+          Zero (0): No insight or completely incorrect segment identified.
+
+  - id: "task-03"
+    name: "Diagnostic Analytics: WHEN Did They Stop?"
+    points: 25
+    section_marker: "PART 3|TASK 03|Task 3"
+    criteria:
+      - id: "t3-sql-approach"
+        name: "SQL query breaks down orders by time period for identified segment"
+        points: 8
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's SQL approach to the WHEN diagnostic.
+          The quiz asks: "Filter to ONLY the segment you identified in Task 2
+          that drove the order decline. Compare their May vs June orders by
+          time period (Morning, Afternoon, Evening, Late Night)."
+          The quiz provides time period definitions using HOUR():
+          Morning 6-12, Afternoon 12-17, Evening 17-22, Late Night rest.
+          Any valid SQL technique is acceptable for the time bucketing and
+          comparison.
+          Full marks (8): Query filters to the identified segment (should be
+          Dorm), creates time period buckets, and compares May vs June orders
+          for each period. SQL is syntactically reasonable.
+          Partial (4-7): Query attempts time breakdown but missing the segment
+          filter, has wrong time boundaries, or only shows one month.
+          Low (1-3): Query attempts something but doesn't address the question.
+          Zero (0): No query or completely unrelated SQL.
+
+      - id: "t3-correct-results"
+        name: "Correctly shows Afternoon as biggest decline"
+        points: 7
+        type: "subjective"
+        rubric_text: |
+          Evaluate whether the student's query produces correct results.
+          The correct values for Dorm students are:
+          - Morning: May=5, June=6, change=+1
+          - Afternoon: May=39, June=13, change=-26
+          - Evening: May=12, June=15, change=+3
+          - Late Night: May=4, June=6, change=+2
+          Full marks (7): All 4 time periods present with correct or
+          near-correct counts. Afternoon clearly shows as biggest decline.
+          Partial (3-6): Most periods correct but some counts are off,
+          or a period is missing. Afternoon decline is still visible.
+          Low (1-2): Results are present but substantially wrong.
+          Zero (0): No results or completely incorrect.
+
+      - id: "t3-insight-when"
+        name: "Quality of WHEN diagnostic insight"
+        points: 10
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's WHEN diagnostic insight.
+          Full marks (10): Identifies Afternoon as the biggest decline
+          period (-26 orders, 39→13), explains significance relative
+          to other time periods, connects to Dorm student behavior.
+          Partial (5-9): Identifies Afternoon but missing numbers.
+          Low (1-4): Wrong time period or vague answer.
+          Zero (0): No insight provided.
+
+  - id: "task-04"
+    name: "Final Analysis: Synthesis"
+    points: 20
+    section_marker: "PART 4|TASK 04|Task 4|YOUR ANALYSIS|FINAL ANALYSIS"
+    criteria:
+      - id: "t4-synthesis"
+        name: "Synthesizes all three findings into coherent story"
+        points: 10
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's synthesis of all findings.
+          Full marks (10): Connects all three findings (WHAT happened,
+          WHO drove it, WHEN it happened) into a coherent story. Does not
+          need exact numbers — referencing the findings and their
+          relationship is sufficient.
+          Partial (5-9): Mentions all three but doesn't connect them
+          into a narrative.
+          Low (1-4): Only covers one or two of the three findings.
+          Zero (0): No synthesis attempted.
+
+      - id: "t4-recommendation"
+        name: "Provides actionable recommendation"
+        points: 5
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's recommendation.
+          Full marks (5): Any actionable recommendation that connects to
+          the findings from the analysis (e.g., promotions, menu changes,
+          outreach). Does not need to name the exact segment or time
+          period as long as it follows logically from what they found.
+          Partial (2-4): Recommendation exists but doesn't connect to
+          findings, or is very vague ("do more analysis").
+          Low (1): Something was written but it's unrelated to the data.
+          Zero (0): No recommendation provided.
+
+      - id: "t4-prediction"
+        name: "Provides logical prediction"
+        points: 5
+        type: "subjective"
+        rubric_text: |
+          Evaluate the student's prediction.
+          Full marks (5): Makes a reasonable prediction about what would
+          happen if their recommendation were implemented. Does not need
+          specific numbers or math — a logical "if we do X, we expect Y"
+          statement is sufficient.
+          Partial (2-4): Prediction is vague or weakly connected to the
+          recommendation.
+          Low (1): Something written but unrelated to data.
+          Zero (0): No prediction provided.

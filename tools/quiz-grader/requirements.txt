@@ -1,0 +1,8 @@
+click>=8.1
+mysql-connector-python>=8.0
+anthropic>=0.40
+PyYAML>=6.0
+rich>=13.0
+Jinja2>=3.1
+python-dotenv>=1.0
+sqlparse>=0.5

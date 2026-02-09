@@ -230,3 +230,28 @@ lesson-*-key.*
 
 # Quizzes (keep private from students)
 quizzes/
+
+# Quiz grader output (student data, session state, logs)
+tools/quiz-grader/output/reports/
+tools/quiz-grader/output/state/
+tools/quiz-grader/output/grades/
+tools/quiz-grader/output/*.log
+tools/quiz-grader/.env
+
+# Student submissions
+**/submissions/
+
+# IDE / tool config
+.claude/
+.playwright-mcp/
+.specify/
+.cursor*
+
+# Auto-generated claude-mem context files
+**/CLAUDE.md
+!/CLAUDE.md
+
+# Meeting summaries, PRDs, specs (private working docs)
+meeting-summaries/
+prds/
+specs/
