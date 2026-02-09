@@ -87,20 +87,11 @@
 
 -- 2.1 Calculate RFM Metrics Per Customer
 -- Write a query to calculate recency, frequency, and monetary for each customer.
+-- Use the formulas from the syntax box above. GROUP BY user_id.
 -- NEW: DATEDIFF(date1, date2) returns the number of days between two dates.
 -- NEW: CURDATE() returns today's date.
---
--- HINT:
---   SELECT
---       user_id,
---       DATEDIFF(CURDATE(), MAX(created_at)) AS recency,
---       COUNT(order_id) AS frequency,
---       ROUND(SUM(price_usd), 2) AS monetary
---   FROM orders
---   WHERE created_at <= CURDATE()
---   GROUP BY user_id
---   ORDER BY monetary DESC
---   LIMIT 10
+-- Don't forget: WHERE created_at <= CURDATE()
+-- Order by monetary DESC and LIMIT 10.
 --
 -- ANSWER: What is the highest monetary value? $_____________
 -- ANSWER: What is the highest frequency? _____________
@@ -111,16 +102,9 @@
 -- 2.2 Average RFM Metrics
 -- Calculate the average recency, frequency, and monetary across ALL customers.
 -- We'll use these averages as thresholds to classify customers as High or Low.
--- NEW: A subquery lets you wrap a query inside another query like a table.
---
--- HINT:
---   SELECT
---       ROUND(AVG(recency), 0) AS avg_recency,
---       ROUND(AVG(frequency), 2) AS avg_frequency,
---       ROUND(AVG(monetary), 2) AS avg_monetary
---   FROM (
---       ...your 2.1 query here (without ORDER BY or LIMIT)...
---   ) AS rfm
+-- NEW: A subquery wraps a query inside another query, like a virtual table.
+-- Pattern: SELECT ... FROM ( your_inner_query ) AS alias_name
+-- Use your 2.1 query (without ORDER BY or LIMIT) as the inner query.
 --
 -- ANSWER: Avg Recency = _____ days
 -- ANSWER: Avg Frequency = _____
@@ -151,13 +135,9 @@
 --   value >= threshold → 'High'
 --   value < threshold  → 'Low'
 --
--- HINT: Add these CASE WHEN expressions after your metric calculations:
+-- EXAMPLE (Recency only — you write the other two):
 --   CASE WHEN DATEDIFF(CURDATE(), MAX(created_at)) <= [your avg recency]
---        THEN 'High' ELSE 'Low' END AS recency_label,
---   CASE WHEN COUNT(order_id) >= 2
---        THEN 'High' ELSE 'Low' END AS frequency_label,
---   CASE WHEN SUM(price_usd) >= [your avg monetary]
---        THEN 'High' ELSE 'Low' END AS monetary_label
+--        THEN 'High' ELSE 'Low' END AS recency_label
 --
 -- Add LIMIT 20 and scan the results.
 -- ANSWER: Do you see any High/High/High customers? _____________
@@ -168,21 +148,8 @@
 -- 2.5 Count Customers by RFM Segment
 -- Wrap your 2.4 query as a subquery and GROUP BY the three labels.
 -- This tells us how many customers fall into each segment!
---
--- HINT:
---   SELECT
---       recency_label,
---       frequency_label,
---       monetary_label,
---       COUNT(*) AS num_customers
---   FROM (
---       ...your 2.4 query here (without LIMIT)...
---   ) AS rfm_segments
---   GROUP BY
---       recency_label,
---       frequency_label,
---       monetary_label
---   ORDER BY num_customers DESC
+-- Use the same subquery pattern from 2.2 — but this time SELECT the labels
+-- and COUNT(*), then GROUP BY the three label columns.
 --
 -- ANSWER: How many "Best Customers" (High/High/High)? _____________
 -- ANSWER: How many "Lost Customers" (Low/Low/Low)? _____________
@@ -222,19 +189,9 @@
 
 -- 3.1 Your First JOIN
 -- Write a query joining orders to users to see customer names with orders.
--- HINT:
---   SELECT
---       o.order_id,
---       o.created_at,
---       o.price_usd,
---       u.first_name,
---       u.last_name,
---       u.email
---   FROM orders o
---   INNER JOIN users u
---       ON o.user_id = u.user_id
---   WHERE o.created_at <= CURDATE()
---   LIMIT 10
+-- Use the syntax box above. The shared column is user_id.
+-- Select a few columns from each table (use aliases: o for orders, u for users).
+-- Don't forget: WHERE o.created_at <= CURDATE() and LIMIT 10.
 --
 -- ANSWER: Can you now see customer names alongside order data? _____________
 
@@ -255,16 +212,8 @@
 
 -- 3.3 Best Customer Email List (The Payoff!)
 -- Build the targeted email list: ONLY your Best Customers with names + emails.
--- Use a subquery: wrap your 3.2 query and filter with WHERE.
---
--- HINT:
---   SELECT * FROM (
---       ...your 3.2 query here (without LIMIT)...
---   ) AS top_customers
---   WHERE recency <= [your avg recency]
---     AND frequency >= 2
---     AND monetary >= [your avg monetary]
---   ORDER BY monetary DESC
+-- Wrap your 3.2 query as a subquery, then filter with WHERE to keep only
+-- customers whose recency, frequency, and monetary meet the "High" thresholds.
 --
 -- ANSWER: How many customers are on the email list? _____________
 -- ANSWER: Who is at the top of the list? _____________
@@ -286,19 +235,9 @@
 -- 4.1 Explore Products + Join Order Items
 -- First: Write SELECT * FROM products to see all products.
 -- Then: Join order_items with products to see product names with sales data.
---
--- HINT:
---   SELECT
---       oi.order_item_id,
---       oi.order_id,
---       p.product_name,
---       oi.price_usd,
---       oi.cogs_usd
---   FROM order_items oi
---   INNER JOIN products p
---       ON oi.product_id = p.product_id
---   WHERE oi.created_at <= CURDATE()
---   LIMIT 10
+-- Use INNER JOIN the same way you did in Part 3.
+-- The shared column is product_id. Use aliases: oi for order_items, p for products.
+-- Don't forget: WHERE oi.created_at <= CURDATE() and LIMIT 10.
 --
 -- ANSWER: How many products does Basket Craft sell? _____________
 -- ANSWER: What are their names? _____________
@@ -337,20 +276,12 @@
 
 -- 5.1 Your First LEFT JOIN
 -- Join order_items with refunds to see which items were refunded.
--- HINT:
---   SELECT
---       oi.order_item_id,
---       p.product_name,
---       oi.price_usd,
---       r.order_item_refund_id,
---       r.refund_amount_usd
---   FROM order_items oi
---   INNER JOIN products p
---       ON oi.product_id = p.product_id
---   LEFT JOIN order_item_refunds r
---       ON oi.order_item_id = r.order_item_id
---   WHERE oi.created_at <= CURDATE()
---   LIMIT 20
+-- You'll need TWO joins: INNER JOIN products (for names) and LEFT JOIN refunds.
+-- Use the LEFT JOIN syntax from the box above. The shared column is order_item_id.
+-- Use aliases: oi for order_items, p for products, r for order_item_refunds.
+-- Select: oi.order_item_id, p.product_name, oi.price_usd,
+--         r.order_item_refund_id, r.refund_amount_usd
+-- Don't forget: WHERE oi.created_at <= CURDATE() and LIMIT 20.
 --
 -- ANSWER: What do you see in the refund columns for non-refunded items? _____________
 
