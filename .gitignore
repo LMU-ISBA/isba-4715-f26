@@ -255,3 +255,5 @@ tools/quiz-grader/.env
 meeting-summaries/
 prds/
 specs/
+tools/quiz-grader/output/pdfs/
+tools/quiz-grader/output/reports_backup/

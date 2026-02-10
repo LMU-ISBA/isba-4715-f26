@@ -9,7 +9,7 @@ to ``claude -p --model claude-opus-4-5-20251101 --output-format text``.  The str
 JSON response is parsed into CriterionResult objects.
 
 After grading, the ``feedback`` field is passed through a humanizer step
-(also via ``claude --print`` with opus) to remove signs of AI-generated
+(also via ``claude --print`` with sonnet) to remove signs of AI-generated
 writing before it reaches students.
 
 Falls back to the Anthropic Python SDK when ANTHROPIC_API_KEY is set
@@ -47,7 +47,7 @@ BASE_BACKOFF_SECONDS = 1.0
 MAX_JITTER_SECONDS = 0.5
 
 # Humanizer settings
-HUMANIZER_MODEL = "claude-opus-4-5-20251101"  # same model for consistent voice
+HUMANIZER_MODEL = "claude-sonnet-4-5-20250929"  # sonnet is sufficient for rewriting
 HUMANIZER_TIMEOUT_SECONDS = 90
 
 HUMANIZER_PROMPT = """\
@@ -488,12 +488,12 @@ def _humanize_via_cli(feedback: str) -> str:
 
 
 def _humanize_via_sdk(feedback: str) -> str:
-    """Run the humanizer prompt through the Anthropic SDK with haiku."""
+    """Run the humanizer prompt through the Anthropic SDK with Sonnet."""
     try:
         import anthropic
         client = anthropic.Anthropic()
         response = client.messages.create(
-            model="claude-opus-4-5-20251101",
+            model="claude-sonnet-4-5-20250929",
             max_tokens=512,
             messages=[{
                 "role": "user",

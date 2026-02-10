@@ -1,0 +1,32 @@
+/* Page layout */
+@page {
+    size: letter;
+    margin: 0.6in 0.5in;
+}
+
+body {
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+/* Override pandoc's inline colgroup widths */
+col:nth-child(1) { width: 22% !important; }
+col:nth-child(2) { width: 6% !important; }
+col:nth-child(3) { width: 72% !important; }
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+td:nth-child(2), th:nth-child(2) { text-align: center; padding-left: 2px; padding-right: 2px; }
+
+td, th {
+    padding: 5px 6px;
+    vertical-align: top;
+    word-wrap: break-word;
+}
+
+h1 { font-size: 20px; }
+h2 { font-size: 16px; }

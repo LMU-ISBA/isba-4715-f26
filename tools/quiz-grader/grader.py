@@ -48,10 +48,17 @@ def _open_grading_log(output_path: Path) -> None:
 
 
 def _close_grading_log() -> None:
-    """Flush and close the grading log file."""
+    """Flush and close the grading log file.
+
+    Tolerates I/O errors (e.g. Google Drive sync timeouts) so that a
+    log-close failure never prevents grade reports from being saved.
+    """
     global _grading_log_fh  # noqa: PLW0603
     if _grading_log_fh:
-        _grading_log_fh.close()
+        try:
+            _grading_log_fh.close()
+        except OSError as exc:
+            console.print(f"  [yellow]Warning: could not close grading log: {exc}[/yellow]")
         _grading_log_fh = None
 
 
@@ -156,7 +163,9 @@ def cli():
               help="Directory for grades, reports, and state")
 @click.option("--student", "-s", default=None,
               help="Regrade a single student by name (requires existing session)")
-def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
+@click.option("--no-review", is_flag=True, default=False,
+              help="Skip interactive review (auto-export report)")
+def grade(config, resume, skip_ai, batch, verbose, output_dir, student, no_review):
     """Run the full grading pipeline for a quiz."""
     from src.config_loader import load_config
     from src.submission_loader import discover_submissions
@@ -197,7 +206,7 @@ def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
 
     # --student: regrade a single student from existing session
     if student:
-        _regrade_student(config, quiz_config, student, output_dir, verbose)
+        _regrade_student(config, quiz_config, student, output_dir, verbose, no_review)
         return
 
     # Step 2: Check for resume
@@ -211,13 +220,17 @@ def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
                     f"'{session.quiz_id}', but config is '{quiz_config.quiz_id}'"
                 )
                 sys.exit(2)
+            graded = len(session.grade_reports)
             console.print(
                 f"[green]Resuming session:[/green] "
-                f"{session.students_reviewed}/{session.students_total} students reviewed"
+                f"{graded}/{session.students_total} students graded, "
+                f"{session.students_reviewed} reviewed"
             )
-            # Resume always goes to review-only mode
-            exit_code = run_review(session, quiz_config, output_path)
-            sys.exit(exit_code)
+            # If batch mode and grading is incomplete, fall through to
+            # the batch loop which will skip already-graded students.
+            if not batch or graded >= session.students_total:
+                exit_code = run_review(session, quiz_config, output_path)
+                sys.exit(exit_code)
         else:
             console.print("[yellow]No saved session found. Starting fresh.[/yellow]")
 
@@ -243,9 +256,37 @@ def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
     # BATCH MODE: grade all students with progress bar, then review
     # ---------------------------------------------------------------
     if batch:
-        console.print("\n[bold]Batch mode:[/bold] grading all students first\n")
+        from src.reporter import export_single_student_report
 
-        llm_results = {}
+        # Reuse resumed session or create a fresh one
+        if session is None:
+            now = datetime.now()
+            session = GradingSession(
+                session_id=f"{quiz_config.quiz_id}-{now.strftime('%Y%m%d-%H%M%S')}",
+                quiz_id=quiz_config.quiz_id,
+                config_path=config,
+                started_at=now,
+                last_updated=now,
+                students_total=total,
+                students_reviewed=0,
+                current_index=0,
+                grade_reports=[],
+            )
+
+        # Update total in case submissions changed since the session was saved
+        session.students_total = total
+
+        # Determine which students still need grading
+        already_graded = {r.student_name for r in session.grade_reports}
+        remaining = [ps for ps in sorted_parsed if ps.submission.student_name not in already_graded]
+
+        if remaining:
+            console.print(
+                f"\n[bold]Batch mode:[/bold] grading "
+                f"{len(remaining)}/{total} students\n"
+            )
+        else:
+            console.print("\n[green]All students already graded.[/green]")
 
         with Progress(
             SpinnerColumn(),
@@ -259,26 +300,32 @@ def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
             console=console,
         ) as progress:
             task = progress.add_task(
-                "Grading", total=total, student="", phase="starting...",
+                "Grading", total=len(remaining), student="", phase="starting...",
             )
 
-            for ps in sorted_parsed:
+            for ps in remaining:
                 name = ps.submission.student_name
 
+                # --- AI assessment ---
+                llm = {}
                 if not skip_ai:
                     progress.update(task, student=name, phase="AI assessment...")
-                    llm_results[name] = score_subjective(ps, quiz_config)
-                    _log_phase_results(name, "LLM assessment", llm_results[name],
+                    llm = score_subjective(ps, quiz_config)
+                    _log_phase_results(name, "LLM assessment", llm,
                                        quiz_config, log_only=True)
+
+                # --- Build report & export immediately ---
+                progress.update(task, student=name, phase="saving report...")
+                report = build_single_report(quiz_config, ps, llm)
+                session.grade_reports.append(report)
+                export_single_student_report(report, quiz_config, output_path)
+                session.last_updated = datetime.now()
+                save_session(session, output_path)
 
                 progress.advance(task)
 
-        # Build all grade reports at once
-        session = build_grade_reports(
-            quiz_config, sorted_parsed,
-            llm_results,
-            config_path=config, output_path=output_path,
-        )
+        # Sort reports alphabetically now that all are collected
+        session.grade_reports.sort(key=lambda r: r.student_name.lower())
 
         console.print("\n[green]All students graded.[/green]")
         _close_grading_log()
@@ -369,7 +416,7 @@ def grade(config, resume, skip_ai, batch, verbose, output_dir, student):
     sys.exit(0)
 
 
-def _regrade_student(config_path, quiz_config, student_name, output_dir, verbose):
+def _regrade_student(config_path, quiz_config, student_name, output_dir, verbose, no_review=False):
     """Grade or regrade a single student.
 
     If the student already has a grade report in the session, re-runs the
@@ -380,16 +427,29 @@ def _regrade_student(config_path, quiz_config, student_name, output_dir, verbose
     from src.submission_loader import discover_submissions
     from src.parser import parse_submission
     from src.llm_grader import score_subjective
+    from src.models import GradingSession
+    from src.reporter import export_single_student_report
     from src.scorer import build_single_report
     from src.reviewer import load_session, save_session, review_one_student
 
     output_path = Path(output_dir)
 
-    # 1. Load existing session
+    # 1. Load existing session or create a new one
     session = load_session(quiz_config.quiz_id, output_path)
     if not session:
-        console.print("[red]No grading session found. Run 'grade' first.[/red]")
-        sys.exit(1)
+        now = datetime.now()
+        session = GradingSession(
+            session_id=f"{quiz_config.quiz_id}-{now.strftime('%Y%m%d-%H%M%S')}",
+            quiz_id=quiz_config.quiz_id,
+            config_path=config_path,
+            started_at=now,
+            last_updated=now,
+            students_total=0,
+            students_reviewed=0,
+            current_index=0,
+            grade_reports=[],
+        )
+        console.print("[dim]No existing session — created new one.[/dim]")
 
     # 2. Try to find the student in the session (fuzzy match)
     all_names = [r.student_name for r in session.grade_reports]
@@ -514,14 +574,19 @@ def _regrade_student(config_path, quiz_config, student_name, output_dir, verbose
             f"{old_score} → {new_report.total_score}/{new_report.total_max}"
         )
 
-    # 7. Save and drop into review
+    # 7. Save, export report, and optionally review
     save_session(session, output_path)
 
-    total = len(session.grade_reports)
-    review_one_student(
-        new_report, report_idx, total, session, quiz_config, output_path,
-    )
-    save_session(session, output_path)
+    if no_review:
+        md_path = export_single_student_report(new_report, quiz_config, output_path)
+        console.print(f"  [dim]Report → {md_path}[/dim]")
+    else:
+        total = len(session.grade_reports)
+        review_one_student(
+            new_report, report_idx, total, session, quiz_config, output_path,
+        )
+        save_session(session, output_path)
+
     console.print("[green]Session saved.[/green]")
 
 
