@@ -172,6 +172,7 @@
 --   • USERS has:  user_id, first_name, last_name, email, ...
 --
 -- Both tables share user_id. To CONNECT them, we need a JOIN.
+-- ERD: https://r.isba.co/basket_craft_schema
 -- ============================================================================
 
 

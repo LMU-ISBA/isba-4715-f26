@@ -87,6 +87,11 @@ When writing SQL queries in worksheets and instructor keys:
 - Put each column on its own line in multi-column SELECTs
 - Put each expression on its own line in multi-expression GROUP BY and ORDER BY clauses
 
+**Counting:**
+- Prefer `COUNT(column_name)` over `COUNT(*)` — it makes the intent explicit and avoids NULL confusion in LEFT JOINs
+- Use the primary key column when counting rows: `COUNT(order_id)` not `COUNT(*)`
+- In conversion rate patterns, use `COUNT(right_table.pk) / COUNT(left_table.pk)` so students see consistent syntax on both sides of the formula
+
 **Naming:**
 - Avoid reserved words as aliases (`year`, `month`, `date`, `order`)
 - Use descriptive prefixes: `order_year`, `order_month`, `month_name`
@@ -102,7 +107,7 @@ SELECT
     YEAR(order_date) AS order_year,
     MONTH(order_date) AS order_month,
     MONTHNAME(order_date) AS month_name,
-    COUNT(*) AS total_orders,
+    COUNT(order_id) AS total_orders,
     ROUND(SUM(order_value), 2) AS total_revenue
 FROM orders
 GROUP BY
