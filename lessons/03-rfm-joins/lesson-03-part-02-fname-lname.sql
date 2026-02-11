@@ -11,7 +11,7 @@
 -- convert visitors into buyers, and which ones are wasting Robert's budget.
 --
 -- DATABASE: basket_craft (same as Part 1)
--- NEW TABLE: website_sessions — tracks every visit to the website
+-- NEW TABLE: website_sessions (tracks every visit to the website)
 --
 -- ============================================================================
 -- WHAT WE'LL COVER
@@ -29,9 +29,6 @@
 -- | Multi-table JOINs (3-4)  | NEW        | Emails 3-4  |
 -- ============================================================================
 --
--- PREREQUISITE: Complete Lesson 03, Part 1 before starting this lesson.
--- You should be comfortable with 2-table INNER JOINs and LEFT JOINs.
---
 -- ============================================================================
 -- HOW TO REPLY TO ROBERT
 -- ============================================================================
@@ -43,25 +40,30 @@
 --
 --   SO WHAT: Your recommendation — what should Robert do about it?
 --            Suggest an action and predict the expected impact.
+--            You may need to do some math outside of SQL (calculator,
+--            spreadsheet, back-of-napkin) to estimate the impact.
 --            Example: "Invest in conversion optimization rather than
---            more traffic — a 1% lift would add ~4,400 orders."
+--            more traffic. A 1% lift would add ~4,400 orders."
 --
 -- Keep each answer to 1-2 sentences. Be specific, not vague.
 --   Bad:  "Conversion is low, we should improve it."
 --   Good: "Only 6.7% of visitors buy. Prioritize checkout optimization
---          — even a 1% lift adds ~4,400 annual orders."
+--          Even a 1% lift adds ~4,400 annual orders."
 -- ============================================================================
 
 
 -- ============================================================================
--- EMAIL 1: "I need to understand our website traffic data"
+-- EMAIL 1
 -- ============================================================================
--- FROM: Robert, VP of Marketing
+-- From:    Robert, VP of Marketing
+-- To:      You, Data Analyst
+-- Date:    Monday 9:02 AM
+-- Subject: Q2 budget — need website traffic data
 --
 -- "I'm planning our Q2 ad budget and I need your help. We spend money on
 -- Google, Bing, and Facebook ads to drive traffic to our website. But I
 -- have no idea if it's working. Start by pulling up our website traffic
--- data — I want to understand what we're looking at before we dig in."
+-- data. I want to understand what we're looking at before we dig in."
 -- ============================================================================
 
 -- 1.1 Explore the Website Sessions Table
@@ -113,11 +115,14 @@
 
 
 -- ============================================================================
--- EMAIL 2: "Show me EVERYONE who visited — not just the buyers"
+-- EMAIL 2
 -- ============================================================================
--- FROM: Robert, VP of Marketing
+-- From:    Robert, VP of Marketing
+-- To:      You, Data Analyst
+-- Date:    Monday 10:15 AM
+-- Subject: RE: Q2 budget — need website traffic data
 --
--- "Wait — 442,000 sessions but only 30,000 orders?! That means over
+-- "Wait, 442,000 sessions but only 30,000 orders?! That means over
 -- 400,000 people visited our site and left empty-handed. Your query only
 -- showed me buyers. I need to SEE those lost visitors too. Show me
 -- everyone who visited, whether they bought or not. Then tell me:
@@ -136,7 +141,7 @@
 
 -- 2.2 Change ONE Word: INNER → LEFT
 -- Take your 2.1 query and change INNER JOIN to LEFT JOIN.
--- Everything else stays exactly the same — just swap one word.
+-- Everything else stays exactly the same. Just swap one word.
 --
 -- ANSWER: How many rows now? _____________
 -- ANSWER: What do you see in the order columns for non-buyers? _____________
@@ -152,7 +157,7 @@
 --   - Sessions that converted (had an order)
 --   - Conversion rate as a percentage
 --
--- HINT: COUNT(o.order_id) only counts non-NULL values — remember this
+-- HINT: COUNT(o.order_id) only counts non-NULL values. Remember this
 --       trick from the refund rate in Part 1?
 --       ROUND(COUNT(o.order_id) * 100.0 / COUNT(ws.website_session_id), 2) AS conversion_rate_pct
 --
@@ -173,15 +178,18 @@
 
 
 -- ============================================================================
--- EMAIL 3: "Which channels deserve our budget?"
+-- EMAIL 3
 -- ============================================================================
--- FROM: Robert, VP of Marketing
+-- From:    Robert, VP of Marketing
+-- To:      You, Data Analyst
+-- Date:    Monday 11:30 AM
+-- Subject: RE: Q2 budget — need website traffic data
 --
--- "6.7% conversion rate — that means 93 out of 100 visitors leave without
+-- "6.7% conversion rate. That means 93 out of 100 visitors leave without
 -- buying. But I bet it's not the same across all channels. I'm paying for
 -- Google, Bing, and Facebook ads. Which ones are actually converting?
 -- And does it matter if visitors are on desktop or mobile? Break it down
--- for me — I need to know where to put our money."
+-- for me. I need to know where to put our money."
 -- ============================================================================
 
 -- 3.1 Conversion Rate by Marketing Channel
@@ -195,7 +203,7 @@
 -- ANSWER: Which channel has the highest conversion rate? _____________
 -- ANSWER: Which channel has the lowest conversion rate? _____________
 -- ANSWER: What shows up instead of a channel name for some rows? _____________
---         (This means the visitor came directly — no paid ad.)
+--         (This means the visitor came directly, not from a paid ad.)
 
 
 
@@ -226,15 +234,18 @@
 
 
 -- ============================================================================
--- EMAIL 4: "Show me the full picture — channels x products"
+-- EMAIL 4
 -- ============================================================================
--- FROM: Robert, VP of Marketing
+-- From:    Robert, VP of Marketing
+-- To:      You, Data Analyst
+-- Date:    Monday 1:45 PM
+-- Subject: Channel x product breakdown for budget meeting
 --
 -- "Great work on the channel analysis. Now I need the full picture before
 -- my budget meeting. I know Google drives the most traffic, but what are
 -- people actually BUYING through each channel? Which products sell best
--- through which channels? This is the query that ties it all together —
--- connect the sessions to orders to the actual products purchased."
+-- through which channels? This is the query that ties it all together.
+-- Connect the sessions to orders to the actual products purchased."
 -- ============================================================================
 --
 -- Table chain (4 tables):
@@ -249,7 +260,7 @@
 --   - Number of orders
 --   - Total revenue
 --
--- HINT: Chain your JOINs — each table connects to the next:
+-- HINT: Chain your JOINs. Each table connects to the next:
 --       FROM website_sessions ws
 --       INNER JOIN orders o        ON ws.website_session_id = o.website_session_id
 --       INNER JOIN order_items oi  ON o.order_id = oi.order_id
