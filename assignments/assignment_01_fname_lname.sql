@@ -8,8 +8,7 @@ Overall Grade %: 10 (Total: 100 Points)
 
 DATATHON ALTERNATIVE
 If you participate in the LMU Datathon on Friday, March 14, you may submit your datathon deliverables instead of
-this SQL assignment. Submit your presentation slides and a one-page reflection to the same Brightspace assignment
-folder by the due date.
+this SQL assignment. Submit your presentation slides to the same Brightspace assignment folder by the due date.
 
 SUBMISSION INSTRUCTIONS
 - SQL file:          assignment_01_fname_lname.sql
@@ -61,9 +60,20 @@ Each task follows the Analytics Framework (Define, Collect, Analyze, Interpret, 
 | Presentation       |  30%   | One slide per task. 90 seconds. Random task on presentation day  |
 
 Presentation details:
-- Prepare one slide per task (5 slides total) with concise takeaways.
-- Be ready to explain the supporting SQL (include in an appendix).
+- Prepare one slide per task (5 slides total). Be ready to explain the supporting SQL (include in an appendix).
+- On presentation day, you will be assigned a random task to present in 90 seconds.
 - Rubric: https://r.isba.co/aacu-oral-communication-rubric
+
+SLIDE DESIGN CHECKLIST (for each slide)
+[ ] WHAT (insight): Slide title is a finding, not a topic. Complete sentence with a number.
+    Bad:  "Revenue Analysis"
+    Good: "Email campaign drove 40% more conversions than display ads last quarter"
+[ ] DATA: Table, chart, or screenshot that backs up your title. Only show relevant data.
+[ ] CALLOUT: Circle, arrow, or bold the key number(s) that connect to your title.
+[ ] SO WHAT (recommendation + prediction): What should we do, and what happens if we do?
+    Format: "[Action] → [Expected outcome]"
+    Example: "Shift 40% of display budget to email → projected 200+ additional conversions next quarter"
+[ ] SELF-TEST: Read only your title and SO WHAT. Does someone know the finding AND what to do?
 
 TIPS
 - Consider the A/B tests conducted and business changes leading up to this point.
@@ -103,12 +113,6 @@ we've grown month over month.
 */
 
 /*
-GUIDANCE:
-- You need data from two tables: website_sessions and orders. They share website_session_id.
-- Think about which JOIN type keeps ALL sessions, even those that didn't result in an order.
-- Conversion rate is the fraction of sessions that became orders, expressed as a percentage.
-- Data cutoff: WHERE ws.created_at < '2023-11-27'
-
 Business Question:
 ???
 
@@ -141,11 +145,6 @@ tell about our marketing strategy.
 */
 
 /*
-GUIDANCE:
-- Filter to Google traffic only (check the utm_source column).
-- Use CASE WHEN to pivot sessions and orders into separate columns for each campaign type.
-  Example: COUNT(CASE WHEN utm_campaign = 'nonbrand' THEN ws.website_session_id END) AS nonbrand_sessions
-
 Business Question:
 ???
 
@@ -179,9 +178,8 @@ search, and direct traffic all in one report so I can show we're diversifying.
 
 /*
 GUIDANCE:
-- Run SELECT DISTINCT utm_source, http_referer FROM website_sessions to explore what values exist.
-- Use CASE WHEN to create a column for each channel. Some channels require multiple conditions (AND).
-- Think about what distinguishes paid traffic from organic, and organic from direct.
+- Organic: utm_source IS NULL AND http_referer IS NOT NULL (came from a search engine, but not a paid ad)
+- Direct: utm_source IS NULL AND http_referer IS NULL (typed the URL directly)
 
 Business Question:
 ???
@@ -215,33 +213,6 @@ to each step: products page, cart, billing, and placed an order.
 */
 
 /*
-GUIDANCE:
-This is the most complex analysis. You'll need to use CTEs (Common Table Expressions) to break it into steps.
-
-CTE SYNTAX:
-    WITH step_name AS (
-        SELECT ...
-    )
-    SELECT ... FROM step_name;
-
-    Multiple CTEs are separated by commas:
-    WITH step_one AS ( ... ),
-         step_two AS ( ... )
-    SELECT ... FROM step_two;
-
-APPROACH:
-  Step 1 (CTE): Find each session's landing page during the test period.
-                The landing page is the FIRST pageview in a session (MIN of website_pageview_id).
-                Join website_sessions to website_pageviews and GROUP BY website_session_id.
-                Filter: ws.created_at >= '2023-06-19' AND ws.created_at < '2023-07-29'
-
-  Step 2 (CTE): Join back to website_pageviews to get the landing page URL, then flag whether
-                each session reached each funnel step using:
-                MAX(CASE WHEN pages.pageview_url = '/products' THEN 1 ELSE 0 END) AS to_products
-                Only keep sessions where the landing page is '/home' or '/lp-1'.
-
-  Step 3 (SELECT): Group by landing page and SUM the flags to get totals at each step.
-
 Business Question:
 ???
 
@@ -271,7 +242,7 @@ TASK 5 - Billing Page Revenue Impact (22 points)
 We also ran an A/B test on our billing page from September 10 to November 10 to compare our new billing page
 (/billing-2) against the original (/billing). I want to show the board how the new design increased revenue.
 
-This task has two parts:
+This task has two parts. Write a separate query for each.
 
 Part A: Calculate the revenue per billing page session for /billing and /billing-2 during the test period
         (September 10 to November 10). Then calculate the lift (difference in revenue per session between
@@ -283,12 +254,6 @@ Part B: Pull the number of /billing-2 sessions from October 2023. Multiply that 
 */
 
 /*
-GUIDANCE:
-- For Part A, you need to connect website_pageviews to orders through website_session_id.
-- Filter to the test period and billing page URLs ('/billing', '/billing-2').
-- Revenue per billing session = total revenue / number of distinct billing sessions.
-- For Part B, the lift is the dollar difference between the two revenue-per-session values.
-
 Business Question:
 ???
 
@@ -318,24 +283,6 @@ Prediction:
 /*
 BOARD MEETING SUMMARY
 
-You've completed five analyses. Now tie them together into a single story for the board.
-
-1. Growth trajectory: What does our 8-month performance look like? (Task 1)
-   ANSWER: _______________________________________________________________
-
-   ______________________________________________________________________
-
-2. Marketing strategy: Is our Google investment paying off beyond paid clicks? (Tasks 2-3)
-   ANSWER: _______________________________________________________________
-
-   ______________________________________________________________________
-
-3. Experimentation: Are our A/B tests generating measurable results? (Tasks 4-5)
-   ANSWER: _______________________________________________________________
-
-   ______________________________________________________________________
-
-YOUR OPENING STATEMENT:
 If you had 30 seconds to summarize Basket Craft's first 8 months to the board, what would you say?
 
 ANSWER: __________________________________________________________________
