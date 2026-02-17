@@ -23,12 +23,7 @@ SUBMISSION CHECKLIST (deductions apply if not followed)
 
 =====================================================================================================================
 
-Database Connection Details:
-hostname: db.isba.co
-username: analyst
-password: go_lions
-database: basket_craft
-port: 3306
+Database: Use the basket_craft schema on the class database server.
 
 =====================================================================================================================
 

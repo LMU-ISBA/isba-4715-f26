@@ -21,15 +21,7 @@ Revenue jumped 33% in May. Your mission: find out what's working and how to repl
 
 ## Database Connection
 
-All lessons use the same database:
-
-| Field | Value |
-|-------|-------|
-| Host | db.isba.co |
-| Port | 3306 |
-| Database | campus_bites |
-| Username | student |
-| Password | learn_sql |
+All lessons use the same database server. Connection details will be provided in class.
 
 ## Getting Started
 

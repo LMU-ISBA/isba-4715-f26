@@ -21,17 +21,7 @@ Welcome to ISBA 4715! In this course, you'll learn to use SQL for data explorati
 
 ### 2. Connect to the Database
 
-All lessons use the Campus Bites database:
-
-| Field | Value |
-|-------|-------|
-| Host | db.isba.co |
-| Port | 3306 |
-| Database | campus_bites |
-| Username | student |
-| Password | learn_sql |
-
-See the [setup guide](lessons/01-introduction/setup-guide.md) for step-by-step instructions.
+Connection details will be provided in class. See the [setup guide](lessons/01-introduction/setup-guide.md) for step-by-step instructions.
 
 ## Lessons
 

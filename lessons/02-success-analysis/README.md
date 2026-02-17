@@ -30,15 +30,7 @@ Your mission: Use SQL to identify what drove the growth and recommend how to rep
 
 ## Database Connection
 
-Same as Lesson 01:
-
-| Field | Value |
-|-------|-------|
-| Host | db.isba.co |
-| Port | 3306 |
-| Database | campus_bites |
-| Username | student |
-| Password | learn_sql |
+Same as Lesson 01. Connection details will be provided in class.
 
 ## Key Concepts
 

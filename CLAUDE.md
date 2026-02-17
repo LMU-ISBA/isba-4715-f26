@@ -78,6 +78,12 @@ Student worksheet files (`lesson-XX-fname-lname.sql`) should follow this structu
 -- ANSWER: [Blank for student] _____________
 ```
 
+## Security
+
+- Never include database credentials (hostname, username, password, port) in any file tracked by git
+- Connection details are provided to students in class, not in the repo
+- If a file needs to reference the database, say "Connection details will be provided in class" or name only the schema (e.g., `basket_craft`)
+
 ## SQL Best Practices
 When writing SQL queries in worksheets and instructor keys:
 

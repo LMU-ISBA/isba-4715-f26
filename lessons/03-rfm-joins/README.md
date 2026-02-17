@@ -31,15 +31,8 @@ Your mission: Use RFM analysis to identify the best customers, then use JOINs to
 
 ## Database Connection
 
-**This lesson uses a DIFFERENT database than Lessons 01-02!**
-
-| Field | Value |
-|-------|-------|
-| Host | db.isba.co |
-| Port | 3306 |
-| Database | **basket_craft** |
-| Username | student |
-| Password | learn_sql |
+**This lesson uses a DIFFERENT database than Lessons 01-02!** Use the `basket_craft` schema.
+Connection details will be provided in class.
 
 ### Tables You'll Use
 

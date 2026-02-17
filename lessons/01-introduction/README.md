@@ -41,13 +41,7 @@ Your mission: Use SQL to diagnose the problem and recommend a solution.
 
 ## Database Connection
 
-| Field | Value |
-|-------|-------|
-| Host | db.isba.co |
-| Port | 3306 |
-| Database | campus_bites |
-| Username | student |
-| Password | learn_sql |
+Connection details will be provided in class. See the [setup guide](setup-guide.md) for how to connect.
 
 ## Key Concepts
 

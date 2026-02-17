@@ -81,15 +81,7 @@ Databases use a **client-server architecture**:
 
 ### Step 3: Enter Connection Details
 
-Enter the following information (provided by your instructor):
-
-| Field | Value |
-|-------|-------|
-| **Server Host** | `db.isba.co` |
-| **Port** | `3306` |
-| **Database** | `campus_bites` |
-| **Username** | `student` |
-| **Password** | `learn_sql` |
+Enter the connection details provided by your instructor (host, port, database, username, password).
 
 ### Step 4: Download MySQL Driver (First Time Only)
 1. If prompted, click **Download** to install the MySQL JDBC driver
