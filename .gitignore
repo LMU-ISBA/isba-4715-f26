@@ -223,6 +223,8 @@ slides/
 # Instructor answer keys (keep private from students)
 lesson-*-key.*
 **/lesson-*-key.*
+assignment_*_key*
+**/assignment_*_key*
 
 # Facilitator guides (keep private from students)
 *-facilitator-guide.*
@@ -233,6 +235,9 @@ quizzes/
 
 # Instructor tools (answer keys, rubrics, grading guides — private)
 tools/
+
+# Prior-year assignment templates (keep current year only)
+*2025*
 
 # Student submissions
 **/submissions/
