@@ -42,7 +42,12 @@ Analyze only data from before November 27, 2023. That's the date of the CEO's em
 
 DELIVERABLES (per task)
 
-Each task follows the Analytics Framework (Define, Collect, Analyze, Interpret, Act):
+Each task follows the 5-Step Analytics Framework (DC ACT):
+1. Define the business problem
+2. Collect and prepare the data
+3. Analyze the data and generate insights
+4. Communicate the insights, recommendations, and predictions
+5. Act and track the change
 
 | Component          | Weight | What to Do                                                       |
 |--------------------|--------|------------------------------------------------------------------|
