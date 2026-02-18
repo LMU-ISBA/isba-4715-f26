@@ -177,7 +177,7 @@ search, and direct traffic all in one report so I can show we're diversifying.
 */
 
 /*
-GUIDANCE:
+HINT:
 - Organic: utm_source IS NULL AND http_referer IS NOT NULL (came from a search engine, but not a paid ad)
 - Direct: utm_source IS NULL AND http_referer IS NULL (typed the URL directly)
 
