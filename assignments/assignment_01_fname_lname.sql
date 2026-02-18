@@ -8,7 +8,7 @@ Overall Grade %: 10 (Total: 100 Points)
 
 DATATHON ALTERNATIVE
 If you participate in the LMU Datathon on Friday, March 14, you may submit your datathon deliverables instead of
-this SQL assignment. Submit your presentation slides to the same Brightspace assignment folder by the due date.
+this SQL assignment. Submit your datathon presentation slides to the same Brightspace assignment folder by the due date.
 
 SUBMISSION INSTRUCTIONS
 - SQL file:          assignment_01_fname_lname.sql
