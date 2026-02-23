@@ -118,7 +118,7 @@ FROM (
 
 -- B.3 Chain Two CTEs
 -- Now add a SECOND CTE that JOINs the users table to get customer names.
--- CTEs chain with a comma. No second WITH keyword!
+-- CTEs chain with a comma. No second WITH keyword.
 --
 -- ┌──────────────────────────────────────────────────────────┐
 -- │  CHAINING CTEs                                           │
@@ -127,7 +127,7 @@ FROM (
 -- │      ...                                                 │
 -- │  ),                    ← comma, NOT semicolon            │
 -- │  cte2 AS (                                               │
--- │      SELECT ... FROM cte1   ← cte2 can use cte1!        │
+-- │      SELECT ... FROM cte1   ← cte2 can use cte1         │
 -- │      JOIN other_table ...                                │
 -- │  )                                                       │
 -- │  SELECT ... FROM cte2;                                   │
@@ -156,15 +156,15 @@ FROM (
 -- Date:    Monday, February 23, 2026, 8:30 AM
 -- Subject: Website analysis — getting started
 --
--- "Hi! I manage our website at Basket Craft. I've heard you've been doing
+-- "Hi, I manage our website at Basket Craft. I've heard you've been doing
 -- great work with the marketing and customer data. Now I need help
 -- understanding what visitors DO on our site. Can you start by showing me
 -- what the website_pageviews table looks like?"
 -- ============================================================================
 
 -- 1.1 First Look at website_pageviews
--- Write a query to see the first 10 rows of the website_pageviews table.
--- This is a NEW table you haven't used before!
+-- Write a query to see the first 50 rows of the website_pageviews table.
+-- This is a NEW table you haven't used before.
 --
 -- ANSWER: What columns do you see? _____________
 -- ANSWER: What do you think website_session_id means? _____________
@@ -176,7 +176,7 @@ FROM (
 -- 1.2 What Pages Do Visitors See?
 -- Count the total pageviews for each pageview_url.
 -- GROUP BY pageview_url and ORDER BY the count descending.
--- Add WHERE created_at <= CURDATE().
+-- Add WHERE created_at <= '2026-02-23'.
 --
 -- ANSWER: What is the most-viewed page? _____________
 -- ANSWER: What page has the fewest views? _____________
@@ -186,25 +186,8 @@ FROM (
 
 
 -- 1.3 How Many Pages Per Session?
--- Use a CTE to first count pages per session, then calculate the average.
---
--- CTE: session_pages — COUNT pageviews grouped by website_session_id
--- Final SELECT: AVG, MIN, MAX of the CTE's page count
---
--- This is your first CTE on the new table — same syntax as the Bridge!
---
--- HINT:
--- WITH session_pages AS (
---     SELECT
---         website_session_id,
---         COUNT(website_pageview_id) AS pages_viewed
---     FROM website_pageviews
---     WHERE created_at <= CURDATE()
---     GROUP BY website_session_id
--- )
--- SELECT
---     ROUND(AVG(pages_viewed), 2) AS avg_pages_per_session,
---     ...
+-- Use a CTE to first count pages per session, then calculate the average along with
+-- the minimum and maximum number of pages viewed in a session.
 --
 -- ANSWER: Average pages per session: _____________
 -- ANSWER: Maximum pages in a single session: _____________
@@ -224,7 +207,7 @@ FROM (
 -- Date:    Monday, February 23, 2026, 9:15 AM
 -- Subject: RE: Website analysis — where do visitors start?
 --
--- "Good start! Now I need to know: where do visitors START their journey?
+-- "Good start. Now I need to know: where do visitors START their journey?
 -- The first page they see is the 'landing page.' And how many leave
 -- immediately after just that one page? That's the 'bounce rate.'
 -- A high bounce rate means our landing page isn't convincing visitors
@@ -245,8 +228,8 @@ FROM (
 -- │  at 1. So page_num = 1 is always the FIRST pageview.    │
 -- │                                                          │
 -- │  Session 1: /home (1), /products (2), /cart (3)          │
--- │  Session 2: /lp-1 (1), /products (2)  ← restarts!       │
--- │  Session 3: /home (1)                  ← restarts!       │
+-- │  Session 2: /lp-1 (1), /products (2)  ← restarts       │
+-- │  Session 3: /home (1)                  ← restarts       │
 -- └──────────────────────────────────────────────────────────┘
 --
 -- Write a CTE named ranked_pageviews that adds a page_num column:
@@ -265,7 +248,7 @@ FROM (
 
 -- 2.2 Find the Landing Pages
 -- Using your ranked_pageviews CTE from 2.1, filter to only page_num = 1.
--- These are the landing pages! Count how many sessions started on each URL.
+-- These are the landing pages. Count how many sessions started on each URL.
 --
 -- Add to your CTE from 2.1:
 --   SELECT pageview_url AS landing_page, COUNT(website_session_id) AS total_sessions
@@ -489,7 +472,7 @@ FROM (
 -- Date:    Wednesday, February 25, 2026, 11:45 AM
 -- Subject: Billing page test — need revenue numbers
 --
--- "We also tested a new billing page! From September 10 to November 10,
+-- "We also tested a new billing page. From September 10 to November 10,
 -- we split traffic between /billing (original) and /billing-2 (new design).
 -- I don't just want conversion rates this time — I want REVENUE. Which
 -- billing page generated more revenue per session? And can you estimate
