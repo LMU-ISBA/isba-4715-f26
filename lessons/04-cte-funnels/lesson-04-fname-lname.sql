@@ -225,19 +225,15 @@ FROM (
 -- │  ORDER BY    = the order within each group               │
 -- │                                                          │
 -- │  Every time the session_id changes, the count restarts   │
--- │  at 1. So page_num = 1 is always the FIRST pageview.    │
+-- │  at 1. So page_num = 1 is always the FIRST pageview.     │
 -- │                                                          │
 -- │  Session 1: /home (1), /products (2), /cart (3)          │
--- │  Session 2: /lp-1 (1), /products (2)  ← restarts       │
--- │  Session 3: /home (1)                  ← restarts       │
+-- │  Session 2: /lp-1 (1), /products (2)  ← restarts         │
+-- │  Session 3: /home (1)                  ← restarts        │
 -- └──────────────────────────────────────────────────────────┘
 --
--- Write a CTE named ranked_pageviews that adds a page_num column:
---   ROW_NUMBER() OVER (PARTITION BY website_session_id
---                       ORDER BY website_pageview_id) AS page_num
---
--- Then SELECT * FROM ranked_pageviews LIMIT 20 to see the result.
-
+-- Write a CTE named ranked_pageviews that adds a page_num column
+-- 
 
 
 
@@ -249,13 +245,6 @@ FROM (
 -- 2.2 Find the Landing Pages
 -- Using your ranked_pageviews CTE from 2.1, filter to only page_num = 1.
 -- These are the landing pages. Count how many sessions started on each URL.
---
--- Add to your CTE from 2.1:
---   SELECT pageview_url AS landing_page, COUNT(website_session_id) AS total_sessions
---   FROM ranked_pageviews
---   WHERE page_num = 1
---   GROUP BY pageview_url
---   ORDER BY total_sessions DESC
 --
 -- ANSWER: What is the #1 landing page? _____________
 -- ANSWER: How many different landing pages exist? _____________
@@ -271,22 +260,6 @@ FROM (
 -- CTE 2: session_page_counts — COUNT pages per session
 -- Final SELECT: JOIN the two CTEs, filter to page_num = 1 (landing pages),
 --               use CASE WHEN num_pages = 1 to flag bounces
---
--- HINT for the final SELECT:
--- SELECT
---     rp.pageview_url AS landing_page,
---     COUNT(rp.website_session_id) AS total_sessions,
---     SUM(CASE WHEN spc.num_pages = 1 THEN 1 ELSE 0 END) AS bounced_sessions,
---     ROUND(
---         SUM(CASE WHEN spc.num_pages = 1 THEN 1 ELSE 0 END) * 100.0
---         / COUNT(rp.website_session_id), 2
---     ) AS bounce_rate_pct
--- FROM ranked_pageviews rp
--- INNER JOIN session_page_counts spc
---     ON rp.website_session_id = spc.website_session_id
--- WHERE rp.page_num = 1
--- GROUP BY rp.pageview_url
--- ORDER BY total_sessions DESC
 
 
 
