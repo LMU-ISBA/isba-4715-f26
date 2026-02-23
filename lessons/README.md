@@ -29,7 +29,7 @@ Basket Craft is an e-commerce company selling gift baskets online. You'll use JO
 Robert (VP of Marketing) needs a targeted marketing list. Your mission: score customers by Recency, Frequency, and Monetary value using multi-table JOINs and NTILE.
 
 ### Lesson 04: Website Conversion Analysis with CTEs
-Cheryl (Website Manager) needs to understand visitor behavior. Your mission: build conversion funnels and measure A/B test results using CTEs and ROW_NUMBER.
+Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: build conversion funnels and measure A/B test results using CTEs and ROW_NUMBER.
 
 ## Database Connection
 

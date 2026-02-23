@@ -2,7 +2,7 @@
 -- LESSON 04: Website Conversion Analysis with CTEs
 -- ============================================================================
 --
--- SCENARIO: You're a data analyst at Basket Craft. Cheryl, the Website
+-- SCENARIO: You're a data analyst at Basket Craft. Cheryl, the E-commerce
 -- Manager, needs help understanding website performance. Where do visitors
 -- land? How many bounce immediately? And did the A/B tests on the landing
 -- page and billing page actually work?
@@ -55,7 +55,7 @@
 
 
 -- ============================================================================
--- BRIDGE: From Nested Subqueries to CTEs (~20 min)
+-- BRIDGE: From Nested Subqueries to CTEs
 -- ============================================================================
 -- In Lesson 03, you wrote NTILE(5) for RFM scoring using a nested subquery.
 -- That query WORKS, but it's hard to read. CTEs fix that.
@@ -86,12 +86,12 @@ FROM (
 ) AS rfm;
 
 -- ANSWER: How many rows does this return? _____________
--- ANSWER: Where is the subquery? (which line does it start?) _____________
+-- ANSWER: Where is the subquery? _____________
 
 
 -- B.2 Rewrite as a CTE
 -- Rewrite the query above using WITH ... AS syntax.
--- The subquery doesn't move — it just gets a name and moves to the TOP.
+-- The subquery doesn't move. It just gets a name and moves to the TOP.
 --
 -- ┌──────────────────────────────────────────────────────────┐
 -- │  CTE SYNTAX                                              │
@@ -118,7 +118,7 @@ FROM (
 
 -- B.3 Chain Two CTEs
 -- Now add a SECOND CTE that JOINs the users table to get customer names.
--- CTEs chain with a comma — no second WITH keyword!
+-- CTEs chain with a comma. No second WITH keyword!
 --
 -- ┌──────────────────────────────────────────────────────────┐
 -- │  CHAINING CTEs                                           │
@@ -148,12 +148,12 @@ FROM (
 
 
 -- ============================================================================
--- PART 1: DESCRIPTIVE ANALYTICS — What Does the Website See? (~15 min)
+-- PART 1: DESCRIPTIVE ANALYTICS — What Does the Website See?
 -- ============================================================================
 -- ============================================================================
 -- CHERYL EMAIL 0
 -- ============================================================================
--- From:    Cheryl, Website Manager
+-- From:    Cheryl, E-commerce Manager
 -- To:      You, Data Analyst
 -- Date:    Monday, February 23, 2026, 8:30 AM
 -- Subject: Website analysis — getting started
@@ -216,12 +216,12 @@ FROM (
 
 
 -- ============================================================================
--- PART 2: DIAGNOSTIC ANALYTICS — Where Do Visitors Land and Leave? (~35 min)
+-- PART 2: DIAGNOSTIC ANALYTICS — Where Do Visitors Land and Leave?
 -- ============================================================================
 -- ============================================================================
 -- CHERYL EMAIL 1
 -- ============================================================================
--- From:    Cheryl, Website Manager
+-- From:    Cheryl, E-commerce Manager
 -- To:      You, Data Analyst
 -- Date:    Monday, February 23, 2026, 9:15 AM
 -- Subject: RE: Website analysis — where do visitors start?
@@ -232,17 +232,6 @@ FROM (
 -- A high bounce rate means our landing page isn't convincing visitors
 -- to stay and explore."
 -- ============================================================================
-
--- ┌──────────────────────────────────────────────────────────┐
--- │  WHITEBOARD: Landing Page + Bounce Rate Pipeline         │
--- │                                                          │
--- │  Number pageviews    Filter to     Count landing    Flag │
--- │  within each      →  first page →  pages         →  one │
--- │  session              (page_num       per URL        page │
--- │  (ROW_NUMBER)          = 1)                         sessions│
--- │                                                     → bounce│
--- │                                                       rate  │
--- └──────────────────────────────────────────────────────────┘
 
 -- 2.1 Number Pageviews Within Each Session
 -- For each session, number the pageviews in order (1st page, 2nd page, etc.)
@@ -336,12 +325,12 @@ FROM (
 
 
 -- ============================================================================
--- PART 3: CONFIRM THE CONNECTION — The Full Conversion Funnel (~45 min)
+-- PART 3: CONFIRM THE CONNECTION — The Full Conversion Funnel
 -- ============================================================================
 -- ============================================================================
 -- CHERYL EMAIL 2
 -- ============================================================================
--- From:    Cheryl, Website Manager
+-- From:    Cheryl, E-commerce Manager
 -- To:      You, Data Analyst
 -- Date:    Wednesday, February 25, 2026, 10:30 AM
 -- Subject: Landing page A/B test results — need conversion funnel
@@ -353,20 +342,6 @@ FROM (
 -- made it to /products, /cart, /billing, and placed an order? Show me
 -- both pages side by side."
 -- ============================================================================
-
--- ┌──────────────────────────────────────────────────────────┐
--- │  WHITEBOARD: Conversion Funnel Pipeline                  │
--- │                                                          │
--- │  Identify test  →  Find each     →  Flag funnel steps   │
--- │  sessions &         session's        with CASE WHEN      │
--- │  landing pages      pageviews        (1/0 per step)      │
--- │  (ROW_NUMBER)                                            │
--- │                                                          │
--- │                 →  Collapse flags →  Count sessions      │
--- │                    per session       at each step         │
--- │                    (MAX per          + conversion rates   │
--- │                     session)                              │
--- └──────────────────────────────────────────────────────────┘
 
 -- 3.1 Identify Test Sessions and Landing Pages
 -- CTE: Use ROW_NUMBER to find the first page per session during the test.
@@ -470,7 +445,7 @@ FROM (
 
 
 -- 3.4 Aggregate the Funnel — The Full Picture
--- This is the payoff! SUM the flags and GROUP BY landing_page to compare
+-- SUM the flags and GROUP BY landing_page to compare
 -- /home vs /lp-1 side by side.
 --
 -- Final SELECT (add after your session_funnel_flags CTE):
@@ -506,12 +481,12 @@ FROM (
 
 
 -- ============================================================================
--- PART 4: QUANTIFY THE IMPACT — Show Me the Money (~25 min)
+-- PART 4: QUANTIFY THE IMPACT — Show Me the Money
 -- ============================================================================
 -- ============================================================================
 -- CHERYL EMAIL 3
 -- ============================================================================
--- From:    Cheryl, Website Manager
+-- From:    Cheryl, E-commerce Manager
 -- To:      You, Data Analyst
 -- Date:    Wednesday, February 25, 2026, 11:45 AM
 -- Subject: Billing page test — need revenue numbers
@@ -524,7 +499,7 @@ FROM (
 -- ============================================================================
 
 -- 4.1 Revenue per Billing Page Session (Part A)
--- This query does NOT need a CTE — it's a single step. CTEs are a tool,
+-- This query does NOT need a CTE. It's a single step. CTEs are a tool,
 -- not a requirement. Use them when they help readability.
 --
 -- Join website_pageviews to orders using website_session_id.
@@ -683,12 +658,12 @@ FROM (
 -- ============================================================================
 -- Review:    SELECT, FROM, WHERE, COUNT, SUM, ROUND, GROUP BY, ORDER BY
 -- Reinforce: LEFT JOIN, COUNT(col) skips NULL, CASE WHEN, Subqueries, NTILE
--- NEW:       WITH ... AS (CTE syntax) — named, reusable query blocks
--- NEW:       Multi-CTE chaining — comma-separated CTEs that build on each other
--- NEW:       ROW_NUMBER() OVER (PARTITION BY) — numbering rows within groups
--- NEW:       MAX(CASE WHEN) flag aggregation — "did this happen at least once?"
--- NEW:       Conversion funnel pattern — flag → collapse → count → rate
--- NEW:       Revenue per session — A/B test impact measurement
+-- NEW:       WITH ... AS (CTE syntax): named, reusable query blocks
+-- NEW:       Multi-CTE chaining: comma-separated CTEs that build on each other
+-- NEW:       ROW_NUMBER() OVER (PARTITION BY): numbering rows within groups
+-- NEW:       MAX(CASE WHEN) flag aggregation: "did this happen at least once?"
+-- NEW:       Conversion funnel pattern: flag → collapse → count → rate
+-- NEW:       Revenue per session: A/B test impact measurement
 --
 -- KEY PATTERNS LEARNED:
 -- * Landing Page:  ROW_NUMBER() → filter page_num = 1 → that's the landing page

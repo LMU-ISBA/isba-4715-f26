@@ -19,7 +19,7 @@ By the end of this lesson, you will be able to:
 
 ## The Scenario
 
-You're still a data analyst at **Basket Craft**. This time, Cheryl (Website Manager) needs your help understanding website performance:
+You're still a data analyst at **Basket Craft**. This time, Cheryl (E-commerce Manager) needs your help understanding website performance:
 
 > "I manage our website and I need to understand how visitors behave. Where do they land? How many bounce? And did our A/B tests actually work?"
 
@@ -91,5 +91,5 @@ Part 2:  DIAGNOSTIC — Find landing pages + calculate bounce rates (ROW_NUMBER)
 Part 3:  CONFIRM — Build a full conversion funnel A/B test (CTEs + CASE WHEN)
 Part 4:  QUANTIFY — Billing page revenue A/B test (revenue per session)
 Part 5:  Your Analysis — the complete story
-On Your Own: Three challenges that prep for Assignment 01 Tasks 1-3
+On Your Own: Two challenges that prep for Assignment 01 Tasks 1-2
 ```
