@@ -134,11 +134,9 @@ FROM (
 -- └──────────────────────────────────────────────────────────┘
 --
 -- CTE 1: rfm (same as B.2)
--- CTE 2: rfm_with_names — JOIN rfm to users ON user_id, add first_name
+-- CTE 2: rfm_with_names — JOIN rfm to users to get their name
 -- Final SELECT: Add NTILE(5) scores from rfm_with_names
---
--- HINT: Your second CTE should SELECT rfm.*, u.first_name, u.last_name
---       FROM rfm INNER JOIN users u ON rfm.user_id = u.user_id
+
 
 
 
