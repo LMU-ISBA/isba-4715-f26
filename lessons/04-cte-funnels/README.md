@@ -29,7 +29,8 @@ Your mission: Use CTEs and window functions to analyze website traffic, build co
 
 | File | Description |
 |------|-------------|
-| [lesson-04-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/04-cte-funnels/lesson-04-fname-lname.sql) | SQL worksheet template (download, rename with your name, open in DBeaver) |
+| [lesson-04-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/04-cte-funnels/lesson-04-fname-lname.sql) | Part 1: Bridge + landing pages + bounce rates (Monday session) |
+| [lesson-04-part-02-fname-lname.sql](https://lmu-isba.github.io/isba-4715-f26/lessons/04-cte-funnels/lesson-04-part-02-fname-lname.sql) | Part 2: Conversion funnels + A/B revenue + On Your Own (Wednesday session) |
 
 ## Prerequisites
 
@@ -85,11 +86,14 @@ MAX(CASE WHEN pageview_url = '/products' THEN 1 ELSE 0 END) AS to_products
 ## The Lesson Flow
 
 ```
-Bridge:  Refactor a Lesson 03 query from subqueries → CTEs
-Part 1:  DESCRIPTIVE — Explore the website_pageviews table
-Part 2:  DIAGNOSTIC — Find landing pages + calculate bounce rates (ROW_NUMBER)
-Part 3:  CONFIRM — Build a full conversion funnel A/B test (CTEs + CASE WHEN)
-Part 4:  QUANTIFY — Billing page revenue A/B test (revenue per session)
-Part 5:  Your Analysis — the complete story
-On Your Own: Two challenges that prep for Assignment 01 Tasks 1-2
+Part 1 file (Monday):
+  Bridge:  Refactor a Lesson 03 query from subqueries → CTEs
+  Part 1:  DESCRIPTIVE — Explore the website_pageviews table
+  Part 2:  DIAGNOSTIC — Find landing pages + calculate bounce rates (ROW_NUMBER)
+
+Part 2 file (Wednesday):
+  Part 3:  CONFIRM — Build a full conversion funnel A/B test (CTEs + CASE WHEN)
+  Part 4:  QUANTIFY — Billing page revenue A/B test (revenue per session)
+  Part 5:  Your Analysis — the complete story
+  On Your Own: Two challenges that prep for Assignment 01 Tasks 1-2
 ```
