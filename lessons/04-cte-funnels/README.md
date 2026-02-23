@@ -86,10 +86,10 @@ MAX(CASE WHEN pageview_url = '/products' THEN 1 ELSE 0 END) AS to_products
 
 ```
 Bridge:  Refactor a Lesson 03 query from subqueries → CTEs
-Part 1:  Explore the website_pageviews table
-Part 2:  Find landing pages + calculate bounce rates (ROW_NUMBER)
-Part 3:  Build a full conversion funnel A/B test (CTEs + CASE WHEN)
-Part 4:  Billing page revenue A/B test (revenue per session)
+Part 1:  DESCRIPTIVE — Explore the website_pageviews table
+Part 2:  DIAGNOSTIC — Find landing pages + calculate bounce rates (ROW_NUMBER)
+Part 3:  CONFIRM — Build a full conversion funnel A/B test (CTEs + CASE WHEN)
+Part 4:  QUANTIFY — Billing page revenue A/B test (revenue per session)
 Part 5:  Your Analysis — the complete story
 On Your Own: Three challenges that prep for Assignment 01 Tasks 1-3
 ```
