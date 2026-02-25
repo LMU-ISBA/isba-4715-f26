@@ -94,6 +94,5 @@ Part 1 file (Monday):
 Part 2 file (Wednesday):
   Part 3:  CONFIRM — Build a full conversion funnel A/B test (CTEs + CASE WHEN)
   Part 4:  QUANTIFY — Billing page revenue A/B test (revenue per session)
-  Part 5:  Your Analysis — the complete story
   On Your Own: Two challenges that prep for Assignment 01 Tasks 1-2
 ```
