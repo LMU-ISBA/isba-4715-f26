@@ -94,8 +94,9 @@ When writing SQL queries in worksheets and instructor keys:
 - Put each expression on its own line in multi-expression GROUP BY and ORDER BY clauses
 
 **Counting:**
-- Prefer `COUNT(column_name)` over `COUNT(*)` — it makes the intent explicit and avoids NULL confusion in LEFT JOINs
+- Prefer `COUNT(column_name)` over `COUNT(*)` everywhere — aggregates, window functions, subqueries
 - Use the primary key column when counting rows: `COUNT(order_id)` not `COUNT(*)`
+- Window aggregates follow the same rule: `COUNT(website_pageview_id) OVER (PARTITION BY ...)` not `COUNT(*) OVER (...)`
 - In conversion rate patterns, use `COUNT(right_table.pk) / COUNT(left_table.pk)` so students see consistent syntax on both sides of the formula
 
 **Naming:**

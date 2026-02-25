@@ -91,10 +91,10 @@
 -- Pick one session_id from the test period and look at ALL its pageviews.
 -- This grounds the abstract "funnel" concept in concrete data.
 --
--- HINT: Try session_id 1059 — it's a full conversion.
+-- HINT: Try session_id 11729 — it's a full conversion from the A/B test period.
 -- SELECT website_session_id, pageview_url
 -- FROM website_pageviews
--- WHERE website_session_id = 1059
+-- WHERE website_session_id = 11729
 -- ORDER BY website_pageview_id
 
 
@@ -158,7 +158,7 @@
 -- Date:    Wednesday, February 25, 2026, 11:45 AM
 -- Subject: Billing page test — need revenue numbers
 --
--- "We also tested a new billing page. From September 10 to November 10,
+-- "We also tested a new billing page. From September 10, 2023 to November 10, 2023,
 -- we split traffic between /billing (original) and /billing-2 (new design).
 -- I don't just want conversion rates this time — I want REVENUE. Which
 -- billing page generated more revenue per session? And can you estimate
@@ -168,11 +168,6 @@
 -- 4.1 Revenue per Billing Page Session (Part A)
 -- This query does NOT need a CTE. It's a single step. CTEs are a tool,
 -- not a requirement. Use them when they help readability.
---
--- Join website_pageviews to orders using website_session_id.
--- Filter to billing pages during the test period (Sept 10 to Nov 10).
--- Use LEFT JOIN because not every billing session placed an order.
--- Use COUNT(DISTINCT) to avoid duplicate sessions.
 --
 
 
@@ -206,46 +201,6 @@
 
 
 -- ============================================================================
--- PART 5: YOUR ANALYSIS
--- ============================================================================
-
--- THE COMPLETE STORY:
--- 1. What is the average number of pages per session? (Part 1)
---    ANSWER: _______________________________________________________________
---
--- 2. Which landing pages have the highest and lowest bounce rates? (Part 2)
---    ANSWER: Highest: __________________ Lowest: __________________
---
--- 3. In the A/B test, which landing page drove more orders? (Part 3)
---    ANSWER: _______________________________________________________________
---
--- 4. How much incremental revenue did the new billing page generate? (Part 4)
---    ANSWER: _______________________________________________________________
-
--- WHAT DID EACH LESSON TEACH YOU?
--- | Lesson | Scenario      | Key SQL Technique          | Business Output                      |
--- |--------|---------------|----------------------------|--------------------------------------|
--- | 01     | Campus Bites  | CASE WHEN, LAG()           | Identified what caused the drop      |
--- | 02     | Campus Bites  | Pivot, % of total          | Found what's working and why         |
--- | 03     | Basket Craft  | JOINs, Subqueries, NTILE   | Segmented customers for marketing    |
--- | 04     | Basket Craft  | CTEs, ROW_NUMBER, Funnels   | Measured A/B tests and revenue lift |
-
--- YOUR INSIGHT STATEMENT:
--- Write a single sentence summarizing your most important finding for Cheryl.
---
--- ANSWER: __________________________________________________________________
---
--- __________________________________________________________________________
-
--- YOUR RECOMMENDATION:
--- What is the single most impactful action Cheryl should take next?
---
--- ANSWER: __________________________________________________________________
---
--- __________________________________________________________________________
-
-
--- ============================================================================
 -- ON YOUR OWN: Assignment 01 Warm-Up Challenges
 -- ============================================================================
 -- These two challenges use the EXACT patterns you'll need for
@@ -263,15 +218,6 @@
 -- I want to show how we've grown over our first 8 months. Use data before
 -- today's date."
 -- ============================================================================
---
--- Tables: website_sessions LEFT JOIN orders ON website_session_id
--- GROUP BY: YEAR and MONTH of ws.created_at
--- Columns: order_year, order_month, month_name, total_sessions,
---          total_orders, conversion_rate_pct
--- Filter: ws.created_at < '2023-11-27'
---
--- HINT: COUNT(o.order_id) counts only sessions with orders (skips NULLs).
---       COUNT(ws.website_session_id) counts ALL sessions.
 
 
 
@@ -292,14 +238,6 @@
 -- awareness is picking up. If brand is growing, that's a good story to
 -- tell about our marketing strategy."
 -- ============================================================================
---
--- Columns: order_year, order_month, month_name,
---          nonbrand_sessions, brand_sessions
--- Filter: ws.utm_source = 'google' AND ws.created_at < '2023-11-27'
---
--- HINT:
---   COUNT(CASE WHEN ws.utm_campaign = 'nonbrand'
---         THEN ws.website_session_id END) AS nonbrand_sessions
 
 
 
