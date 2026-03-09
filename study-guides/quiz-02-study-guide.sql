@@ -14,8 +14,8 @@
 -- INSIGHTS: After running your queries, you will write insights based on
 -- the results. Write each insight as a SLIDE TITLE — a single takeaway
 -- statement you'd put on a presentation slide. For example:
---   "Google Drives 62% of Repeat Buyer Acquisitions"
---   "Dorm Students Account for 83% of June's Order Decline"
+--   "Evening Orders Grew 4x While Late Night Declined 50%"
+--   "Top 20% of Customers Generate 35% of Total Revenue"
 --
 -- TIP: Practice writing these queries from scratch without looking at the
 -- solutions. That's how you'll need to do it on the quiz.
