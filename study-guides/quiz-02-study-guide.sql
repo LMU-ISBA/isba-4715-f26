@@ -7,8 +7,15 @@
 -- MAX(CASE WHEN) flag aggregation, and NTILE().
 --
 -- IMPORTANT: Quiz 2 is CLOSED BOOK. You cannot use notes, lessons, or
--- documentation during the quiz. Use this study guide to practice the
+-- documentation during the quiz. You will have the ENTIRE CLASS PERIOD
+-- (100 minutes) to complete it. Use this study guide to practice the
 -- patterns you need to memorize.
+--
+-- INSIGHTS: After running your queries, you will write insights based on
+-- the results. Write each insight as a SLIDE TITLE — a single takeaway
+-- statement you'd put on a presentation slide. For example:
+--   "Google Drives 62% of Repeat Buyer Acquisitions"
+--   "Dorm Students Account for 83% of June's Order Decline"
 --
 -- TIP: Practice writing these queries from scratch without looking at the
 -- solutions. That's how you'll need to do it on the quiz.
