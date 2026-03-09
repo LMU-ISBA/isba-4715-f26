@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 05: Data Storytelling | ISBA 4715</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2332;
+      --navy-light: #2a3a52;
+      --gold: #c9a84c;
+      --gold-muted: #d4b96a;
+      --cream: #faf8f4;
+      --warm-white: #fffdf9;
+      --text: #2c2c2c;
+      --text-muted: #5a5a5a;
+      --border: #e2ddd5;
+      --green: #2d6a4f;
+      --green-bg: #f0f7f2;
+      --green-border: #b7d7c2;
+      --red: #9b2c2c;
+      --red-bg: #fdf2f2;
+      --red-border: #e8b4b4;
+      --blue-bg: #eef3f8;
+      --blue-border: #b4c8db;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', Georgia, serif;
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Slide container ───────────────────── */
+    .deck { position: relative; width: 1280px; height: 720px; }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1280px;
+      height: 720px;
+      background: var(--cream);
+      display: none;
+      flex-direction: column;
+      padding: 60px 80px;
+      overflow: hidden;
+    }
+
+    .slide.active { display: flex; }
+
+    /* ── Slide counter ─────────────────────── */
+    .slide-counter {
+      position: fixed;
+      bottom: 16px;
+      right: 24px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      z-index: 100;
+    }
+
+    /* ── Typography ─────────────────────────── */
+    .slide-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 30px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .slide-subtitle {
+      font-size: 24px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .slide-body {
+      font-size: 22px;
+      color: var(--text);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .slide-body p { margin-bottom: 16px; }
+    .slide-body ul, .slide-body ol { margin-left: 32px; margin-bottom: 16px; }
+    .slide-body li { margin-bottom: 10px; }
+
+    /* ── Title slide ───────────────────────── */
+    .slide.title-slide {
+      background: var(--navy);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .title-slide .header-label {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .title-slide .slide-title {
+      color: white;
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .title-slide .slide-subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 26px;
+    }
+
+    .title-slide .gold-rule {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin: 24px auto 0;
+    }
+
+    /* ── Framework list ─────────────────────── */
+    .framework-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .framework-list li {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      margin-bottom: 10px;
+      background: var(--warm-white);
+      border-radius: 8px;
+      border-left: 4px solid var(--border);
+      font-size: 22px;
+      color: var(--text);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .framework-list li.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .framework-list li.active {
+      background: var(--blue-bg);
+      border-left-color: var(--gold);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      background: var(--navy);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-right: 16px;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .framework-list li.active .step-number {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .step-word {
+      font-weight: 700;
+      color: var(--navy);
+      margin-right: 6px;
+    }
+
+    /* ── Data table ─────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 18px;
+      margin: 16px 0;
+    }
+
+    .data-table th {
+      background: var(--navy);
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .data-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table tr:nth-child(even) td { background: rgba(26,35,50,0.02); }
+
+    .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* ── Exercise box ──────────────────────── */
+    .exercise-box {
+      background: var(--blue-bg);
+      border: 2px solid var(--blue-border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin: 16px 0;
+    }
+
+    .exercise-box h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--navy);
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .exercise-box ol, .exercise-box ul { margin-left: 24px; }
+    .exercise-box li { margin-bottom: 8px; font-size: 20px; }
+
+    /* ── Time badge ─────────────────────────── */
+    .time-badge {
+      position: absolute;
+      top: 28px;
+      right: 40px;
+      background: var(--navy);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Comparison layout ──────────────────── */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 20px 0;
+    }
+
+    .comparison-item {
+      padding: 28px;
+      border-radius: 10px;
+    }
+
+    .comparison-item.before {
+      background: var(--red-bg);
+      border: 2px solid var(--red-border);
+    }
+
+    .comparison-item.after {
+      background: var(--green-bg);
+      border: 2px solid var(--green-border);
+    }
+
+    .comparison-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .comparison-item.before .comparison-label { color: var(--red); }
+    .comparison-item.after .comparison-label { color: var(--green); }
+
+    .descriptive-title {
+      background: white;
+      color: var(--text-muted);
+      padding: 16px 24px;
+      border-radius: 6px;
+      font-size: 22px;
+      border-left: 4px solid var(--red);
+    }
+
+    .takeaway-title-box {
+      background: white;
+      color: var(--navy);
+      padding: 16px 24px;
+      border-radius: 6px;
+      font-size: 22px;
+      font-weight: 600;
+      border-left: 4px solid var(--green);
+    }
+
+    /* ── Framing grid ──────────────────────── */
+    .framing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .framing-box {
+      padding: 24px 28px;
+      border-radius: 10px;
+    }
+
+    .framing-box.positive { background: var(--green-bg); border: 2px solid var(--green-border); }
+    .framing-box.negative { background: var(--red-bg); border: 2px solid var(--red-border); }
+
+    .framing-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .framing-box.positive .framing-label { color: var(--green); }
+    .framing-box.negative .framing-label { color: var(--red); }
+
+    .framing-example {
+      font-size: 19px;
+      color: var(--navy);
+      margin-bottom: 10px;
+      padding: 10px 14px;
+      background: white;
+      border-radius: 6px;
+      border-left: 3px solid;
+    }
+
+    .framing-box.positive .framing-example { border-left-color: var(--green); }
+    .framing-box.negative .framing-example { border-left-color: var(--red); }
+
+    /* ── Case comparison ───────────────────── */
+    .case-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .case-label {
+      width: 180px;
+      font-size: 18px;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .case-example {
+      flex: 1;
+      font-size: 28px;
+      padding: 20px 28px;
+      border-radius: 8px;
+    }
+
+    .case-pass {
+      background: var(--green-bg);
+      color: var(--navy);
+      border: 2px solid var(--green-border);
+      font-weight: 600;
+    }
+
+    .case-fail {
+      background: rgba(26,35,50,0.04);
+      color: var(--text-muted);
+      border: 2px solid var(--border);
+      text-decoration: line-through;
+      text-decoration-color: var(--red);
+    }
+
+    .case-icon { margin-left: 16px; font-size: 24px; }
+
+    /* ── Quote slide ───────────────────────── */
+    .quote-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+    }
+
+    .main-quote {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.4;
+      max-width: 880px;
+      margin-bottom: 40px;
+    }
+
+    .sub-quote {
+      font-size: 24px;
+      color: var(--text-muted);
+      max-width: 700px;
+    }
+
+    .test-box {
+      position: absolute;
+      bottom: 70px;
+      left: 80px;
+      right: 80px;
+      background: var(--blue-bg);
+      border: 2px solid var(--blue-border);
+      border-radius: 10px;
+      padding: 16px 28px;
+      text-align: center;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .test-label { font-weight: 700; color: var(--gold); }
+
+    /* ── Callout grid ──────────────────────── */
+    .callout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .callout-card {
+      background: var(--warm-white);
+      padding: 20px 24px;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+
+    .callout-card h4 {
+      font-size: 18px;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .callout-card ul { margin-left: 20px; font-size: 18px; }
+    .callout-card li { margin-bottom: 6px; }
+
+    .callout-card:nth-child(1) { border-left-color: var(--gold); }
+    .callout-card:nth-child(2) { border-left-color: var(--navy); }
+
+    /* ── Recommendation format ─────────────── */
+    .rec-format-slide {
+      background: var(--warm-white);
+      border-left: 4px solid var(--gold);
+      padding: 20px 28px;
+      margin: 16px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 24px;
+    }
+
+    /* ── AI prompt box ─────────────────────── */
+    .ai-prompt {
+      background: var(--warm-white);
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Key point box ─────────────────────── */
+    .key-point {
+      text-align: center;
+      margin-top: 28px;
+      padding: 20px 28px;
+      background: var(--blue-bg);
+      border-radius: 10px;
+    }
+
+    .key-point p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      color: var(--navy);
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .key-point .kp-sub {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 18px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 6px;
+    }
+
+    /* ── Highlight word ─────────────────────── */
+    .hl { color: var(--gold); font-weight: 700; }
+
+    /* ── Responsive ─────────────────────────── */
+    @media (max-width: 1400px) {
+      .deck { transform: scale(0.85); transform-origin: center center; }
+    }
+    @media (max-width: 1200px) {
+      .deck { transform: scale(0.7); transform-origin: center center; }
+    }
+    @media (max-width: 900px) {
+      .deck { transform: scale(0.55); transform-origin: center center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 1: Title
+       ══════════════════════════════════════════ -->
+  <div class="slide title-slide active" data-slide="1">
+    <div class="header-label">ISBA 4715 &middot; Lesson 05</div>
+    <h1 class="slide-title">Data Storytelling</h1>
+    <p class="slide-subtitle">Write titles that tell people what to do, not just what happened</p>
+    <div class="gold-rule"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 2: DC ACT Framework
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="2" data-animated="true">
+    <h1 class="slide-title">The Analytics Framework</h1>
+
+    <ul class="framework-list" id="framework-list">
+      <li>
+        <span class="step-number">1</span>
+        <span class="step-word">Define</span>
+        the business problem
+      </li>
+      <li>
+        <span class="step-number">2</span>
+        <span class="step-word">Collect</span>
+        and prepare the data
+      </li>
+      <li>
+        <span class="step-number">3</span>
+        <span class="step-word">Analyze</span>
+        the data and generate insights
+      </li>
+      <li class="active">
+        <span class="step-number">4</span>
+        <span class="step-word">Communicate</span>
+        the insights, recommendations, and predictions
+      </li>
+      <li>
+        <span class="step-number">5</span>
+        <span class="step-word">Act</span>
+        and track the change
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 3: Scenario
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="3">
+    <h1 class="slide-title">Your Scenario</h1>
+
+    <div class="exercise-box" style="margin-bottom: 20px;">
+      <h3>Marketing Channel ROI Analysis</h3>
+      <p style="margin-bottom: 8px; font-size: 20px;">You are a marketing analyst presenting Q4 results to the CMO.</p>
+      <p style="margin-bottom: 0; font-size: 20px;">Your goal: help leadership decide where to put next quarter's budget.</p>
+    </div>
+
+    <div class="slide-body">
+      <p><strong>The situation:</strong> Four marketing channels each got $25,000 in Q4. Performance varied. The CMO needs a clear recommendation.</p>
+      <p style="font-size: 24px; color: var(--navy); font-weight: 600;">Your job: create a slide that communicates what happened and what to do next.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 4: Dataset
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="4">
+    <h1 class="slide-title">Marketing Channel ROI Data</h1>
+    <p class="slide-subtitle">Q4 Performance &mdash; Equal budget: $25K per channel</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Spend</th>
+          <th>Impressions</th>
+          <th>Clicks</th>
+          <th>Conversions</th>
+          <th>Conv. Rate</th>
+          <th>Cost / Conv.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Paid Search</td>
+          <td class="num">$25,000</td>
+          <td class="num">500,000</td>
+          <td class="num">15,000</td>
+          <td class="num">350</td>
+          <td class="num">2.3%</td>
+          <td class="num">$71</td>
+        </tr>
+        <tr>
+          <td>Social Media</td>
+          <td class="num">$25,000</td>
+          <td class="num">1,200,000</td>
+          <td class="num">8,000</td>
+          <td class="num">85</td>
+          <td class="num">1.1%</td>
+          <td class="num">$294</td>
+        </tr>
+        <tr>
+          <td>Email Marketing</td>
+          <td class="num">$25,000</td>
+          <td class="num">150,000</td>
+          <td class="num">12,000</td>
+          <td class="num">420</td>
+          <td class="num">3.5%</td>
+          <td class="num">$60</td>
+        </tr>
+        <tr>
+          <td>Display Ads</td>
+          <td class="num">$25,000</td>
+          <td class="num">2,000,000</td>
+          <td class="num">4,000</td>
+          <td class="num">45</td>
+          <td class="num">1.1%</td>
+          <td class="num">$556</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 5: Group Exercise #1
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="5">
+    <span class="time-badge">20 minutes</span>
+    <h1 class="slide-title">Group Exercise #1</h1>
+    <p class="slide-subtitle">Create your first slide</p>
+
+    <div class="exercise-box">
+      <h3>Your Task</h3>
+      <ol>
+        <li>Get into groups of 3&ndash;4</li>
+        <li>Analyze the Marketing Channel ROI data</li>
+        <li>Find the most important thing in the data</li>
+        <li>Replace the placeholder slide title</li>
+        <li>You can update anything as long as the data is still represented</li>
+        <li>Edit <a href="https://docs.google.com/presentation/d/16HeLjU7ou7_x8jy4sElKXcO_3IhkKPsR-AxqmHbwGm4/edit?usp=sharing" target="_blank" style="color: var(--gold); font-weight: 700;">your group's slide</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 6: Before / After (Gap Reveal)
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="6">
+    <h1 class="slide-title">The Power of a Takeaway Title</h1>
+
+    <div class="comparison">
+      <div class="comparison-item before">
+        <div class="comparison-label">Before: descriptive title</div>
+        <div class="descriptive-title">Q4 Marketing Channel Performance</div>
+        <p style="font-size: 17px; color: var(--text-muted); margin-top: 14px;">
+          Labels the topic. The CMO has to study the data and figure out the conclusion herself.
+        </p>
+      </div>
+
+      <div class="comparison-item after">
+        <div class="comparison-label">After: takeaway title</div>
+        <div class="takeaway-title-box">Email marketing delivers 9x more conversions per dollar than display ads</div>
+        <p style="font-size: 17px; color: var(--text-muted); margin-top: 14px;">
+          States what happened. The CMO reads the title and immediately knows where to reallocate budget.
+        </p>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p>Which slide helps the CMO decide faster?</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 7: What Makes a Takeaway Title
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="7">
+    <h1 class="slide-title">What Makes a Takeaway Title</h1>
+
+    <div class="slide-body">
+      <p style="font-size: 26px; margin-bottom: 28px;">Your title is the most important part of the slide. It should answer: <strong style="color: var(--gold);">"So what?"</strong></p>
+
+      <ul style="font-size: 22px; line-height: 2;">
+        <li>What is the main finding?</li>
+        <li>What should the audience do about it?</li>
+        <li>If they read nothing else, do they get it?</li>
+      </ul>
+
+      <div class="key-point" style="margin-top: 40px;">
+        <p>A descriptive title labels the category.<br>A Takeaway Title states the conclusion.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 8: Same Data, Different Stories
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="8">
+    <h1 class="slide-title">Same Data, Different Stories</h1>
+    <p class="slide-subtitle">Your title tells the audience how to feel about the data</p>
+
+    <div class="framing-grid">
+      <div class="framing-box positive">
+        <div class="framing-label">Positive framing</div>
+        <div class="framing-example">NPS is showing growth over time</div>
+        <div class="framing-example">We're improving but still behind competitors</div>
+        <div class="framing-example">Net Promoter Score has room to grow</div>
+      </div>
+      <div class="framing-box negative">
+        <div class="framing-label">Negative framing</div>
+        <div class="framing-example">Our NPS needs urgent attention</div>
+        <div class="framing-example">Competitors are pulling ahead in NPS</div>
+        <div class="framing-example">We're in the bottom quartile of NPS</div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <p>Same numbers, different stories. Pick the framing that matches your call to action.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 9: Sentence Case
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="9">
+    <h1 class="slide-title">Use Sentence Case</h1>
+
+    <div style="margin-top: 40px;">
+      <div class="case-row">
+        <div class="case-label">Takeaway Title</div>
+        <div class="case-example case-pass">
+          NPS is increasing over time
+          <span class="case-icon" style="color: var(--green);">&#10003;</span>
+        </div>
+      </div>
+
+      <div class="case-row">
+        <div class="case-label">Descriptive Title</div>
+        <div class="case-example case-fail">
+          NPS Over Time
+          <span class="case-icon" style="color: var(--red);">&#10007;</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-point" style="margin-top: 48px;">
+      <p>Sentence case signals a complete thought, not a label.</p>
+      <p class="kp-sub">If it reads like a sentence, it's probably a Takeaway Title.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 10: The Manager Test
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="10">
+    <h1 class="slide-title">The Manager Test</h1>
+
+    <div class="quote-center">
+      <p class="main-quote">
+        A manager should be able to<br>
+        just read the <span class="hl">Takeaway Titles</span>.
+      </p>
+      <p class="sub-quote">
+        If they need supporting evidence,<br>they can look at the rest of the slide.
+      </p>
+    </div>
+
+    <div class="test-box">
+      <p><span class="test-label">Quick test:</span> If someone reads only your titles and skips everything else, do they get the findings and know what to do?</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 11: Callouts
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="11">
+    <h1 class="slide-title">Adding Callouts to Your Data</h1>
+    <p class="slide-subtitle">Point the viewer's eye to what matters</p>
+
+    <div class="slide-body">
+      <p>You don't need fancy charts. <strong>Screenshot your data table</strong> and mark it up. See <a href="https://sherwood.news/chartr/newsletters/" target="_blank" style="color: var(--gold); font-weight: 600;">Chartr Newsletters</a> for good examples of callouts in action.</p>
+
+      <div class="callout-grid" style="margin-top: 16px;">
+        <div class="callout-card">
+          <h4>What to add</h4>
+          <ul>
+            <li><strong>Circle</strong> the most important numbers</li>
+            <li><strong>Arrow</strong> pointing to the outlier</li>
+            <li><strong>Bold or color</strong> one row</li>
+            <li><strong>Text box</strong> with a note: "Lowest cost!"</li>
+          </ul>
+        </div>
+        <div class="callout-card">
+          <h4>How to add them</h4>
+          <ul>
+            <li><strong>Slides / PowerPoint:</strong> Insert &rarr; Shape</li>
+            <li><strong>Text box:</strong> Insert &rarr; Text box</li>
+            <li><strong>Highlight:</strong> Select cell &rarr; Fill color</li>
+            <li>Paste the table as an image first</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 12: Recommendation Format
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="12">
+    <h1 class="slide-title">Write a Specific Recommendation</h1>
+    <p class="slide-subtitle">Place it below your visualization</p>
+
+    <div class="rec-format-slide">
+      <strong>Recommendation:</strong> <em>[Action] &rarr; [Expected outcome]</em>
+    </div>
+
+    <div class="comparison" style="margin-top: 24px;">
+      <div class="comparison-item before">
+        <div class="comparison-label">Vague &mdash; fails</div>
+        <p style="font-size: 20px; color: var(--red); margin: 8px 0;">"We should improve marketing"</p>
+        <p style="font-size: 20px; color: var(--red); margin: 8px 0;">"Look into customer issues"</p>
+      </div>
+      <div class="comparison-item after">
+        <div class="comparison-label">Specific &mdash; passes</div>
+        <p style="font-size: 20px; color: var(--green); font-weight: 600; margin: 8px 0;">"Shift 40% of display budget to email &rarr; projected 200+ additional conversions next quarter"</p>
+        <p style="font-size: 20px; color: var(--green); font-weight: 600; margin: 8px 0;">"Pilot a mentorship program in Sales &rarr; target reducing turnover from 24% to under 15%"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 13: Group Exercise #2
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="13">
+    <span class="time-badge">10 minutes</span>
+    <h1 class="slide-title">Group Exercise #2</h1>
+    <p class="slide-subtitle">Revise your slide</p>
+
+    <div class="exercise-box">
+      <h3>Your Task</h3>
+      <ol>
+        <li>Go back to your slide from Exercise #1</li>
+        <li>Rewrite your title as a <strong>Takeaway Title</strong></li>
+        <li>Add a <strong>callout</strong> to your data</li>
+        <li>Add a <strong>recommendation</strong> below the visualization</li>
+        <li>Use AI to brainstorm title options (optional)</li>
+      </ol>
+    </div>
+
+    <div class="slide-body">
+      <p><strong>AI prompt tip:</strong></p>
+      <div class="ai-prompt">
+        "I have data showing [your findings]. Help me write 3 Takeaway Titles for a slide. The audience is a CMO deciding on budget allocation."
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SLIDE 14: Take-Home Lesson Exercises
+       ══════════════════════════════════════════ -->
+  <div class="slide" data-slide="14">
+    <h1 class="slide-title">Lesson Exercises 05</h1>
+    <p class="slide-subtitle">Take-home &mdash; due date on Brightspace</p>
+
+    <div class="exercise-box">
+      <h3>Your Assignment</h3>
+      <ol>
+        <li>Pick <strong>ONE</strong> of two datasets (Website Traffic or Employee Satisfaction)</li>
+        <li>Find the insight in the data</li>
+        <li>Build a single slide with a <strong>Takeaway Title</strong>, a <strong>callout</strong>, and a <strong>recommendation</strong></li>
+        <li>Submit as a single-page PDF</li>
+      </ol>
+    </div>
+
+    <div class="slide-body">
+      <p><strong>You'll be graded on three things:</strong></p>
+      <ol style="font-size: 22px;">
+        <li>Does it have a Takeaway Title?</li>
+        <li>Does it have a callout that points to the evidence?</li>
+        <li>Does it have a recommendation stating what to do?</li>
+      </ol>
+    </div>
+  </div>
+
+</div><!-- end .deck -->
+
+<div class="slide-counter" id="counter">1 / 14</div>
+
+<script>
+(function() {
+  var slides = document.querySelectorAll('.slide');
+  var counter = document.getElementById('counter');
+  var total = slides.length;
+  var current = 0;
+
+  // Framework animation state
+  var frameworkStep = 0;
+  var frameworkItems = null;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, total - 1));
+    slides[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + total;
+
+    // Reset framework animation when entering slide 2
+    if (current === 1) {
+      frameworkItems = slides[1].querySelectorAll('.framework-list li');
+      frameworkStep = 0;
+      frameworkItems.forEach(function(item) {
+        item.classList.remove('visible');
+      });
+    }
+  }
+
+  function handleNav(direction) {
+    // Handle framework animation on slide 2
+    if (current === 1 && frameworkItems && direction === 1) {
+      if (frameworkStep < frameworkItems.length) {
+        frameworkItems[frameworkStep].classList.add('visible');
+        frameworkStep++;
+        return; // Don't advance slide yet
+      }
+    }
+    showSlide(current + direction);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      handleNav(1);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      handleNav(-1);
+    }
+  });
+
+  // Click navigation: left 30% goes back, right 70% goes forward
+  document.addEventListener('click', function(e) {
+    var x = e.clientX / window.innerWidth;
+    handleNav(x < 0.3 ? -1 : 1);
+  });
+})();
+</script>
+
+</body>
+</html>
