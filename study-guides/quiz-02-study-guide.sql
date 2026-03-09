@@ -16,6 +16,8 @@
 -- (a web-based SQL editor). You will write and run your queries in
 -- CloudBeaver against the quiz database.
 --
+-- Quiz database: https://r.isba.co/sql-quiz-db
+--
 -- To familiarize yourself with CloudBeaver before the quiz, try the demo:
 -- https://demo.cloudbeaver.io/
 --
