@@ -229,9 +229,11 @@ lesson-*-key.*
 assignment_*_key*
 **/assignment_*_key*
 
-# Facilitator guides (keep private from students)
+# Facilitator/facilitation guides (keep private from students)
 *-facilitator-guide.*
 **/*-facilitator-guide.*
+*-facilitation-guide.*
+**/*-facilitation-guide.*
 
 # Quizzes (keep private from students)
 quizzes/
