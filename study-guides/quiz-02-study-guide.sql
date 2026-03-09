@@ -11,6 +11,14 @@
 -- (100 minutes) to complete it. Use this study guide to practice the
 -- patterns you need to memorize.
 --
+-- QUIZ ENVIRONMENT: You will take the quiz on the CLASSROOM COMPUTERS.
+-- Internet access will be restricted to Brightspace and CloudBeaver
+-- (a web-based SQL editor). You will write and run your queries in
+-- CloudBeaver against the quiz database.
+--
+-- To familiarize yourself with CloudBeaver before the quiz, try the demo:
+-- https://demo.cloudbeaver.io/
+--
 -- INSIGHTS: After running your queries, you will write insights based on
 -- the results. Write each insight as a SLIDE TITLE — a single takeaway
 -- statement you'd put on a presentation slide. For example:
