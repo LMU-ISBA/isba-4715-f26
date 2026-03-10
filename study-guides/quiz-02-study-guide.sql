@@ -130,8 +130,9 @@
 -- ============================================================================
 -- PRACTICE 1: JOIN + GROUP BY
 -- ============================================================================
--- For each user, count their total website sessions and total orders.
--- Show the top 5 most active users by session count.
+-- For each marketing channel (utm_source), count the total website sessions
+-- and total orders. Calculate a conversion rate as:
+--   total_orders / total_sessions * 100
 --
 -- Tables: website_sessions, orders
 -- JOIN ON: website_session_id
@@ -143,8 +144,8 @@
 
 
 
--- ANSWER: How many sessions does the most active user have? _____________
--- ANSWER: How many orders did they place? _____________
+-- ANSWER: Which channel has the most sessions?              _____________
+-- ANSWER: Which channel has the highest conversion rate?    _____________
 
 
 -- ============================================================================
