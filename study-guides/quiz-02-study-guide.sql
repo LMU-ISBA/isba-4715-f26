@@ -256,9 +256,9 @@ ORDER BY order_year, order_month;
 -- Score ALL customers into QUINTILES (5 tiers) by total spending.
 -- Show summary statistics per tier.
 --
--- Step 1: CTE (customer_totals) — total_orders and total_spending per user_id
--- Step 2: Subquery or CTE with NTILE(5) OVER (ORDER BY total_spending DESC)
--- Step 3: GROUP BY spending_quintile, show COUNT, MIN, MAX, AVG spending
+-- Step 1: CTE — GROUP BY user_id, calculate total_spending, add
+--         NTILE(5) OVER (ORDER BY SUM(price_usd) DESC) AS spending_quintile
+-- Step 2: GROUP BY spending_quintile, show COUNT, MIN, MAX, AVG spending
 --
 -- Write your query below:
 
