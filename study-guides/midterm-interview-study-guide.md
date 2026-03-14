@@ -40,11 +40,11 @@ Schedule the interview for a 25-minute slot. There is a 5-minute buffer between 
 
 ## Environment
 
-The interview will be conducted over **Zoom**. You will use **DBeaver** (the same desktop SQL client from class) connected to the `basket_craft` database.
+The interview will be conducted over **Zoom** at https://lmula.zoom.us/my/lontok. You will use **DBeaver** (the same desktop SQL client from class) connected to the `basket_craft` database.
 
 **Before your interview:**
 1. Open DBeaver and verify you can connect to the `basket_craft` database
-2. Join the Zoom meeting 2-3 minutes early
+2. Join the Zoom meeting 2-3 minutes early: https://lmula.zoom.us/my/lontok
 3. Have your screen ready to share (DBeaver open, connected)
 4. Enable your video and microphone
 
