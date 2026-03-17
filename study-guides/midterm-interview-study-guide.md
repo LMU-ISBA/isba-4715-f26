@@ -200,7 +200,7 @@ Before the interview, practice narrating your thought process while writing SQL.
 
 ## Practice Scenarios
 
-These are *not* the actual interview problems, but they follow the same format. Practice scoping the problem, planning your approach, and writing the query from scratch.
+These are *not* the actual interview problems, but they follow the same format. Practice scoping the problem, planning your approach, and writing the query from scratch. Try each one on your own first, then check the walkthrough.
 
 ### Scenario A: Product Performance
 
@@ -213,6 +213,8 @@ These are *not* the actual interview problems, but they follow the same format. 
 - What aggregation? (SUM revenue, COUNT orders, GROUP BY product)
 - How could you layer on a CTE or window function? (Rank products by profit margin, or compare to the average)
 
+[Scenario A Walkthrough](practice-scenario-a-walkthrough.md)
+
 ### Scenario B: Customer Retention
 
 > The VP of Marketing asks: "We're spending a lot on acquiring new customers. Are they coming back, or are we losing them after the first purchase?"
@@ -224,6 +226,8 @@ These are *not* the actual interview problems, but they follow the same format. 
 - What concepts apply? (GROUP BY user_id, HAVING, CASE WHEN for flagging, possibly ROW_NUMBER for first order date)
 - How could Step 2 build on this? (CTE to calculate repeat purchase rate by cohort, or NTILE to segment by purchase frequency)
 
+[Scenario B Walkthrough](practice-scenario-b-walkthrough.md)
+
 ### Scenario C: Channel Effectiveness
 
 > The Digital Marketing Manager says: "I need to know which channels are actually converting visitors into paying customers. We might be wasting budget."
@@ -234,6 +238,8 @@ These are *not* the actual interview problems, but they follow the same format. 
 - What JOIN pattern? (LEFT JOIN — not every session results in an order)
 - What's the key metric? (Conversion rate: COUNT(order_id) / COUNT(website_session_id) * 100.0)
 - How could Step 2 extend this? (CTE + window function to show conversion rate trend over time, or CASE WHEN to compare desktop vs. mobile)
+
+[Scenario C Walkthrough](practice-scenario-c-walkthrough.md)
 
 ---
 
