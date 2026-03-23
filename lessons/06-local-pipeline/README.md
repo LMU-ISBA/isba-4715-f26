@@ -89,6 +89,10 @@ All tools will be installed during Session 1 in class. The tutorial covers each 
 
 ## Key Concepts
 
+### From MySQL to PostgreSQL
+
+In Lessons 01-05 you used MySQL. Starting now, you will use PostgreSQL. Your SQL knowledge carries over — the queries are nearly identical. PostgreSQL is the industry standard for data engineering and analytics, and the data warehouse tools you will use later in the course (Snowflake, dbt) are built on its SQL dialect.
+
 ### From Analyst to Engineer
 
 In Lessons 01-05, someone else set up the database and you wrote queries against it. Starting now, you are responsible for the full stack: getting the data, storing it, and querying it.

@@ -144,6 +144,10 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
 
 **Why this technique matters:** In the real world, you often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach. You just arrived at Docker and PostgreSQL without needing to know those terms upfront.
 
+**MySQL vs. PostgreSQL:** In Lessons 01-05 you used MySQL. Now you are using PostgreSQL. Both are relational databases and your SQL knowledge transfers directly — SELECT, FROM, WHERE, GROUP BY, JOINs, CTEs, and window functions all work the same way. The differences are small (e.g., PostgreSQL uses `LIMIT` instead of `LIMIT` — actually both do, so most of your queries will run without changes).
+
+So why switch? PostgreSQL is the standard in data engineering and analytics. It has better support for complex queries, JSON data, and advanced data types. Snowflake (which you will use starting in MP2), Amazon Redshift, and most modern data warehouses are all based on PostgreSQL's SQL dialect. dbt also works best with PostgreSQL-family databases. Learning PostgreSQL now means the SQL you write will carry directly into the data warehouse and production tools you will use for the rest of the course and in industry.
+
 **A note on credentials:** The username and password in this docker-compose.yml are for a local development database. This is fine because the database only runs on your laptop. When you work with cloud databases later in the course, you will use environment variables to keep credentials out of your code.
 
 **Checkpoint:** Ask Claude Code to verify the database is running. You should see a running PostgreSQL container.
