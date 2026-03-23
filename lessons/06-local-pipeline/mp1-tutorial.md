@@ -160,7 +160,7 @@ Now you will set up your project directory and start working with Claude Code.
    ```bash
    mkdir data
    ```
-   Copy the `campus_bites_orders.csv` file from the course materials into the `data/` folder. You can drag and drop it in Cursor's file explorer, or use `cp` on the command line.
+   Download [`campus_bites_orders.csv`](https://lmu-isba.github.io/isba-4715-f26/lessons/06-local-pipeline/data/campus_bites_orders.csv) and save it into the `data/` folder. You can also drag and drop it in Cursor's file explorer.
 
 4. Now open this project folder in Cursor so you can see the files in the sidebar. Go to **File > Open Folder** and select `~/isba-4715/campus-bites-pipeline`. You should see your `data/` folder in the file explorer on the left.
 
