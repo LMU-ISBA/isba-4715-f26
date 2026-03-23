@@ -38,9 +38,12 @@ Cursor is a code editor built on VS Code with AI features built in. It is where 
 
 1. Go to [cursor.com](https://www.cursor.com/) and download the installer for your operating system.
 2. Run the installer.
-3. Open Cursor and sign in with your GitHub account.
+   - **Mac:** Open the .dmg file and drag Cursor to your Applications folder.
+   - **Windows:** Run the .exe installer and follow the prompts.
+3. Open Cursor. It will ask you to create a Cursor account. Choose **Sign in with GitHub** (if you don't have a GitHub account yet, create one at [github.com](https://github.com) first — pick a professional username, recruiters will see it).
+4. Cursor may ask a few setup questions (how you plan to use it, etc.). Answer however you like — these do not affect functionality.
 
-**Checkpoint:** Cursor opens and you see a welcome screen or an empty editor window.
+**Checkpoint:** Cursor opens and you see an editor window. You are signed in (your name appears in the bottom-left corner).
 
 ---
 
