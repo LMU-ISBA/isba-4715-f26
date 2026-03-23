@@ -126,7 +126,13 @@ Now you will set up your project directory and start working with Claude Code.
 
 **What to do:**
 
-1. Open a terminal in Cursor. Create a folder to keep all your work for this course organized in one place, then create the project folder inside it:
+1. Open a terminal in Cursor. If you don't see a terminal panel at the bottom of the window:
+   - **Keyboard shortcut:** Press `` Ctrl+` `` (that's the backtick key, usually above Tab)
+   - **Menu:** Go to **Terminal > New Terminal** from the menu bar at the top
+
+   If you are still inside a Claude Code session from Step 2, type `/exit` first to get back to your normal terminal prompt (you should see a `$` or `%` sign).
+
+2. Create a folder to keep all your work for this course organized in one place, then create the project folder inside it:
 
    ```bash
    mkdir -p ~/isba-4715 && cd ~/isba-4715
@@ -144,13 +150,17 @@ Now you will set up your project directory and start working with Claude Code.
    └── your-project-name/         <-- Independent project
    ```
 
-2. Create a `data` subfolder and copy the CSV file into it:
+3. Create a `data` subfolder and copy the CSV file into it:
    ```bash
    mkdir data
    ```
    Copy the `campus_bites_orders.csv` file from the course materials into the `data/` folder. You can drag and drop it in Cursor's file explorer, or use `cp` on the command line.
 
-3. Start Claude Code:
+4. Now open this project folder in Cursor so you can see the files in the sidebar. Go to **File > Open Folder** and select `~/isba-4715/campus-bites-pipeline`. You should see your `data/` folder in the file explorer on the left.
+
+5. Open a new terminal in this project (`` Ctrl+` `` or **Terminal > New Terminal**). The terminal should now show `campus-bites-pipeline` in the prompt, meaning you are inside your project folder.
+
+6. Start Claude Code:
    ```bash
    claude
    ```
