@@ -153,11 +153,13 @@ Now you will use Claude Code to write a Python script that reads the CSV and loa
    claude
    ```
 
-2. Type this prompt:
+2. Type this prompt, using the `@` symbol to reference the CSV file:
 
    ```
-   Write a Python script that reads data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. The connection details are: host localhost, port 5432, database campus_bites, username student, password student123. The script should create the table if it doesn't exist.
+   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. The connection details are: host localhost, port 5432, database campus_bites, username student, password student123. The script should create the table if it doesn't exist.
    ```
+
+   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
 3. Claude Code will generate a Python script. Review the code and accept it.
 
