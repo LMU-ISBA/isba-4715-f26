@@ -18,11 +18,31 @@ The site auto-deploys to GitHub Pages on push to `main` via `.github/workflows/p
 
 ### Lessons Structure
 
-Each lesson folder contains:
+**First half (Lessons 01-05):** SQL worksheet format. Each folder contains:
 - `README.md` - Lesson overview and links for students
 - `setup-guide.md` - Tool setup instructions (Lesson 01 only)
 - `lesson-XX-fname-lname.sql` - Student worksheet template
 - `INSTRUCTOR-answer-key.md` - Instructor guide with answers (gitignored)
+
+**Second half (Lessons 06+):** Mini-project tutorial format. Each folder contains:
+- `README.md` - Lesson overview with scenario, learning objectives, pipeline diagram, and key concepts
+- `mpX-tutorial.md` - Step-by-step tutorial (the take-home lesson exercise)
+- `data/` - Any data files needed for the mini-project
+
+### Mini-Project Tutorial Template
+
+Tutorial files (`mpX-tutorial.md`) should follow this structure:
+
+1. **Title** - `# Mini-Project X: [Title] Tutorial`
+2. **Introduction** - Brief description of what the tutorial covers and the session split
+3. **Table of Contents** - Required. Two tables (one per session/part) with columns: Step, Topic (linked to anchor), What You Will Do
+4. **Parts** - Split into `## Part 1` and `## Part 2` matching class sessions
+5. **Steps** - Each step as `### Step N: [Title]` with:
+   - Brief context (1-2 sentences)
+   - `**What to do:**` numbered instructions with Claude Code prompts in code blocks
+   - `**Why this matters:**` or similar callout (1-2 sentences)
+   - `**Checkpoint:**` how to verify the step worked
+6. **Submission** - What to submit and what the repo should contain
 
 ### Editing the Syllabus
 

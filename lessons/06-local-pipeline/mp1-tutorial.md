@@ -4,6 +4,28 @@ This tutorial walks through the full mini-project in 10 steps. Steps 1-6 corresp
 
 If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
+## Table of Contents
+
+**Part 1: Setup and Load (Session 1)**
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 1 | [Install Cursor](#step-1-install-cursor) | Set up the code editor |
+| 2 | [Install Claude Code](#step-2-install-claude-code) | Install the AI development tool and set explanatory output style |
+| 3 | [Install Docker](#step-3-install-docker) | Install Docker Desktop to run databases locally |
+| 4 | [Create project folder](#step-4-create-your-project-folder-and-start-claude-code) | Set up the project directory and start Claude Code |
+| 5 | [Create a local database](#step-5-create-a-local-database-let-the-ai-ask-you-questions) | Let Claude Code ask you questions to set up Docker PostgreSQL |
+| 6 | [Load CSV into PostgreSQL](#step-6-load-the-csv-into-postgresql-direct-prompt) | Use a direct prompt with @ references to load the data |
+
+**Part 2: Version Control and Querying (Session 2)**
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 7 | [Initialize git and push to GitHub](#step-7-initialize-git-and-push-to-github) | Version-control your pipeline and push to GitHub |
+| 8 | [Query your data using psql](#step-8-query-your-data-using-psql) | Run familiar SQL queries against your local database |
+| 9 | [Review what Claude Code built](#step-9-review-what-claude-code-built) | Read and understand every file the AI generated |
+| 10 | [Create CLAUDE.md and practice prompting](#step-10-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
+
 ---
 
 ## Part 1: Setup and Load (Session 1)
