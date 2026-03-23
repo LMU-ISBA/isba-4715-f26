@@ -229,21 +229,21 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
    claude
    ```
 
-2. Type this prompt, using the `@` symbol to reference the CSV file:
-
-   ```
-   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. Create the table if it doesn't exist.
-   ```
-
-   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
-
-3. Before running any Python code, set up a virtual environment. Tell Claude Code:
+2. Before writing any Python code, set up a virtual environment. Tell Claude Code:
 
    ```
    Create a Python virtual environment and activate it.
    ```
 
    A virtual environment is an isolated space for your project's Python dependencies. Without one, installing a package like `psycopg2` goes into your system-wide Python, which can cause conflicts between projects. Every Python project should have its own virtual environment. This is a habit you will follow for every mini-project and your independent project.
+
+3. Now type this prompt, using the `@` symbol to reference the CSV file:
+
+   ```
+   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. Create the table if it doesn't exist.
+   ```
+
+   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
 4. Claude Code will generate a Python script. Review the code and accept it.
 
