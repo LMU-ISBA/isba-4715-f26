@@ -158,7 +158,7 @@ From this point forward, you will tell Claude Code what you want and it will bui
 
 ### Step 5: Create a Local Database (Let the AI Ask You Questions)
 
-You need a database to load the CSV data into. But unlike Lessons 01-05 where someone else set up the database for you, this time you are starting from scratch. You might not know what tools to use or how to set them up — and that's fine. This is where you learn a powerful prompting technique: **let the AI ask you questions first.**
+You need a database to load the CSV data into. But unlike Lessons 01-05 where someone else set up the database for you, this time you are starting from scratch. You might not know what tools to use or how to set them up — and that's fine. This is where you learn an important prompting technique: **let the AI ask you questions first.**
 
 **What to do:**
 
@@ -185,7 +185,7 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
 
    Docker will download the PostgreSQL image (this may take a minute the first time) and start the database in the background.
 
-**Why this technique matters:** In the real world, you often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach. You just arrived at Docker and PostgreSQL without needing to know those terms upfront.
+**Why this technique matters:** You often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach. You just set up Docker and PostgreSQL without needing to know those terms upfront.
 
 **MySQL vs. PostgreSQL:** In Lessons 01-05 you used MySQL. Now you are using PostgreSQL. Both are relational databases and your SQL knowledge transfers directly — SELECT, FROM, WHERE, GROUP BY, JOINs, CTEs, and window functions all work the same way. The syntax differences are minor (e.g., PostgreSQL uses `||` to concatenate strings instead of MySQL's `CONCAT()`, and uses `TRUE`/`FALSE` instead of `1`/`0` for booleans). Most of the queries you wrote in Lessons 01-05 will run without changes.
 
@@ -257,7 +257,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
    Initialize a git repository in this project folder.
    ```
 
-   Git tracks every change you make to your files. This is how professional developers keep a history of their work and collaborate with others. Initializing a repo is always the first step.
+   Git tracks every change you make to your files. If you break something, you can go back. If you want to see what changed last week, you can look it up. Initializing a repo is always the first step.
 
 3. Next, create a .gitignore file:
 
@@ -297,7 +297,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
    - When asked to authenticate, select **Login with a web browser**
    - Copy the one-time code shown in the terminal, press Enter, and complete the sign-in in your browser
 
-   This saves your GitHub credentials so git commands (push, pull, clone) work without asking for a password every time. The GitHub CLI is also a tool you will use throughout the course — later you will use it to create GitHub Actions pipelines and manage repositories from the terminal. In the second half of this course, you will use CLIs for many services (AWS, Snowflake, dbt) because they integrate well with Claude Code and automation.
+   This saves your GitHub credentials so git commands (push, pull, clone) work without asking for a password every time. The GitHub CLI is also a tool you will use throughout the course for creating GitHub Actions pipelines and managing repositories from the terminal. You will use CLIs for many services this semester (AWS, Snowflake, dbt) because they work well with Claude Code and automation.
 
 6. Go to [github.com/new](https://github.com/new) and create a new repository:
    - Name it `campus-bites-pipeline`
@@ -320,7 +320,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
 
    This uploads your committed files to the remote repository. Anyone with the link can now see your project.
 
-Notice that you did not need to memorize any git commands. You described what you wanted in plain English and Claude Code handled the syntax. This is one of the main benefits of working with Claude Code.
+Notice that you did not need to memorize any git commands. You described what you wanted in plain English and Claude Code handled the syntax.
 
 **Checkpoint:** Go to your repository on GitHub and verify that your files (docker-compose.yml, the Python script, the data file, and .gitignore) are all there.
 
