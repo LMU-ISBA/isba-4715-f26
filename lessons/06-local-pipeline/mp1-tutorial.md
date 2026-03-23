@@ -182,7 +182,7 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
 6. Verify the data loaded. Start Claude Code again and type:
 
    ```
-   Connect to the campus_bites database (host localhost, port 5432, username student, password student123) and count the rows in the orders table.
+   Use psql inside the Docker container to count the rows in the orders table.
    ```
 
 **Why this matters:** This is the core of a data pipeline -- getting data from a source file into a database where it can be queried. The script Claude Code wrote is something you could run again whenever the CSV is updated.
@@ -255,9 +255,9 @@ Notice that you did not need to memorize any git commands. You described what yo
 
 ---
 
-### Step 8: Query Your Data
+### Step 8: Query Your Data Using psql
 
-The same data you analyzed in Lessons 01-02 is now in a database you built yourself. Run some familiar queries to confirm everything works.
+The same data you analyzed in Lessons 01-02 is now in a database you built yourself. In the first half you used DBeaver to run queries. Now you will use `psql`, the official PostgreSQL command-line client. It runs directly inside your Docker container — no extra installation needed.
 
 **What to do:**
 
@@ -266,19 +266,35 @@ The same data you analyzed in Lessons 01-02 is now in a database you built yours
    claude
    ```
 
-2. Type this prompt:
+2. Tell Claude Code to connect you to the database:
 
    ```
-   Write a SQL query to show total orders and revenue by month, ordered chronologically. Run it against the local campus_bites database (host localhost, port 5432, username student, password student123).
+   Connect me to the campus_bites database using psql inside the Docker container.
    ```
 
-3. Look at the results. These should match what you found in Lesson 01 since it is the same underlying data.
+   Claude Code will run a `docker exec` command that opens a psql session. You are now connected to your local PostgreSQL database, just like you were connected to the remote MySQL database in DBeaver.
 
-4. Try another query:
+3. Run a familiar query. Ask Claude Code:
 
    ```
-   Which customer segment has the highest average order value? Write and run a SQL query to find out.
+   Show total orders and total revenue by month, ordered chronologically.
    ```
+
+4. Look at the results. These should match what you found in Lesson 01 since it is the same underlying data.
+
+5. Try another query:
+
+   ```
+   Which customer segment has the highest average order value?
+   ```
+
+6. When you are done exploring, tell Claude Code:
+
+   ```
+   Exit the psql session.
+   ```
+
+**psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions — the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 6. Real data engineers use both: psql for exploration, Python for pipelines.
 
 **Why this matters:** Same analytical questions you tackled before, but now you own the entire stack. The database, the data loading process, and the queries are all in your repository.
 
