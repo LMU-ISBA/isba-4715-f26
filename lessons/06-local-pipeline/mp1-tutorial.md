@@ -113,38 +113,46 @@ From this point forward, you will tell Claude Code what you want and it will bui
 
 ---
 
-### Step 5: Create the Docker PostgreSQL Database
+### Step 5: Create a Local Database (Let the AI Ask You Questions)
 
-You need a database to load the CSV data into. Instead of connecting to a remote server like in Lessons 01-05, you will run PostgreSQL locally in a Docker container.
+You need a database to load the CSV data into. But unlike Lessons 01-05 where someone else set up the database for you, this time you are starting from scratch. You might not know what tools to use or how to set them up — and that's fine. This is where you learn a powerful prompting technique: **let the AI ask you questions first.**
 
 **What to do:**
 
 1. In your Claude Code session, type this prompt:
 
    ```
-   Create a docker-compose.yml that runs PostgreSQL 16 with a database called campus_bites, username student, password student123. Map port 5432.
+   I have a CSV file with restaurant orders data. I need to set up a local database on my laptop so I can load the data and run SQL queries against it. I also want it to be easy for someone else to clone my repo and get the same database running on their machine. Ask me questions one at a time before you start building anything.
    ```
 
-2. Claude Code will generate a `docker-compose.yml` file. Review it, then accept the changes.
+2. Claude Code will start asking you questions — things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so — Claude Code will explain and recommend an option.
 
-3. Exit Claude Code (type `/exit` or press `Ctrl+C`) and run:
-   ```bash
-   docker compose up -d
+3. Through this conversation, you and Claude Code will arrive at a plan together. It will likely recommend Docker with PostgreSQL, and ask you for details like the database name and credentials. Use these when asked:
+   - Database name: `campus_bites`
+   - Username: `student`
+   - Password: `student123`
+
+4. Once Claude Code has enough information, it will generate a `docker-compose.yml` file. Review it, then accept the changes.
+
+5. Tell Claude Code to start the database:
+
+   ```
+   Start the Docker container.
    ```
 
-   The `-d` flag runs the container in the background. Docker will download the PostgreSQL 16 image (this may take a minute the first time) and start the database.
+   Docker will download the PostgreSQL image (this may take a minute the first time) and start the database in the background.
 
-**Why this matters:** Docker gives you a reproducible database environment. Anyone who clones your repo can run `docker compose up -d` and get the exact same database without installing PostgreSQL on their own machine.
+**Why this technique matters:** In the real world, you often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach. You just arrived at Docker and PostgreSQL without needing to know those terms upfront.
 
 **A note on credentials:** The username and password in this docker-compose.yml are for a local development database. This is fine because the database only runs on your laptop. When you work with cloud databases later in the course, you will use environment variables to keep credentials out of your code.
 
-**Checkpoint:** Run `docker ps` and you should see a running container with `postgres:16` in the IMAGE column.
+**Checkpoint:** Ask Claude Code to verify the database is running. You should see a running PostgreSQL container.
 
 ---
 
-### Step 6: Load the CSV into PostgreSQL
+### Step 6: Load the CSV into PostgreSQL (Direct Prompt)
 
-Now you will use Claude Code to write a Python script that reads the CSV and loads it into the database.
+In Step 5, you let Claude Code ask you questions because you didn't know the solution yet. Now you know exactly what you want: load a CSV file into the database you just created. When you know the details, give a direct and specific prompt.
 
 **What to do:**
 
@@ -329,19 +337,18 @@ Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown f
    Commit the CLAUDE.md file.
    ```
 
-**Prompting tips from this tutorial:**
+**Prompting techniques from this tutorial:**
 
-Notice the pattern from every prompt you typed today. Each one was a single specific request:
+You used two different prompting approaches today. Knowing when to use each one is a skill you will build throughout the course.
 
-| Vague (avoid this) | Specific (do this) |
-|---|---|
-| "Set up everything for the project" | "Create a docker-compose.yml for PostgreSQL 16 with database campus_bites" |
-| "Load the data" | "Write a Python script that reads data/campus_bites_orders.csv and loads it into the orders table" |
-| "Make it work" | "Run the load script and show me any errors" |
+| When to use | Technique | Example from today |
+|---|---|---|
+| You don't know the solution | Let the AI ask you questions | Step 5: "I need a local database... ask me questions before you start building" |
+| You know exactly what you want | Give a direct, specific prompt | Step 6: "Write a Python script that reads @data/campus_bites_orders.csv and loads it into the orders table" |
 
-One request at a time. Be specific about what you want. Read what comes back before moving on.
+Both approaches follow the same rule: one request at a time. Read what comes back before moving on.
 
-**Checkpoint:** Your project has a CLAUDE.md file, and you understand the one-request-at-a-time prompting pattern.
+**Checkpoint:** Your project has a CLAUDE.md file, and you can explain when to let the AI ask questions vs. when to give a direct prompt.
 
 ---
 
