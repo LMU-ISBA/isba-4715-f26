@@ -86,7 +86,11 @@ Claude Code is a command-line tool that lets you talk to Claude directly in the 
 
 ### Step 3: Install Docker
 
-Docker lets you run applications in containers -- isolated environments that work the same on every machine. You will use it to run a PostgreSQL database on your laptop without installing PostgreSQL directly.
+Think about how you set up your database in Lessons 01-05. Your instructor gave you connection details to a remote server that was already configured. If you wanted to run that same database on your laptop, you would need to install MySQL, configure it, create the right users and permissions, and hope it works the same way on your machine as it does on the server. If a classmate has a different operating system, they might need different steps entirely.
+
+Docker solves this problem. It lets you run applications inside **containers** — lightweight, self-contained packages that include everything the application needs to run. A PostgreSQL container comes with PostgreSQL already installed and configured. You describe what you want in a simple file (`docker-compose.yml`), run one command, and the database starts. It works the same on every machine — Mac, Windows, or Linux.
+
+In this tutorial, you will use Docker to run a PostgreSQL database on your laptop. Later in the course, you will use Docker for other services too. In industry, Docker is how most data engineering teams package and deploy their tools.
 
 **What to do:**
 
@@ -96,14 +100,14 @@ Docker lets you run applications in containers -- isolated environments that wor
 
    **Windows users:** Docker Desktop requires WSL 2 (Windows Subsystem for Linux). The Docker installer will prompt you to enable it if it is not already set up. Follow those prompts.
 
-2. Run the installer and open Docker Desktop.
+2. Run the installer and open Docker Desktop. You will see a dashboard — this is where you can monitor your running containers. Leave it open in the background.
 
 3. Verify the installation by opening a terminal in Cursor and running:
    ```bash
    docker --version
    ```
 
-**Checkpoint:** The `docker --version` command prints a version number (e.g., `Docker version 27.x.x`).
+**Checkpoint:** The `docker --version` command prints a version number (e.g., `Docker version 27.x.x`). Docker Desktop is running in the background.
 
 ---
 
