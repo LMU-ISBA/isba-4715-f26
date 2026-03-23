@@ -14,6 +14,48 @@ The Campus Bites CEO liked your SQL analysis from the first half of the course:
 
 Your mission: take the raw orders data (a CSV export from the old system) and load it into a local PostgreSQL database using Docker, Python, and AI coding tools. By the end, you will have a working pipeline that anyone on the team could clone from GitHub and run.
 
+## What You Are Building
+
+```mermaid
+graph LR
+    subgraph Source
+        CSV["campus_bites_orders.csv\n1,132 orders"]
+    end
+
+    subgraph Your Laptop - Docker
+        PY["Python Script\nload_data.py"]
+        DB[("PostgreSQL 16\ncampus_bites DB\norders table")]
+    end
+
+    subgraph Analysis
+        SQL["SQL Queries\nvia Claude Code"]
+    end
+
+    subgraph Version Control
+        GH["GitHub Repository"]
+    end
+
+    CSV -->|"read"| PY
+    PY -->|"insert"| DB
+    DB -->|"query"| SQL
+
+    PY -.->|"commit + push"| GH
+    DB -.->|"docker-compose.yml"| GH
+    CSV -.->|"tracked in repo"| GH
+
+    style CSV fill:#f9f0e6,stroke:#c9a96e
+    style PY fill:#e6f0f9,stroke:#6e9ec9
+    style DB fill:#e6f9e8,stroke:#6ec96e
+    style SQL fill:#f0e6f9,stroke:#9e6ec9
+    style GH fill:#f5f5f5,stroke:#888888
+```
+
+**How it fits together:**
+- **Source:** A CSV file exported from the Campus Bites system (the same orders data you queried in Lessons 01-02)
+- **Load:** A Python script reads the CSV and inserts it into a PostgreSQL database running in a Docker container on your laptop
+- **Query:** You run SQL queries against your local database using Claude Code
+- **Version Control:** The entire pipeline (script, data, Docker config) is tracked in a GitHub repository so anyone can clone and run it
+
 ## Learning Objectives
 
 By the end of this mini-project, you will be able to:
