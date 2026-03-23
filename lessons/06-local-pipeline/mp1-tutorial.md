@@ -282,7 +282,13 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 
 5. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
 
-6. Let Claude Code run the script for you. If it asks to execute the script, say yes. Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
+6. Tell Claude Code to run the script:
+
+   ```
+   Run the script.
+   ```
+
+   Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
 
 7. Verify the data is back:
 
