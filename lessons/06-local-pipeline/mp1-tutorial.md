@@ -262,10 +262,10 @@ Your pipeline works locally. Now you will version-control it so you can share it
 3. Next, create a .gitignore file:
 
    ```
-   Create a .gitignore file for a Python project. Make sure it ignores virtual environments, __pycache__, .env files, and OS files like .DS_Store.
+   Create a .gitignore file for a Python project.
    ```
 
-   A .gitignore tells git which files to skip. You don't want to push temporary files, cached bytecode, or files with passwords to GitHub.
+   A .gitignore tells git which files to skip. You don't want to push temporary files or files with passwords to GitHub. Claude Code knows what to include for a Python project.
 
 4. Now make your first commit:
 
