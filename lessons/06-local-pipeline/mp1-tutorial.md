@@ -295,9 +295,15 @@ First, connect to the database yourself from the terminal to see how psql works.
    docker exec -it campus-bites-pipeline-db-1 psql -U student -d campus_bites
    ```
 
-   This tells Docker to open a psql session inside your running PostgreSQL container. You should see a `campus_bites=#` prompt, which means you are connected to the database. This is the PostgreSQL equivalent of opening a connection in DBeaver.
+   Here is what each part does:
+   - `docker exec` — run a command inside a running container (your PostgreSQL database is running in a container)
+   - `-it` — interactive mode with a terminal, so you can type commands and see output
+   - `campus-bites-pipeline-db-1` — the name of your container (if this is different, run `docker ps` to find it in the NAME column)
+   - `psql` — the PostgreSQL command-line client
+   - `-U student` — connect as the user `student`
+   - `-d campus_bites` — connect to the `campus_bites` database
 
-   (If the container name is different, run `docker ps` to find it — look for the NAME column.)
+   You should see a `campus_bites=#` prompt, which means you are connected. This is the PostgreSQL equivalent of opening a connection in DBeaver.
 
 2. Try a quick query to make sure the data is there:
 
