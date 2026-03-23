@@ -34,17 +34,22 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 
 Cursor is a code editor built on VS Code with AI features built in. It is where you will write and manage all your project files.
 
-**What to do:**
+**If you already have Cursor installed:** Open it. You should see the welcome screen with "Open project," "Clone repo," and your recent projects. You are ready for Step 2. Just make sure you have a GitHub account (see item 5 below).
+
+**If you need to install Cursor:**
 
 1. Go to [cursor.com](https://www.cursor.com/) and download the installer for your operating system.
 2. Run the installer.
    - **Mac:** Open the .dmg file and drag Cursor to your Applications folder.
    - **Windows:** Run the .exe installer and follow the prompts.
-3. Open Cursor. It will ask you to create a Cursor account. You can sign in with GitHub, Google, or email — any option works. If you already have Cursor installed, skip ahead.
+3. Open Cursor. It will ask you to create a Cursor account. You can sign in with GitHub, Google, or email — any option works.
 4. Cursor may ask a few setup questions (how you plan to use it, etc.). Answer however you like — these do not affect functionality.
+
+**Everyone:**
+
 5. Make sure you have a GitHub account. If you don't have one, create one at [github.com](https://github.com). Pick a professional username — recruiters will see this. You will need it in Step 7 when you push your project to GitHub.
 
-**Checkpoint:** Cursor opens and you see an editor window.
+**Checkpoint:** Cursor is open. You see either the welcome screen or an editor window.
 
 ---
 
