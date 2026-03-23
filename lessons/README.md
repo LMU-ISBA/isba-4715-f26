@@ -1,8 +1,8 @@
-# SQL Lessons
+# Lessons
+
+## First Half: SQL Analysis
 
 Hands-on SQL lessons using two case studies: **Campus Bites** (a campus food delivery service) and **Basket Craft** (an e-commerce gift basket company).
-
-## Lessons Overview
 
 | Lesson | Topic | Scenario |
 |--------|-------|----------|
@@ -10,6 +10,18 @@ Hands-on SQL lessons using two case studies: **Campus Bites** (a campus food del
 | [02-success-analysis](02-success-analysis/) | Success Analysis | "Revenue up 33%" |
 | [03-rfm-joins](03-rfm-joins/) | RFM Analysis with JOINs | "Who are our best customers?" |
 | [04-cte-funnels](04-cte-funnels/) | Website Conversion with CTEs | "Did our A/B tests work?" |
+| [05-data-storytelling](05-data-storytelling/) | Data Storytelling | "Allocate $100K across 4 channels" |
+
+## Second Half: Data Engineering Mini-Projects
+
+End-to-end data engineering projects built with Claude Code. Each mini-project is instructor-led in class with a take-home tutorial as a safety net.
+
+| Mini-Project | Sessions | Topic | Source | Destination |
+|-------------|----------|-------|--------|-------------|
+| [06-local-pipeline](06-local-pipeline/) | 2 | Local Data Pipeline | CSV | Docker PostgreSQL |
+| 07-cloud-pipeline (coming soon) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
+| 08-api-pipeline (coming soon) | 3 | API Pipeline | Public API | Snowflake + Streamlit |
+| 09-ai-chatbot (coming soon) | 3 | AI Application | Web Scrape | Vector DB + RAG Chatbot |
 
 ## The Campus Bites Story (Lessons 01-02)
 
@@ -31,66 +43,62 @@ Robert (VP of Marketing) needs a targeted marketing list. Your mission: score cu
 ### Lesson 04: Website Conversion Analysis with CTEs
 Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: build conversion funnels and measure A/B test results using CTEs and ROW_NUMBER.
 
-## Database Connection
-
-All lessons use the same database server. Connection details will be provided in class.
-
 ## Getting Started
 
+**First half (Lessons 01-05):**
 1. Install [DBeaver Community Edition](https://dbeaver.io/download/)
 2. Follow the [setup guide](01-introduction/setup-guide.md)
 3. Start with [Lesson 01](01-introduction/)
 
-## File Naming Convention
+**Second half (Mini-Projects 06+):**
+1. Install Cursor, Claude Code, and Docker (covered in class)
+2. Start with [Mini-Project 1](06-local-pipeline/)
 
-Each lesson folder contains:
+## File Structure
+
+**First half** lessons contain:
 
 | File | Description |
 |------|-------------|
 | `README.md` | Lesson overview and objectives |
 | `lesson-XX-fname-lname.sql` | Student worksheet (rename with your name) |
 | `setup-guide.md` | Setup instructions (Lesson 01 only) |
-| `INSTRUCTOR-answer-key.md` | Instructor-only materials |
 
-## SQL Concepts Covered
+**Second half** mini-projects contain:
 
-### Lesson 01
-- SELECT, FROM, WHERE
-- COUNT(), SUM(), AVG(), ROUND()
-- GROUP BY, ORDER BY
-- CASE WHEN for categorization
-- LAG() for period-over-period comparison
-- Date functions: MONTH(), MONTHNAME(), HOUR()
+| File | Description |
+|------|-------------|
+| `README.md` | Mini-project overview, scenario, and pipeline diagram |
+| `mpX-tutorial.md` | Step-by-step tutorial (the lesson exercise) |
+| `data/` | Any data files needed for the mini-project |
 
-### Lesson 02
-- Same concepts, applied to a different scenario
-- Multi-level segmentation (segment + time)
-- Percentage calculations
-- Date range filtering
+## Concepts Covered
 
-### Lesson 03
-- INNER JOIN, LEFT JOIN (multi-table queries)
-- Subqueries in FROM clause
-- NTILE() for quantile scoring
-- RFM customer segmentation pattern
-- COUNT(column) vs COUNT(*) with LEFT JOIN
+### First Half: SQL Analysis
 
-### Lesson 04
-- WITH ... AS (Common Table Expressions)
-- Multi-CTE chaining
-- ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)
-- MAX(CASE WHEN ...) flag aggregation
-- Conversion funnel pattern
-- Revenue per session (A/B test measurement)
+| Lesson | Concepts |
+|--------|----------|
+| 01 | SELECT, FROM, WHERE, COUNT, SUM, AVG, GROUP BY, ORDER BY, CASE WHEN, LAG() |
+| 02 | Same concepts applied to growth analysis, multi-level segmentation |
+| 03 | INNER JOIN, LEFT JOIN, subqueries, NTILE(), RFM customer segmentation |
+| 04 | CTEs (WITH...AS), ROW_NUMBER(), MAX(CASE WHEN), conversion funnels, A/B testing |
+| 05 | Data storytelling, DC ACT communication, takeaway titles |
+
+### Second Half: Data Engineering + AI
+
+| MP | Concepts |
+|----|----------|
+| 06 | Cursor, Claude Code, Docker, PostgreSQL, git, psql, AI prompting |
+| 07 | AWS RDS, AWS CLI, Snowflake, dbt (staging + marts), dimensional modeling |
+| 08 | API extraction, GitHub Actions, Streamlit, deployment |
+| 09 | Web scraping, vector databases, embeddings, RAG, LangChain, Claude API |
 
 ## The Analytics Framework
 
-All lessons teach variations of the same diagnostic approach:
+All lessons use the DC ACT framework:
 
-1. **Descriptive**: What happened? (totals, trends)
-2. **Diagnostic**: Why did it happen?
-   - **WHO** drove the change?
-   - **WHY** did they change?
-   - **WHEN** did it happen?
-3. **Confirm** with multiple signals
-4. **Recommend** an action
+1. **Define** the business problem
+2. **Collect** and prepare the data
+3. **Analyze** the data and generate insights
+4. **Communicate** insights, recommendations, and predictions
+5. **Act** and track the change
