@@ -126,9 +126,7 @@ Now you will set up your project directory and start working with Claude Code.
 
 **What to do:**
 
-1. Open a terminal in Cursor. If you don't see a terminal panel at the bottom of the window:
-   - **Keyboard shortcut:** Press `` Ctrl+` `` (that's the backtick key, usually above Tab)
-   - **Menu:** Go to **Terminal > New Terminal** from the menu bar at the top
+1. Open a terminal in Cursor. If you don't see a terminal panel at the bottom of the window, go to **Terminal > New Terminal** from the menu bar at the top (or press `` Ctrl+` ``).
 
    If you are still inside a Claude Code session from Step 2, type `/exit` first to get back to your normal terminal prompt (you should see a `$` or `%` sign).
 
