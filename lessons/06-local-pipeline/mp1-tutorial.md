@@ -297,7 +297,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
    - When asked to authenticate, select **Login with a web browser**
    - Copy the one-time code shown in the terminal, press Enter, and complete the sign-in in your browser
 
-   This saves your GitHub credentials so git commands (push, pull, clone) work without asking for a password every time.
+   This saves your GitHub credentials so git commands (push, pull, clone) work without asking for a password every time. The GitHub CLI is also a tool you will use throughout the course — later you will use it to create GitHub Actions pipelines and manage repositories from the terminal. In the second half of this course, you will use CLIs for many services (AWS, Snowflake, dbt) because they integrate well with Claude Code and automation.
 
 6. Go to [github.com/new](https://github.com/new) and create a new repository:
    - Name it `campus-bites-pipeline`
