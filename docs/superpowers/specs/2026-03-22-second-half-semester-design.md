@@ -51,7 +51,7 @@ Assignment 02 has been removed from the syllabus. The 10% is redistributed to th
 
 Each mini-project is a complete end-to-end cycle that teaches a set of skills through a guided build. The classroom format is instructor-led live coding where students follow along. Each mini-project has an accompanying structured tutorial that students complete on their own if they fall behind or don't finish in class. Tutorial completion is the lesson exercise submission.
 
-Mini-project tutorials count as lesson exercises (1% each). Combined with 5 lesson exercises from the first half (Lessons 01-05), that accounts for 9 exercises. The 10th exercise is the interview prep session (May 4), where students submit their whiteboard pipeline diagram as practice for the final interview. This totals 10 lesson exercises at 1% each.
+Mini-project tutorials count as lesson exercises (1% each). The first half used 5 of the 10 lesson exercises (Lessons 01-05), leaving 5 for the second half. Four come from mini-project tutorials (MP1-MP4) and the 5th is the interview prep session (May 4), where students submit their whiteboard pipeline diagram as practice for the final interview. This totals 10 lesson exercises at 1% each.
 
 ### Progression
 
