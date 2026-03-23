@@ -133,8 +133,16 @@ Now you will set up your project directory and start working with Claude Code.
 2. Create a folder to keep all your work for this course organized in one place, then create the project folder inside it:
 
    ```bash
-   mkdir -p ~/isba-4715 && cd ~/isba-4715
-   mkdir campus-bites-pipeline && cd campus-bites-pipeline
+   mkdir -p ~/isba-4715
+   ```
+   ```bash
+   cd ~/isba-4715
+   ```
+   ```bash
+   mkdir campus-bites-pipeline
+   ```
+   ```bash
+   cd campus-bites-pipeline
    ```
 
    The `~/isba-4715` folder is your home base for the rest of the semester. Every mini-project and your independent project will get its own subfolder here. By the end of the course it will look something like this:
