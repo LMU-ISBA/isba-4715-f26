@@ -86,7 +86,7 @@ Claude Code is a command-line tool that lets you talk to Claude directly in the 
 
 ### Step 3: Install Docker
 
-Think about how you set up your database in Lessons 01-05. Your instructor gave you connection details to a remote server that was already configured. If you wanted to run that same database on your laptop, you would need to install MySQL, configure it, create the right users and permissions, and hope it works the same way on your machine as it does on the server. If a classmate has a different operating system, they might need different steps entirely.
+Think about how you set up your database in Lessons 01-05. You were given connection details to a remote server that was already configured. If you wanted to run that same database on your laptop, you would need to install MySQL, configure it, create the right users and permissions, and hope it works the same way on your machine as it does on the server. If a classmate has a different operating system, they might need different steps entirely.
 
 Docker solves this problem. It lets you run applications inside **containers** — lightweight, self-contained packages that include everything the application needs to run. A PostgreSQL container comes with PostgreSQL already installed and configured. You describe what you want in a simple file (`docker-compose.yml`), run one command, and the database starts. It works the same on every machine — Mac, Windows, or Linux.
 
