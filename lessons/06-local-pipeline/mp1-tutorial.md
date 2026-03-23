@@ -1,6 +1,6 @@
 # Mini-Project 1: Local Data Pipeline Tutorial
 
-This tutorial walks through the full mini-project in 10 steps. Steps 1-6 correspond to Session 1 (install tools, build the pipeline). Steps 7-10 correspond to Session 2 (version control, querying, review).
+This tutorial walks through the full mini-project in 11 steps. Steps 1-7 correspond to Session 1 (install tools, build the pipeline). Steps 8-11 correspond to Session 2 (version control, querying, review).
 
 If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
@@ -14,17 +14,18 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 | 2 | [Install Claude Code](#step-2-install-claude-code) | Install the AI development tool and set explanatory output style |
 | 3 | [Install Docker](#step-3-install-docker) | Install Docker Desktop to run databases locally |
 | 4 | [Create project folder](#step-4-create-your-project-folder-and-start-claude-code) | Set up the project directory and start Claude Code |
-| 5 | [Create a local database](#step-5-create-a-local-database-let-the-ai-ask-you-questions) | Let Claude Code ask you questions to set up Docker PostgreSQL |
-| 6 | [Load CSV into PostgreSQL](#step-6-load-the-csv-into-postgresql-direct-prompt) | Use a direct prompt with @ references to load the data |
+| 5 | [Explore with AI questions](#step-5-create-a-local-database-let-the-ai-ask-you-questions) | Let Claude Code ask you questions to explore how to set up a database |
+| 6 | [Build the database](#step-6-build-the-database-with-a-direct-prompt) | Use a direct prompt to create Docker PostgreSQL with init.sql |
+| 7 | [Load data with Python](#step-7-load-data-with-a-python-script) | Write a Python script as a second way to load data |
 
 **Part 2: Version Control and Querying (Session 2)**
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 7 | [Initialize git and push to GitHub](#step-7-initialize-git-and-push-to-github) | Version-control your pipeline and push to GitHub |
-| 8 | [Query your data using psql](#step-8-query-your-data-using-psql) | Connect to the database manually with psql, then let Claude Code query for you |
-| 9 | [Review what Claude Code built](#step-9-review-what-claude-code-built) | Read and understand every file the AI generated |
-| 10 | [Create CLAUDE.md and practice prompting](#step-10-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
+| 8 | [Initialize git and push to GitHub](#step-8-initialize-git-and-push-to-github) | Version-control your pipeline and push to GitHub |
+| 9 | [Query your data using psql](#step-9-query-your-data-using-psql) | Connect to the database manually with psql, then let Claude Code query for you |
+| 10 | [Review what Claude Code built](#step-10-review-what-claude-code-built) | Read and understand every file the AI generated |
+| 11 | [Create CLAUDE.md and practice prompting](#step-11-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
 
 ---
 
@@ -179,7 +180,7 @@ From this point forward, you will tell Claude Code what you want and it will bui
 
 ### Step 5: Create a Local Database (Let the AI Ask You Questions)
 
-You need a database to load the CSV data into. But unlike Lessons 01-05 where someone else set up the database for you, this time you are starting from scratch. You might not know what tools to use or how to set them up — and that's fine. This is where you learn an important prompting technique: **let the AI ask you questions first.**
+You need a database to load the CSV data into. But unlike Lessons 01-05 where someone else set up the database for you, this time you are starting from scratch. You might not know what tools to use or how to set them up, and that's fine. This is where you learn an important prompting technique: **let the AI ask you questions first.**
 
 **What to do:**
 
@@ -189,44 +190,76 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
    I need to set up a local database to store CSV data and run SQL queries. It should be easy for someone else to clone my repo and run the same setup. Ask me one question at a time before you start building anything.
    ```
 
-2. Claude Code will start asking you questions — things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so — Claude Code will explain and recommend an option.
+2. Claude Code will start asking you questions. Things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so. Claude Code will explain the options and recommend one.
 
-3. Through this conversation, you and Claude Code will arrive at a plan together. It will likely recommend Docker with PostgreSQL, and ask you for details like the database name and credentials. Use these when asked:
-   - Database name: `campus_bites`
-   - Username: `student`
-   - Password: `student123`
+3. Through this conversation, you and Claude Code will arrive at a plan together. It will likely recommend Docker with PostgreSQL. Keep answering questions until Claude Code has a plan it wants to show you.
 
-4. Once Claude Code has enough information, it will generate a `docker-compose.yml` file. Review it, then accept the changes.
+**Why this technique matters:** You often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach.
 
-5. Tell Claude Code to start the database:
+**MySQL vs. PostgreSQL:** In Lessons 01-05 you used MySQL. Now you are using PostgreSQL. Both are relational databases and your SQL knowledge transfers directly. SELECT, FROM, WHERE, GROUP BY, JOINs, CTEs, and window functions all work the same way. The syntax differences are minor (e.g., PostgreSQL uses `||` to concatenate strings instead of MySQL's `CONCAT()`, and uses `TRUE`/`FALSE` instead of `1`/`0` for booleans). Most of the queries you wrote in Lessons 01-05 will run without changes.
+
+So why switch? PostgreSQL is the standard in data engineering and analytics. Snowflake (which you will use starting in MP2), Amazon Redshift, and most modern data warehouses are all based on PostgreSQL's SQL dialect. dbt also works best with PostgreSQL-family databases. Learning PostgreSQL now means the SQL you write will carry directly into the tools you use for the rest of the course and in industry.
+
+---
+
+### Step 6: Build the Database with a Direct Prompt
+
+In Step 5, everyone's conversation went a different direction depending on how they answered the questions. Now we converge. Copy and paste this prompt into Claude Code to make sure everyone ends up with the same setup:
+
+**What to do:**
+
+1. Type this prompt:
+
+   ```
+   I need to set up a local Postgres database using Docker for my class project. The repo is campus-bites-pipeline and contains a single CSV file at data/campus_bites_orders.csv with ~1,132 rows of campus food delivery order data (columns: order_id, order_date, order_time, customer_segment, order_value, cuisine_type, delivery_time_mins, promo_code_used, is_reorder).
+
+   Requirements:
+   - Postgres on Docker using docker-compose.yml
+   - An init.sql script that creates the table and loads the CSV on first startup
+   - The setup should be easy for classmates to clone and run
+   - Primary use case is running SQL queries interactively
+   - Database name: campus_bites is fine
+   - Include a README with setup instructions
+
+   I have Docker installed. Don't start building until I confirm the plan.
+   ```
+
+2. Claude Code will present a plan. Review it, then confirm to let it build.
+
+3. Once the files are generated, start the database:
 
    ```
    Start the Docker container.
    ```
 
-   Docker will download the PostgreSQL image (this may take a minute the first time) and start the database in the background.
+   Docker will download the PostgreSQL image (this may take a minute the first time) and start the database. The `init.sql` script runs automatically on first startup, creating the table and loading all 1,132 rows from the CSV.
 
-**Why this technique matters:** You often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach. You just set up Docker and PostgreSQL without needing to know those terms upfront.
+4. Verify the data loaded:
 
-**MySQL vs. PostgreSQL:** In Lessons 01-05 you used MySQL. Now you are using PostgreSQL. Both are relational databases and your SQL knowledge transfers directly — SELECT, FROM, WHERE, GROUP BY, JOINs, CTEs, and window functions all work the same way. The syntax differences are minor (e.g., PostgreSQL uses `||` to concatenate strings instead of MySQL's `CONCAT()`, and uses `TRUE`/`FALSE` instead of `1`/`0` for booleans). Most of the queries you wrote in Lessons 01-05 will run without changes.
+   ```
+   Use psql inside the Docker container to count the rows in the orders table.
+   ```
 
-So why switch? PostgreSQL is the standard in data engineering and analytics. It has better support for complex queries, JSON data, and advanced data types. Snowflake (which you will use starting in MP2), Amazon Redshift, and most modern data warehouses are all based on PostgreSQL's SQL dialect. dbt also works best with PostgreSQL-family databases. Learning PostgreSQL now means the SQL you write will carry directly into the data warehouse and production tools you will use for the rest of the course and in industry.
+**About this prompt:** Notice how different it is from Step 5. In Step 5, you described a problem and let the AI ask questions. Here, you gave specific requirements upfront because you now know what you want. Both approaches are useful. The key difference: Step 5 is for exploring when you're unsure, this prompt is for executing when you're clear.
 
 **A note on credentials:** The username and password in this docker-compose.yml are for a local development database. This is fine because the database only runs on your laptop. When you work with cloud databases later in the course, you will use environment variables to keep credentials out of your code.
 
-**Checkpoint:** Ask Claude Code to verify the database is running. You should see a running PostgreSQL container.
+**Checkpoint:** The row count returns 1,132. The data is in your local PostgreSQL database, loaded automatically by Docker.
 
 ---
 
-### Step 6: Load the CSV into PostgreSQL (Direct Prompt)
+### Step 7: Reload Data with a Python Script
 
-In Step 5, you let Claude Code ask you questions because you didn't know the solution yet. Now you know exactly what you want: load a CSV file into the database you just created. When you know the details, give a direct and specific prompt.
+The `init.sql` approach from Step 6 loads data automatically when Docker starts. That works well for a static CSV that ships with the repo. But in data engineering, you often need to load data programmatically, on a schedule, or from sources that aren't files sitting in your repo. A Python script gives you that flexibility.
+
+To see this in action, you will first delete the data that `init.sql` loaded, then reload it using a Python script.
 
 **What to do:**
 
-1. Start Claude Code again:
-   ```bash
-   claude
+1. First, delete the existing data so you can reload it with Python. Tell Claude Code:
+
+   ```
+   Drop the orders table in the campus_bites database using psql in the Docker container.
    ```
 
 2. Before writing any Python code, set up a virtual environment. Tell Claude Code:
@@ -243,7 +276,7 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
    Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. Create the table if it doesn't exist.
    ```
 
-   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
+   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV instead of guessing. The result is a more accurate script on the first try. It will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you listing them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
 4. Claude Code will generate a Python script. Review the code and accept it.
 
@@ -255,21 +288,28 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
    ```
    (The filename may differ depending on what Claude Code named it.)
 
-7. Verify the data loaded. Start Claude Code again and type:
+7. Verify the data is back:
 
    ```
    Use psql inside the Docker container to count the rows in the orders table.
    ```
 
-**Why this matters:** This is the core of a data pipeline -- getting data from a source file into a database where it can be queried. The script Claude Code wrote is something you could run again whenever the CSV is updated.
+**Two ways to load data:**
 
-**Checkpoint:** The row count query returns the number of rows in the CSV file. The data is now in your local PostgreSQL database.
+| Approach | When to use it |
+|---|---|
+| `init.sql` (Step 6) | Static data that loads automatically when anyone runs `docker compose up` |
+| Python script (Step 7) | Data that changes, comes from APIs, or needs transformation before loading |
+
+In later mini-projects, you will use Python scripts to extract data from APIs and web pages. The `init.sql` approach won't work for those because the data doesn't come from a local file.
+
+**Checkpoint:** The orders table was dropped, then recreated and reloaded by the Python script. The row count is back to 1,132.
 
 ---
 
 ## Part 2: Version Control and Querying (Session 2)
 
-### Step 7: Initialize Git and Push to GitHub
+### Step 8: Initialize Git and Push to GitHub
 
 Your pipeline works locally. Now you will version-control it so you can share it and track changes.
 
@@ -355,7 +395,7 @@ Notice that you did not need to memorize any git commands. You described what yo
 
 ---
 
-### Step 8: Query Your Data Using psql
+### Step 9: Query Your Data Using psql
 
 The same data you analyzed in Lessons 01-02 is now in a database you built yourself. In the first half you used DBeaver to run queries. Now you will use `psql`, the official PostgreSQL command-line client. It runs directly inside your Docker container — no extra installation needed.
 
@@ -433,7 +473,7 @@ Now let Claude Code handle the querying for you.
    /exit
    ```
 
-**psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions — the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 6. Real data engineers use both: psql for exploration, Python for pipelines.
+**psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions, the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 7. Real data engineers use both: psql for exploration, Python for pipelines.
 
 **Why this matters:** Same analytical questions you tackled before, but now you own the entire stack. The database, the data loading process, and the queries are all in your repository. And you now know two ways to query it: manually with psql and through Claude Code.
 
@@ -441,7 +481,7 @@ Now let Claude Code handle the querying for you.
 
 ---
 
-### Step 9: Review What Claude Code Built
+### Step 10: Review What Claude Code Built
 
 AI-generated code is only useful if you understand it. In the final interview for this course, you will need to explain every component of your projects. Start that habit now.
 
@@ -453,8 +493,13 @@ AI-generated code is only useful if you understand it. In the final interview fo
    - Which Docker image it uses
    - The database name, username, and password
    - Which port is mapped
+   - How it mounts the init.sql script
 
-3. Open the Python load script. Read through it. You should be able to identify:
+3. Open `init.sql`. Read through it. You should be able to identify:
+   - How it creates the table
+   - How it loads the CSV data
+
+4. Open the Python load script. Read through it. You should be able to identify:
    - How it connects to the database
    - How it reads the CSV
    - How it creates the table
@@ -472,7 +517,7 @@ AI-generated code is only useful if you understand it. In the final interview fo
 
 ---
 
-### Step 10: Create a CLAUDE.md and Practice Prompting
+### Step 11: Create a CLAUDE.md and Practice Prompting
 
 Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown file in your project root that Claude Code reads at the start of every session. It gives Claude Code context about your project so it makes better decisions.
 
@@ -498,8 +543,8 @@ You used two different prompting approaches today. Knowing when to use each one 
 
 | When to use | Technique | Example from today |
 |---|---|---|
-| You don't know the solution | Let the AI ask you questions | Step 5: "I need a local database... ask me questions before you start building" |
-| You know exactly what you want | Give a direct, specific prompt | Step 6: "Write a Python script that reads @data/campus_bites_orders.csv and loads it into the orders table" |
+| You don't know the solution | Let the AI ask you questions | Step 5: "I need to set up a local database... Ask me one question at a time" |
+| You know exactly what you want | Give a direct, specific prompt | Step 6: Requirements list with "Don't start building until I confirm the plan" |
 
 Both approaches follow the same rule: one request at a time. Read what comes back before moving on.
 
