@@ -209,13 +209,13 @@ Your pipeline works locally. Now you will version-control it so you can share it
    - Set it to **Public**
    - Do NOT initialize with a README (you already have files locally)
 
-5. Back in the terminal (exit Claude Code first), add the remote and push:
-   ```bash
-   git remote add origin https://github.com/YOUR-USERNAME/campus-bites-pipeline.git
-   git branch -M main
-   git push -u origin main
+5. Back in Claude Code, tell it to connect your local repo to GitHub and push:
+
    ```
-   Replace `YOUR-USERNAME` with your actual GitHub username.
+   Add a git remote for my GitHub repo at https://github.com/YOUR-USERNAME/campus-bites-pipeline.git and push the main branch.
+   ```
+
+   Replace `YOUR-USERNAME` with your actual GitHub username. Claude Code will run the git commands for you. This is one of the benefits of working with Claude Code -- you do not need to memorize git commands. You describe what you want in plain English and it handles the syntax.
 
 **Checkpoint:** Go to your repository on GitHub and verify that your files (docker-compose.yml, the Python script, the data file, and .gitignore) are all there.
 
