@@ -237,17 +237,25 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
 
    **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
-3. Claude Code will generate a Python script. Review the code and accept it.
+3. Before running any Python code, set up a virtual environment. Tell Claude Code:
 
-4. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks.
+   ```
+   Create a Python virtual environment and activate it.
+   ```
 
-5. Run the script when Claude Code prompts you, or exit and run it manually:
+   A virtual environment is an isolated space for your project's Python dependencies. Without one, installing a package like `psycopg2` goes into your system-wide Python, which can cause conflicts between projects. Every Python project should have its own virtual environment. This is a habit you will follow for every mini-project and your independent project.
+
+4. Claude Code will generate a Python script. Review the code and accept it.
+
+5. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
+
+6. Run the script when Claude Code prompts you, or exit and run it manually:
    ```bash
    python load_data.py
    ```
    (The filename may differ depending on what Claude Code named it.)
 
-6. Verify the data loaded. Start Claude Code again and type:
+7. Verify the data loaded. Start Claude Code again and type:
 
    ```
    Use psql inside the Docker container to count the rows in the orders table.
