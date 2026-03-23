@@ -178,7 +178,7 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
 1. In your Claude Code session, type this prompt:
 
    ```
-   I need to set up a local database to store CSV data and run SQL queries. It should be easy for someone else to clone my repo and run the same setup. Ask me questions before you start building anything.
+   I need to set up a local database to store CSV data and run SQL queries. It should be easy for someone else to clone my repo and run the same setup. Ask me one question at a time before you start building anything.
    ```
 
 2. Claude Code will start asking you questions — things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so — Claude Code will explain and recommend an option.
