@@ -117,9 +117,22 @@ Now you will set up your project directory and start working with Claude Code.
 
 **What to do:**
 
-1. Open a terminal in Cursor and create your project folder:
+1. Open a terminal in Cursor. Create a folder to keep all your work for this course organized in one place, then create the project folder inside it:
+
    ```bash
+   mkdir -p ~/isba-4715 && cd ~/isba-4715
    mkdir campus-bites-pipeline && cd campus-bites-pipeline
+   ```
+
+   The `~/isba-4715` folder is your home base for the rest of the semester. Every mini-project and your independent project will get its own subfolder here. By the end of the course it will look something like this:
+
+   ```
+   ~/isba-4715/
+   ├── campus-bites-pipeline/     <-- MP1 (this tutorial)
+   ├── cloud-pipeline/            <-- MP2
+   ├── api-pipeline/              <-- MP3
+   ├── ai-chatbot/                <-- MP4
+   └── your-project-name/         <-- Independent project
    ```
 
 2. Create a `data` subfolder and copy the CSV file into it:
