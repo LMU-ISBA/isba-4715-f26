@@ -196,26 +196,52 @@ Your pipeline works locally. Now you will version-control it so you can share it
    claude
    ```
 
-2. Type this prompt:
+2. First, initialize a git repository:
 
    ```
-   Initialize a git repo, create a .gitignore for Python projects, and make an initial commit with all the project files.
+   Initialize a git repository in this project folder.
    ```
 
-3. Accept the changes Claude Code makes.
+   Git tracks every change you make to your files. This is how professional developers keep a history of their work and collaborate with others. Initializing a repo is always the first step.
 
-4. Go to [github.com/new](https://github.com/new) and create a new repository:
+3. Next, create a .gitignore file:
+
+   ```
+   Create a .gitignore file for a Python project. Make sure it ignores virtual environments, __pycache__, .env files, and OS files like .DS_Store.
+   ```
+
+   A .gitignore tells git which files to skip. You don't want to push temporary files, cached bytecode, or files with passwords to GitHub.
+
+4. Now make your first commit:
+
+   ```
+   Stage all the project files and create an initial commit.
+   ```
+
+   A commit is a snapshot of your project at a point in time. Think of it as a save point you can always go back to.
+
+5. Go to [github.com/new](https://github.com/new) and create a new repository:
    - Name it `campus-bites-pipeline`
    - Set it to **Public**
    - Do NOT initialize with a README (you already have files locally)
 
-5. Back in Claude Code, tell it to connect your local repo to GitHub and push:
+6. Back in Claude Code, connect your local repo to GitHub:
 
    ```
-   Add a git remote for my GitHub repo at https://github.com/YOUR-USERNAME/campus-bites-pipeline.git and push the main branch.
+   Add a git remote for my GitHub repo at https://github.com/YOUR-USERNAME/campus-bites-pipeline.git
    ```
 
-   Replace `YOUR-USERNAME` with your actual GitHub username. Claude Code will run the git commands for you. This is one of the benefits of working with Claude Code -- you do not need to memorize git commands. You describe what you want in plain English and it handles the syntax.
+   Replace `YOUR-USERNAME` with your actual GitHub username. A remote is a link between your local repo and the one on GitHub. This tells git where to send your code when you push.
+
+7. Push your code to GitHub:
+
+   ```
+   Push the main branch to GitHub.
+   ```
+
+   This uploads your committed files to the remote repository. Anyone with the link can now see your project.
+
+Notice that you did not need to memorize any git commands. You described what you wanted in plain English and Claude Code handled the syntax. This is one of the main benefits of working with Claude Code.
 
 **Checkpoint:** Go to your repository on GitHub and verify that your files (docker-compose.yml, the Python script, the data file, and .gitignore) are all there.
 
