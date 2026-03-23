@@ -52,13 +52,13 @@ Claude Code is a command-line tool that lets you talk to Claude directly in the 
 
 5. Run `claude` to start the authentication flow. Follow the prompts to sign in.
 
-6. Once authenticated, set the output style to explanatory mode so Claude Code gives you context about what it is doing:
+6. Once authenticated, change the output style to explanatory mode. Type:
    ```
    /config
    ```
-   Select the output style option and set it to **explanatory**.
+   A settings menu will appear. Use the arrow keys to select **Output style**, press Enter, then select **Explanatory** and press Enter again. This tells Claude Code to explain what it is doing as it works, so you learn the tools instead of just watching code appear. You only need to set this once -- it persists across sessions.
 
-**Checkpoint:** Running `claude` in the terminal opens an interactive session where you can type prompts.
+**Checkpoint:** Running `claude` in the terminal opens an interactive session where you can type prompts. The output style is set to explanatory.
 
 ---
 
