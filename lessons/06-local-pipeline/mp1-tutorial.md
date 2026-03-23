@@ -1,6 +1,6 @@
 # Mini-Project 1: Local Data Pipeline Tutorial
 
-This tutorial walks through the full mini-project in 11 steps. Steps 1-7 correspond to Session 1 (install tools, build the pipeline). Steps 8-11 correspond to Session 2 (version control, querying, review).
+This tutorial walks through the full mini-project in 12 steps. Steps 1-7 correspond to Session 1 (install tools, build the pipeline). Steps 8-12 correspond to Session 2 (version control, querying, review).
 
 If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
@@ -23,9 +23,10 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
 | 8 | [Initialize git and push to GitHub](#step-8-initialize-git-and-push-to-github) | Version-control your pipeline and push to GitHub |
-| 9 | [Query your data using psql](#step-9-query-your-data-using-psql) | Connect to the database manually with psql, then let Claude Code query for you |
-| 10 | [Review what Claude Code built](#step-10-review-what-claude-code-built) | Read and understand every file the AI generated |
-| 11 | [Create CLAUDE.md and practice prompting](#step-11-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
+| 9 | [Query with psql](#step-9-query-your-data-using-psql) | Connect to the database manually and write SQL by hand |
+| 10 | [Query with natural language](#step-10-query-with-natural-language) | Ask questions in English and let Claude Code write the SQL |
+| 11 | [Review what Claude Code built](#step-11-review-what-claude-code-built) | Read and understand every file the AI generated |
+| 12 | [Create CLAUDE.md and practice prompting](#step-12-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
 
 ---
 
@@ -399,11 +400,9 @@ Notice that you did not need to memorize any git commands. You described what yo
 
 ### Step 9: Query Your Data Using psql
 
-The same data you analyzed in Lessons 01-02 is now in a database you built yourself. In the first half you used DBeaver to run queries. Now you will use `psql`, the official PostgreSQL command-line client. It runs directly inside your Docker container — no extra installation needed.
+The same data you analyzed in Lessons 01-02 is now in a database you built yourself. In the first half you used DBeaver to run queries. Now you will use `psql`, the official PostgreSQL command-line client. It runs directly inside your Docker container, no extra installation needed.
 
 **What to do:**
-
-First, connect to the database yourself from the terminal to see how psql works.
 
 1. Make sure you are not inside Claude Code. You should see your normal terminal prompt. Run:
 
@@ -448,42 +447,56 @@ First, connect to the database yourself from the terminal to see how psql works.
 
 4. Type `\q` to exit psql.
 
-Now let Claude Code handle the querying for you.
+**psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions, the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 7. Real data engineers use both: psql for exploration, Python for pipelines.
 
-5. Start Claude Code:
+**Checkpoint:** You connected to the database manually, ran SQL queries, and saw familiar Campus Bites data in a database you built yourself.
+
+---
+
+### Step 10: Query with Natural Language
+
+In Step 9, you typed SQL by hand. Now ask questions in plain English and let Claude Code write and run the SQL for you.
+
+**What to do:**
+
+1. Start Claude Code:
    ```bash
    claude
    ```
 
-6. Ask Claude Code to run a query:
+2. Ask a question about the data:
 
    ```
-   Using psql in the Docker container, which customer segment has the highest average order value?
+   Which customer segment has the highest average order value?
    ```
 
-   Claude Code will write and run the `docker exec` command and the SQL query for you. Compare this to typing everything manually in steps 1-3. Both approaches work — knowing the manual way helps you understand what Claude Code is doing under the hood.
+3. Claude Code will write the SQL, connect to the database via psql, and show you the results. Compare this to Step 9 where you typed everything manually.
 
-7. Try one more:
+4. Try another question:
 
    ```
-   Using psql, show me the top 3 cuisine types by total revenue.
+   Show me the top 3 cuisine types by total revenue.
    ```
 
-8. When you are done exploring, exit Claude Code:
+5. Try asking a question that requires more complex SQL:
+
+   ```
+   What percentage of orders used a promo code, broken down by customer segment?
+   ```
+
+6. When you are done exploring, exit Claude Code:
 
    ```
    /exit
    ```
 
-**psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions, the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 7. Real data engineers use both: psql for exploration, Python for pipelines.
+**The progression:** In Lessons 01-05, you wrote SQL in DBeaver. In Step 9, you wrote SQL in psql. Now you asked questions in English and Claude Code wrote the SQL. All three are useful. Knowing SQL helps you verify what the AI generates. Using natural language helps you explore data faster.
 
-**Why this matters:** Same analytical questions you tackled before, but now you own the entire stack. The database, the data loading process, and the queries are all in your repository. And you now know two ways to query it: manually with psql and through Claude Code.
-
-**Checkpoint:** You have connected to the database both manually and through Claude Code. The query results should look familiar from your earlier Campus Bites analysis.
+**Checkpoint:** You asked questions in plain English and Claude Code returned query results. You can compare its SQL to what you would have written yourself.
 
 ---
 
-### Step 10: Review What Claude Code Built
+### Step 11: Review What Claude Code Built
 
 AI-generated code is only useful if you understand it. In the final interview for this course, you will need to explain every component of your projects. Start that habit now.
 
@@ -519,7 +532,7 @@ AI-generated code is only useful if you understand it. In the final interview fo
 
 ---
 
-### Step 11: Create a CLAUDE.md and Practice Prompting
+### Step 12: Create a CLAUDE.md and Practice Prompting
 
 Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown file in your project root that Claude Code reads at the start of every session. It gives Claude Code context about your project so it makes better decisions.
 
