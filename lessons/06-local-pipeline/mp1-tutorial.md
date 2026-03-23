@@ -275,12 +275,36 @@ Your pipeline works locally. Now you will version-control it so you can share it
 
    A commit is a snapshot of your project at a point in time. Think of it as a save point you can always go back to.
 
-5. Go to [github.com/new](https://github.com/new) and create a new repository:
+5. Before you can push code to GitHub, you need to authenticate your computer with your GitHub account. Exit Claude Code (`/exit`) and install the GitHub CLI:
+
+   **Mac:**
+   ```bash
+   brew install gh
+   ```
+   If you don't have Homebrew, install it first by following the instructions at [brew.sh](https://brew.sh).
+
+   **Windows:**
+   ```bash
+   winget install --id GitHub.cli
+   ```
+
+   Then log in:
+   ```bash
+   gh auth login
+   ```
+   - Select **GitHub.com**
+   - Select **HTTPS**
+   - When asked to authenticate, select **Login with a web browser**
+   - Copy the one-time code shown in the terminal, press Enter, and complete the sign-in in your browser
+
+   This saves your GitHub credentials so git commands (push, pull, clone) work without asking for a password every time.
+
+6. Go to [github.com/new](https://github.com/new) and create a new repository:
    - Name it `campus-bites-pipeline`
    - Set it to **Public**
    - Do NOT initialize with a README (you already have files locally)
 
-6. Back in Claude Code, connect your local repo to GitHub:
+7. Start Claude Code again and connect your local repo to GitHub:
 
    ```
    Add a git remote for my GitHub repo at https://github.com/YOUR-USERNAME/campus-bites-pipeline.git
@@ -288,7 +312,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
 
    Replace `YOUR-USERNAME` with your actual GitHub username. A remote is a link between your local repo and the one on GitHub. This tells git where to send your code when you push.
 
-7. Push your code to GitHub:
+8. Push your code to GitHub:
 
    ```
    Push the main branch to GitHub.
