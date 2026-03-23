@@ -180,7 +180,7 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
 1. In your Claude Code session, type this prompt:
 
    ```
-   I have a CSV file with restaurant orders data. I need to set up a local database on my laptop so I can load the data and run SQL queries against it. I also want it to be easy for someone else to clone my repo and get the same database running on their machine. Ask me questions one at a time before you start building anything.
+   I need to set up a local database to store CSV data and run SQL queries. It should be easy for someone else to clone my repo and run the same setup. Ask me questions before you start building anything.
    ```
 
 2. Claude Code will start asking you questions — things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so — Claude Code will explain and recommend an option.
@@ -226,7 +226,7 @@ In Step 5, you let Claude Code ask you questions because you didn't know the sol
 2. Type this prompt, using the `@` symbol to reference the CSV file:
 
    ```
-   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. The connection details are: host localhost, port 5432, database campus_bites, username student, password student123. The script should create the table if it doesn't exist.
+   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. Create the table if it doesn't exist.
    ```
 
    **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV, instead of guessing. The result is a more accurate script on the first try -- it will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you having to list them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
@@ -402,7 +402,7 @@ Now let Claude Code handle the querying for you.
 6. Ask Claude Code to run a query:
 
    ```
-   Connect to the campus_bites database using psql in the Docker container and show me which customer segment has the highest average order value.
+   Using psql in the Docker container, which customer segment has the highest average order value?
    ```
 
    Claude Code will write and run the `docker exec` command and the SQL query for you. Compare this to typing everything manually in steps 1-3. Both approaches work — knowing the manual way helps you understand what Claude Code is doing under the hood.
@@ -467,7 +467,7 @@ Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown f
 1. In Claude Code, type this prompt:
 
    ```
-   Create a CLAUDE.md file for this project. It should describe that this is a Campus Bites data pipeline that loads orders data from CSV into a local PostgreSQL database running in Docker. Include the database connection details (host localhost, port 5432, database campus_bites, username student, password student123).
+   Create a CLAUDE.md file that describes this project and includes the database connection details.
    ```
 
 2. Review the file Claude Code creates. This is the project context that Claude Code will read every time you start a new session.
