@@ -22,7 +22,7 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
 | 7 | [Initialize git and push to GitHub](#step-7-initialize-git-and-push-to-github) | Version-control your pipeline and push to GitHub |
-| 8 | [Query your data using psql](#step-8-query-your-data-using-psql) | Run familiar SQL queries against your local database |
+| 8 | [Query your data using psql](#step-8-query-your-data-using-psql) | Connect to the database manually with psql, then let Claude Code query for you |
 | 9 | [Review what Claude Code built](#step-9-review-what-claude-code-built) | Read and understand every file the AI generated |
 | 10 | [Create CLAUDE.md and practice prompting](#step-10-create-a-claudemd-and-practice-prompting) | Add project context for Claude Code and review prompting techniques |
 
@@ -287,44 +287,77 @@ The same data you analyzed in Lessons 01-02 is now in a database you built yours
 
 **What to do:**
 
-1. Start Claude Code:
+First, connect to the database yourself from the terminal to see how psql works.
+
+1. Make sure you are not inside Claude Code. You should see your normal terminal prompt. Run:
+
+   ```bash
+   docker exec -it campus-bites-pipeline-db-1 psql -U student -d campus_bites
+   ```
+
+   This tells Docker to open a psql session inside your running PostgreSQL container. You should see a `campus_bites=#` prompt, which means you are connected to the database. This is the PostgreSQL equivalent of opening a connection in DBeaver.
+
+   (If the container name is different, run `docker ps` to find it — look for the NAME column.)
+
+2. Try a quick query to make sure the data is there:
+
+   ```sql
+   SELECT COUNT(*) FROM orders;
+   ```
+
+3. Run one of the queries you wrote in Lesson 01:
+
+   ```sql
+   SELECT
+       EXTRACT(YEAR FROM order_date) AS order_year,
+       EXTRACT(MONTH FROM order_date) AS order_month,
+       COUNT(order_id) AS total_orders,
+       ROUND(SUM(order_value)::numeric, 2) AS total_revenue
+   FROM orders
+   GROUP BY
+       EXTRACT(YEAR FROM order_date),
+       EXTRACT(MONTH FROM order_date)
+   ORDER BY
+       order_year,
+       order_month;
+   ```
+
+   Notice two small PostgreSQL differences from MySQL: `EXTRACT(MONTH FROM ...)` instead of `MONTH(...)`, and `::numeric` for casting before rounding. The logic is the same.
+
+4. Type `\q` to exit psql.
+
+Now let Claude Code handle the querying for you.
+
+5. Start Claude Code:
    ```bash
    claude
    ```
 
-2. Tell Claude Code to connect you to the database:
+6. Ask Claude Code to run a query:
 
    ```
-   Connect me to the campus_bites database using psql inside the Docker container.
+   Connect to the campus_bites database using psql in the Docker container and show me which customer segment has the highest average order value.
    ```
 
-   Claude Code will run a `docker exec` command that opens a psql session. You are now connected to your local PostgreSQL database, just like you were connected to the remote MySQL database in DBeaver.
+   Claude Code will write and run the `docker exec` command and the SQL query for you. Compare this to typing everything manually in steps 1-3. Both approaches work — knowing the manual way helps you understand what Claude Code is doing under the hood.
 
-3. Run a familiar query. Ask Claude Code:
-
-   ```
-   Show total orders and total revenue by month, ordered chronologically.
-   ```
-
-4. Look at the results. These should match what you found in Lesson 01 since it is the same underlying data.
-
-5. Try another query:
+7. Try one more:
 
    ```
-   Which customer segment has the highest average order value?
+   Using psql, show me the top 3 cuisine types by total revenue.
    ```
 
-6. When you are done exploring, tell Claude Code:
+8. When you are done exploring, exit Claude Code:
 
    ```
-   Exit the psql session.
+   /exit
    ```
 
 **psql vs. Python scripts:** Use psql when you want to explore data and ask quick questions — the same way you used DBeaver in the first half. Use Python scripts when you need to automate something repeatable, like the data loading script you built in Step 6. Real data engineers use both: psql for exploration, Python for pipelines.
 
-**Why this matters:** Same analytical questions you tackled before, but now you own the entire stack. The database, the data loading process, and the queries are all in your repository.
+**Why this matters:** Same analytical questions you tackled before, but now you own the entire stack. The database, the data loading process, and the queries are all in your repository. And you now know two ways to query it: manually with psql and through Claude Code.
 
-**Checkpoint:** Both queries return results. The monthly trends should look familiar from your earlier Campus Bites analysis.
+**Checkpoint:** You have connected to the database both manually and through Claude Code. The query results should look familiar from your earlier Campus Bites analysis.
 
 ---
 
