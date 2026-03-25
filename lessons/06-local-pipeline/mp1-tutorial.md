@@ -604,10 +604,10 @@ Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown f
 
 2. Review the file Claude Code creates. This is the project context that Claude Code will read every time you start a new session. Make sure it includes the database connection details — if not, ask Claude Code to add them.
 
-3. Commit the new file:
+3. Commit and push the new file:
 
    ```
-   Commit the CLAUDE.md file.
+   Commit and push the CLAUDE.md file.
    ```
 
 **Prompting techniques from this tutorial:**
@@ -628,7 +628,7 @@ Both approaches follow the same rule: one request at a time. Read what comes bac
 ## Submission
 
 1. Make sure all your files are committed and pushed to GitHub.
-2. Submit your GitHub repository link as **Lesson Exercise 06**.
+2. Submit your GitHub repository link as **Lesson Exercise 06**. Your repository must be set to **Public** so the instructor can review it. If you set it to Private during setup, go to **Settings > General > Danger Zone > Change visibility** and switch it to Public.
 
 Your repository should contain at minimum:
 - `CLAUDE.md`
