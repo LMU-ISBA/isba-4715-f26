@@ -269,9 +269,17 @@ In Step 5, everyone's conversation went a different direction depending on how t
    What are the top 3 cuisine types by number of orders?
    ```
 
-   Claude Code will write the SQL, run it against your database, and return the results. You just queried the same database two different ways — by writing SQL yourself in DBeaver, and by asking a question in natural language through Claude Code.
+   Claude Code will write the SQL, run it against your database, and return the results.
 
-**Checkpoint:** The row count returns 1,132 in DBeaver, and Claude Code can answer questions about the data in plain English. The data is in your local PostgreSQL database, loaded automatically by Docker.
+8. Now ask Claude Code to show you the SQL it used:
+
+   ```
+   Show me the SQL query you just ran.
+   ```
+
+   Copy that query, switch to DBeaver, paste it into your SQL editor, and run it. The results should match. This is a good habit: when AI generates a query for you, verify it by running the SQL yourself. You'll catch mistakes faster and learn SQL patterns along the way.
+
+**Checkpoint:** The row count returns 1,132 in DBeaver, Claude Code can answer questions in plain English, and you verified the generated SQL by running it yourself in DBeaver.
 
 ---
 
