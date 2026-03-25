@@ -245,9 +245,17 @@ In Step 5, everyone's conversation went a different direction depending on how t
 
 **About this prompt:** Notice how different it is from Step 5. In Step 5, you described a problem and let the AI ask questions. Here, you gave specific requirements upfront because you now know what you want. Both approaches are useful. The key difference: Step 5 is for exploring when you're unsure, this prompt is for executing when you're clear.
 
-**A note on credentials:** The username and password in this docker-compose.yml are for a local development database. This is fine because the database only runs on your laptop. When you work with cloud databases later in the course, you will use environment variables to keep credentials out of your code.
+**A note on credentials:** Claude Code generated a username and password for your local database. To find them, open the file explorer in Cursor and look for a file called `docker-compose.yml` (or similar) in your project root. The database name, username, and password are defined there as environment variables. These credentials only matter on your laptop — the database is not accessible from the internet. When you work with cloud databases later in the course, you will use environment variables to keep credentials out of your code.
 
-**Checkpoint:** The row count returns 1,132. The data is in your local PostgreSQL database, loaded automatically by Docker.
+5. Now connect to your new database using DBeaver, the same tool you used in Lessons 01-05. Open DBeaver and create a new connection:
+   - Click the **New Database Connection** button (or **Database > New Database Connection**)
+   - Select **PostgreSQL** (not MySQL this time)
+   - Fill in the connection details using the credentials Claude Code generated. Look in your Docker configuration files for the host, port, database name, username, and password. The host is `localhost` since the database is running on your machine.
+   - Click **Test Connection** to make sure it works, then click **Finish**
+
+   You should see the `orders` table under **campus_bites > Schemas > public > Tables**. You can browse the data, run queries, and use all the DBeaver features you already know — the only difference is you're connecting to PostgreSQL instead of MySQL.
+
+**Checkpoint:** The row count returns 1,132 and you can see the data in both Claude Code and DBeaver. The data is in your local PostgreSQL database, loaded automatically by Docker.
 
 ---
 
