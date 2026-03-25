@@ -285,21 +285,37 @@ In Step 5, everyone's conversation went a different direction depending on how t
 
 ### Step 7: Reload Data with a Python Script
 
-The `init.sql` approach from Step 6 loads data automatically when Docker starts. That works well for a static CSV that ships with the repo. But in data engineering, you often need to load data programmatically, on a schedule, or from sources that aren't files sitting in your repo. A Python script gives you that flexibility.
+The `init.sql` approach from Step 6 loads data automatically when Docker starts. That works well for a static CSV that ships with the repo. But in data engineering, you often need to load data programmatically, on a schedule, or from sources that aren't files sitting in your repo. A Python script lets you do all of that.
 
-To see this in action, you will first delete the data that `init.sql` loaded, then reload it using a Python script.
+You're going to replace `init.sql` with a Python script as the way data gets into your database. Before writing the script, you need to clean up the old approach so there's only one way data gets loaded.
 
 **What to do:**
 
-1. First, delete the existing data so you can reload it with Python. Tell Claude Code:
+1. First, drop the existing data. Tell Claude Code:
 
    ```
    Drop the orders table from the database.
    ```
 
-2. Switch to DBeaver and refresh your connection (right-click the connection > **Refresh**). The `orders` table should be gone from **campus_bites > Schemas > public > Tables**. This confirms the drop worked before you try to reload the data with Python.
+2. Switch to DBeaver and refresh your connection (right-click the connection > **Refresh**). The `orders` table should be gone from **campus_bites > Schemas > public > Tables**. This confirms the drop worked.
 
-3. Before writing any Python code, set up a virtual environment. Tell Claude Code:
+3. Now remove `init.sql` and update the Docker configuration so it no longer references it. Tell Claude Code:
+
+   ```
+   Remove @init.sql and update the Docker configuration so it no longer mounts or references that file. The Python script will handle data loading from now on.
+   ```
+
+   When you replace one approach with another, clean up the old one. If you leave `init.sql` mounted in Docker, restarting the container would load the data twice — once from `init.sql` and again from your Python script.
+
+4. Restart the database so it comes up empty. Tell Claude Code:
+
+   ```
+   Restart the database.
+   ```
+
+5. Switch to DBeaver, refresh, and confirm the database has no tables. The container is running but the database is empty — exactly what you want before loading data with Python.
+
+6. Before writing any Python code, set up a virtual environment. Tell Claude Code:
 
    ```
    Create a Python virtual environment for this project.
@@ -309,7 +325,7 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 
    You don't need to activate the environment yourself. Claude Code will use it automatically when it runs Python scripts or installs packages.
 
-4. Now type this prompt, using the `@` symbol to reference the CSV file:
+7. Now type this prompt, using the `@` symbol to reference the CSV file:
 
    ```
    Write a Python script that loads @data/campus_bites_orders.csv into the orders table in the database.
@@ -317,34 +333,29 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 
    **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV instead of guessing, so it writes a more accurate script on the first try. It will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you listing them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
-5. Claude Code will generate a Python script. Review the code and accept it.
+8. Claude Code will generate a Python script. Review the code and accept it.
 
-6. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
+9. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
 
-7. Tell Claude Code to run the script:
+10. Tell Claude Code to run the script:
 
-   ```
-   Run the script.
-   ```
+    ```
+    Run the script.
+    ```
 
-   Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
+    Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
 
-8. Verify the data is back:
+11. Verify the data is back:
 
-   ```
-   Verify the data loaded correctly.
-   ```
+    ```
+    Verify the data loaded correctly.
+    ```
 
-**Two ways to load data:**
+12. Switch to DBeaver one last time, refresh, and confirm the `orders` table is back with 1,132 rows.
 
-| Approach | When to use it |
-|---|---|
-| `init.sql` (Step 6) | Static data that loads automatically when anyone runs `docker compose up` |
-| Python script (Step 7) | Data that changes, comes from APIs, or needs transformation before loading |
+**Why replace `init.sql`?** In later mini-projects, you will use Python scripts to extract data from APIs and web pages. Those data sources can't be loaded with a SQL file because the data doesn't come from a local CSV. Getting comfortable with Python-based loading now prepares you for those projects.
 
-In later mini-projects, you will use Python scripts to extract data from APIs and web pages. The `init.sql` approach won't work for those because the data doesn't come from a local file.
-
-**Checkpoint:** The orders table was dropped, then recreated and reloaded by the Python script. The row count is back to 1,132.
+**Checkpoint:** The `init.sql` file is gone, the Docker configuration no longer references it, and the Python script is the only thing loading data into the database. The row count is 1,132 in both Claude Code and DBeaver.
 
 ---
 
