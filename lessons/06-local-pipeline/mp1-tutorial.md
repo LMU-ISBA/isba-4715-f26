@@ -250,7 +250,7 @@ In Step 5, everyone's conversation went a different direction depending on how t
 5. Now connect to your new database using DBeaver, the same tool you used in Lessons 01-05. Open DBeaver and create a new connection:
    - Click the **New Database Connection** button (or **Database > New Database Connection**)
    - Select **PostgreSQL** (not MySQL this time)
-   - Fill in the connection details using the credentials Claude Code generated. Look in your Docker configuration files for the host, port, database name, username, and password. The host is `localhost` since the database is running on your machine.
+   - Fill in the connection details using the credentials from your Docker configuration file. The host is `localhost` since the database is running on your machine.
    - Click **Test Connection** to make sure it works, then click **Finish**
 
    You should see the `orders` table under **campus_bites > Schemas > public > Tables**.
@@ -261,7 +261,7 @@ In Step 5, everyone's conversation went a different direction depending on how t
    SELECT COUNT(order_id) FROM orders;
    ```
 
-   You should get 1,132 rows. This is the same DBeaver workflow you used in Lessons 01-05 — the only difference is you're connected to PostgreSQL instead of MySQL.
+   You should get 1,132 rows. Same workflow as Lessons 01-05, just PostgreSQL instead of MySQL.
 
 7. Now go back to Claude Code and ask a question about the data in plain English:
 
@@ -277,7 +277,7 @@ In Step 5, everyone's conversation went a different direction depending on how t
    Show me the SQL query you just ran.
    ```
 
-   Copy that query, switch to DBeaver, paste it into your SQL editor, and run it. The results should match. This is a good habit: when AI generates a query for you, verify it by running the SQL yourself. You'll catch mistakes faster and learn SQL patterns along the way.
+   Copy that query, switch to DBeaver, paste it into your SQL editor, and run it. The results should match. Get in the habit of doing this — when AI generates a query, run the SQL yourself to verify. You'll catch mistakes faster and pick up SQL patterns as you go.
 
 **Checkpoint:** The row count returns 1,132 in DBeaver, Claude Code can answer questions in plain English, and you verified the generated SQL by running it yourself in DBeaver.
 
