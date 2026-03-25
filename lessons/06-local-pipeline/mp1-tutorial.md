@@ -466,15 +466,15 @@ The same data you analyzed in Lessons 01-02 is now in a database you built yours
 1. Make sure you are not inside Claude Code. You should see your normal terminal prompt. Run:
 
    ```bash
-   docker exec -it campus-bites-pipeline-db-1 psql -U student -d campus_bites
+   docker exec -it campus_bites_db psql -U postgres -d campus_bites
    ```
 
    Here is what each part does:
    - `docker exec` — run a command inside a running container (your PostgreSQL database is running in a container)
    - `-it` — interactive mode with a terminal, so you can type commands and see output
-   - `campus-bites-pipeline-db-1` — the name of your container (if this is different, run `docker ps` to find it in the NAME column)
+   - `campus_bites_db` — the name of your container (if this is different, run `docker ps` to find it in the NAME column)
    - `psql` — the PostgreSQL command-line client
-   - `-U student` — connect as the user `student`
+   - `-U postgres` — connect as the user `postgres`
    - `-d campus_bites` — connect to the `campus_bites` database
 
    You should see a `campus_bites=#` prompt, which means you are connected. This is the PostgreSQL equivalent of opening a connection in DBeaver.
@@ -537,11 +537,13 @@ In Step 9, you typed SQL by hand. Now ask questions in plain English and let Cla
    Show me the top 3 cuisine types by total revenue.
    ```
 
-5. Try asking a question that requires more complex SQL:
+5. Try asking a question that requires more complex SQL — something like the window functions and percentage calculations you wrote in Lessons 02-04:
 
    ```
-   What percentage of orders used a promo code, broken down by customer segment?
+   Show me month-over-month revenue growth as a percentage, and flag any months where revenue dropped.
    ```
+
+   Look at the SQL Claude Code generates. You should recognize patterns from your earlier lessons: `LAG()` for comparing to the previous month, `CASE WHEN` for flagging drops, and date functions for grouping by month.
 
 6. When you are done exploring, exit Claude Code:
 
@@ -563,17 +565,12 @@ AI-generated code is only useful if you understand it. In the final interview fo
 
 1. Open Cursor's file explorer (the sidebar) and look at the files Claude Code created.
 
-2. Open `docker-compose.yml`. Read through it. You should be able to identify:
+2. Open `docker-compose.yml` (or your Docker configuration file). Read through it. You should be able to identify:
    - Which Docker image it uses
    - The database name, username, and password
    - Which port is mapped
-   - How it mounts the init.sql script
 
-3. Open `init.sql`. Read through it. You should be able to identify:
-   - How it creates the table
-   - How it loads the CSV data
-
-4. Open the Python load script. Read through it. You should be able to identify:
+3. Open the Python load script. Read through it. You should be able to identify:
    - How it connects to the database
    - How it reads the CSV
    - How it creates the table
@@ -597,13 +594,15 @@ Every Claude Code project benefits from a `CLAUDE.md` file. This is a markdown f
 
 **What to do:**
 
-1. In Claude Code, type this prompt:
+1. In Claude Code, type:
 
    ```
-   Create a CLAUDE.md file that describes this project and includes the database connection details.
+   /init
    ```
 
-2. Review the file Claude Code creates. This is the project context that Claude Code will read every time you start a new session.
+   This command tells Claude Code to scan your project and generate a `CLAUDE.md` file automatically. It will look at your files, your Docker setup, and your Python script to build a summary of the project.
+
+2. Review the file Claude Code creates. This is the project context that Claude Code will read every time you start a new session. Make sure it includes the database connection details — if not, ask Claude Code to add them.
 
 3. Commit the new file:
 
