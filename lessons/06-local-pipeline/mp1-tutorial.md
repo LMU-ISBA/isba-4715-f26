@@ -377,7 +377,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
 
 **What to do:**
 
-1. Start Claude Code in your project folder:
+1. Make sure Claude Code is running in your project folder. If it's not already open, start it:
    ```bash
    claude
    ```
@@ -404,9 +404,9 @@ Your pipeline works locally. Now you will version-control it so you can share it
    Stage all the project files and create an initial commit.
    ```
 
-   A commit is a snapshot of your project at a point in time. Think of it as a save point you can always go back to.
+   Staging is how you tell git which files to include in the next commit. Think of it as putting files in a box before sealing it. A commit is a snapshot of everything in that box at a point in time — a save point you can always go back to.
 
-5. Before you can push code to GitHub, you need to authenticate your computer with your GitHub account. Exit Claude Code (`/exit`) and install the GitHub CLI:
+5. Before you can push code to GitHub, you need to authenticate your computer with your GitHub account. Open a new terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**) and keep Claude Code running in the other one. Install the GitHub CLI:
 
    **Mac:**
    ```bash
@@ -435,7 +435,7 @@ Your pipeline works locally. Now you will version-control it so you can share it
    - Set it to **Public**
    - Do NOT initialize with a README (you already have files locally)
 
-7. Start Claude Code again and connect your local repo to GitHub:
+7. Switch back to your Claude Code terminal and connect your local repo to GitHub:
 
    ```
    Add a git remote for my GitHub repo at https://github.com/YOUR-USERNAME/campus-bites-pipeline.git
