@@ -253,9 +253,25 @@ In Step 5, everyone's conversation went a different direction depending on how t
    - Fill in the connection details using the credentials Claude Code generated. Look in your Docker configuration files for the host, port, database name, username, and password. The host is `localhost` since the database is running on your machine.
    - Click **Test Connection** to make sure it works, then click **Finish**
 
-   You should see the `orders` table under **campus_bites > Schemas > public > Tables**. You can browse the data, run queries, and use all the DBeaver features you already know — the only difference is you're connecting to PostgreSQL instead of MySQL.
+   You should see the `orders` table under **campus_bites > Schemas > public > Tables**.
 
-**Checkpoint:** The row count returns 1,132 and you can see the data in both Claude Code and DBeaver. The data is in your local PostgreSQL database, loaded automatically by Docker.
+6. Open a new SQL script in DBeaver (right-click your connection > **SQL Editor > New SQL Script**) and run a quick query to confirm everything works:
+
+   ```sql
+   SELECT COUNT(order_id) FROM orders;
+   ```
+
+   You should get 1,132 rows. This is the same DBeaver workflow you used in Lessons 01-05 — the only difference is you're connected to PostgreSQL instead of MySQL.
+
+7. Now go back to Claude Code and ask a question about the data in plain English:
+
+   ```
+   What are the top 3 cuisine types by number of orders?
+   ```
+
+   Claude Code will write the SQL, run it against your database, and return the results. You just queried the same database two different ways — by writing SQL yourself in DBeaver, and by asking a question in natural language through Claude Code.
+
+**Checkpoint:** The row count returns 1,132 in DBeaver, and Claude Code can answer questions about the data in plain English. The data is in your local PostgreSQL database, loaded automatically by Docker.
 
 ---
 
