@@ -232,7 +232,7 @@ In Step 5, everyone's conversation went a different direction depending on how t
 3. Once the files are generated, start the database:
 
    ```
-   Start the Docker container.
+   Start the database.
    ```
 
    Docker will download the PostgreSQL image (this may take a minute the first time) and start the database. The `init.sql` script runs automatically on first startup, creating the table and loading all 1,132 rows from the CSV.
@@ -240,7 +240,7 @@ In Step 5, everyone's conversation went a different direction depending on how t
 4. Verify the data loaded:
 
    ```
-   Use psql inside the Docker container to count the rows in the orders table.
+   Verify the data loaded correctly.
    ```
 
 **About this prompt:** Notice how different it is from Step 5. In Step 5, you described a problem and let the AI ask questions. Here, you gave specific requirements upfront because you now know what you want. Both approaches are useful. The key difference: Step 5 is for exploring when you're unsure, this prompt is for executing when you're clear.
