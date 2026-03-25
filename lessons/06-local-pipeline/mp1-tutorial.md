@@ -297,27 +297,31 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
    Drop the orders table from the database.
    ```
 
-2. Before writing any Python code, set up a virtual environment. Tell Claude Code:
+2. Switch to DBeaver and refresh your connection (right-click the connection > **Refresh**). The `orders` table should be gone from **campus_bites > Schemas > public > Tables**. This confirms the drop worked before you try to reload the data with Python.
+
+3. Before writing any Python code, set up a virtual environment. Tell Claude Code:
 
    ```
-   Create a Python virtual environment and activate it.
+   Create a Python virtual environment for this project.
    ```
 
-   A virtual environment is an isolated space for your project's Python dependencies. Without one, installing a package like `psycopg2` goes into your system-wide Python, which can cause conflicts between projects. Every Python project should have its own virtual environment. This is a habit you will follow for every mini-project and your independent project.
+   A virtual environment is an isolated space for your project's Python dependencies. Without one, installing a package like `psycopg2` goes into your system-wide Python, which can cause conflicts between projects. Every Python project should have its own virtual environment. You'll do this for every mini-project and your independent project.
 
-3. Now type this prompt, using the `@` symbol to reference the CSV file:
+   You don't need to activate the environment yourself. Claude Code will use it automatically when it runs Python scripts or installs packages.
+
+4. Now type this prompt, using the `@` symbol to reference the CSV file:
 
    ```
-   Write a Python script that reads @data/campus_bites_orders.csv and loads it into a table called orders in the campus_bites database running in Docker. Create the table if it doesn't exist.
+   Write a Python script that loads @data/campus_bites_orders.csv into the orders table in the database.
    ```
 
-   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV instead of guessing. The result is a more accurate script on the first try. It will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you listing them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
+   **About `@` references:** When you type `@` followed by a file path in Claude Code, it reads that file and includes its contents in your prompt. This means Claude Code can see the actual column names, data types, and sample rows in the CSV instead of guessing, so it writes a more accurate script on the first try. It will know the exact columns (`order_id`, `order_date`, `customer_segment`, etc.) without you listing them out. Use `@` whenever you want Claude Code to look at a specific file as part of your request.
 
-4. Claude Code will generate a Python script. Review the code and accept it.
+5. Claude Code will generate a Python script. Review the code and accept it.
 
-5. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
+6. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
 
-6. Tell Claude Code to run the script:
+7. Tell Claude Code to run the script:
 
    ```
    Run the script.
@@ -325,7 +329,7 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 
    Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
 
-7. Verify the data is back:
+8. Verify the data is back:
 
    ```
    Verify the data loaded correctly.
