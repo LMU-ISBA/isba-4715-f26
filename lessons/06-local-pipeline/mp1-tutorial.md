@@ -335,9 +335,19 @@ You're going to replace `init.sql` with a Python script as the way data gets int
 
 8. Claude Code will generate a Python script. Review the code and accept it.
 
-9. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
+9. Open the script in Cursor's file explorer so you can see the full code. Read through it — you should be able to spot where it connects to the database, reads the CSV, creates the table, and inserts the rows.
 
-10. Tell Claude Code to run the script:
+10. If the code doesn't have comments, ask Claude Code to add them:
+
+    ```
+    Add comments to the Python script explaining what each section does.
+    ```
+
+    Reading commented code is one of the fastest ways to learn what generated code is doing. You don't need to understand every line yet, but you should be able to follow the overall flow.
+
+11. Claude Code may need to install Python dependencies (like `psycopg2` or `pandas`). Let it do so when it asks. These will install inside your virtual environment, not system-wide.
+
+12. Tell Claude Code to run the script:
 
     ```
     Run the script.
@@ -345,13 +355,13 @@ You're going to replace `init.sql` with a Python script as the way data gets int
 
     Running scripts through Claude Code is better than running them manually because if something fails, Claude Code sees the error immediately and can fix the code and retry without you having to copy and paste error messages.
 
-11. Verify the data is back:
+13. Verify the data is back:
 
     ```
     Verify the data loaded correctly.
     ```
 
-12. Switch to DBeaver one last time, refresh, and confirm the `orders` table is back with 1,132 rows.
+14. Switch to DBeaver one last time, refresh, and confirm the `orders` table is back with 1,132 rows.
 
 **Why replace `init.sql`?** In later mini-projects, you will use Python scripts to extract data from APIs and web pages. Those data sources can't be loaded with a SQL file because the data doesn't come from a local CSV. Getting comfortable with Python-based loading now prepares you for those projects.
 
