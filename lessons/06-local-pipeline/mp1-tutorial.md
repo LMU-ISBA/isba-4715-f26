@@ -164,7 +164,7 @@ Now you will set up your project directory and start working with Claude Code.
    ```
    Download [`campus_bites_orders.csv`](https://lmu-isba.github.io/isba-4715-f26/lessons/06-local-pipeline/data/campus_bites_orders.csv) and save it into the `data/` folder. You can also drag and drop it in Cursor's file explorer.
 
-4. Now open this project folder in Cursor so you can see the files in the sidebar. Go to **File > Open Folder** and select `~/isba-4715/campus-bites-pipeline`. You should see your `data/` folder in the file explorer on the left.
+4. Now open the `campus-bites-pipeline` folder in Cursor so you can see the files in the sidebar. Go to **File > Open Folder**, navigate to your home folder, then open `isba-4715`, then select `campus-bites-pipeline`. (The full path is `~/isba-4715/campus-bites-pipeline`.) You should see your `data/` folder in the file explorer on the left.
 
 5. Open a new terminal in this project (`` Ctrl+` `` or **Terminal > New Terminal**). The terminal should now show `campus-bites-pipeline` in the prompt, meaning you are inside your project folder.
 
