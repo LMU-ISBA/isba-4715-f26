@@ -262,7 +262,7 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 1. First, delete the existing data so you can reload it with Python. Tell Claude Code:
 
    ```
-   Drop the orders table in the campus_bites database using psql in the Docker container.
+   Drop the orders table from the database.
    ```
 
 2. Before writing any Python code, set up a virtual environment. Tell Claude Code:
@@ -296,7 +296,7 @@ To see this in action, you will first delete the data that `init.sql` loaded, th
 7. Verify the data is back:
 
    ```
-   Use psql inside the Docker container to count the rows in the orders table.
+   Verify the data loaded correctly.
    ```
 
 **Two ways to load data:**
