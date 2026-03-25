@@ -191,9 +191,11 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
    I need to set up a local database to store CSV data and run SQL queries. Ask me one question at a time before you start building anything.
    ```
 
-2. Claude Code will start asking you questions. Things like what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly based on what you know. If you don't know the answer, say so. Claude Code will explain the options and recommend one.
+2. Claude Code will start asking you questions — what database you prefer, what operating system you're on, whether you have Docker installed. Answer honestly. If you don't know, say so. Claude Code will explain the options and recommend one.
 
-3. Through this conversation, you and Claude Code will arrive at a plan together. It will likely recommend Docker with PostgreSQL. Keep answering questions until Claude Code has a plan it wants to show you.
+3. After about five questions, ask Claude Code to summarize what it has gathered so far. This is your chance to catch any misunderstandings before it puts a plan together.
+
+4. Keep going until you feel Claude Code has enough context. Then tell it you're done answering questions and ask it to propose a plan. Don't let it start building anything until you've reviewed and approved the plan.
 
 **Why this technique matters:** You often know the problem but not the solution. Instead of guessing at tools and configurations, you describe what you need and let the AI guide you to the right approach.
 
@@ -212,14 +214,14 @@ In Step 5, everyone's conversation went a different direction depending on how t
 1. Type this prompt:
 
    ```
-   I need to set up a local Postgres database using Docker for my class project. The repo is campus-bites-pipeline and contains a single CSV file at data/campus_bites_orders.csv with ~1,132 rows of campus food delivery order data (columns: order_id, order_date, order_time, customer_segment, order_value, cuisine_type, delivery_time_mins, promo_code_used, is_reorder).
+   I need to set up a local Postgres database using Docker. I have a single CSV file at data/campus_bites_orders.csv.
 
    Requirements:
-   - Postgres on Docker using docker-compose.yml
+   - Postgres on Docker
    - An init.sql script that creates the table and loads the CSV on first startup
-   - The setup should be easy for classmates to clone and run
-   - Primary use case is running SQL queries interactively
-   - Database name: campus_bites is fine
+   - The setup should be easy for others to clone and run
+   - Primary use case is running SQL queries interactively using SQL and natural language
+   - Database name: campus_bites
    - Include a README with setup instructions
 
    I have Docker installed. Don't start building until I confirm the plan.
