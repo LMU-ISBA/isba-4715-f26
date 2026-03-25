@@ -1,4 +1,4 @@
-# Mini-Project 1: Local Data Pipeline
+# Mini-Project 01: Local Data Pipeline
 
 ## Overview
 

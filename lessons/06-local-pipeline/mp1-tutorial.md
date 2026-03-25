@@ -1,4 +1,4 @@
-# Mini-Project 1: Local Data Pipeline Tutorial
+# Mini-Project 01: Local Data Pipeline Tutorial
 
 This tutorial walks through the full mini-project in 12 steps. Steps 1-7 correspond to Session 1 (install tools, build the pipeline). Steps 8-12 correspond to Session 2 (version control, querying, review).
 
@@ -151,10 +151,10 @@ Now you will set up your project directory and start working with Claude Code.
 
    ```
    ~/isba-4715/
-   ├── campus-bites-pipeline/     <-- MP1 (this tutorial)
-   ├── cloud-pipeline/            <-- MP2
-   ├── api-pipeline/              <-- MP3
-   ├── ai-chatbot/                <-- MP4
+   ├── campus-bites-pipeline/     <-- MP01 (this tutorial)
+   ├── cloud-pipeline/            <-- MP02
+   ├── api-pipeline/              <-- MP03
+   ├── ai-chatbot/                <-- MP04
    └── your-project-name/         <-- Independent project
    ```
 
@@ -199,7 +199,7 @@ You need a database to load the CSV data into. But unlike Lessons 01-05 where so
 
 **MySQL vs. PostgreSQL:** In Lessons 01-05 you used MySQL. Now you are using PostgreSQL. Both are relational databases and your SQL knowledge transfers directly. SELECT, FROM, WHERE, GROUP BY, JOINs, CTEs, and window functions all work the same way. The syntax differences are minor (e.g., PostgreSQL uses `||` to concatenate strings instead of MySQL's `CONCAT()`, and uses `TRUE`/`FALSE` instead of `1`/`0` for booleans). Most of the queries you wrote in Lessons 01-05 will run without changes.
 
-So why switch? PostgreSQL is the standard in data engineering and analytics. Snowflake (which you will use starting in MP2), Amazon Redshift, and most modern data warehouses are all based on PostgreSQL's SQL dialect. dbt also works best with PostgreSQL-family databases. Learning PostgreSQL now means the SQL you write will carry directly into the tools you use for the rest of the course and in industry.
+So why switch? PostgreSQL is the standard in data engineering and analytics. Snowflake (which you will use starting in MP02), Amazon Redshift, and most modern data warehouses are all based on PostgreSQL's SQL dialect. dbt also works best with PostgreSQL-family databases. Learning PostgreSQL now means the SQL you write will carry directly into the tools you use for the rest of the course and in industry.
 
 ---
 

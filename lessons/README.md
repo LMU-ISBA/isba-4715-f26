@@ -18,10 +18,10 @@ End-to-end data engineering projects built with Claude Code. Each mini-project i
 
 | Mini-Project | Sessions | Topic | Source | Destination |
 |-------------|----------|-------|--------|-------------|
-| [06-local-pipeline](06-local-pipeline/) | 2 | Local Data Pipeline | CSV | Docker PostgreSQL |
-| 07-cloud-pipeline (coming soon) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
-| 08-api-pipeline (coming soon) | 3 | API Pipeline | Public API | Snowflake + Streamlit |
-| 09-ai-chatbot (coming soon) | 3 | AI Application | Web Scrape | Vector DB + RAG Chatbot |
+| [MP01: 06-local-pipeline](06-local-pipeline/) | 2 | Local Data Pipeline | CSV | Docker PostgreSQL |
+| MP02: 07-cloud-pipeline (coming soon) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
+| MP03: 08-api-pipeline (coming soon) | 3 | API Pipeline | Public API | Snowflake + Streamlit |
+| MP04: 09-ai-chatbot (coming soon) | 3 | AI Application | Web Scrape | Vector DB + RAG Chatbot |
 
 ## The Campus Bites Story (Lessons 01-02)
 
@@ -52,7 +52,7 @@ Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: 
 
 **Second half (Mini-Projects 06+):**
 1. Install Cursor, Claude Code, and Docker (covered in class)
-2. Start with [Mini-Project 1](06-local-pipeline/)
+2. Start with [Mini-Project 01](06-local-pipeline/)
 
 ## File Structure
 
@@ -88,10 +88,10 @@ Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: 
 
 | MP | Concepts |
 |----|----------|
-| 06 | Cursor, Claude Code, Docker, PostgreSQL, git, psql, AI prompting |
-| 07 | AWS RDS, AWS CLI, Snowflake, dbt (staging + marts), dimensional modeling |
-| 08 | API extraction, GitHub Actions, Streamlit, deployment |
-| 09 | Web scraping, vector databases, embeddings, RAG, LangChain, Claude API |
+| MP01 | Cursor, Claude Code, Docker, PostgreSQL, git, psql, AI prompting |
+| MP02 | AWS RDS, AWS CLI, Snowflake, dbt (staging + marts), dimensional modeling |
+| MP03 | API extraction, GitHub Actions, Streamlit, deployment |
+| MP04 | Web scraping, vector databases, embeddings, RAG, LangChain, Claude API |
 
 ## The Analytics Framework
 
