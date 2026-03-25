@@ -302,7 +302,7 @@ You're going to replace `init.sql` with a Python script as the way data gets int
 3. Now remove `init.sql` and update the Docker configuration so it no longer references it. Tell Claude Code:
 
    ```
-   Remove @init.sql and update the Docker configuration so it no longer mounts or references that file. The Python script will handle data loading from now on.
+   Remove @init.sql and update the Docker configuration so it no longer references that file. The Python script will handle data loading from now on.
    ```
 
    When you replace one approach with another, clean up the old one. If you leave `init.sql` mounted in Docker, restarting the container would load the data twice — once from `init.sql` and again from your Python script.
