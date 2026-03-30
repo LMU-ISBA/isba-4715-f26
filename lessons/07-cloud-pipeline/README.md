@@ -2,13 +2,13 @@
 
 ## Overview
 
-How to pull data from a remote database and build a pipeline that transforms it into something useful. You will connect to a cloud MySQL database, extract data, aggregate it, and load it into the local PostgreSQL you built in MP1.
+How to pull data from a remote database and build a pipeline that transforms it into something useful. You will connect to a cloud MySQL database, extract data, aggregate it, and load it into the local PostgreSQL you built in MP01.
 
 This is the jump from working with data on your laptop to working with data that lives somewhere else. In industry, you almost never have the data sitting in a CSV next to your code. It is in a database, behind a network connection, owned by another team.
 
 ## The Scenario
 
-The Basket Craft CEO saw what you built for Campus Bites in MP1 and wants something similar:
+The Basket Craft CEO saw what you built for Campus Bites in MP01 and wants something similar:
 
 > "We have years of order data sitting in our database, but nobody has time to pull reports. Can you set up something that gives us a monthly view of sales by product category? Revenue, order counts, average order size, that kind of thing."
 
@@ -68,51 +68,51 @@ graph LR
 ## Learning Objectives
 
 By the end of this mini-project, you will be able to:
-- **New:** Install and use the Superpowers plugin for Claude Code
+- **New:** Install and use the [Superpowers](https://github.com/obra/superpowers) plugin for Claude Code
 - **New:** Use Superpowers brainstorming to design a pipeline before writing any code
 - **New:** Extract data from a remote MySQL database using Python
 - **New:** Transform data with aggregations as a lead-in to dimensional modeling
-- **Review:** Load data into local PostgreSQL using Python (from MP1)
-- **Review:** Verify data using psql, DBeaver, and Claude Code (from MP1)
-- **Review:** Version-control with git and push to GitHub (from MP1)
+- **Review:** Load data into local PostgreSQL using Python (from MP01)
+- **Review:** Verify data using psql, DBeaver, and Claude Code (from MP01)
+- **Review:** Version-control with git and push to GitHub (from MP01)
 
 ## How the Class Works (Three Sessions)
 
 | Session | What Happens |
 |---------|--------------|
-| Session 1 | Install Superpowers. Brainstorm the pipeline design. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
-| Session 2 | Set up AWS account and CLI. Extract from source RDS, load to Snowflake. Introduction to dbt. *(tutorial coming later)* |
-| Session 3 | Build dbt staging and mart models. Star schema in Snowflake. Data quality tests. *(tutorial coming later)* |
+| Session 01 | Install Superpowers. Brainstorm the pipeline design. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
+| Session 02 | Set up AWS account and CLI. Extract from source RDS, load to Snowflake. Introduction to dbt. *(tutorial coming later)* |
+| Session 03 | Build dbt staging and mart models. Star schema in Snowflake. Data quality tests. *(tutorial coming later)* |
 
 ## Files in This Lesson
 
 | File | Description |
 |------|-------------|
-| [mp2-tutorial.md](mp2-tutorial.md) | Step-by-step tutorial for Session 1 (Sessions 2-3 will be added later) |
+| [mp02-tutorial.md](mp02-tutorial.md) | Step-by-step tutorial for Session 01 (Sessions 02-03 will be added later) |
 
 ## Setup
 
-No new installations are needed for Session 1. Everything you set up in MP1 carries over:
+No new installations are needed for Session 01. Everything you set up in MP01 carries over:
 - **Cursor** -- your code editor
 - **Claude Code** -- AI development tool in the terminal
 - **Docker Desktop** -- runs your local PostgreSQL
 - **DBeaver** -- database GUI for visual verification
 
-The only thing you need to check: **Docker Desktop must be running** and your local PostgreSQL container from MP1 should be started. The tutorial walks you through this.
+The only thing you need to check: **Docker Desktop must be running.** This project creates its own PostgreSQL container, so you do not need your MP01 container. The tutorial walks you through this.
 
 ## Key Concepts
 
 ### From Local to Cloud
 
-In MP1, your data source was a CSV file sitting in your project folder. Now the source is a MySQL database running on AWS, hundreds of miles away. This is how real pipelines work. The data lives in a production system somewhere, and your job is to get it out, clean it up, and put it somewhere useful.
+In MP01, your data source was a CSV file sitting in your project folder. Now the source is a MySQL database running on AWS, hundreds of miles away. This is how real pipelines work. The data lives in a production system somewhere, and your job is to get it out, clean it up, and put it somewhere useful.
 
 ### Design Before You Build
 
-MP1 gave you step-by-step instructions for what to build. MP2 introduces Superpowers, a plugin that adds structured skills to Claude Code. The main one for this session is brainstorming: you describe the business question, and Claude Code automatically starts a design conversation instead of jumping to code. It helps you work through the architecture, data flow, and transformation logic. This produces a blueprint you can follow during the build.
+MP01 gave you step-by-step instructions for what to build. MP02 introduces Superpowers, a plugin that adds structured skills to Claude Code. The main one for this session is brainstorming: you describe the business question, and Claude Code automatically starts a design conversation instead of jumping to code. It helps you work through the architecture, data flow, and transformation logic. This produces a blueprint you can follow during the build.
 
 ### Aggregation as a Preview of Dimensional Modeling
 
-The summary tables you build in Session 1 have measures (revenue, order count, average order value) grouped by dimensions (product category, month). These are the building blocks of a star schema, which you will learn formally in Sessions 2-3 with dbt. Think of Session 1 as building the intuition that the vocabulary will name later.
+The summary tables you build in Session 01 have measures (revenue, order count, average order value) grouped by dimensions (product category, month). These are the building blocks of a star schema, which you will learn formally in Sessions 02-03 with dbt. Think of Session 01 as building the intuition that the vocabulary will name later.
 
 ### Outcome Variability
 
@@ -120,4 +120,4 @@ Two engineers given the same business question will design different pipelines. 
 
 ## Lesson Exercise
 
-Complete the full tutorial in [mp2-tutorial.md](mp2-tutorial.md) across all three sessions, push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 07. Submission details will be added when Sessions 2-3 are complete.
+Complete the full tutorial in [mp02-tutorial.md](mp02-tutorial.md) across all three sessions, push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 07. Submission details will be added when Sessions 02-03 are complete.

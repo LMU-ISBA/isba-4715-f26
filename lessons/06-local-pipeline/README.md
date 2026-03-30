@@ -77,7 +77,7 @@ By the end of this mini-project, you will be able to:
 
 | File | Description |
 |------|-------------|
-| [mp1-tutorial.md](mp1-tutorial.md) | Step-by-step tutorial for the full mini-project |
+| [mp01-tutorial.md](mp01-tutorial.md) | Step-by-step tutorial for the full mini-project |
 | [data/campus_bites_orders.csv](data/campus_bites_orders.csv) | Campus Bites orders data (same data from Lessons 01-02, exported as CSV) |
 
 ## Setup
@@ -107,4 +107,4 @@ One request at a time. Be specific about what you want. Read what the AI generat
 
 ## Lesson Exercise
 
-Complete the full tutorial in [mp1-tutorial.md](mp1-tutorial.md), push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercise 06.
+Complete the full tutorial in [mp01-tutorial.md](mp01-tutorial.md), push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercise 06.
