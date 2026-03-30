@@ -117,7 +117,7 @@ In MP01, you told Claude Code *what* to build. With Superpowers, it first discus
 
 ### Step 3: Brainstorm the Pipeline
 
-Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that culminates in a **written design spec** — a document that gets saved to your project and committed to git. The spec defines everything needed to build the pipeline: architecture diagram, file structure and responsibilities, table schemas, SQL for aggregations, Docker and credential configuration, error handling, and testing strategy. Because the spec defines every file and its job, implementation in Step 4 is just executing the spec.
+Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that produces a **written design spec** — a document that gets saved to your project and committed to git. The spec defines everything needed to build the pipeline: architecture diagram, file structure and responsibilities, table schemas, SQL for aggregations, Docker and credential configuration, error handling, and testing strategy. Because the spec defines every file and its job, implementation in Step 4 is just executing the spec.
 
 Here is the important part: **your design will probably look different from the instructor's and from your classmates'.** That is how real engineering works. Two people given the same business question will make different decisions about which tables to pull, how to aggregate, and how to structure the scripts. As long as your pipeline answers the business question, your design is valid.
 
@@ -263,7 +263,7 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 
 2. Review the output. Do the table names match what your brainstorm planned? Do the row counts seem reasonable for monthly aggregations?
 
-**CLI through Claude Code:** This demonstrates an important pattern. Claude Code can run CLI tools like `psql` on your behalf — you ask a question, and it handles the connection, the SQL, and the output formatting. You do not need to memorize psql commands. In later mini-projects you will use this same pattern with the AWS CLI, dbt, and Snowflake CLI. You will use this same "ask Claude Code to run a CLI tool" pattern with every tool this semester.
+**CLI through Claude Code:** Claude Code can run CLI tools like `psql` on your behalf — you ask a question, and it handles the connection, the SQL, and the output formatting. You do not need to memorize psql commands. You will use this same pattern with the AWS CLI, dbt, and Snowflake CLI in later mini-projects.
 
 **Method 2: DBeaver**
 
@@ -304,7 +304,7 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 | DBeaver | Browsing data visually, spotting obvious issues | Second pass — does the data look right when you eyeball it? |
 | Claude Code natural language | Analytical questions, testing the business logic | Final pass — does the pipeline actually answer the business question? |
 
-You used all three of these in MP01. The workflow is the same here, just with different data. Get comfortable switching between them. In your independent project, you will use this same three-layer verification to validate your own pipelines.
+You used all three of these in MP01. The workflow is the same here, just with different data. Get comfortable switching between them — you will use the same approach in your independent project.
 
 **Commit your work.** Now that the pipeline is verified, commit everything. Ask Claude Code:
 
