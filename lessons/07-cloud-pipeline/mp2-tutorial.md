@@ -108,14 +108,14 @@ Here is the important part: **your design will probably look different from the 
 
    ```
    I need to build a data pipeline. The Basket Craft team wants a
-   monthly sales dashboard — they need revenue, order counts, and
-   average order value broken down by product category and month.
+   monthly sales dashboard with revenue, order counts, and average
+   order value by product category and month.
 
-   The source is the Basket Craft MySQL database. The destination
-   is a local PostgreSQL database running in Docker.
+   Source: Basket Craft MySQL database.
+   Destination: local PostgreSQL in Docker.
 
-   Start by creating an ASCII diagram of the pipeline architecture,
-   then help me plan the extraction and transformation.
+   Create an ASCII diagram of the pipeline, then help me plan
+   the extraction and transformation.
    ```
 
    Claude Code will announce that it is using the brainstorming skill. This is Superpowers at work — it recognized that you are describing something you want to build and activated the right workflow automatically.
@@ -141,10 +141,10 @@ Here is the important part: **your design will probably look different from the 
 
    Review the brainstorm output critically. If the plan misses something (for example, it only extracts one table when you need data from both orders and products to get category information), push back: "I think we also need the products table to get category names. Can you update the plan?" The brainstorm is a conversation, and you can steer it.
 
-4. If the brainstorm conversation has not yet produced an ASCII pipeline diagram, nudge it back on track:
+4. If the brainstorm has not yet produced an ASCII pipeline diagram, ask for one:
 
    ```
-   Before we finish, create an ASCII diagram of the pipeline we just designed.
+   Create an ASCII diagram of the pipeline we just designed.
    ```
 
 **Your design vs. the instructor's:** The instructor will show their pipeline design during class. Your design may extract different tables, aggregate in a different order, or structure the scripts differently. The grading criteria is not "does it match the instructor's approach" but "does it answer the business question: monthly revenue, order counts, and average order value by product category?"
@@ -174,15 +174,18 @@ The first part of any ETL pipeline is extraction: pulling data from the source s
 2. Tell Claude Code to build the extraction script based on your brainstorm plan. Include the credentials and ask it to use environment variables from the start:
 
    ```
-   Based on our brainstorm plan, write a Python script that extracts the needed tables from the Basket Craft MySQL database. Store the database credentials in a .env file and have the script read from environment variables. The credentials are: [provide the credentials from class]. Make sure .env is in the .gitignore. Save the extracted data so we can transform and load it in the next step.
+   Write an extraction script based on our brainstorm plan. Pull the
+   needed tables from the Basket Craft MySQL database. Store credentials
+   in a .env file, not in the script. The credentials are:
+   [paste the .env block from Zoom chat / Teams].
    ```
 
-   Replace `[provide the credentials from class]` with the actual credentials the instructor provides at the start of class.
+   Replace the bracketed text with the actual credentials the instructor shares during class.
 
 3. **Check that credentials stayed out of the code.** Open the Python script in Cursor and look for the database password. It should not appear anywhere in the `.py` file — only in the `.env` file. If Claude Code hard-coded the credentials directly in the Python file, ask it to fix that:
 
    ```
-   Move the database credentials into a .env file and update the script to read from environment variables.
+   Move the credentials into a .env file and read from environment variables.
    ```
 
    Also open the `.gitignore` file and search for `.env`. The Python template you selected when creating the repo should already include it. If it does not, ask Claude Code to add it. This is a real engineering practice. Credentials in source code get accidentally pushed to GitHub, where anyone can see them.
@@ -217,7 +220,10 @@ The aggregations you write here (SUM, COUNT, AVG, GROUP BY) are the same SQL pat
 1. Tell Claude Code to build the transformation and loading step based on your brainstorm plan:
 
    ```
-   Based on our brainstorm plan, write the transformation and loading step. Aggregate the extracted data into summary tables — revenue, order counts, and average order value by product category and month — and load them into my local PostgreSQL database.
+   Write the transformation and loading step from our brainstorm plan.
+   Aggregate the extracted data into summary tables (revenue, order
+   counts, avg order value by product category and month) and load
+   into my local PostgreSQL.
    ```
 
    Claude Code will use the PostgreSQL credentials from the `docker-compose.yml` that the brainstorm created. If it asks for connection details, check that file. If the script hard-codes the PostgreSQL password, ask Claude Code to move those credentials into the `.env` file alongside the MySQL ones.
@@ -254,7 +260,8 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 1. Ask Claude Code to connect to your local PostgreSQL and check the data:
 
    ```
-   Connect to my local PostgreSQL database using psql and show me the tables that were created. Then show the row counts and a sample of rows from each table.
+   Connect to my local PostgreSQL using psql. Show me the tables,
+   row counts, and a sample of rows from each table.
    ```
 
 2. Review the output. Do the table names match what your brainstorm planned? Do the row counts seem reasonable for monthly aggregations?
@@ -305,7 +312,7 @@ You used all three of these in MP1. The workflow is the same here, just with dif
 **Commit your work.** Now that the pipeline is verified, commit everything. Ask Claude Code:
 
 ```
-Stage all project files and create a commit with the message: complete ETL pipeline for Basket Craft monthly sales dashboard.
+Commit all project files with the message: complete Basket Craft ETL pipeline.
 ```
 
 **Checkpoint:** The aggregated data is verified through all three methods. You can see monthly revenue, order counts, and average order value by product category. The pipeline answers the business question the Basket Craft team asked for. Your work is committed to git.
@@ -343,7 +350,7 @@ These tools are prerequisites for Session 2. We cannot proceed without them, so 
 1. Make sure all your files are committed and pushed to GitHub. If you have not committed yet, ask Claude Code:
 
    ```
-   Stage all project files, create a commit, and push to GitHub.
+   Commit all project files and push to GitHub.
    ```
 
 2. Submit your GitHub repository link as **Lesson Exercise 07**. Your repository must be set to **Public** so the instructor can review it. If you made it Private, go to **Settings > General > Danger Zone > Change visibility** and switch it to Public.
