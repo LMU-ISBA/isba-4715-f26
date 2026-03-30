@@ -184,7 +184,13 @@ Here is the important part: **your design will probably look different from the 
 
 **Why this matters:** In MP01, the tutorial told you exactly what to build. That was appropriate for learning the tools. Now you are learning a harder skill: deciding what to build. The brainstorming conversation is practice for the design thinking you will need for your independent project and for real engineering work after graduation.
 
-**Checkpoint:** You have a written design spec committed to your project. It defines every file, schema, and configuration needed to build the pipeline. Superpowers is ready to transition into planning and building.
+Superpowers may have already committed the spec for you. If not, commit and push now:
+
+```
+Commit all files and push to GitHub.
+```
+
+**Checkpoint:** You have a written design spec committed to your project and pushed to GitHub. It defines every file, schema, and configuration needed to build the pipeline. Superpowers is ready to transition into planning and building.
 
 ---
 
@@ -242,7 +248,13 @@ Before it starts building, there are two things you need to set up manually.
 
 **If something fails during the build:** Connection errors are common the first time (wrong host, wrong port, firewall issues). If you are on campus WiFi, the MySQL connection should work — it is the same database you have been using all semester. If you are finishing this tutorial from home and cannot connect, check with the instructor about remote access.
 
-**Checkpoint:** The pipeline has been built and run. Extraction pulled data from the Basket Craft MySQL database, transformation aggregated it, and loading put the summary tables into your local PostgreSQL. Claude Code confirms success with row counts or a summary.
+Superpowers may have already committed during the build. If not, commit and push now:
+
+```
+Commit all files and push to GitHub.
+```
+
+**Checkpoint:** The pipeline has been built and run. Extraction pulled data from the Basket Craft MySQL database, transformation aggregated it, and loading put the summary tables into your local PostgreSQL. Claude Code confirms success with row counts or a summary. Your work is pushed to GitHub.
 
 ---
 
@@ -309,7 +321,7 @@ You used all three of these in MP01. The workflow is the same here, just with di
 **Commit your work.** Now that the pipeline is verified, commit everything. Ask Claude Code:
 
 ```
-Commit all project files with the message: complete Basket Craft ETL pipeline.
+Commit all project files and push to GitHub.
 ```
 
 **Checkpoint:** The aggregated data is verified through all three methods. You can see monthly revenue, order counts, and average order value by product category. The pipeline answers the business question the Basket Craft team asked for. Your work is committed to git.
