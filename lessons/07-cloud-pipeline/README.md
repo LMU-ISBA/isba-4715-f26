@@ -69,7 +69,7 @@ graph LR
 
 By the end of this mini-project, you will be able to:
 - **New:** Install and use the Superpowers plugin for Claude Code
-- **New:** Use `/brainstorm` to design a pipeline before writing any code
+- **New:** Use `/brainstorming` to design a pipeline before writing any code
 - **New:** Extract data from a remote MySQL database using Python
 - **New:** Transform data with aggregations as a lead-in to dimensional modeling
 - **Review:** Load data into local PostgreSQL using Python (from MP1)
@@ -80,7 +80,7 @@ By the end of this mini-project, you will be able to:
 
 | Session | What Happens |
 |---------|--------------|
-| Session 1 | Install Superpowers. Use `/brainstorm` to design the pipeline. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
+| Session 1 | Install Superpowers. Use `/brainstorming` to design the pipeline. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
 | Session 2 | Set up AWS account and CLI. Extract from source RDS, load to Snowflake. Introduction to dbt. *(tutorial coming later)* |
 | Session 3 | Build dbt staging and mart models. Star schema in Snowflake. Data quality tests. *(tutorial coming later)* |
 
@@ -108,7 +108,7 @@ In MP1, your data source was a CSV file sitting in your project folder. Now the 
 
 ### Design Before You Build
 
-MP1 gave you step-by-step instructions for what to build. MP2 introduces `/brainstorm`, a Superpowers skill that helps you design the pipeline before writing any code. You describe the business question, and Claude Code helps you work through the architecture, data flow, and transformation logic. This produces a blueprint you can follow during the build.
+MP1 gave you step-by-step instructions for what to build. MP2 introduces Superpowers, a plugin that adds structured skills to Claude Code. The main one for this session is `/brainstorming`: you describe the business question, and Claude Code starts a design conversation instead of jumping to code. It helps you work through the architecture, data flow, and transformation logic. This produces a blueprint you can follow during the build.
 
 ### Aggregation as a Preview of Dimensional Modeling
 

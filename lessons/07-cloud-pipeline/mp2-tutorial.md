@@ -1,6 +1,6 @@
 # Mini-Project 02: Cloud Extraction Pipeline Tutorial
 
-This tutorial walks through Session 1 of Mini-Project 02 in 6 steps. You will design and build an ETL pipeline that extracts data from a cloud MySQL database, transforms it with aggregations, and loads it into your local PostgreSQL from MP1.
+This tutorial walks through Session 1 of Mini-Project 02 in 6 steps. You will design and build an ETL (Extract, Transform, Load) pipeline that extracts data from a cloud MySQL database, transforms it with aggregations, and loads it into a local PostgreSQL database.
 
 Sessions 2-3 (Snowflake, dbt, dimensional modeling) will be added to this tutorial later.
 
@@ -14,7 +14,7 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 |------|-------|-----------------|
 | 1 | [Create repo and start Claude Code](#step-1-create-github-repo-and-clone-into-cursor) | Set up the project repo, ensure Docker is running, start Claude Code |
 | 2 | [Install Superpowers](#step-2-install-superpowers) | Add the Superpowers plugin to Claude Code |
-| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Use /brainstorm to design the ETL pipeline with an ASCII diagram |
+| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Use /brainstorming to design the pipeline with an ASCII diagram |
 | 4 | [Extract data from MySQL](#step-4-extract-data-from-mysql-rds) | Write a Python script to pull data from the cloud database |
 | 5 | [Transform and load](#step-5-transform-and-load-into-local-postgresql) | Aggregate the data and load it into your local PostgreSQL |
 | 6 | [Verify the data](#step-6-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
@@ -75,32 +75,32 @@ But when you are building a pipeline with multiple moving parts (a source databa
 1. In your Claude Code session, install the Superpowers plugin. Type:
 
    ```
-   /install-plugin superpowers
+   /plugin install superpowers@claude-plugins-official
    ```
 
-   Follow the prompts to complete the installation. The instructor will walk through this in class if the exact command has changed.
+   Follow the prompts to complete the installation.
 
 2. Once installed, verify that it worked by typing:
 
    ```
-   /brainstorm
+   /brainstorming
    ```
 
-   You should see a response asking you to describe what you want to build. This confirms Superpowers is working. Press `Escape` to cancel, or simply continue to Step 3 where you will use the brainstorm for real.
+   You should see a response asking you to describe what you want to build. This confirms Superpowers is working. Press `Escape` to cancel, or simply continue to Step 3 where you will use it for real.
 
-**Why this matters:** Superpowers gives Claude Code structured skills:
-- `/brainstorm` — Design before you build. Have a conversation about what you are trying to accomplish, and end up with a pipeline diagram and a plan. You will use this today.
+**Why this matters:** Superpowers gives Claude Code structured skills that you invoke as slash commands:
+- `/brainstorming` — Design before you build. Have a conversation about what you are trying to accomplish, and end up with a pipeline diagram and a plan. You will use this today.
 - `/plan` — Break complex work into steps. You will learn this one in Sessions 2-3.
 
 In MP1, you told Claude Code *what* to build. With Superpowers, you first discuss *what and why*, then build. Over the next few sessions, you will learn progressively more structured ways to work with Claude Code. Each one builds on the last.
 
-**Checkpoint:** Superpowers is installed. Running `/brainstorm` shows a prompt asking what you want to build.
+**Checkpoint:** Superpowers is installed. Running `/brainstorming` shows a prompt asking what you want to build.
 
 ---
 
 ### Step 3: Brainstorm the Pipeline
 
-Before writing any code, you are going to design the pipeline. In MP1 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, you will use `/brainstorm`, a structured design conversation that produces a blueprint: a pipeline diagram and a plan for what to extract and how to transform it.
+Before writing any code, you are going to design the pipeline. In MP1 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, you will use `/brainstorming`, a structured design conversation that produces a blueprint: a pipeline diagram and a plan for what to extract and how to transform it.
 
 Here is the important part: **your design will probably look different from the instructor's and from your classmates'.** That is how real engineering works. Two people given the same business question will make different decisions about which tables to pull, how to aggregate, and how to structure the scripts. As long as your pipeline answers the business question, your design is valid.
 
@@ -109,7 +109,18 @@ Here is the important part: **your design will probably look different from the 
 1. In Claude Code, type:
 
    ```
-   /brainstorm I need to build an ETL pipeline. The Basket Craft team wants a monthly sales dashboard — they need revenue, order counts, and average order value broken down by product category and month. The source is the Basket Craft MySQL database (the same one from Lessons 01-05). The destination is a local PostgreSQL database running in Docker. Start by creating an ASCII diagram of the pipeline architecture, then help me plan the extraction and transformation.
+   /brainstorming
+
+   I need to build a data pipeline. The Basket Craft team wants a
+   monthly sales dashboard — they need revenue, order counts, and
+   average order value broken down by product category and month.
+
+   The source is the Basket Craft MySQL database (the same one
+   from Lessons 01-05). The destination is a local PostgreSQL
+   database running in Docker.
+
+   Start by creating an ASCII diagram of the pipeline architecture,
+   then help me plan the extraction and transformation.
    ```
 
 2. Claude Code will start a design conversation and ask about your setup. The brainstorm is a back-and-forth conversation, not a single prompt. Claude Code will ask you questions one at a time. Answer each one, and if it suggests something you do not understand, ask it to explain. A typical brainstorm takes 4-8 exchanges before producing the final diagram and plan.
@@ -141,7 +152,7 @@ Here is the important part: **your design will probably look different from the 
 
 **Your design vs. the instructor's:** The instructor will show their pipeline design during class. Your design may extract different tables, aggregate in a different order, or structure the scripts differently. The grading criteria is not "does it match the instructor's approach" but "does it answer the business question: monthly revenue, order counts, and average order value by product category?"
 
-**Why this matters:** In MP1, the tutorial told you exactly what to build. That was appropriate for learning the tools. Now you are learning a harder skill: deciding what to build. The `/brainstorm` conversation is practice for the design thinking you will need for your independent project and for real engineering work after graduation.
+**Why this matters:** In MP1, the tutorial told you exactly what to build. That was appropriate for learning the tools. Now you are learning a harder skill: deciding what to build. The brainstorming conversation is practice for the design thinking you will need for your independent project and for real engineering work after graduation.
 
 **Checkpoint:** You have an ASCII pipeline diagram showing the flow from MySQL to local PostgreSQL. You have a plan for which tables to extract and how to aggregate them. You are ready to start building.
 
