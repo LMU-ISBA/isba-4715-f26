@@ -54,9 +54,11 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    - Leave everything else as default (no README, no license)
    - Click **Create repository**
 
-2. Clone the repo into Cursor. Open a new Cursor window and click **Clone Repository** on the welcome screen. Paste the URL for the repo you just created (e.g., `https://github.com/YOUR-USERNAME/basket-craft-pipeline.git`).
+2. On your new repository's GitHub page, click the green **Code** button, make sure **HTTPS** is selected, and click the copy icon to copy the URL.
 
-   If you do not see the welcome screen, you can also clone from the menu: **File > New Window**, then click **Clone Repository**. Or use the command palette (Mac: `Cmd+Shift+P`, Windows: `Ctrl+Shift+P`) and search for "Git: Clone".
+3. Clone the repo into Cursor. Open a new Cursor window and click **Clone repo** on the welcome screen. Paste the URL you just copied.
+
+   If you do not see the welcome screen, you can also clone from the menu: **File > New Window**, then click **Clone repo**. Or use the command palette (Mac: `Cmd+Shift+P`, Windows: `Ctrl+Shift+P`) and search for "Git: Clone".
 
    When Cursor asks where to save it, navigate to your `isba-4715` folder inside your home directory (the same parent folder from MP01). Open the cloned folder when prompted.
 
@@ -67,13 +69,13 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    └── basket-craft-pipeline/     <-- MP02 (this project)
    ```
 
-3. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal** from the menu bar).
+4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal** from the menu bar).
 
-4. Make sure Docker Desktop is running. If you do not have Docker Desktop installed (maybe you skipped MP01 or uninstalled it), follow the installation instructions in [MP01 Step 3](../06-local-pipeline/mp01-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
+5. Make sure Docker Desktop is running. If you do not have Docker Desktop installed (maybe you skipped MP01 or uninstalled it), follow the installation instructions in [MP01 Step 3](../06-local-pipeline/mp01-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
 
    Open Docker Desktop and check that it shows the green "running" indicator. You do not need your MP01 container for this project — this project will get its own fresh PostgreSQL container as part of the pipeline design in Step 3. If your MP01 container is currently running, stop it first (click Stop in Docker Desktop or run `docker stop campus_bites_db` in your terminal). Two PostgreSQL containers cannot use the same port at the same time, and both default to port 5432.
 
-5. Start Claude Code:
+6. Start Claude Code:
    ```bash
    claude
    ```
