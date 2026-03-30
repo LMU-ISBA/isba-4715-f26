@@ -71,14 +71,16 @@ You also need Docker running, since you will create a new local PostgreSQL conta
 
 4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal** from the menu bar).
 
-5. Make sure Docker Desktop is running. If you do not have Docker Desktop installed (maybe you skipped MP01 or uninstalled it), follow the installation instructions in [MP01 Step 3](../06-local-pipeline/mp01-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
+5. Make sure Docker Desktop is open and running. If you do not have it installed (maybe you skipped MP01 or uninstalled it), follow the installation instructions in [MP01 Step 3](../06-local-pipeline/mp01-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
 
-   Open Docker Desktop and check that it shows the green "running" indicator. You do not need your MP01 container for this project — this project will get its own fresh PostgreSQL container as part of the pipeline design in Step 3. If your MP01 container is currently running, stop it first (click Stop in Docker Desktop or run `docker stop campus_bites_db` in your terminal). Two PostgreSQL containers cannot use the same port at the same time, and both default to port 5432.
+   If your MP01 container (`campus_bites_db`) is running, stop it first. In Docker Desktop, go to **Containers**, find it, and click the Stop button. Or run `docker stop campus_bites_db` in your terminal. Two PostgreSQL containers cannot use the same port, and both default to 5432.
 
-6. Start Claude Code:
+6. Confirm you are in the correct directory. Your terminal prompt should show `basket-craft-pipeline`. If not, navigate there and then start Claude Code:
    ```bash
+   cd ~/isba-4715/basket-craft-pipeline
    claude
    ```
+   Claude Code will ask if you trust this folder. Select **Yes, I trust this folder** and press Enter.
 
 **Checkpoint:** Your repo is cloned and open in Cursor. Docker Desktop is running. Claude Code is active in the terminal and waiting for input.
 
