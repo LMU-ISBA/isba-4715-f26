@@ -19,7 +19,7 @@ End-to-end data engineering projects built with Claude Code. Each mini-project i
 | Mini-Project | Sessions | Topic | Source | Destination |
 |-------------|----------|-------|--------|-------------|
 | [MP01: 06-local-pipeline](06-local-pipeline/) | 2 | Local Data Pipeline | CSV | Docker PostgreSQL |
-| MP02: 07-cloud-pipeline (coming soon) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
+| [MP02: 07-cloud-pipeline](07-cloud-pipeline/) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
 | MP03: 08-api-pipeline (coming soon) | 3 | API Pipeline | Public API | Snowflake + Streamlit |
 | MP04: 09-ai-chatbot (coming soon) | 3 | AI Application | Web Scrape | Vector DB + RAG Chatbot |
 
