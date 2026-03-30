@@ -1,10 +1,6 @@
 # Mini-Project 02: Cloud Extraction Pipeline Tutorial
 
-This tutorial walks through Session 1 of Mini-Project 02 in 6 steps. You will design and build an ETL (Extract, Transform, Load) pipeline that extracts data from a cloud MySQL database, transforms it with aggregations, and loads it into a local PostgreSQL database.
-
-Sessions 2-3 (Snowflake, dbt, dimensional modeling) will be added to this tutorial later.
-
-If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
+This tutorial covers all three sessions of Mini-Project 02. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
 ## Table of Contents
 
@@ -18,6 +14,24 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 | 4 | [Extract data from MySQL](#step-4-extract-data-from-mysql-rds) | Write a Python script to pull data from the cloud database |
 | 5 | [Transform and load](#step-5-transform-and-load-into-local-postgresql) | Aggregate the data and load it into your local PostgreSQL |
 | 6 | [Verify the data](#step-6-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
+
+**Part 2: Cloud Data Warehouse (Session 2)** *(coming soon)*
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 7 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
+| 8 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
+| 9 | Load to Snowflake | Set up Snowflake account and load raw data |
+| 10 | Introduction to dbt | Create a dbt project and understand project structure |
+
+**Part 3: Dimensional Modeling (Session 3)** *(coming soon)*
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 11 | Build dbt staging models | Clean, rename, and type-cast raw data |
+| 12 | Build dbt mart models | Create star schema with fact and dimension tables |
+| 13 | Run dbt tests | Validate data quality |
+| 14 | Review and submit | Review the full pipeline and push to GitHub |
 
 ---
 
@@ -349,6 +363,20 @@ Before the next class, complete these two setup tasks. You will need both for Se
    You should see a version number like `aws-cli/2.x.x`.
 
 These tools are prerequisites for Session 2. We cannot proceed without them, so do not wait until the day of class.
+
+---
+
+## Part 2: Cloud Data Warehouse (Session 2)
+
+*Coming soon.* This session covers AWS account setup, extracting from the instructor's RDS, loading into Snowflake, and an introduction to dbt.
+
+**Before this session:** Complete the [homework from Session 1](#homework-prepare-for-session-2) (AWS account + CLI install).
+
+---
+
+## Part 3: Dimensional Modeling (Session 3)
+
+*Coming soon.* This session covers dbt staging models, mart models (star schema), and data quality tests.
 
 ---
 
