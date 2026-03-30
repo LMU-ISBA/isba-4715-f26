@@ -109,7 +109,23 @@ But when you are building a pipeline with multiple moving parts (a source databa
 
 Superpowers has many other skills (debugging, code review, testing, and more), but these two are the ones we will use in class.
 
-In MP01, you told Claude Code *what* to build. With Superpowers, it first discusses *what and why* with you, then builds. Over the next few sessions, you will learn progressively more structured ways to work with Claude Code. Each one builds on the last.
+In MP01, you told Claude Code *what* to build. With Superpowers, it first discusses *what and why* with you, then builds. Here is the full workflow:
+
+```mermaid
+graph LR
+    A["You describe\nwhat you need"] -->|"Superpowers\nactivates"| B["Brainstorm\n(design spec)"]
+    B -->|"you approve"| C["Plan\n(implementation steps)"]
+    C -->|"you approve"| D["Build\n(subagents execute)"]
+    D --> E["Done\n(pipeline running)"]
+
+    style A fill:#f9f0e6,stroke:#c9a96e
+    style B fill:#e6f0f9,stroke:#6e9ec9
+    style C fill:#e6f0f9,stroke:#6e9ec9
+    style D fill:#e6f9e8,stroke:#6ec96e
+    style E fill:#f5f5f5,stroke:#888888
+```
+
+You approve at two checkpoints (after the spec and after the plan), then Superpowers builds autonomously. Over the next few sessions, you will learn progressively more structured ways to work with Claude Code. Each one builds on the last.
 
 **Checkpoint:** Superpowers is installed. You see Superpowers commands in the autocomplete when you type `/super`.
 
@@ -196,7 +212,35 @@ Commit all files and push to GitHub.
 
 ### Step 4: Implement the Pipeline
 
-Your brainstorm produced a design spec. Now Superpowers will transition into planning and execution. It writes an implementation plan based on the approved spec, then builds the scripts, sets up Docker, and installs dependencies. You do not need to prompt for each piece individually — Superpowers handles the flow.
+Your brainstorm produced a design spec. Now Superpowers will transition into planning and execution.
+
+**Spec vs. plan:** The spec is *what* to build and why — the design decisions, schemas, architecture, and trade-offs. It is the agreement on what the system looks like when it is done. You wrote this during brainstorming. The plan is *how* to build it, step by step — the exact files to create, the exact code to write, the exact commands to run, in what order. A spec could be implemented many different ways. The plan picks one way and spells it out so precisely that someone (or an agent) with zero context could follow it mechanically.
+
+Superpowers writes the implementation plan based on the approved spec, then builds using **subagent-driven development**. Instead of doing everything in one long conversation, Claude Code spawns fresh mini-agents (subagents) for each task:
+
+```mermaid
+graph TD
+    A["Plan\n(approved)"] --> B["Dispatch implementer\nsubagent for Task 1"]
+    B --> C["Implementer builds,\ntests, commits"]
+    C --> D["Spec reviewer\nchecks against spec"]
+    D -->|"issues found"| B
+    D -->|"passes"| E["Code quality reviewer\nchecks code quality"]
+    E -->|"issues found"| B
+    E -->|"passes"| F["Task 1 complete"]
+    F --> G["Dispatch implementer\nsubagent for Task 2"]
+    G --> H["...repeat for\neach task..."]
+
+    style A fill:#e6f0f9,stroke:#6e9ec9
+    style B fill:#e6f9e8,stroke:#6ec96e
+    style C fill:#e6f9e8,stroke:#6ec96e
+    style D fill:#f0e6f9,stroke:#9e6ec9
+    style E fill:#f0e6f9,stroke:#9e6ec9
+    style F fill:#f5f5f5,stroke:#888888
+    style G fill:#e6f9e8,stroke:#6ec96e
+    style H fill:#f5f5f5,stroke:#888888
+```
+
+Each subagent gets just the context it needs for its task — no conversation history bloat. You will see messages like "Dispatching implementer for Task 1..." as it works through the plan. You do not need to prompt for each piece — just watch it work and answer questions if it asks.
 
 Before it starts building, there are two things you need to set up manually.
 
