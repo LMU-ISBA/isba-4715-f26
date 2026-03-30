@@ -13,24 +13,25 @@ This tutorial covers all three sessions of Mini-Project 02. If you fall behind d
 | 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Design the pipeline with Superpowers brainstorming and a diagram |
 | 4 | [Implement the pipeline](#step-4-implement-the-pipeline) | Set up CLAUDE.md, add credentials, let Superpowers build the pipeline |
 | 5 | [Verify the data](#step-5-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
+| 6 | [Update CLAUDE.md](#step-6-update-claudemd) | Run /init to capture the full project context |
 
 **Part 2: Cloud Data Warehouse (Session 02)** *(coming soon)*
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 6 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
-| 7 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
-| 8 | Load to Snowflake | Set up Snowflake account and load raw data |
-| 9 | Introduction to dbt | Create a dbt project and understand project structure |
+| 7 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
+| 8 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
+| 9 | Load to Snowflake | Set up Snowflake account and load raw data |
+| 10 | Introduction to dbt | Create a dbt project and understand project structure |
 
 **Part 3: Dimensional Modeling (Session 03)** *(coming soon)*
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 10 | Build dbt staging models | Clean, rename, and type-cast raw data |
-| 11 | Build dbt mart models | Create star schema with fact and dimension tables |
-| 12 | Run dbt tests | Validate data quality |
-| 13 | Review and submit | Review the full pipeline and push to GitHub |
+| 11 | Build dbt staging models | Clean, rename, and type-cast raw data |
+| 12 | Build dbt mart models | Create star schema with fact and dimension tables |
+| 13 | Run dbt tests | Validate data quality |
+| 14 | Review and submit | Review the full pipeline and push to GitHub |
 
 ---
 
@@ -81,7 +82,13 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    ```
    Claude Code will ask if you trust this folder. Select **Yes, I trust this folder** and press Enter.
 
-**Checkpoint:** Your repo is cloned and open in Cursor. Docker Desktop is running. Claude Code is active in the terminal and waiting for input.
+7. Set the output style to explanatory mode. Type:
+   ```
+   /config
+   ```
+   Use the arrow keys to select **Output style**, press Enter, then select **Explanatory** and press Enter again. This tells Claude Code to explain what it is doing as it works, so you learn the tools instead of just watching code appear. You only need to set this once — it persists across sessions.
+
+**Checkpoint:** Your repo is cloned and open in Cursor. Docker Desktop is running. Claude Code is active in the terminal with explanatory output style.
 
 ---
 
@@ -290,8 +297,6 @@ Before it starts building, there are two things you need to set up manually.
 
 **What you are really building:** The summary tables you produce have measures (revenue, order count, average order value) grouped by dimensions (product category, month). If that sounds like it has a formal name, it does. These are the building blocks of a star schema, the standard structure for data warehouses. You will learn the vocabulary (fact tables, dimension tables, staging, marts) in Sessions 02-03 with dbt. For now, just notice the pattern: measures grouped by dimensions.
 
-**If something fails during the build:** Connection errors are common the first time (wrong host, wrong port, firewall issues). If you are on campus WiFi, the MySQL connection should work — it is the same database you have been using all semester. If you are finishing this tutorial from home and cannot connect, check with the instructor about remote access.
-
 Superpowers may have already committed during the build. If not, commit and push now:
 
 ```
@@ -369,6 +374,43 @@ Commit all project files and push to GitHub.
 ```
 
 **Checkpoint:** The aggregated data is verified through all three methods. You can see monthly revenue, order counts, and average order value by product category. The pipeline answers the business question the Basket Craft team asked for. Your work is committed to git.
+
+---
+
+### Step 6: Update CLAUDE.md
+
+In Step 4, you created a `CLAUDE.md` with a single instruction about virtual environments. Now that the pipeline is fully built, update it to capture the full project context. This way, the next time you (or anyone) starts Claude Code in this project, it will already know what the project is, how it is structured, and how to work with it.
+
+**What to do:**
+
+1. In Claude Code, type:
+
+   ```
+   /init
+   ```
+
+   This tells Claude Code to scan your project and update the `CLAUDE.md` file. It will look at your scripts, Docker config, database setup, and directory structure to build a complete project summary.
+
+2. Open `CLAUDE.md` in Cursor and review what it generated. It should include the project purpose, file descriptions, database connection details, and how to run the pipeline.
+
+3. Create a `README.md` for your project. Tell Claude Code:
+
+   ```
+   Create a README.md that explains what this project is, how to
+   set it up, and how to run the pipeline.
+   ```
+
+   A good README means anyone who visits your GitHub repo can understand what they are looking at. This is the first thing recruiters and collaborators see.
+
+4. Commit and push:
+
+   ```
+   Commit all files and push to GitHub.
+   ```
+
+**Why this matters:** A good `CLAUDE.md` saves you time in every future session. Instead of re-explaining your project, Claude Code reads the file and picks up where you left off. This is especially useful in Sessions 02-03, where you will build on top of what you built today.
+
+**Checkpoint:** Your `CLAUDE.md` reflects the full project and your `README.md` explains the project to anyone visiting the repo. Both are committed and pushed to GitHub.
 
 ---
 
