@@ -29,12 +29,12 @@ In MP1, you built a project folder from scratch and added git later. This time y
 
 **Why repo-first:** In professional work, you create the repository before writing any code so every change is tracked from the start. This is the workflow you will use for every project from now on.
 
-You also need to make sure Docker is running, since your local PostgreSQL from MP1 is the destination for this pipeline.
+You also need Docker running, since you will create a new local PostgreSQL container for this project.
 
 **What to do:**
 
 1. Go to [github.com/new](https://github.com/new) and create a new repository:
-   - Name it something like `basket-craft-pipeline` (or whatever you prefer)
+   - Name it something like `basket-craft-pipeline`
    - Set it to **Public**
    - Add a **.gitignore** template: select **Python** from the dropdown
    - Check **Add a README file**
@@ -53,12 +53,7 @@ You also need to make sure Docker is running, since your local PostgreSQL from M
 
 4. Make sure Docker Desktop is running. If you do not have Docker Desktop installed (maybe you skipped MP1 or uninstalled it), follow the installation instructions in [MP1 Step 3](../06-local-pipeline/mp1-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
 
-   Open Docker Desktop and check that it shows the green "running" indicator. Then check on your local PostgreSQL container from MP1:
-   - **If you see your MP1 container** (something like `campus_bites_db`): make sure it is running. If it is stopped, click the Start button in Docker Desktop, or run this in your terminal:
-     ```bash
-     docker start campus_bites_db
-     ```
-   - **If you do not see your MP1 container** (maybe you deleted it): that is fine. Claude Code will help you set up a new local PostgreSQL in a later step. Just make sure Docker Desktop itself is running.
+   Open Docker Desktop and check that it shows the green "running" indicator. You do not need to start your MP1 container — this project will get its own fresh PostgreSQL container as part of the pipeline design in Step 3.
 
 5. Start Claude Code:
    ```bash
@@ -114,7 +109,7 @@ Here is the important part: **your design will probably look different from the 
 1. In Claude Code, type:
 
    ```
-   /brainstorm I need to build an ETL pipeline. The Basket Craft team wants a monthly sales dashboard — they need revenue, order counts, and average order value broken down by product category and month. The source is the Basket Craft MySQL database (the same one from Lessons 01-05). The destination is my local PostgreSQL database running in Docker. Start by creating an ASCII diagram of the pipeline architecture, then help me plan the extraction and transformation.
+   /brainstorm I need to build an ETL pipeline. The Basket Craft team wants a monthly sales dashboard — they need revenue, order counts, and average order value broken down by product category and month. The source is the Basket Craft MySQL database (the same one from Lessons 01-05). The destination is a local PostgreSQL database running in Docker. Start by creating an ASCII diagram of the pipeline architecture, then help me plan the extraction and transformation.
    ```
 
 2. Claude Code will start a design conversation and ask about your setup. The brainstorm is a back-and-forth conversation, not a single prompt. Claude Code will ask you questions one at a time. Answer each one, and if it suggests something you do not understand, ask it to explain. A typical brainstorm takes 4-8 exchanges before producing the final diagram and plan.
@@ -125,7 +120,7 @@ Here is the important part: **your design will probably look different from the 
 
    - **When it asks about the source database:** Tell it the connection details you have been using all semester for the Basket Craft MySQL database. The credentials are the same ones from Lessons 01-05. The instructor will confirm these at the start of class.
 
-   - **When it asks about the destination:** Tell it you have a local PostgreSQL database running in Docker from MP1. If you have your `docker-compose.yml` file from MP1, you can reference the connection details there. If your MP1 container is gone, say: "I need a new local PostgreSQL database running in Docker." The brainstorm will include setting that up as part of the pipeline design.
+   - **When it asks about the destination:** Tell it you need a local PostgreSQL database running in Docker for this project. The brainstorm will include a `docker-compose.yml` and container setup as part of the pipeline design. This is a new container separate from your MP1 project.
 
    - **When it asks about the transformation:** Explain that you need aggregated summary tables for a sales dashboard. Revenue, order counts, and average order value grouped by product category and month.
 
@@ -217,7 +212,7 @@ The aggregations you write here (SUM, COUNT, AVG, GROUP BY) are the same SQL pat
    Based on our brainstorm plan, write the transformation and loading step. Aggregate the extracted data into summary tables — revenue, order counts, and average order value by product category and month — and load them into my local PostgreSQL database.
    ```
 
-   Claude Code will use the PostgreSQL credentials from your Docker configuration (the same `docker-compose.yml` from MP1, or the one the brainstorm created). If it asks for connection details, check your Docker configuration file. If the script hard-codes the PostgreSQL password, ask Claude Code to move those credentials into the `.env` file alongside the MySQL ones.
+   Claude Code will use the PostgreSQL credentials from the `docker-compose.yml` that the brainstorm created. If it asks for connection details, check that file. If the script hard-codes the PostgreSQL password, ask Claude Code to move those credentials into the `.env` file alongside the MySQL ones.
 
 2. Review the generated code in Cursor. Look for:
    - The aggregation logic: do you see GROUP BY, SUM, COUNT, AVG?
