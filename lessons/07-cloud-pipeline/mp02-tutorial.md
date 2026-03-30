@@ -240,7 +240,7 @@ graph TD
     style H fill:#f5f5f5,stroke:#888888
 ```
 
-Each subagent gets just the context it needs for its task — no conversation history bloat. You will see messages like "Dispatching implementer for Task 1..." as it works through the plan. You do not need to prompt for each piece — just watch it work and answer questions if it asks.
+Each subagent gets just the context it needs for its task — no conversation history bloat. You will see messages like "Dispatching implementer for Task 1..." as it works through the plan. You will also see a **Base SHA** at the start — this is a git commit hash that Superpowers saves as a snapshot before building, so it can roll back if something goes wrong. You do not need to prompt for each piece — just watch it work and answer questions if it asks.
 
 Before it starts building, there are two things you need to set up manually.
 
