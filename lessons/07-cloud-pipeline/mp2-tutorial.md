@@ -14,7 +14,7 @@ If you fall behind during class, use this tutorial to catch up. Every command an
 |------|-------|-----------------|
 | 1 | [Create repo and start Claude Code](#step-1-create-github-repo-and-clone-into-cursor) | Set up the project repo, ensure Docker is running, start Claude Code |
 | 2 | [Install Superpowers](#step-2-install-superpowers) | Add the Superpowers plugin to Claude Code |
-| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Use /superpowers:brainstorming to design the pipeline with an ASCII diagram |
+| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Design the pipeline with Superpowers brainstorming and an ASCII diagram |
 | 4 | [Extract data from MySQL](#step-4-extract-data-from-mysql-rds) | Write a Python script to pull data from the cloud database |
 | 5 | [Transform and load](#step-5-transform-and-load-into-local-postgresql) | Aggregate the data and load it into your local PostgreSQL |
 | 6 | [Verify the data](#step-6-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
@@ -40,7 +40,11 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    - Check **Add a README file**
    - Click **Create repository**
 
-2. Clone the repo into Cursor. Go to **File > Clone Repository** and paste the URL for the repo you just created (e.g., `https://github.com/YOUR-USERNAME/basket-craft-pipeline.git`). When Cursor asks where to save it, select your `~/isba-4715/` folder (the same parent folder from MP1). Open the cloned folder when prompted.
+2. Clone the repo into Cursor. Open a new Cursor window and click **Clone Repository** on the welcome screen. Paste the URL for the repo you just created (e.g., `https://github.com/YOUR-USERNAME/basket-craft-pipeline.git`).
+
+   If you do not see the welcome screen, you can also clone from the menu: **File > New Window**, then click **Clone Repository**. Or use the command palette (Mac: `Cmd+Shift+P`, Windows: `Ctrl+Shift+P`) and search for "Git: Clone".
+
+   When Cursor asks where to save it, navigate to your `isba-4715` folder inside your home directory (the same parent folder from MP1). Open the cloned folder when prompted.
 
    Your folder structure should now look like:
    ```
@@ -49,11 +53,11 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    └── basket-craft-pipeline/     <-- MP02 (this project)
    ```
 
-3. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
+3. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal** from the menu bar).
 
 4. Make sure Docker Desktop is running. If you do not have Docker Desktop installed (maybe you skipped MP1 or uninstalled it), follow the installation instructions in [MP1 Step 3](../06-local-pipeline/mp1-tutorial.md#step-3-install-docker) before continuing. It takes about 5 minutes.
 
-   Open Docker Desktop and check that it shows the green "running" indicator. You do not need to start your MP1 container — this project will get its own fresh PostgreSQL container as part of the pipeline design in Step 3.
+   Open Docker Desktop and check that it shows the green "running" indicator. You do not need your MP1 container for this project — this project will get its own fresh PostgreSQL container as part of the pipeline design in Step 3. If your MP1 container is currently running, stop it first (click Stop in Docker Desktop or run `docker stop campus_bites_db` in your terminal). Two PostgreSQL containers cannot use the same port at the same time, and both default to port 5432.
 
 5. Start Claude Code:
    ```bash
@@ -68,7 +72,7 @@ You also need Docker running, since you will create a new local PostgreSQL conta
 
 In MP1, you used Claude Code with basic prompts: "do this," "build that." You described what you wanted and it generated the code. That works well for straightforward tasks.
 
-But when you are building a pipeline with multiple moving parts (a source database, extraction scripts, transformations, a destination database), it helps to think through the design before writing code. Superpowers is a plugin for Claude Code that adds structured workflows for exactly this. The main one you will use today is `/brainstorm`, which walks you through a design conversation and produces a blueprint before any code gets written.
+But when you are building a pipeline with multiple moving parts (a source database, extraction scripts, transformations, a destination database), it helps to think through the design before writing code. Superpowers is a plugin for Claude Code that adds structured workflows for exactly this. The main one you will use today is brainstorming, which walks you through a design conversation and produces a blueprint before any code gets written.
 
 **What to do:**
 
@@ -259,10 +263,12 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 
 **Method 2: DBeaver**
 
-1. Open DBeaver and connect to your local PostgreSQL (same connection you set up in MP1 Step 6). If you need to create a new connection, use the credentials from your `docker-compose.yml`:
-   - Connection type: **PostgreSQL**
+1. Open DBeaver and create a new PostgreSQL connection. Click **New Database Connection** (or **Database > New Database Connection**), select **PostgreSQL**, and fill in the connection details from the `docker-compose.yml` that the brainstorm created in your project folder:
    - Host: `localhost`
-   - Port and credentials: check your Docker configuration file
+   - Port, database name, username, and password: check your `docker-compose.yml`
+   - Click **Test Connection** to verify, then **Finish**
+
+   This is a different connection from MP1 — this project has its own container with its own credentials.
 
 2. Navigate to your database > **Schemas > public > Tables**. You should see the summary tables that your pipeline created.
 
