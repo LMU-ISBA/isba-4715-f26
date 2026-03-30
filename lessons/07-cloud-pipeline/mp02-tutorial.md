@@ -117,7 +117,7 @@ In MP01, you told Claude Code *what* to build. With Superpowers, it first discus
 
 ### Step 3: Brainstorm the Pipeline
 
-Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that produces a blueprint: a pipeline diagram and a plan for what to extract and how to transform it.
+Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that culminates in a **written design spec** — a document that gets saved to your project and committed to git. The spec defines everything needed to build the pipeline: architecture diagram, file structure and responsibilities, table schemas, SQL for aggregations, Docker and credential configuration, error handling, and testing strategy. Because the spec defines every file and its job, implementation in Step 4 is just executing the spec.
 
 Here is the important part: **your design will probably look different from the instructor's and from your classmates'.** That is how real engineering works. Two people given the same business question will make different decisions about which tables to pull, how to aggregate, and how to structure the scripts. As long as your pipeline answers the business question, your design is valid.
 
@@ -133,7 +133,7 @@ Here is the important part: **your design will probably look different from the 
    Source: Basket Craft MySQL database.
    Destination: local PostgreSQL in Docker.
 
-   Create an diagram of the pipeline, then help me plan
+   Create a diagram of the pipeline, then help me plan
    the extraction and transformation.
    ```
 
@@ -155,24 +155,36 @@ Here is the important part: **your design will probably look different from the 
 
    - **When it asks about anything else:** Answer based on what you know. If you are unsure about something, say so. That is what the brainstorm is for.
 
-3. At the end of the brainstorm, you should have:
-   - An **diagram** of your pipeline (source -> extract -> transform -> load -> destination)
-   - A **list of tables** you need to extract from the MySQL database
-   - A **plan for aggregation** (what to group by, what to calculate)
+3. The brainstorm will present the design in sections for you to review and approve. The final written spec will include:
+   - A **pipeline diagram** (source -> extract -> transform -> load -> destination)
+   - **File structure** and what each script is responsible for
+   - **Table schemas** and SQL for aggregations
+   - **Docker and credential configuration**
+   - **Error handling** and **testing strategy**
 
-   Review the brainstorm output critically. If the plan misses something (for example, it only extracts one table when you need data from both orders and products to get category information), push back: "I think we also need the products table to get category names. Can you update the plan?" The brainstorm is a conversation, and you can steer it.
+   Review each section critically. If it misses something (for example, it only extracts one table when you need data from both orders and products to get category information), push back: "I think we also need the products table to get category names. Can you update the spec?" The brainstorm is a conversation, and you can steer it.
 
-4. If the brainstorm has not yet produced an ASCII pipeline diagram, ask for one:
+4. If the brainstorm has not yet produced a pipeline diagram, ask for one:
 
    ```
-   Create an diagram of the pipeline we just designed.
+   Create a diagram of the pipeline we just designed.
    ```
+
+5. Once you approve the final spec, Superpowers will write it to a file in your project (typically in a `docs/` folder) and commit it.
+
+6. **Open the spec file in Cursor and read it.** This is the blueprint for your entire pipeline. Check that it makes sense to you:
+   - Does the pipeline diagram match what you discussed?
+   - Do the table schemas include the columns you expect?
+   - Does the aggregation SQL produce the metrics the business question asks for (revenue, order counts, avg order value by category and month)?
+   - Are the file names and responsibilities clear?
+
+   If something looks wrong, tell Claude Code what to fix. The spec is easier to correct now than after the code is written. Once you are satisfied, Superpowers will transition to planning and implementation in Step 4.
 
 **Your design vs. the instructor's:** The instructor will show their pipeline design during class. Your design may extract different tables, aggregate in a different order, or structure the scripts differently. The grading criteria is not "does it match the instructor's approach" but "does it answer the business question: monthly revenue, order counts, and average order value by product category?"
 
 **Why this matters:** In MP01, the tutorial told you exactly what to build. That was appropriate for learning the tools. Now you are learning a harder skill: deciding what to build. The brainstorming conversation is practice for the design thinking you will need for your independent project and for real engineering work after graduation.
 
-**Checkpoint:** You have a pipeline diagram showing the flow from MySQL to local PostgreSQL. You have a plan for which tables to extract and how to aggregate them. You are ready to start building.
+**Checkpoint:** You have a written design spec committed to your project. It defines every file, schema, and configuration needed to build the pipeline. Superpowers is ready to transition into planning and building.
 
 ---
 
@@ -184,10 +196,11 @@ Before it starts building, there are two things you need to set up manually.
 
 **What to do:**
 
-1. Add a `CLAUDE.md` file to your project. This is a file in your project root that Claude Code reads at the start of every session. It contains persistent instructions for this project — like project-level preferences that you set once instead of repeating yourself. In Cursor, right-click the file explorer, select **New File**, name it `CLAUDE.md`, and add this line:
+1. Create a `CLAUDE.md` file for your project. This is a file in your project root that Claude Code reads at the start of every session. It contains persistent instructions for this project — like project-level preferences that you set once instead of repeating yourself. Tell Claude Code:
 
    ```
-   - Use a Python virtual environment to manage dependencies.
+   Create a CLAUDE.md file with this instruction:
+   Use a Python virtual environment to manage dependencies.
    ```
 
    This tells Claude Code to create and use a virtual environment automatically when it installs packages or runs scripts. You can add more project conventions to this file later.
