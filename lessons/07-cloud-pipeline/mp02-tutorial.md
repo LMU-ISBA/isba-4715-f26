@@ -48,10 +48,10 @@ You also need Docker running, since you will create a new local PostgreSQL conta
 **What to do:**
 
 1. Go to [github.com/new](https://github.com/new) and create a new repository:
-   - Name it something like `basket-craft-pipeline`
-   - Set it to **Public**
-   - Add a **.gitignore** template: select **Python** from the dropdown
-   - Check **Add a README file**
+   - Name it `basket-craft-pipeline`
+   - Set visibility to **Public**
+   - Under **Add .gitignore**, select **Python** from the dropdown
+   - Leave everything else as default (no README, no license)
    - Click **Create repository**
 
 2. Clone the repo into Cursor. Open a new Cursor window and click **Clone Repository** on the welcome screen. Paste the URL for the repo you just created (e.g., `https://github.com/YOUR-USERNAME/basket-craft-pipeline.git`).
