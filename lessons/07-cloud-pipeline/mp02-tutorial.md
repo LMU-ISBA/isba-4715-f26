@@ -10,28 +10,27 @@ This tutorial covers all three sessions of Mini-Project 02. If you fall behind d
 |------|-------|-----------------|
 | 1 | [Create repo and start Claude Code](#step-1-create-github-repo-and-clone-into-cursor) | Set up the project repo, ensure Docker is running, start Claude Code |
 | 2 | [Install Superpowers](#step-2-install-superpowers) | Add the Superpowers plugin to Claude Code |
-| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Design the pipeline with Superpowers brainstorming and an ASCII diagram |
-| 4 | [Extract data from MySQL](#step-4-extract-data-from-mysql-rds) | Write a Python script to pull data from the cloud database |
-| 5 | [Transform and load](#step-5-transform-and-load-into-local-postgresql) | Aggregate the data and load it into your local PostgreSQL |
-| 6 | [Verify the data](#step-6-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
+| 3 | [Brainstorm the pipeline](#step-3-brainstorm-the-pipeline) | Design the pipeline with Superpowers brainstorming and a diagram |
+| 4 | [Implement the pipeline](#step-4-implement-the-pipeline) | Set up CLAUDE.md, add credentials, let Superpowers build the pipeline |
+| 5 | [Verify the data](#step-5-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
 
 **Part 2: Cloud Data Warehouse (Session 02)** *(coming soon)*
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 7 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
-| 8 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
-| 9 | Load to Snowflake | Set up Snowflake account and load raw data |
-| 10 | Introduction to dbt | Create a dbt project and understand project structure |
+| 6 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
+| 7 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
+| 8 | Load to Snowflake | Set up Snowflake account and load raw data |
+| 9 | Introduction to dbt | Create a dbt project and understand project structure |
 
 **Part 3: Dimensional Modeling (Session 03)** *(coming soon)*
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 11 | Build dbt staging models | Clean, rename, and type-cast raw data |
-| 12 | Build dbt mart models | Create star schema with fact and dimension tables |
-| 13 | Run dbt tests | Validate data quality |
-| 14 | Review and submit | Review the full pipeline and push to GitHub |
+| 10 | Build dbt staging models | Clean, rename, and type-cast raw data |
+| 11 | Build dbt mart models | Create star schema with fact and dimension tables |
+| 12 | Run dbt tests | Validate data quality |
+| 13 | Review and submit | Review the full pipeline and push to GitHub |
 
 ---
 
@@ -134,7 +133,7 @@ Here is the important part: **your design will probably look different from the 
    Source: Basket Craft MySQL database.
    Destination: local PostgreSQL in Docker.
 
-   Create an ASCII diagram of the pipeline, then help me plan
+   Create an diagram of the pipeline, then help me plan
    the extraction and transformation.
    ```
 
@@ -157,7 +156,7 @@ Here is the important part: **your design will probably look different from the 
    - **When it asks about anything else:** Answer based on what you know. If you are unsure about something, say so. That is what the brainstorm is for.
 
 3. At the end of the brainstorm, you should have:
-   - An **ASCII diagram** of your pipeline (source -> extract -> transform -> load -> destination)
+   - An **diagram** of your pipeline (source -> extract -> transform -> load -> destination)
    - A **list of tables** you need to extract from the MySQL database
    - A **plan for aggregation** (what to group by, what to calculate)
 
@@ -166,34 +165,34 @@ Here is the important part: **your design will probably look different from the 
 4. If the brainstorm has not yet produced an ASCII pipeline diagram, ask for one:
 
    ```
-   Create an ASCII diagram of the pipeline we just designed.
+   Create an diagram of the pipeline we just designed.
    ```
 
 **Your design vs. the instructor's:** The instructor will show their pipeline design during class. Your design may extract different tables, aggregate in a different order, or structure the scripts differently. The grading criteria is not "does it match the instructor's approach" but "does it answer the business question: monthly revenue, order counts, and average order value by product category?"
 
 **Why this matters:** In MP01, the tutorial told you exactly what to build. That was appropriate for learning the tools. Now you are learning a harder skill: deciding what to build. The brainstorming conversation is practice for the design thinking you will need for your independent project and for real engineering work after graduation.
 
-**Checkpoint:** You have an ASCII pipeline diagram showing the flow from MySQL to local PostgreSQL. You have a plan for which tables to extract and how to aggregate them. You are ready to start building.
+**Checkpoint:** You have a pipeline diagram showing the flow from MySQL to local PostgreSQL. You have a plan for which tables to extract and how to aggregate them. You are ready to start building.
 
 ---
 
-### Step 4: Extract Data from MySQL RDS
+### Step 4: Implement the Pipeline
 
-Your brainstorm produced a plan. Now you execute it. You can continue prompting Claude Code directly — the brainstorm context carries into the conversation, so it remembers the design you agreed on.
+Your brainstorm produced a design spec. Now Superpowers will transition into planning and execution. It writes an implementation plan based on the approved spec, then builds the scripts, sets up Docker, and installs dependencies. You do not need to prompt for each piece individually — Superpowers handles the flow.
 
-The first part of any ETL pipeline is extraction: pulling data from the source system. The source is the same Basket Craft MySQL database you queried in Lessons 01-05. The difference is that instead of writing SELECT queries in DBeaver, you are writing a Python script that connects to the remote database, runs queries, and saves the results.
+Before it starts building, there are two things you need to set up manually.
 
 **What to do:**
 
-1. Set up a Python virtual environment for this project. Tell Claude Code:
+1. Add a `CLAUDE.md` file to your project. This is a file in your project root that Claude Code reads at the start of every session. It contains persistent instructions for this project — like project-level preferences that you set once instead of repeating yourself. In Cursor, right-click the file explorer, select **New File**, name it `CLAUDE.md`, and add this line:
 
    ```
-   Create a Python virtual environment for this project.
+   - Use a Python virtual environment to manage dependencies.
    ```
 
-   This isolates your project's Python packages so they do not conflict with other projects (same reason as MP01 Step 7). Claude Code will activate and use the virtual environment automatically when it runs scripts or installs packages. If Claude Code reports that Python is not installed, follow the installation prompts it provides. You need Python 3.9 or later.
+   This tells Claude Code to create and use a virtual environment automatically when it installs packages or runs scripts. You can add more project conventions to this file later.
 
-2. Create a `.env` file in your project root. In Cursor, right-click the file explorer and select **New File**, name it `.env`, and paste the credentials block the instructor shares in Zoom chat / Teams. It should look something like:
+2. Create a `.env` file in your project root. Right-click the file explorer, select **New File**, name it `.env`, and paste the credentials block the instructor shares in Zoom chat / Teams. It should look something like:
 
    ```
    MYSQL_HOST=...
@@ -205,80 +204,36 @@ The first part of any ETL pipeline is extraction: pulling data from the source s
 
    Confirm that `.env` is listed in your `.gitignore` (the Python template you selected when creating the repo should already include it). This keeps credentials out of GitHub.
 
-3. Now tell Claude Code to write the extraction script:
+3. Approve the plan and let Superpowers build. After the brainstorm spec is approved, Superpowers will present an implementation plan. Review it, then approve it. Claude Code will start building: writing extraction scripts, transformation scripts, Docker configuration, and installing dependencies based on the approved spec.
 
-   ```
-   Write an extraction script based on our brainstorm plan. Pull the
-   needed tables from the Basket Craft MySQL database. Read credentials
-   from the .env file, not hard-coded in the script.
-   ```
+   Let it work. If it asks questions, answer them. If it hits an error (connection issues, missing packages), it will fix and retry.
 
-4. **Verify credentials stayed out of the code.** Open the generated Python script in Cursor and look for the database password. It should not appear anywhere in the `.py` file. If it does:
+4. While Superpowers builds, confirm Docker is ready. Docker Desktop should still be open from Step 1, and your MP01 container should be stopped so port 5432 is free.
+
+**After the build completes, review what was built:**
+
+5. **Verify credentials stayed out of the code.** Open the generated Python scripts in Cursor and look for the database password. It should not appear in any `.py` file — only in the `.env` file. If it does:
 
    ```
    Move the credentials out of the script and read from the .env file.
    ```
 
-5. Review the generated script in Cursor. You should be able to identify:
-   - How it connects to the MySQL database
-   - Which tables and columns it queries
-   - How it stores the extracted data
+6. Review the generated code in Cursor. You should be able to identify:
+   - How the extraction script connects to the MySQL database and which tables it pulls
+   - The aggregation logic in the transformation: GROUP BY, SUM, COUNT, AVG
+   - How data flows from extraction to transformation to loading into PostgreSQL
 
-6. Run the extraction:
-
-   ```
-   Run the extraction script.
-   ```
-
-7. Claude Code may need to install Python packages (like `mysql-connector-python` or `pymysql`). Let it install them when it asks. These install inside your virtual environment, not system-wide.
-
-**If the script fails:** Let Claude Code see the error and fix it. Connection errors are common the first time (wrong host, wrong port, firewall issues). If you are on campus WiFi, the connection should work, since it is the same database you have been using all semester. If you are finishing this tutorial from home and cannot connect, check with the instructor about remote access — it is the same network setup as Lessons 01-05.
-
-**Checkpoint:** The extraction script runs successfully and pulls data from the Basket Craft MySQL database. You can see confirmation of the extracted data (either as local files or logged output from the script).
-
----
-
-### Step 5: Transform and Load into Local PostgreSQL
-
-You have the raw data from MySQL. Now you transform it, aggregating into the summary tables your dashboard needs, and load it into your local PostgreSQL. This is the "T" and "L" of ETL.
-
-The aggregations you write here (SUM, COUNT, AVG, GROUP BY) are the same SQL patterns you practiced in Lessons 02-04. The difference is that now they are part of a pipeline script instead of standalone queries in DBeaver.
-
-**What to do:**
-
-1. Tell Claude Code to build the transformation and loading step based on your brainstorm plan:
-
-   ```
-   Write the transformation and loading step from our brainstorm plan.
-   Aggregate the extracted data into summary tables (revenue, order
-   counts, avg order value by product category and month) and load
-   into my local PostgreSQL.
-   ```
-
-   Claude Code will use the PostgreSQL credentials from the `docker-compose.yml` that the brainstorm created. If it asks for connection details, check that file. If the script hard-codes the PostgreSQL password, ask Claude Code to move those credentials into the `.env` file alongside the MySQL ones.
-
-2. Review the generated code in Cursor. Look for:
-   - The aggregation logic: do you see GROUP BY, SUM, COUNT, AVG?
-   - How it connects to your local PostgreSQL
-   - How it creates the target tables and inserts the data
-
-3. Run the transformation and load:
-
-   ```
-   Run the transformation and loading script.
-   ```
-
-4. If there are errors, let Claude Code see them and fix. Scripts that connect to two different databases (MySQL for source, PostgreSQL for destination) often need a few iterations to get the connection details right. This is normal.
-
-**One script or two?** Your brainstorm might have produced a single script that does extract-transform-load in one pass, or separate scripts for each stage. Both approaches are valid. A single script is simpler for a small pipeline. Separate scripts are more modular and easier to debug. In MP03 (GitHub Actions), you will see why separating stages can be helpful for automation. For now, either approach works.
+**Your file structure vs. your classmates':** Your brainstorm may have produced a different file structure than others. Some pipelines use one script for everything, others separate extraction, transformation, and loading into different files. What matters is that the pipeline extracts, transforms, and loads correctly.
 
 **What you are really building:** The summary tables you produce have measures (revenue, order count, average order value) grouped by dimensions (product category, month). If that sounds like it has a formal name, it does. These are the building blocks of a star schema, the standard structure for data warehouses. You will learn the vocabulary (fact tables, dimension tables, staging, marts) in Sessions 02-03 with dbt. For now, just notice the pattern: measures grouped by dimensions.
 
-**Checkpoint:** Aggregated data is loaded into your local PostgreSQL database. Claude Code confirms the load succeeded with row counts or a summary.
+**If something fails during the build:** Connection errors are common the first time (wrong host, wrong port, firewall issues). If you are on campus WiFi, the MySQL connection should work — it is the same database you have been using all semester. If you are finishing this tutorial from home and cannot connect, check with the instructor about remote access.
+
+**Checkpoint:** The pipeline has been built and run. Extraction pulled data from the Basket Craft MySQL database, transformation aggregated it, and loading put the summary tables into your local PostgreSQL. Claude Code confirms success with row counts or a summary.
 
 ---
 
-### Step 6: Verify the Loaded Data
+### Step 5: Verify the Loaded Data
 
 The pipeline ran. But did it work correctly? You will check the loaded data three different ways. Each catches different kinds of problems.
 
