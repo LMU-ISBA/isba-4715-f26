@@ -120,4 +120,4 @@ Two engineers given the same business question will design different pipelines. 
 
 ## Lesson Exercise
 
-Complete the Session 1 tutorial in [mp2-tutorial.md](mp2-tutorial.md), push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercise 07.
+Complete the full tutorial in [mp2-tutorial.md](mp2-tutorial.md) across all three sessions, push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 07. Submission details will be added when Sessions 2-3 are complete.

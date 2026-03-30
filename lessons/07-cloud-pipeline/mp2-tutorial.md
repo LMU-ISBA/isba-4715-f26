@@ -354,18 +354,4 @@ These tools are prerequisites for Session 2. We cannot proceed without them, so 
 
 ## Submission
 
-1. Make sure all your files are committed and pushed to GitHub. If you have not committed yet, ask Claude Code:
-
-   ```
-   Commit all project files and push to GitHub.
-   ```
-
-2. Submit your GitHub repository link as **Lesson Exercise 07**. Your repository must be set to **Public** so the instructor can review it. If you made it Private, go to **Settings > General > Danger Zone > Change visibility** and switch it to Public.
-
-Your repository should contain at minimum:
-- Python extraction script(s)
-- Python transformation/loading script(s)
-- `.gitignore` (with `.env` and virtual environment excluded)
-- `requirements.txt` or equivalent dependency file
-
-**A note on grading:** Your pipeline design may differ from classmates. That is expected and intentional. The criteria is: does the pipeline extract from the Basket Craft MySQL database, transform with aggregations, and load into local PostgreSQL to answer the business question (monthly revenue, order counts, and average order value by product category)?
+Submission details will be added when Sessions 2-3 are complete. MP2 is one lesson exercise covering all three sessions — you will submit your GitHub repository link as **Lesson Exercises 07** after finishing the full tutorial.
