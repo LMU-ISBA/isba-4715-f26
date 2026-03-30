@@ -171,37 +171,44 @@ The first part of any ETL pipeline is extraction: pulling data from the source s
 
    This isolates your project's Python packages so they do not conflict with other projects (same reason as MP1 Step 7). Claude Code will activate and use the virtual environment automatically when it runs scripts or installs packages. If Claude Code reports that Python is not installed, follow the installation prompts it provides. You need Python 3.9 or later.
 
-2. Tell Claude Code to build the extraction script based on your brainstorm plan. Include the credentials and ask it to use environment variables from the start:
+2. Create a `.env` file in your project root. In Cursor, right-click the file explorer and select **New File**, name it `.env`, and paste the credentials block the instructor shares in Zoom chat / Teams. It should look something like:
+
+   ```
+   MYSQL_HOST=...
+   MYSQL_PORT=3306
+   MYSQL_USER=...
+   MYSQL_PASSWORD=...
+   MYSQL_DATABASE=basket_craft
+   ```
+
+   Confirm that `.env` is listed in your `.gitignore` (the Python template you selected when creating the repo should already include it). This keeps credentials out of GitHub.
+
+3. Now tell Claude Code to write the extraction script:
 
    ```
    Write an extraction script based on our brainstorm plan. Pull the
-   needed tables from the Basket Craft MySQL database. Store credentials
-   in a .env file, not in the script. The credentials are:
-   [paste the .env block from Zoom chat / Teams].
+   needed tables from the Basket Craft MySQL database. Read credentials
+   from the .env file, not hard-coded in the script.
    ```
 
-   Replace the bracketed text with the actual credentials the instructor shares during class.
-
-3. **Check that credentials stayed out of the code.** Open the Python script in Cursor and look for the database password. It should not appear anywhere in the `.py` file — only in the `.env` file. If Claude Code hard-coded the credentials directly in the Python file, ask it to fix that:
+4. **Verify credentials stayed out of the code.** Open the generated Python script in Cursor and look for the database password. It should not appear anywhere in the `.py` file. If it does:
 
    ```
-   Move the credentials into a .env file and read from environment variables.
+   Move the credentials out of the script and read from the .env file.
    ```
 
-   Also open the `.gitignore` file and search for `.env`. The Python template you selected when creating the repo should already include it. If it does not, ask Claude Code to add it. This is a real engineering practice. Credentials in source code get accidentally pushed to GitHub, where anyone can see them.
-
-4. Review the generated script in Cursor's file explorer. Open it and read through the code. You should be able to identify:
+5. Review the generated script in Cursor. You should be able to identify:
    - How it connects to the MySQL database
    - Which tables and columns it queries
-   - How it stores the extracted data (as CSV files, in memory, or written directly somewhere)
+   - How it stores the extracted data
 
-5. Run the extraction:
+6. Run the extraction:
 
    ```
    Run the extraction script.
    ```
 
-6. Claude Code may need to install Python packages (like `mysql-connector-python` or `pymysql`). Let it install them when it asks. These install inside your virtual environment, not system-wide.
+7. Claude Code may need to install Python packages (like `mysql-connector-python` or `pymysql`). Let it install them when it asks. These install inside your virtual environment, not system-wide.
 
 **If the script fails:** Let Claude Code see the error and fix it. Connection errors are common the first time (wrong host, wrong port, firewall issues). If you are on campus WiFi, the connection should work, since it is the same database you have been using all semester. If you are finishing this tutorial from home and cannot connect, check with the instructor about remote access — it is the same network setup as Lessons 01-05.
 
