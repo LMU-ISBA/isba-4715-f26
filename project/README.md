@@ -44,6 +44,23 @@ These are the same tools from the mini-projects. No new setup required.
 
 ## Project Inputs
 
+### Job Posting
+
+Find a real job posting for a junior analytics engineer, data engineer, or data analyst role — something you'd actually apply to. Your project must target the skills that posting lists.
+
+Save the posting as a PDF. You'll submit it with your proposal and reference it in your final interview to connect what you built to what the role requires.
+
+### Data Sources
+
+Your pipeline must pull from **2 or more data sources of different types**:
+
+- At least one **API** (REST, GraphQL, or a Python client wrapping one)
+- At least one **web scrape or document scrape** — Firecrawl, web scraping APIs, MCP servers, PDFs, and other documents all count
+
+All sources must be automated via **GitHub Actions on a schedule**. No manual data downloads.
+
+The sources you propose are tentative. You can change them as the project evolves. The proposal just shows you've thought through plausible sources, not that you're committed to them.
+
 ## Proposal (10 pts) — Due Apr 8
 
 ## M1: Extract & Load (25 pts) — Due Apr 22
