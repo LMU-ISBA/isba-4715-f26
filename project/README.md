@@ -149,6 +149,40 @@ Full checklists for the four highest-stakes deliverables. Other deliverables are
 
 ## Quality Rubric
 
+Beyond the minimums, grading rewards quality across these themes:
+
+**Analytical depth:** Are the business questions interesting and relevant to the job posting? Does the diagnostic analysis dig into root causes, or just show another chart? Are the recommendations actionable and specific?
+
+**Technical quality:** Is the star schema well-designed? Are dbt models clean and tested? Does the pipeline handle errors gracefully? Is the code organized and documented?
+
+**Polish and UX:** Is the dashboard layout thoughtful — labels, color, flow? Is the chatbot responsive and helpful? Are the slides visually clear and story-driven? Would you demo this confidently in a job interview?
+
+**Documentation:** Does the README explain the project clearly to someone seeing it for the first time? Is the pipeline diagram accurate and complete? Does the ERD match the actual dbt models?
+
 ## Getting Started
 
+No example projects are provided. Use Claude Code to brainstorm your project idea.
+
+1. Find a real job posting for a junior analytics engineer, data engineer, or data analyst role — something you'd actually apply to.
+2. Save the job posting as a PDF.
+3. Open Claude Code and run `/brainstorm`.
+4. Reference the job posting by file path, screenshot, or copy-paste to give Claude Code context.
+5. Explore: what skills does the role require? What data would demonstrate those skills? What questions would you want to answer?
+
+Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in MPs 2–4.
+
+### Data Storytelling Principles
+
+A refresher from Lesson 05 for the slides deliverable.
+
+- **Takeaway Titles:** State the insight, not the category. "Email delivers 9x more conversions per dollar" not "Marketing Channel Performance." If someone reads only the title, they should know what happened.
+- **Callouts:** Circle, arrow, or highlight that draws the eye to the key evidence in the visual.
+- **Recommendation format:** [Action] → [Expected outcome]. Specific and actionable. "Shift 40% of display budget to email → projected 200+ additional conversions" not "improve marketing."
+
 ## Policies
+
+- **Individual project** — all work must be your own.
+- **Late penalty** — 10% deduction per day late.
+- **AI usage** — Claude Code is your primary development tool. You are expected and encouraged to use it for scaffolding, debugging, and building. But you must be able to explain every component in your final interview. If you can't explain it, you don't get credit for it.
+- **Public repo** — required. This is a portfolio piece. Employers will see it.
+- **No credentials in the repo** — use `.env` files and `.gitignore`. Environment variables for all secrets. No database passwords, API keys, or Snowflake credentials committed to git.
