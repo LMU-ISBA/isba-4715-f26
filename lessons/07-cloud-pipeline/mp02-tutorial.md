@@ -15,23 +15,27 @@ This tutorial covers all three sessions of Mini-Project 02. If you fall behind d
 | 5 | [Verify the data](#step-5-verify-the-loaded-data) | Check the results with psql, DBeaver, and Claude Code |
 | 6 | [Update CLAUDE.md](#step-6-update-claudemd) | Run /init to capture the full project context |
 
-**Part 2: Cloud Data Warehouse (Session 02)** *(coming soon)*
+**Part 2: Moving to the Cloud (Session 02)**
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 7 | Set up AWS account and CLI | Configure AWS credentials through Claude Code |
-| 8 | Extract from source RDS | Pull data from instructor's RDS using AWS tools |
-| 9 | Load to Snowflake | Set up Snowflake account and load raw data |
-| 10 | Introduction to dbt | Create a dbt project and understand project structure |
+| 7 | [Verify AWS setup](#step-7-verify-aws-setup) | Confirm AWS CLI works, configure credentials |
+| 8 | [Create RDS via Console](#step-8-create-rds-via-the-aws-console) | Build a cloud PostgreSQL database through the AWS web interface |
+| 9 | [Recreate RDS via CLI](#step-9-delete-console-instance-recreate-via-cli) | Delete the Console instance, recreate with one CLI command |
+| 10 | [Load raw data into RDS](#step-10-load-raw-data-into-aws-rds) | Extract all Basket Craft tables and load into cloud PostgreSQL |
+| 11 | [Verify the data](#step-11-verify-the-loaded-data) | Check results with DBeaver and Claude Code |
+| 12 | [Update documentation](#step-12-update-documentation-and-push) | Run /init, update README, commit and push |
 
-**Part 3: Dimensional Modeling (Session 03)** *(coming soon)*
+**Part 3: Data Warehouse and Transformations (Session 03)** *(coming soon)*
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 11 | Build dbt staging models | Clean, rename, and type-cast raw data |
-| 12 | Build dbt mart models | Create star schema with fact and dimension tables |
-| 13 | Run dbt tests | Validate data quality |
-| 14 | Review and submit | Review the full pipeline and push to GitHub |
+| 13 | Set up Snowflake | Create trial account, configure warehouse and database |
+| 14 | Load data into Snowflake | Move raw data from RDS to Snowflake |
+| 15 | Initialize dbt project | Install dbt, connect to Snowflake, create project structure |
+| 16 | Build staging models | Clean and rename raw data |
+| 17 | Build mart models | Create star schema with fact and dimension tables |
+| 18 | Run dbt tests and submit | Validate data quality, final commit and push |
 
 ---
 
@@ -440,17 +444,15 @@ These tools are prerequisites for Session 02. We cannot proceed without them, so
 
 ---
 
-## Part 2: Cloud Data Warehouse (Session 02)
-
-*Coming soon.* This session covers AWS account setup, extracting from the instructor's RDS, loading into Snowflake, and an introduction to dbt.
-
-**Before this session:** Complete the [homework from Session 01](#homework-prepare-for-session-02) (AWS account + CLI install).
+## Part 2: Moving to the Cloud (Session 02)
 
 ---
 
-## Part 3: Dimensional Modeling (Session 03)
+## Part 3: Data Warehouse and Transformations (Session 03)
 
-*Coming soon.* This session covers dbt staging models, mart models (star schema), and data quality tests.
+*Coming soon.* This session covers Snowflake setup, loading data from your AWS RDS into Snowflake, and building dbt models (staging + marts) with a star schema.
+
+**Before this session:** Complete the [homework from Session 02](#homework-prepare-for-session-03) (Snowflake trial account signup).
 
 ---
 
