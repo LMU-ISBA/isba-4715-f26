@@ -100,6 +100,53 @@ Transform your raw data, build the dashboard and chatbot, and polish everything 
 
 ## Grading
 
+Meeting all minimum requirements earns a B-range grade. An A requires going beyond the minimums with depth, polish, and analytical insight.
+
+| Grade | Description |
+|---|---|
+| A | Exceeds minimums with depth, polish, and insight. An employer would be impressed by this repo. |
+| B | Meets all minimums solidly. Functional and complete but doesn't go beyond. |
+| C | Meets most minimums but has gaps — missing tests, shallow analysis, broken deployment. |
+| D | Significant gaps — incomplete pipeline, no deployment, minimal effort. |
+| F | Not submitted or fundamentally incomplete. |
+
+### Minimum Requirements
+
+Full checklists for the four highest-stakes deliverables. Other deliverables are graded against the descriptions in the milestone tables above.
+
+#### dbt Project (15 pts)
+
+- At least one staging model per source (cleaning, renaming, type casting)
+- At least one fact table and at least one dimension table
+- Star schema design with relationships between fact and dimension tables
+- At least one dbt test passing
+- `dbt run` and `dbt test` execute without errors
+- Models materialized in Snowflake
+
+#### Streamlit Dashboard (15 pts)
+
+- Connected to Snowflake mart tables
+- At least one descriptive analytics view (what happened?)
+- At least one diagnostic analytics view (why did it happen?)
+- At least one interactive element (filter, selector, or tab)
+- Deployed to Streamlit Community Cloud with public URL
+
+#### RAG Chatbot (10 pts)
+
+- Cortex Search service created on web-scraped/document text data
+- Cortex Complete used for answer generation
+- Working chat UI in Streamlit (`st.chat_input`, `st.chat_message`)
+- Returns relevant answers based on the scraped corpus
+- Deployed as a tab in the same Streamlit app (public URL)
+
+#### Presentation Slides (10 pts)
+
+- At least one descriptive analytics insight with Takeaway Title and supporting visual
+- At least one diagnostic analytics insight with Takeaway Title and supporting visual
+- Callout on each visual that highlights the key evidence
+- Actionable recommendation: [Action] → [Expected outcome]
+- Designed as a portfolio artifact — ready to use in a real job interview
+
 ## Quality Rubric
 
 ## Getting Started
