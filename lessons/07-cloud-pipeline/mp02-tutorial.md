@@ -537,7 +537,7 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 ### Step 9: Delete Console Instance, Recreate via CLI
 
-That took a while. Every dropdown, every setting, the provisioning wait. Now you are going to do the same thing with one command. This is the power of an authenticated CLI: once AWS knows who you are (`aws configure`), Claude Code can create, modify, and delete cloud resources on your behalf.
+That took a while. Every dropdown, every setting, the provisioning wait. Now you are going to do the same thing with one command. Once AWS knows who you are (`aws configure`), Claude Code can create, modify, and delete cloud resources on your behalf.
 
 **What to do:**
 
@@ -578,7 +578,7 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
 
 6. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
 
-**Why CLI matters:** The Console is good for learning what settings exist. The CLI is good for everything else. It is faster, repeatable (you can run the same command again), scriptable (you can automate it), and auditable (the command is in your terminal history). In your independent project and in industry, you will use CLIs for most cloud operations.
+**Why CLI matters:** The Console is good for learning what settings exist. The CLI is good for everything else: faster, repeatable, scriptable, and auditable. You will use CLIs for most cloud operations from here on.
 
 **Checkpoint:** Console instance deleted. CLI-created instance (`basket-craft-db`) is running and connected in DBeaver.
 
