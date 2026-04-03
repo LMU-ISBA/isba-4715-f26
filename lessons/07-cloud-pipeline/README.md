@@ -81,8 +81,8 @@ By the end of this mini-project, you will be able to:
 | Session | What Happens |
 |---------|--------------|
 | Session 01 | Install Superpowers. Brainstorm the pipeline design. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
-| Session 02 | Set up AWS account and CLI. Extract from source RDS, load to Snowflake. Introduction to dbt. *(tutorial coming later)* |
-| Session 03 | Build dbt staging and mart models. Star schema in Snowflake. Data quality tests. *(tutorial coming later)* |
+| Session 02 | Verify AWS setup. Create RDS via Console and CLI. Load raw Basket Craft data into cloud PostgreSQL. |
+| Session 03 | Set up Snowflake. Load data from RDS to Snowflake. Build dbt staging and mart models. Star schema. *(tutorial coming later)* |
 
 ## Files in This Lesson
 

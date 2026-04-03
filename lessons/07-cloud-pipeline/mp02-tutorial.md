@@ -446,6 +446,264 @@ These tools are prerequisites for Session 02. We cannot proceed without them, so
 
 ## Part 2: Moving to the Cloud (Session 02)
 
+### Step 7: Verify AWS Setup
+
+Session 02 picks up in the same `basket-craft-pipeline` project from Session 01. Before building anything in the cloud, confirm the AWS tools from homework are working.
+
+**What to do:**
+
+1. Open your `basket-craft-pipeline` project in Cursor (the same repo from Session 01).
+
+2. Open a terminal (`` Ctrl+` `` or **Terminal > New Terminal**) and start Claude Code:
+   ```bash
+   claude
+   ```
+   Trust the folder if prompted.
+
+3. Check that the AWS CLI is installed. In your terminal (outside Claude Code), run:
+   ```bash
+   aws --version
+   ```
+   You should see `aws-cli/2.x.x`. If not, install it now — Mac: `brew install awscli`, Windows: download from [aws.amazon.com/cli](https://aws.amazon.com/cli/).
+
+4. Configure your AWS credentials. In your terminal (not inside Claude Code), run:
+   ```bash
+   aws configure
+   ```
+   Enter your AWS Access Key ID and Secret Access Key when prompted. For region, enter `us-west-2` (or your preferred region). For output format, enter `json`.
+
+   If you do not have an access key, log in to the AWS Console at [console.aws.amazon.com](https://console.aws.amazon.com/), go to **IAM > Users > your user > Security credentials > Create access key**.
+
+5. Confirm your credentials work:
+   ```bash
+   aws sts get-caller-identity
+   ```
+   You should see your AWS account ID, user ARN, and user ID returned as JSON.
+
+**AWS credentials vs project credentials:** This project uses two separate sets of credentials. AWS credentials (access key and secret key) are stored in `~/.aws/credentials` by `aws configure`. They live at the machine level — they identify you to AWS and never belong in your project files. RDS database credentials (username and password for your cloud database) go in your project's `.env` file, the same as the MySQL credentials from Session 01. Never put AWS access keys in `.env` or any file tracked by git.
+
+**Checkpoint:** `aws sts get-caller-identity` returns your AWS account info. Claude Code is running in your `basket-craft-pipeline` project.
+
+---
+
+### Step 8: Create RDS via the AWS Console
+
+You are going to create a cloud database two ways. First through the AWS Console (the web interface) so you understand what every setting does. Then in Step 9, you will delete it and recreate the same thing with one CLI command. The Console creation is deliberately slow — the point is to feel the friction so the CLI speed hits harder.
+
+**What to do:**
+
+1. Open the AWS Console in your browser: [console.aws.amazon.com](https://console.aws.amazon.com/). Sign in with your AWS account.
+
+2. Navigate to **RDS**: search for "RDS" in the top search bar, or find it under **Services > Database > RDS**.
+
+3. Click **Create database** and configure:
+   - **Choose a database creation method:** Standard create
+   - **Engine type:** PostgreSQL
+   - **Engine version:** PostgreSQL 16 (latest 16.x available)
+   - **Templates:** Free tier
+   - **DB instance identifier:** `basket-craft-console`
+   - **Master username:** `student`
+   - **Master password:** `go_lions` (confirm it)
+   - **DB instance class:** `db.t3.micro` (should be pre-selected with Free tier template)
+   - **Storage:** 20 GB, General Purpose SSD (gp2)
+   - **Connectivity:** select **Yes** for Public access
+   - **VPC security group:** Create new, name it `basket-craft-sg`
+   - Leave other settings as default
+
+4. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
+
+5. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-west-2.rds.amazonaws.com`).
+
+6. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
+   - Type: **PostgreSQL**
+   - Source: **Anywhere-IPv4** (0.0.0.0/0)
+   - Click **Save rules**
+
+7. Open DBeaver and create a new PostgreSQL connection:
+   - Host: paste the endpoint you copied
+   - Port: `5432`
+   - Database: `basket_craft`
+   - Username: `student`
+   - Password: `go_lions`
+   - Click **Test Connection** to verify, then **Finish**
+
+8. You should see an empty `basket_craft` database. This is a PostgreSQL database running in the cloud, not on your laptop.
+
+**Not for production:** Public access and an open security group (0.0.0.0/0) are fine for a free-tier learning database. In production, you would restrict access to specific IP addresses or use a VPN. We are keeping it simple so you can connect from campus, home, or anywhere.
+
+**Checkpoint:** Connected to the Console-created RDS instance (`basket-craft-console`) in DBeaver. Empty database, accessible from your machine.
+
+---
+
+### Step 9: Delete Console Instance, Recreate via CLI
+
+That took a while. Every dropdown, every setting, the provisioning wait. Now you are going to do the same thing with one command. This is the power of an authenticated CLI: once AWS knows who you are (`aws configure`), Claude Code can create, modify, and delete cloud resources on your behalf.
+
+**What to do:**
+
+1. In Claude Code, delete the Console-created instance:
+
+   ```
+   Delete my AWS RDS instance called basket-craft-console.
+   Skip the final snapshot.
+   ```
+
+2. Now create a new one with the same settings:
+
+   ```
+   Create an AWS RDS PostgreSQL 16 instance:
+   - Instance identifier: basket-craft-db
+   - Database name: basket_craft
+   - Master username: student
+   - Master password: go_lions
+   - Instance class: db.t3.micro
+   - Storage: 20 GB
+   - Publicly accessible: yes
+   - Security group: basket-craft-sg
+   ```
+
+3. Claude Code will run the `aws rds create-db-instance` command. Compare the time it took to type this prompt vs the 10 minutes you spent in the Console.
+
+4. Wait for the instance to become available. Ask Claude Code to check:
+
+   ```
+   Check if my basket-craft-db RDS instance is available yet.
+   ```
+
+5. Once available, get the endpoint:
+
+   ```
+   What is the endpoint for my basket-craft-db RDS instance?
+   ```
+
+6. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
+
+**Why CLI matters:** The Console is good for learning what settings exist. The CLI is good for everything else. It is faster, repeatable (you can run the same command again), scriptable (you can automate it), and auditable (the command is in your terminal history). In your independent project and in industry, you will use CLIs for most cloud operations.
+
+**Checkpoint:** Console instance deleted. CLI-created instance (`basket-craft-db`) is running and connected in DBeaver.
+
+---
+
+### Step 10: Load Raw Data into AWS RDS
+
+You have a cloud database. Now fill it with data. You will extract all raw Basket Craft tables from the instructor's MySQL database and load them into your AWS RDS PostgreSQL. This is the same extraction you did in Session 01, but with a different destination. In Session 01 the data went to your laptop. Now it goes to the cloud.
+
+**What to do:**
+
+1. Add your RDS credentials to the `.env` file. Open it in Cursor and add these lines (keep the existing MySQL credentials):
+
+   ```
+   RDS_HOST=basket-craft-db.xxxx.us-west-2.rds.amazonaws.com
+   RDS_PORT=5432
+   RDS_USER=student
+   RDS_PASSWORD=go_lions
+   RDS_DATABASE=basket_craft
+   ```
+
+   Replace the `RDS_HOST` value with your actual endpoint from Step 9.
+
+2. Tell Claude Code to load the data:
+
+   ```
+   Extract all raw tables from the Basket Craft MySQL database and
+   load them into my AWS RDS PostgreSQL. Read the MySQL and RDS
+   credentials from the .env file. Load all 8 tables as-is — no
+   transformations, just raw data.
+   ```
+
+3. This is a direct prompt, not a brainstorm. In Session 01, you brainstormed because there were design decisions (what to extract, how to transform, what the file structure should look like). Here the task is clear: same source, new destination. Knowing when to brainstorm vs when to give a direct instruction is a prompting skill.
+
+4. Let Claude Code work. It will adapt your existing extraction scripts or write new ones. If it asks questions, answer them. If it hits connection errors, let it fix and retry.
+
+**Raw data for a reason:** You are loading raw, untransformed data. In Session 03, you will use dbt to transform this raw data into a star schema (fact and dimension tables). This is the ELT pattern you learned in Session 01: raw data goes into the warehouse first, then you transform it there. Loading raw data now means you have the full source to work with later.
+
+**Checkpoint:** All 8 raw Basket Craft tables are loaded into the AWS RDS. Row counts per table match the source MySQL database.
+
+---
+
+### Step 11: Verify the Loaded Data
+
+Same verification habit from Session 01 — check the data before calling it done. This time the database is remote.
+
+**What to do:**
+
+**Method 1: Claude Code**
+
+1. Ask Claude Code to check the data:
+
+   ```
+   Connect to my AWS RDS PostgreSQL and show me all tables
+   with their row counts.
+   ```
+
+2. Compare the row counts to what you expect from the source MySQL database.
+
+**Method 2: DBeaver**
+
+1. In DBeaver, refresh your connection to the `basket-craft-db` instance (right-click > **Refresh**).
+
+2. Navigate to **basket_craft > Schemas > public > Tables**. You should see all 8 tables.
+
+3. Open a few tables and browse the data. Does it look like the same Basket Craft data you queried in Lessons 01-05?
+
+**Method 3: Claude Code natural language queries**
+
+1. Ask an analytical question about the data in your RDS:
+
+   ```
+   Using my AWS RDS, what are the top 5 products by total revenue?
+   ```
+
+2. Compare the answer to what you would expect from the source data.
+
+**Checkpoint:** Data verified. All 8 tables present in the AWS RDS with row counts matching the source MySQL database.
+
+---
+
+### Step 12: Update Documentation and Push
+
+The pipeline works. Your data is in the cloud. Now update your project documentation to reflect what you built. This is the same pattern from Session 01: after every implementation session, run `/init` and update the README. Documentation should always reflect the current state of the project.
+
+**What to do:**
+
+1. Run `/init` in Claude Code to update the `CLAUDE.md` file. It will detect the new AWS RDS connection and scripts.
+
+2. Review the updated `CLAUDE.md` in Cursor. It should now include both the local Docker PostgreSQL and the AWS RDS.
+
+3. Update the README:
+
+   ```
+   Update the README.md to reflect that the project now includes
+   an AWS RDS PostgreSQL database with raw Basket Craft data.
+   ```
+
+4. Commit and push:
+
+   ```
+   Commit all files and push to GitHub.
+   ```
+
+**Why documentation matters:** Every time you add infrastructure or change how the project works, update the docs. Your future self, your classmates, and recruiters looking at your GitHub will thank you. A repo with outdated docs is worse than a repo with no docs — at least no docs is honest.
+
+**Checkpoint:** CLAUDE.md reflects the AWS RDS addition. README is updated. All work is committed and pushed to GitHub.
+
+---
+
+## Homework: Prepare for Session 03
+
+Sign up for a Snowflake trial account before the next class.
+
+1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and create a free trial account. You only need a valid email address — no credit card required. The trial lasts 30 days.
+
+2. During signup, select:
+   - **Cloud provider:** AWS
+   - **Region:** US West (Oregon) — or the closest region to your location
+   - **Edition:** Standard
+
+3. After signing up, log in to your Snowflake account and confirm you can see the Snowflake web interface (Snowsight).
+
+This is required for Session 03. We cannot proceed without it.
+
 ---
 
 ## Part 3: Data Warehouse and Transformations (Session 03)
