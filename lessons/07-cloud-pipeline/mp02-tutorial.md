@@ -90,7 +90,7 @@ You also need Docker running, since you will create a new local PostgreSQL conta
    ```
    /config
    ```
-   Use the arrow keys to select **Output style**, press Enter, then select **Explanatory** and press Enter again. This tells Claude Code to explain what it is doing as it works, so you learn the tools instead of just watching code appear. You only need to set this once — it persists across sessions.
+   Use the arrow keys to select **Output style**, press Enter, then select **Explanatory** and press Enter again. This tells Claude Code to explain what it is doing as it works, so you learn the tools instead of just watching code appear. You only need to set this once. It persists across sessions.
 
 **Checkpoint:** Your repo is cloned and open in Cursor. Docker Desktop is running. Claude Code is active in the terminal with explanatory output style.
 
@@ -114,9 +114,9 @@ But when you are building a pipeline with multiple moving parts (a source databa
 
 2. Once installed, verify that it worked by typing `/super` in the Claude Code prompt. You should see autocomplete suggestions that include Superpowers commands like `/using-superpowers`. If you see them, the install worked.
 
-**Why this matters:** Superpowers adds structured skills to Claude Code that activate automatically. When you describe something you want to build, Superpowers will recognize the situation and start a **brainstorming** conversation before jumping to code. You do not need to type a special command — just describe what you need and Claude Code will announce which skill it is using. The two skills we will learn in this course are:
-- **Brainstorming** — Design before you build. Have a conversation about what you are trying to accomplish, and end up with a pipeline diagram and a plan. You will use this today.
-- **Writing plans** — Break complex work into steps. You will learn this one in Sessions 02-03.
+**Why this matters:** Superpowers adds structured skills to Claude Code that activate automatically. When you describe something you want to build, Superpowers will recognize the situation and start a **brainstorming** conversation before jumping to code. You do not need to type a special command. Just describe what you need and Claude Code will announce which skill it is using. The two skills we will learn in this course are:
+- **Brainstorming:** Design before you build. Have a conversation about what you are trying to accomplish, and end up with a pipeline diagram and a plan. You will use this today.
+- **Writing plans:** Break complex work into steps. You will learn this one in Sessions 02-03.
 
 Superpowers has many other skills (debugging, code review, testing, and more), but these two are the ones we will use in class.
 
@@ -144,7 +144,7 @@ You approve at two checkpoints (after the spec and after the plan), then Superpo
 
 ### Step 3: Brainstorm the Pipeline
 
-Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that produces a **written design spec** — a document that gets saved to your project and committed to git. The spec defines everything needed to build the pipeline: architecture diagram, file structure and responsibilities, table schemas, SQL for aggregations, Docker and credential configuration, error handling, and testing strategy. Because the spec defines every file and its job, implementation in Step 4 is just executing the spec.
+Before writing any code, you are going to design the pipeline. In MP01 Step 5, you let Claude Code ask you questions to explore the problem. That was freeform. This time, Superpowers will automatically activate its brainstorming skill when it sees you describing something you want to build. Instead of jumping to code, Claude Code will start a structured design conversation that produces a **written design spec**, a document that gets saved to your project and committed to git. The spec defines everything needed to build the pipeline: architecture diagram, file structure and responsibilities, table schemas, SQL for aggregations, Docker and credential configuration, error handling, and testing strategy. Because the spec defines every file and its job, implementation in Step 4 is just executing the spec.
 
 Here is the important part: **your design will probably look different from the instructor's and from your classmates'.** That is how real engineering works. Two people given the same business question will make different decisions about which tables to pull, how to aggregate, and how to structure the scripts. As long as your pipeline answers the business question, your design is valid.
 
@@ -164,9 +164,9 @@ Here is the important part: **your design will probably look different from the 
    the extraction and transformation.
    ```
 
-   Claude Code will announce that it is using the brainstorming skill. This is Superpowers at work — it recognized that you are describing something you want to build and activated the right workflow automatically.
+   Claude Code will announce that it is using the brainstorming skill. This is Superpowers at work. It recognized that you are describing something you want to build and activated the right workflow automatically.
 
-   Claude Code may also offer to open a **visual companion** in your browser for showing diagrams and mockups. If it asks, say yes and open the `localhost` URL it provides. If it does not offer, that is fine — the brainstorm will work in the terminal either way.
+   Claude Code may also offer to open a **visual companion** in your browser for showing diagrams and mockups. If it asks, say yes and open the `localhost` URL it provides. If it does not offer, that is fine. The brainstorm will work in the terminal either way.
 
 2. Claude Code will start a design conversation and ask about your setup. The brainstorm is a back-and-forth conversation, not a single prompt. Claude Code will ask you questions one at a time. Answer each one, and if it suggests something you do not understand, ask it to explain. A typical brainstorm takes 4-8 exchanges before producing the final diagram and plan.
 
@@ -225,7 +225,7 @@ Commit all files and push to GitHub.
 
 Your brainstorm produced a design spec. Now Superpowers will transition into planning and execution.
 
-**Spec vs. plan:** The spec is *what* to build and why — the design decisions, schemas, architecture, and trade-offs. It is the agreement on what the system looks like when it is done. You wrote this during brainstorming. The plan is *how* to build it, step by step — the exact files to create, the exact code to write, the exact commands to run, in what order. A spec could be implemented many different ways. The plan picks one way and spells it out so precisely that someone (or an agent) with zero context could follow it mechanically.
+**Spec vs. plan:** The spec is *what* to build and why: the design decisions, schemas, architecture, and trade-offs. It is the agreement on what the system looks like when it is done. You wrote this during brainstorming. The plan is *how* to build it, step by step: the exact files to create, the exact code to write, the exact commands to run, in what order. A spec could be implemented many different ways. The plan picks one way and spells it out so precisely that someone (or an agent) with zero context could follow it mechanically.
 
 Superpowers writes the implementation plan based on the approved spec, then builds using **subagent-driven development**. Instead of doing everything in one long conversation, Claude Code spawns fresh mini-agents (subagents) for each task:
 
@@ -251,13 +251,13 @@ graph TD
     style H fill:#f5f5f5,stroke:#888888
 ```
 
-Each subagent gets just the context it needs for its task — no conversation history bloat. You will see messages like "Dispatching implementer for Task 1..." as it works through the plan. You will also see a **Base SHA** at the start — this is a git commit hash that Superpowers saves as a snapshot before building, so it can roll back if something goes wrong. You do not need to prompt for each piece — just watch it work and answer questions if it asks.
+Each subagent gets just the context it needs for its task, avoiding conversation history bloat. You will see messages like "Dispatching implementer for Task 1..." as it works through the plan. You will also see a **Base SHA** at the start, which is a git commit hash that Superpowers saves as a snapshot before building, so it can roll back if something goes wrong. You do not need to prompt for each piece. Just watch it work and answer questions if it asks.
 
 Before it starts building, there are two things you need to set up manually.
 
 **What to do:**
 
-1. Create a `CLAUDE.md` file for your project. This is a file in your project root that Claude Code reads at the start of every session. It contains persistent instructions for this project — like project-level preferences that you set once instead of repeating yourself. Tell Claude Code:
+1. Create a `CLAUDE.md` file for your project. This is a file in your project root that Claude Code reads at the start of every session. It contains persistent instructions for this project, like project-level preferences that you set once instead of repeating yourself. Tell Claude Code:
 
    ```
    Create a CLAUDE.md file with this instruction:
@@ -286,7 +286,7 @@ Before it starts building, there are two things you need to set up manually.
 
 **After the build completes, review what was built:**
 
-5. **Verify credentials stayed out of the code.** Open the generated Python scripts in Cursor and look for the database password. It should not appear in any `.py` file — only in the `.env` file. If it does:
+5. **Verify credentials stayed out of the code.** Open the generated Python scripts in Cursor and look for the database password. It should not appear in any `.py` file, only in the `.env` file. If it does:
 
    ```
    Move the credentials out of the script and read from the .env file.
@@ -328,7 +328,7 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 
 2. Review the output. Do the table names match what your brainstorm planned? Do the row counts seem reasonable for monthly aggregations?
 
-**CLI through Claude Code:** Claude Code can run CLI tools like `psql` on your behalf — you ask a question, and it handles the connection, the SQL, and the output formatting. You do not need to memorize psql commands. You will use this same pattern with the AWS CLI, dbt, and Snowflake CLI in later mini-projects.
+**CLI through Claude Code:** Claude Code can run CLI tools like `psql` on your behalf. You ask a question, and it handles the connection, the SQL, and the output formatting. You do not need to memorize psql commands. You will use this same pattern with the AWS CLI, dbt, and Snowflake CLI in later mini-projects.
 
 **Method 2: DBeaver**
 
@@ -337,7 +337,7 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
    - Port, database name, username, and password: check your `docker-compose.yml`
    - Click **Test Connection** to verify, then **Finish**
 
-   This is a different connection from MP01 — this project has its own container with its own credentials.
+   This is a different connection from MP01. This project has its own container with its own credentials.
 
 2. Navigate to your database > **Schemas > public > Tables**. You should see the summary tables that your pipeline created.
 
@@ -365,11 +365,11 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
 
 | Tool | Best for | When to use |
 |------|----------|-------------|
-| psql via Claude Code | Quick checks, row counts, schema inspection | First pass — did the tables get created with the right structure? |
-| DBeaver | Browsing data visually, spotting obvious issues | Second pass — does the data look right when you eyeball it? |
-| Claude Code natural language | Analytical questions, testing the business logic | Final pass — does the pipeline actually answer the business question? |
+| psql via Claude Code | Quick checks, row counts, schema inspection | First pass: did the tables get created with the right structure? |
+| DBeaver | Browsing data visually, spotting obvious issues | Second pass: does the data look right when you eyeball it? |
+| Claude Code natural language | Analytical questions, testing the business logic | Final pass: does the pipeline actually answer the business question? |
 
-You used all three of these in MP01. The workflow is the same here, just with different data. Get comfortable switching between them — you will use the same approach in your independent project.
+You used all three of these in MP01. The workflow is the same here, just with different data. Get comfortable switching between them. You will use the same approach in your independent project.
 
 **Commit your work.** Now that the pipeline is verified, commit everything. Ask Claude Code:
 
@@ -464,7 +464,7 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
    ```bash
    aws --version
    ```
-   You should see `aws-cli/2.x.x`. If not, install it now — Mac: `brew install awscli`, Windows: download from [aws.amazon.com/cli](https://aws.amazon.com/cli/).
+   You should see `aws-cli/2.x.x`. If not, install it now. Mac: `brew install awscli`, Windows: download from [aws.amazon.com/cli](https://aws.amazon.com/cli/).
 
 4. Configure your AWS credentials. In your terminal (not inside Claude Code), run:
    ```bash
@@ -480,7 +480,7 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
    ```
    You should see your AWS account ID, user ARN, and user ID returned as JSON.
 
-**AWS credentials vs project credentials:** This project uses two separate sets of credentials. AWS credentials (access key and secret key) are stored in `~/.aws/credentials` by `aws configure`. They live at the machine level — they identify you to AWS and never belong in your project files. RDS database credentials (username and password for your cloud database) go in your project's `.env` file, the same as the MySQL credentials from Session 01. Never put AWS access keys in `.env` or any file tracked by git.
+**AWS credentials vs project credentials:** This project uses two separate sets of credentials. AWS credentials (access key and secret key) are stored in `~/.aws/credentials` by `aws configure`. They live at the machine level. They identify you to AWS and never belong in your project files. RDS database credentials (username and password for your cloud database) go in your project's `.env` file, the same as the MySQL credentials from Session 01. Never put AWS access keys in `.env` or any file tracked by git.
 
 **Checkpoint:** `aws sts get-caller-identity` returns your AWS account info. Claude Code is running in your `basket-craft-pipeline` project.
 
@@ -488,7 +488,7 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
 
 ### Step 8: Create RDS via the AWS Console
 
-You are going to create a cloud database two ways. First through the AWS Console (the web interface) so you understand what every setting does. Then in Step 9, you will delete it and recreate the same thing with one CLI command. The Console creation is deliberately slow — the point is to feel the friction so the CLI speed hits harder.
+You are going to create a cloud database two ways. First through the AWS Console (the web interface) so you understand what every setting does. Then in Step 9, you will delete it and recreate the same thing with one CLI command. The Console creation is deliberately slow. The point is to feel the friction so the CLI speed hits harder.
 
 **What to do:**
 
@@ -607,7 +607,7 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
    ```
    Extract all raw tables from the Basket Craft MySQL database and
    load them into my AWS RDS PostgreSQL. Read the MySQL and RDS
-   credentials from the .env file. Load all 8 tables as-is — no
+   credentials from the .env file. Load all 8 tables as-is, no
    transformations, just raw data.
    ```
 
@@ -623,7 +623,7 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
 
 ### Step 11: Verify the Loaded Data
 
-Same verification habit from Session 01 — check the data before calling it done. This time the database is remote.
+Same verification habit from Session 01. Check the data before calling it done. This time the database is remote.
 
 **What to do:**
 
@@ -683,7 +683,7 @@ The pipeline works. Your data is in the cloud. Now update your project documenta
    Commit all files and push to GitHub.
    ```
 
-**Why documentation matters:** Every time you add infrastructure or change how the project works, update the docs. Your future self, your classmates, and recruiters looking at your GitHub will thank you. A repo with outdated docs is worse than a repo with no docs — at least no docs is honest.
+**Why documentation matters:** Every time you add infrastructure or change how the project works, update the docs. Your future self, your classmates, and recruiters looking at your GitHub will thank you. A repo with outdated docs is worse than a repo with no docs, because at least no docs is honest.
 
 **Checkpoint:** CLAUDE.md reflects the AWS RDS addition. README is updated. All work is committed and pushed to GitHub.
 
@@ -693,11 +693,11 @@ The pipeline works. Your data is in the cloud. Now update your project documenta
 
 Sign up for a Snowflake trial account before the next class.
 
-1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and create a free trial account. You only need a valid email address — no credit card required. The trial lasts 30 days.
+1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and create a free trial account. You only need a valid email address. No credit card required. The trial lasts 30 days.
 
 2. During signup, select:
    - **Cloud provider:** AWS
-   - **Region:** US West (Oregon) — or the closest region to your location
+   - **Region:** US West (Oregon), or the closest region to your location
    - **Edition:** Standard
 
 3. After signing up, log in to your Snowflake account and confirm you can see the Snowflake web interface (Snowsight).
@@ -716,4 +716,4 @@ This is required for Session 03. We cannot proceed without it.
 
 ## Submission
 
-Submission details will be added when Sessions 02-03 are complete. MP02 is one lesson exercise covering all three sessions — you will submit your GitHub repository link as **Lesson Exercises 07** after finishing the full tutorial.
+Submission details will be added when Sessions 02-03 are complete. MP02 is one lesson exercise covering all three sessions. You will submit your GitHub repository link as **Lesson Exercises 07** after finishing the full tutorial.
