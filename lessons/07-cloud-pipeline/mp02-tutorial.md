@@ -638,13 +638,13 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
    ```
    Extract all raw tables from the Basket Craft MySQL database and
    load them into my AWS RDS PostgreSQL. Read the MySQL and RDS
-   credentials from the .env file. Load all 8 tables as-is, no
+   credentials from the .env file. Load all tables as-is, no
    transformations, just raw data.
    ```
 
 3. Let Claude Code work. It will adapt your existing extraction scripts or write new ones. If it asks questions, answer them. If it hits connection errors, let it fix and retry.
 
-**Why no brainstorm this time?** In Session 01, you brainstormed because there were design decisions: what to extract, how to transform, what the file structure should look like. Here the task is clear: same source, new destination. A direct prompt is the right tool. Knowing when to brainstorm vs when to give a direct instruction is a prompting skill you will keep building.
+**Superpowers may brainstorm again.** Even though this task is straightforward, Superpowers may activate the brainstorming skill because it detects you are building something. That is fine. The brainstorm will be shorter than Session 01 since the task is simpler (same source, new destination, no design decisions). Let it work through its process.
 
 **Raw data for a reason:** You are loading raw, untransformed data. In Session 03, dbt will transform this into a star schema (fact and dimension tables). Raw data goes in first, transformations happen in the warehouse. That is the ELT pattern. Loading raw now means you have the full source to work with later.
 
