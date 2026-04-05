@@ -582,12 +582,12 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
 3. Now create a new one with the same settings:
 
    ```
-   Create an AWS RDS PostgreSQL 16 instance:
+   Create an AWS RDS PostgreSQL instance with these settings:
    - Instance identifier: basket-craft-db
    - Database name: basket_craft
    - Master username: student
    - Master password: go_lions
-   - Instance class: db.t3.micro
+   - Free tier eligible instance class
    - Storage: 20 GB
    - Publicly accessible: yes
    - Security group: basket-craft-sg
