@@ -7,8 +7,8 @@ You find a real job posting for a junior analytics engineer, data engineer, or d
 | Milestone | Due | What's Due |
 |---|---|---|
 | Proposal | Apr 13 (9:55 AM) | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
-| M1: Extract, Load & Transform | Apr 22 | Both sources loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
-| M2: Present & Polish | May 4 | Streamlit dashboard, RAG chatbot, slides, README, ERD |
+| M1: Extract, Load & Transform | Apr 27 | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
+| M2: Present & Polish | May 4 | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
 Your public GitHub repo is your submission. Submit the repo URL to Brightspace by each due date.
@@ -71,24 +71,24 @@ Create a structured 1-page proposal (PDF) with these sections: your name, projec
 | 2 | GitHub repo initialized | 3 | Public repo, proper `.gitignore`, directory structure, `CLAUDE.md` with project context |
 | 3 | Snowflake account | 2 | Trial account in AWS US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
 
-## M1: Extract, Load & Transform (45 pts) - Due Apr 22
+## M1: Extract, Load & Transform (35 pts) - Due Apr 27
 
-Both data sources extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
-
-| # | Deliverable | Pts | Details |
-|---|---|---|---|
-| 4 | Source 1 extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials, scheduled via GitHub Actions |
-| 5 | Source 2 extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions |
-| 6 | dbt project (staging + mart models) | 15 | Star schema in Snowflake: staging models with tests, fact table(s) + dimension table(s) for analysis |
-| 7 | GitHub Actions pipeline | 5 | All sources automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
-| 8 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard/chatbot), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
-
-## M2: Present & Polish (45 pts) - Due May 4
-
-Build the dashboard and chatbot, create your slides, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
+API source extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
+| 4 | Source 1 (API) extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials, scheduled via GitHub Actions |
+| 5 | dbt project (staging + mart models) | 15 | Star schema in Snowflake: staging models with tests, fact table(s) + dimension table(s) for analysis |
+| 6 | GitHub Actions pipeline | 5 | Source 1 automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
+| 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard/chatbot), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
+
+## M2: Present & Polish (55 pts) - Due May 4
+
+Add your second data source, build the dashboard and chatbot, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
+
+| # | Deliverable | Pts | Details |
+|---|---|---|---|
+| 8 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions. Feeds the RAG chatbot corpus. |
 | 9 | Streamlit dashboard (deployed) | 15 | Connected to Snowflake mart tables, descriptive + diagnostic analytics, interactive. Public URL |
 | 10 | Presentation slides (PDF) | 10 | Descriptive + diagnostic insights, recommendations. Graded on data storytelling principles (see below). Portfolio artifact, not presented in final interview. Submitted as PDF to Brightspace. |
 | 11 | RAG chatbot in Streamlit (deployed) | 10 | Cortex Search + Cortex Complete. Answers domain questions from your web-scraped/document corpus. Same Streamlit app, separate tab. Public URL |
