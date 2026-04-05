@@ -18,7 +18,7 @@ Your public GitHub repo is your submission. Submit the repo URL to Brightspace b
 You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard and a RAG chatbot, all automated via GitHub Actions.
 
 ```mermaid
-graph TD
+graph LR
     subgraph Structured Data Path
         A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
     end
@@ -34,14 +34,14 @@ The dashboard answers "how much" and "what happened" using structured data. The 
 
 | Layer | Tool |
 |---|---|
-| IDE | Cursor |
-| AI Development | Claude Code + Superpowers |
-| Version Control | Git + GitHub (public repo) |
-| Data Warehouse | Snowflake (trial account, AWS US East 1) |
-| Transformation | dbt |
-| Orchestration | GitHub Actions (scheduled) |
-| Dashboard | Streamlit (deployed to Streamlit Community Cloud) |
-| RAG Chatbot | Snowflake Cortex Search + Cortex Complete |
+| IDE | [Cursor](https://www.cursor.com) |
+| AI Development | [Claude Code](https://code.claude.com/docs/en/overview) + Superpowers |
+| Version Control | [Git](https://git-scm.com) + [GitHub](https://github.com) (public repo) |
+| Data Warehouse | [Snowflake](https://www.snowflake.com) (trial account, AWS US East 1) |
+| Transformation | [dbt](https://www.getdbt.com) |
+| Orchestration | [GitHub Actions](https://docs.github.com/en/actions) (scheduled) |
+| Dashboard | [Streamlit](https://streamlit.io) (deployed to Streamlit Community Cloud) |
+| RAG Chatbot | [Snowflake Cortex Search](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview) + Cortex Complete |
 
 These are the same tools from the mini-projects. No new setup required.
 
