@@ -470,7 +470,7 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
    ```bash
    aws configure
    ```
-   Enter your AWS Access Key ID and Secret Access Key when prompted. For region, enter `us-west-2` (or your preferred region). For output format, enter `json`.
+   Enter your AWS Access Key ID and Secret Access Key when prompted. For region, enter `us-east-1`. For output format, enter `json`.
 
    If you do not have an access key, log in to the AWS Console at [console.aws.amazon.com](https://console.aws.amazon.com/), go to **IAM > Users > your user > Security credentials > Create access key**.
 
@@ -512,7 +512,7 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 4. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
 
-5. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-west-2.rds.amazonaws.com`).
+5. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
 
 6. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
    - Type: **PostgreSQL**
@@ -593,7 +593,7 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
 1. Add your RDS credentials to the `.env` file. Open it in Cursor and add these lines (keep the existing MySQL credentials):
 
    ```
-   RDS_HOST=basket-craft-db.xxxx.us-west-2.rds.amazonaws.com
+   RDS_HOST=basket-craft-db.xxxx.us-east-1.rds.amazonaws.com
    RDS_PORT=5432
    RDS_USER=student
    RDS_PASSWORD=go_lions
