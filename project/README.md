@@ -1,14 +1,14 @@
 # Portfolio Project: Analytics Engineering
 
-You find a real job posting for a junior analytics engineer, data engineer, or data analyst role, something you'd actually apply to. Then you build an end-to-end data pipeline and analytics project that demonstrates you can do what the job requires. The project is worth 30% of your course grade and lives in a public GitHub repo you can show to employers.
+You find a real job posting for a role you'd actually apply to, then build an end-to-end data pipeline and analytics project that demonstrates you can do what the job requires. The project is worth 30% of your course grade and lives in a public GitHub repo you can show to employers.
 
 ## Timeline & Milestones
 
 | Milestone | Due | What's Due |
 |---|---|---|
-| Proposal | Apr 13, 9:55 AM | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
-| Milestone 01: Extract, Load & Transform | Apr 27, 9:55 AM | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
-| Milestone 02: Present & Polish | May 4, 9:55 AM | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
+| Proposal | Apr 13 at 9:55 AM | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
+| Milestone 01: Extract, Load & Transform | Apr 27 at 9:55 AM | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
+| Milestone 02: Present & Polish | May 4 at 9:55 AM | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
 Your public GitHub repo is your submission. Submit the repo URL to Brightspace by each due date.
@@ -18,14 +18,18 @@ Your public GitHub repo is your submission. Submit the repo URL to Brightspace b
 You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard and a RAG chatbot, all automated via GitHub Actions.
 
 ```mermaid
-graph LR
-    subgraph Text Data Path
+flowchart TB
+    subgraph s1 [Structured Data Path]
+        direction LR
+        A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
+    end
+
+    subgraph s2 [Text Data Path]
+        direction LR
         G[Web Scrape / Documents] --> H[GitHub Actions] --> I[Snowflake Raw] --> J[Cortex Search] --> K[Streamlit Chatbot\nvia Cortex Complete]
     end
 
-    subgraph Structured Data Path
-        A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
-    end
+    s1 ~~~ s2
 ```
 
 The dashboard answers "how much" and "what happened" using structured data. The chatbot answers "what does this mean" and "tell me about X" using text data.
@@ -45,7 +49,7 @@ The dashboard answers "how much" and "what happened" using structured data. The 
 
 These are the same tools from the mini-projects. No new setup required.
 
-## Project Inputs
+## Your Job Posting & Data Sources
 
 ### Job Posting
 
@@ -60,7 +64,7 @@ Your pipeline must pull from **2 or more data sources of different types**:
 - At least one **API** (REST, GraphQL, or a Python client wrapping one)
 - At least one **web scrape or document scrape** (Firecrawl, web scraping APIs, MCP servers, PDFs, and other documents all count)
 
-All sources must be automated via **GitHub Actions on a schedule**. No manual data downloads.
+All sources must be automated via **GitHub Actions on a schedule**.
 
 The sources you propose are tentative. You can change them as the project evolves. The proposal just shows you've thought through plausible sources, not that you're committed to them.
 
@@ -91,11 +95,11 @@ Add your second data source, build the dashboard and chatbot, and polish everyth
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
-| 8 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions. Feeds the RAG chatbot corpus. |
+| 8 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions. |
 | 9 | Streamlit dashboard (deployed) | 15 | Connected to Snowflake mart tables, descriptive + diagnostic analytics, interactive. Public URL |
-| 10 | Presentation slides (PDF) | 10 | Descriptive + diagnostic insights, recommendations. Graded on data storytelling principles (see below). Portfolio artifact, not presented in final interview. Submitted as PDF to Brightspace. |
+| 10 | Presentation slides (PDF) | 10 | Descriptive + diagnostic insights, recommendations. Graded on data storytelling principles (see Minimum Requirements). Portfolio artifact, not presented in final interview. Submitted as PDF to Brightspace. |
 | 11 | RAG chatbot in Streamlit (deployed) | 10 | Cortex Search + Cortex Complete. Answers domain questions from your web-scraped/document corpus. Same Streamlit app, separate tab. Public URL |
-| 12 | README.md | 5 | Template provided. Project overview, tech stack, pipeline setup, ERD, pipeline diagram, insights summary |
+| 12 | README.md | 5 | Use the [README template](readme-template.md). Project overview, tech stack, pipeline setup, ERD, pipeline diagram, insights summary |
 | 13 | ERD (star schema) | 3 | Generated by Claude Code from dbt models. Fact + dimension tables. Included in README |
 | 14 | Commit history + repo structure | 2 | Frequent meaningful commits, clean directory structure |
 
@@ -150,13 +154,19 @@ Full checklists for the four highest-stakes deliverables. Other deliverables are
 - Actionable recommendation: [Action] → [Expected outcome]
 - Designed as a portfolio artifact, ready to use in a real job interview
 
-## Quality Rubric
+**Data Storytelling Principles (Lesson 05 refresher):**
+
+- **Takeaway Titles:** State the insight, not the category. "Email delivers 9x more conversions per dollar" not "Marketing Channel Performance." If someone reads only the title, they should know what happened.
+- **Callouts:** Circle, arrow, or highlight that draws the eye to the key evidence in the visual.
+- **Recommendation format:** [Action] → [Expected outcome]. Specific and actionable. "Shift 40% of display budget to email → projected 200+ additional conversions" not "improve marketing."
+
+### Quality Rubric
 
 Beyond the minimums, grading rewards quality across these themes:
 
 **Analytical depth:** Are the business questions interesting and relevant to the job posting? Does the diagnostic analysis dig into root causes, or just show another chart? Are the recommendations actionable and specific?
 
-**Technical quality:** Is the star schema well-designed? Are dbt models clean and tested? Does the pipeline handle errors gracefully? Is the code organized and documented?
+**Technical quality:** Is the star schema well-designed? Are dbt models clean and tested? Is the pipeline reliable and well-organized? Is the code documented?
 
 **Polish and UX:** Is the dashboard layout thoughtful (labels, color, flow)? Is the chatbot responsive and helpful? Are the slides visually clear and story-driven? Would you demo this confidently in a job interview?
 
@@ -166,25 +176,16 @@ Beyond the minimums, grading rewards quality across these themes:
 
 No example projects are provided. Use Claude Code with the Superpowers brainstorming skill to develop your project idea.
 
-1. Find a real job posting for a junior analytics engineer, data engineer, or data analyst role.
-2. Save the job posting as a PDF.
-3. Open Claude Code and ask it to help you brainstorm project ideas. The Superpowers brainstorming skill will guide you through a structured conversation. Reference the job posting by file path, screenshot, or copy-paste to give it context.
-4. Explore: what skills does the role require? What data would demonstrate those skills? What questions would you want to answer?
+1. Find and save your job posting as a PDF.
+2. Open Claude Code and ask it to help you brainstorm project ideas. The Superpowers brainstorming skill will guide you through a structured conversation. Reference the job posting by file path, screenshot, or copy-paste to give it context.
+3. Explore: what skills does the role require? What data would demonstrate those skills? What questions would you want to answer?
 
-Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in MPs 2–4.
-
-### Data Storytelling Principles
-
-A refresher from Lesson 05 for the slides deliverable.
-
-- **Takeaway Titles:** State the insight, not the category. "Email delivers 9x more conversions per dollar" not "Marketing Channel Performance." If someone reads only the title, they should know what happened.
-- **Callouts:** Circle, arrow, or highlight that draws the eye to the key evidence in the visual.
-- **Recommendation format:** [Action] → [Expected outcome]. Specific and actionable. "Shift 40% of display budget to email → projected 200+ additional conversions" not "improve marketing."
+Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in MPs 02-04.
 
 ## Policies
 
 - **Individual project.** All work must be your own.
 - **Late penalty.** 10% deduction per day late.
 - **AI usage.** Claude Code is your primary development tool. You are expected and encouraged to use it for scaffolding, debugging, and building. But you must be able to explain every component in your final interview. If you can't explain it, you don't get credit for it.
-- **Public repo.** Required. This is a portfolio piece. Employers will see it.
+- **Public repo.** This is a portfolio piece. Employers will see it.
 - **No credentials in the repo.** Use `.env` files and `.gitignore`. Environment variables for all secrets. No database passwords, API keys, or Snowflake credentials committed to git.
