@@ -502,7 +502,9 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 2. Navigate to **RDS**: search for "RDS" in the top search bar, or find it under **Services > Database > RDS**.
 
-3. Click **Create database** and configure:
+3. In the left sidebar, click **Databases**. Then click the **Create database** button in the top right.
+
+4. Configure the new database:
    - **Choose a database creation method:** Standard create
    - **Engine type:** PostgreSQL
    - **Engine version:** PostgreSQL 16 (latest 16.x available)
@@ -517,16 +519,16 @@ You are going to create a cloud database two ways. First through the AWS Console
    - Expand **Additional configuration** and set **Initial database name** to `basket_craft`. If you skip this, the database won't be created and DBeaver won't be able to connect to it.
    - Leave other settings as default
 
-4. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
+5. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
 
-5. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
+6. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
 
-6. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
+7. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
    - Type: **PostgreSQL**
    - Source: **Anywhere-IPv4** (0.0.0.0/0)
    - Click **Save rules**
 
-7. Open DBeaver and create a new PostgreSQL connection:
+8. Open DBeaver and create a new PostgreSQL connection:
    - Host: paste the endpoint you copied
    - Port: `5432`
    - Database: `basket_craft`
@@ -534,7 +536,7 @@ You are going to create a cloud database two ways. First through the AWS Console
    - Password: `go_lions`
    - Click **Test Connection** to verify, then **Finish**
 
-8. You should see an empty `basket_craft` database. This is a PostgreSQL database running in the cloud, not on your laptop.
+9. You should see an empty `basket_craft` database. This is a PostgreSQL database running in the cloud, not on your laptop.
 
 **Not for production:** Public access and an open security group (0.0.0.0/0) are fine for a free-tier learning database. In production, you would restrict access to specific IP addresses or use a VPN. We are keeping it simple so you can connect from campus, home, or anywhere.
 
