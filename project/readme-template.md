@@ -4,7 +4,9 @@
 
 ## Job Posting
 
-**Role:** [Job title] | **Company:** [Company name] | **Link:** [URL to posting]
+- **Role:** [Job title]
+- **Company:** [Company name]
+- **Link:** [URL to posting]
 
 [1-2 sentences on how your project demonstrates the skills this role requires.]
 
