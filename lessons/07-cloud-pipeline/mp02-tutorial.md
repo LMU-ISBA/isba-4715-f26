@@ -474,7 +474,7 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
    ```bash
    aws sts get-caller-identity
    ```
-   You should see your AWS account ID, user ARN, and user ID returned as JSON.
+   You should see your AWS account ID, user ARN, and user ID returned as JSON. If the output opens in a pager (you see a `:` at the bottom of the screen), press `q` to exit.
 
 6. Now start Claude Code:
    ```bash
@@ -708,7 +708,7 @@ Sign up for a Snowflake trial account before the next class.
 
 2. During signup, select:
    - **Cloud provider:** AWS
-   - **Region:** US West (Oregon), or the closest region to your location
+   - **Region:** US East (Northern Virginia)
    - **Edition:** Standard
 
 3. After signing up, log in to your Snowflake account and confirm you can see the Snowflake web interface (Snowsight).
