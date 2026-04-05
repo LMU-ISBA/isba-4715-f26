@@ -66,7 +66,7 @@ The sources you propose are tentative. You can change them as the project evolve
 
 ## Proposal (10 pts) - Due Mon, Apr 13 at 9:55 AM
 
-Create a structured 1-page proposal (PDF) with these sections: your name, project name, GitHub repo link, job posting summary, problem statement, proposed data sources (tentative), and solution overview. Save the job posting as a separate PDF. Commit both to `docs/` in your repo. Submit your repo URL to Brightspace.
+Use the [proposal template](proposal-template.md) to create your 1-page proposal. Export it as a PDF. Save the job posting as a separate PDF. Commit both to `docs/` in your repo. Submit your repo URL to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
