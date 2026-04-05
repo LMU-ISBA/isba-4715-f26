@@ -7,8 +7,8 @@ You find a real job posting for a junior analytics engineer, data engineer, or d
 | Milestone | Due | What's Due |
 |---|---|---|
 | Proposal | Apr 13 (9:55 AM) | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
-| M1: Extract, Load & Transform | Apr 27 | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
-| M2: Present & Polish | May 4 | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
+| M1: Extract, Load & Transform | Apr 27 (9:55 AM) | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
+| M2: Present & Polish | May 4 (9:55 AM) | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
 Your public GitHub repo is your submission. Submit the repo URL to Brightspace by each due date.
@@ -18,7 +18,7 @@ Your public GitHub repo is your submission. Submit the repo URL to Brightspace b
 You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard and a RAG chatbot, all automated via GitHub Actions.
 
 ```mermaid
-graph LR
+graph TD
     subgraph Structured Data Path
         A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
     end
