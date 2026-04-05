@@ -454,19 +454,15 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
 
 1. Open your `basket-craft-pipeline` project in Cursor (the same repo from Session 01).
 
-2. Open a terminal (`` Ctrl+` `` or **Terminal > New Terminal**) and start Claude Code:
-   ```bash
-   claude
-   ```
-   Trust the folder if prompted.
+2. Open a terminal (`` Ctrl+` `` or **Terminal > New Terminal**).
 
-3. Check that the AWS CLI is installed. In your terminal (outside Claude Code), run:
+3. Check that the AWS CLI is installed:
    ```bash
    aws --version
    ```
    You should see `aws-cli/2.x.x`. If not, install it now. Mac: `brew install awscli`, Windows: download from [aws.amazon.com/cli](https://aws.amazon.com/cli/).
 
-4. Configure your AWS credentials. In your terminal (not inside Claude Code), run:
+4. Configure your AWS credentials:
    ```bash
    aws configure
    ```
@@ -479,6 +475,12 @@ Session 02 picks up in the same `basket-craft-pipeline` project from Session 01.
    aws sts get-caller-identity
    ```
    You should see your AWS account ID, user ARN, and user ID returned as JSON.
+
+6. Now start Claude Code:
+   ```bash
+   claude
+   ```
+   Trust the folder if prompted.
 
 **AWS credentials vs project credentials:** This project uses two separate sets of credentials. AWS credentials (access key and secret key) are stored in `~/.aws/credentials` by `aws configure`. They live at the machine level. They identify you to AWS and never belong in your project files. RDS database credentials (username and password for your cloud database) go in your project's `.env` file, the same as the MySQL credentials from Session 01. Never put AWS access keys in `.env` or any file tracked by git.
 
@@ -508,6 +510,7 @@ You are going to create a cloud database two ways. First through the AWS Console
    - **Storage:** 20 GB, General Purpose SSD (gp2)
    - **Connectivity:** select **Yes** for Public access
    - **VPC security group:** Create new, name it `basket-craft-sg`
+   - Expand **Additional configuration** and set **Initial database name** to `basket_craft`. If you skip this, the database won't be created and DBeaver won't be able to connect to it.
    - Leave other settings as default
 
 4. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
@@ -562,21 +565,21 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
    - Security group: basket-craft-sg
    ```
 
-3. Claude Code will run the `aws rds create-db-instance` command. Compare the time it took to type this prompt vs the 10 minutes you spent in the Console.
+3. Wait for the instance to become available. This is another provisioning wait, but notice the difference: the Console required your attention for every field. The CLI required one prompt. You are already done.
 
-4. Wait for the instance to become available. Ask Claude Code to check:
+   Ask Claude Code to check the status:
 
    ```
    Check if my basket-craft-db RDS instance is available yet.
    ```
 
-5. Once available, get the endpoint:
+4. Once available, get the endpoint:
 
    ```
    What is the endpoint for my basket-craft-db RDS instance?
    ```
 
-6. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
+5. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
 
 **Why CLI matters:** The Console is good for learning what settings exist. The CLI is good for everything else: faster, repeatable, scriptable, and auditable. You will use CLIs for most cloud operations from here on.
 
@@ -586,7 +589,7 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
 
 ### Step 10: Load Raw Data into AWS RDS
 
-You have a cloud database. Now fill it with data. You will extract all raw Basket Craft tables from the instructor's MySQL database and load them into your AWS RDS PostgreSQL. This is the same extraction you did in Session 01, but with a different destination. In Session 01 the data went to your laptop. Now it goes to the cloud.
+You have a cloud database. Now fill it with data. You will extract all raw Basket Craft tables from the instructor's MySQL database and load them into your AWS RDS PostgreSQL. Same source as Session 01, different destination.
 
 **What to do:**
 
@@ -611,11 +614,11 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
    transformations, just raw data.
    ```
 
-3. This is a direct prompt, not a brainstorm. In Session 01, you brainstormed because there were design decisions (what to extract, how to transform, what the file structure should look like). Here the task is clear: same source, new destination. Knowing when to brainstorm vs when to give a direct instruction is a prompting skill.
+3. Let Claude Code work. It will adapt your existing extraction scripts or write new ones. If it asks questions, answer them. If it hits connection errors, let it fix and retry.
 
-4. Let Claude Code work. It will adapt your existing extraction scripts or write new ones. If it asks questions, answer them. If it hits connection errors, let it fix and retry.
+**Why no brainstorm this time?** In Session 01, you brainstormed because there were design decisions: what to extract, how to transform, what the file structure should look like. Here the task is clear: same source, new destination. A direct prompt is the right tool. Knowing when to brainstorm vs when to give a direct instruction is a prompting skill you will keep building.
 
-**Raw data for a reason:** You are loading raw, untransformed data. In Session 03, you will use dbt to transform this raw data into a star schema (fact and dimension tables). This is the ELT pattern you learned in Session 01: raw data goes into the warehouse first, then you transform it there. Loading raw data now means you have the full source to work with later.
+**Raw data for a reason:** You are loading raw, untransformed data. In Session 03, dbt will transform this into a star schema (fact and dimension tables). Raw data goes in first, transformations happen in the warehouse. That is the ELT pattern. Loading raw now means you have the full source to work with later.
 
 **Checkpoint:** All 8 raw Basket Craft tables are loaded into the AWS RDS. Row counts per table match the source MySQL database.
 
@@ -623,7 +626,7 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
 
 ### Step 11: Verify the Loaded Data
 
-Same verification habit from Session 01. Check the data before calling it done. This time the database is remote.
+Check the data before calling it done. This time the database is remote.
 
 **What to do:**
 
@@ -656,19 +659,27 @@ Same verification habit from Session 01. Check the data before calling it done. 
 
 2. Compare the answer to what you would expect from the source data.
 
+**Same three tools, same reasons:**
+
+| Tool | What to check | Why |
+|------|---------------|-----|
+| Claude Code | Row counts per table | Quick programmatic check: did all 8 tables load? |
+| DBeaver | Browse rows visually | Spot-check: does the data look right? |
+| Claude Code (natural language) | Analytical question | Business check: do the numbers make sense? |
+
 **Checkpoint:** Data verified. All 8 tables present in the AWS RDS with row counts matching the source MySQL database.
 
 ---
 
 ### Step 12: Update Documentation and Push
 
-The pipeline works. Your data is in the cloud. Now update your project documentation to reflect what you built. This is the same pattern from Session 01: after every implementation session, run `/init` and update the README. Documentation should always reflect the current state of the project.
+The pipeline works. Your data is in the cloud. Update your project documentation to reflect what you built. After every implementation session, run `/init` and update the README.
 
 **What to do:**
 
 1. Run `/init` in Claude Code to update the `CLAUDE.md` file. It will detect the new AWS RDS connection and scripts.
 
-2. Review the updated `CLAUDE.md` in Cursor. It should now include both the local Docker PostgreSQL and the AWS RDS.
+2. Review the updated `CLAUDE.md` in Cursor. It should now mention both the local Docker PostgreSQL (from Session 01) and the AWS RDS you just created. Check that it has the RDS endpoint, database name, and how to connect.
 
 3. Update the README:
 
