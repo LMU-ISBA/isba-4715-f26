@@ -63,13 +63,13 @@ The sources you propose are tentative. You can change them as the project evolve
 
 ## Proposal (10 pts) - Due Apr 13
 
-Submit a structured 1-page proposal (PDF) to Brightspace with these sections: your name, project name, GitHub repo link, job posting summary, problem statement, proposed data sources (tentative), and solution overview. Submit the job posting as a separate PDF.
+Create a structured 1-page proposal (PDF) with these sections: your name, project name, GitHub repo link, job posting summary, problem statement, proposed data sources (tentative), and solution overview. Save the job posting as a separate PDF. Commit both to `docs/` in your repo. Submit your repo URL to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
-| 1 | Project proposal + job posting PDF | 5 | Structured 1-page proposal PDF + job posting PDF. Both submitted to Brightspace. |
+| 1 | Project proposal + job posting PDF | 5 | Structured 1-page proposal PDF (`docs/proposal.pdf`) + job posting PDF (`docs/job-posting.pdf`). Both committed to your repo. |
 | 2 | GitHub repo initialized | 3 | Public repo, proper `.gitignore`, directory structure, `CLAUDE.md` with project context |
-| 3 | Snowflake account | 2 | Trial account in AWS US West 2 or US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region submitted to Brightspace. |
+| 3 | Snowflake account | 2 | Trial account in AWS US West 2 or US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
 
 ## M1: Extract, Load & Transform (45 pts) - Due Apr 22
 

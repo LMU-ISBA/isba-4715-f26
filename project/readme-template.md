@@ -83,7 +83,7 @@ Copy `.env.example` to `.env` and fill in your credentials:
     ├── dbt_project/          # dbt models and tests
     ├── streamlit_app/        # Dashboard + chatbot
     ├── data/                 # Sample data (if applicable)
-    ├── docs/                 # Pipeline diagram, ERD, slides
+    ├── docs/                 # Proposal, job posting, pipeline diagram, ERD, slides
     ├── .env.example          # Required environment variables
     ├── .gitignore
     ├── CLAUDE.md             # Project context for Claude Code
