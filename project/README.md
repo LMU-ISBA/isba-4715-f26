@@ -6,9 +6,9 @@ You find a real job posting for a junior analytics engineer, data engineer, or d
 
 | Milestone | Due | What's Due |
 |---|---|---|
-| Proposal | Apr 13 (9:55 AM) | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
-| M1: Extract, Load & Transform | Apr 27 (9:55 AM) | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
-| M2: Present & Polish | May 4 (9:55 AM) | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
+| Proposal | Apr 13, 9:55 AM | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
+| Milestone 01: Extract, Load & Transform | Apr 27, 9:55 AM | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
+| Milestone 02: Present & Polish | May 4, 9:55 AM | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
 Your public GitHub repo is your submission. Submit the repo URL to Brightspace by each due date.
@@ -74,7 +74,7 @@ Create a structured 1-page proposal (PDF) with these sections: your name, projec
 | 2 | GitHub repo initialized | 3 | Public repo, proper `.gitignore`, directory structure, `CLAUDE.md` with project context |
 | 3 | Snowflake account | 2 | Trial account in AWS US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
 
-## M1: Extract, Load & Transform (35 pts) - Due Apr 27
+## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27
 
 API source extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
 
@@ -85,7 +85,7 @@ API source extracted, loaded to Snowflake, and transformed through dbt. Submit y
 | 6 | GitHub Actions pipeline | 5 | Source 1 automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
 | 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard/chatbot), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
 
-## M2: Present & Polish (55 pts) - Due May 4
+## Milestone 02: Present & Polish (55 pts) - Due May 4
 
 Add your second data source, build the dashboard and chatbot, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
 
