@@ -502,33 +502,41 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 2. Navigate to **RDS**: search for "RDS" in the top search bar, or find it under **Services > Database > RDS**.
 
-3. In the left sidebar, click **Databases**. Then click the **Create database** button in the top right.
+3. In the left sidebar, click **Databases**. Then click **Create database** in the top right.
 
-4. Configure the new database:
-   - **Choose a database creation method:** Standard create
-   - **Engine type:** PostgreSQL
-   - **Engine version:** PostgreSQL 16 (latest 16.x available)
-   - **Templates:** Free tier
+4. Under **Choose a database creation method**, make sure **Full configuration** is selected (not Easy create). Full configuration shows every setting so you can see what goes into creating a cloud database. That is the point of this step.
+
+5. Configure the new database. The page has a lot of settings. Here are the ones to change (leave everything else as default):
+
+   **Engine options:**
+   - Select **PostgreSQL** (not Aurora PostgreSQL Compatible, which is the default). Look for the PostgreSQL elephant icon.
+
+   **Templates:**
+   - Select **Free tier**. This limits the instance options to free-tier-eligible settings.
+
+   **Settings:**
    - **DB instance identifier:** `basket-craft-console`
    - **Master username:** `student`
+   - **Credential management:** select **Self managed**
    - **Master password:** `go_lions` (confirm it)
-   - **DB instance class:** `db.t3.micro` (should be pre-selected with Free tier template)
-   - **Storage:** 20 GB, General Purpose SSD (gp2)
-   - **Connectivity:** select **Yes** for Public access
-   - **VPC security group:** Create new, name it `basket-craft-sg`
-   - Expand **Additional configuration** and set **Initial database name** to `basket_craft`. If you skip this, the database won't be created and DBeaver won't be able to connect to it.
-   - Leave other settings as default
 
-5. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
+   **Connectivity:**
+   - **Public access:** select **Yes**
+   - **VPC security group:** select **Create new** and name it `basket-craft-sg`
 
-6. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
+   **Additional configuration** (expand this section at the bottom):
+   - **Initial database name:** `basket_craft`. If you skip this, the database won't be created and DBeaver won't be able to connect to it.
 
-7. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
+6. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
+
+7. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
+
+8. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
    - Type: **PostgreSQL**
    - Source: **Anywhere-IPv4** (0.0.0.0/0)
    - Click **Save rules**
 
-8. Open DBeaver and create a new PostgreSQL connection:
+9. Open DBeaver and create a new PostgreSQL connection:
    - Host: paste the endpoint you copied
    - Port: `5432`
    - Database: `basket_craft`
@@ -536,7 +544,7 @@ You are going to create a cloud database two ways. First through the AWS Console
    - Password: `go_lions`
    - Click **Test Connection** to verify, then **Finish**
 
-9. You should see an empty `basket_craft` database. This is a PostgreSQL database running in the cloud, not on your laptop.
+10. You should see an empty `basket_craft` database. This is a PostgreSQL database running in the cloud, not on your laptop.
 
 **Not for production:** Public access and an open security group (0.0.0.0/0) are fine for a free-tier learning database. In production, you would restrict access to specific IP addresses or use a VPN. We are keeping it simple so you can connect from campus, home, or anywhere.
 
