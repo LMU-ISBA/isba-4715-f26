@@ -12,7 +12,7 @@
 - **Company:** [Company name]
 - **Link:** [URL to original posting]
 
-[1-2 sentences summarizing the key skills and responsibilities from the posting.]
+[1-2 sentences summarizing the key skills and responsibilities from the posting and how they connect to what you're learning in this class.]
 
 ## Problem Statement
 
