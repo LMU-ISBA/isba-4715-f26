@@ -74,7 +74,7 @@ Use the [proposal template](proposal-template.md) to create your 1-page proposal
 | 2 | GitHub repo initialized | 3 | Public repo, proper `.gitignore`, directory structure, `CLAUDE.md` with project context |
 | 3 | Snowflake account | 2 | Trial account in AWS US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
 
-## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27
+## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27 at 9:55 AM
 
 API source extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
 
@@ -85,7 +85,7 @@ API source extracted, loaded to Snowflake, and transformed through dbt. Submit y
 | 6 | GitHub Actions pipeline | 5 | Source 1 automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
 | 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard/chatbot), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
 
-## Milestone 02: Present & Polish (55 pts) - Due May 4
+## Milestone 02: Present & Polish (55 pts) - Due May 4 at 9:55 AM
 
 Add your second data source, build the dashboard and chatbot, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
 
