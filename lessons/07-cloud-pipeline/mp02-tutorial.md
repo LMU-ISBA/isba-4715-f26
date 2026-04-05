@@ -536,10 +536,15 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 6. Click **Create database**. Provisioning takes 5-10 minutes.
 
-7. While the instance is provisioning, edit the security group to allow connections. You can do this now because the security group was created immediately. Click on the instance name, go to the **Connectivity & security** tab, click the security group link, then go to **Inbound rules > Edit inbound rules > Add rule**:
-   - Type: **PostgreSQL**
-   - Source: **Anywhere-IPv4** (0.0.0.0/0)
+7. While the instance is provisioning, edit the security group to allow connections. You can do this now because the security group was created immediately.
+   - Click on the instance name and go to the **Connectivity & security** tab
+   - Under **Security group rules**, click on the security group you created (`basket-craft-sg`)
+   - Click the **Security group ID** link to open it
+   - Go to **Inbound rules > Edit inbound rules**
+   - Change the **Source type** dropdown to **Anywhere-IPv4**. The **Source** field will update to `0.0.0.0/0`
    - Click **Save rules**
+
+   `0.0.0.0/0` is a CIDR block that means "any IP address." It allows connections from anywhere: campus, home, a coffee shop. For a free-tier learning database this is fine. In production you would restrict this to specific IP addresses.
 
 8. Once the status shows **Available**, go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
 
