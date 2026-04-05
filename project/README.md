@@ -180,7 +180,7 @@ No example projects are provided. Use Claude Code with the Superpowers brainstor
 2. Open Claude Code and ask it to help you brainstorm project ideas. The Superpowers brainstorming skill will guide you through a structured conversation. Reference the job posting by file path, screenshot, or copy-paste to give it context.
 3. Explore: what skills does the role require? What data would demonstrate those skills? What questions would you want to answer?
 
-Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in MPs 02-04.
+Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in Mini-Projects 02-04.
 
 ## Policies
 
