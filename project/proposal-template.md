@@ -8,9 +8,9 @@
 
 ## Job Posting
 
-**Role:** [Job title]
-**Company:** [Company name]
-**Link:** [URL to original posting]
+- **Role:** [Job title]
+- **Company:** [Company name]
+- **Link:** [URL to original posting]
 
 [1-2 sentences summarizing the key skills and responsibilities from the posting.]
 
