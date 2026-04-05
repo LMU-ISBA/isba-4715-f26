@@ -1,60 +1,54 @@
-# [Your Project Name]
+# [Your project name]
 
-<!-- Replace this paragraph with your own. Explain: what business problem does this project address, what data sources does it pull from, and what insights or outputs does it deliver? Aim for 3-5 sentences. -->
-
-[One paragraph: what problem does this project solve, what data sources does it use, and what insights does it deliver?]
+[One paragraph: what business problem does this project address, what data sources does it use, and what insights does it deliver? 3-5 sentences.]
 
 ## Job Posting
 
-**Role:** [Job title]  
-**Company:** [Company name]  
-**Link:** [URL to original posting]
+**Role:** [Job title] | **Company:** [Company name] | **Link:** [URL to posting]
 
-<!-- In 1-2 sentences, explain why you picked this role and how your project demonstrates the skills listed in the posting. -->
-
-[1-2 sentences on why you chose this role and how your project demonstrates the required skills.]
+[1-2 sentences on how your project demonstrates the skills this role requires.]
 
 ## Tech Stack
 
 | Layer | Tool |
 |---|---|
+| Source 1 | [API name and type] |
+| Source 2 | [Web scrape / document source] |
 | Data Warehouse | Snowflake |
 | Transformation | dbt |
 | Orchestration | GitHub Actions |
-| Dashboard | Streamlit |
+| Dashboard + Chatbot | Streamlit |
 | RAG Chatbot | Snowflake Cortex Search + Cortex Complete |
 
 ## Pipeline Diagram
 
-<!-- Insert your pipeline diagram here (image or Mermaid). Show all layers: sources → raw → staging → mart → dashboard/chatbot. Label every tool. -->
+[Insert your pipeline diagram here (image or Mermaid). Show all layers: sources, raw, staging, mart, dashboard, chatbot. Label every tool.]
 
 ## ERD (Star Schema)
 
-<!-- Insert your ERD here (image or Mermaid). Show fact and dimension tables with relationships. -->
+[Insert your ERD here (image or Mermaid). Show fact and dimension tables with relationships.]
+
+## Dashboard Preview
+
+[Insert a screenshot of your dashboard here.]
 
 ## Key Insights
 
-### Descriptive Analytics
+**Descriptive (what happened?):** [Summarize your main finding with a Takeaway Title.]
 
-<!-- What happened? Summarize your main finding with a Takeaway Title. -->
+**Diagnostic (why did it happen?):** [Summarize your root cause analysis.]
 
-### Diagnostic Analytics
+**Recommendation:** [Action] → [Expected outcome]
 
-<!-- Why did it happen? Summarize your root cause analysis. -->
+## Live Demo
 
-### Recommendation
+**Dashboard:** [Streamlit Community Cloud URL]
 
-<!-- [Action] → [Expected outcome] -->
+**Chatbot:** [Same URL, chatbot tab]
 
 ## Setup & Reproduction
 
-### Prerequisites
-
-<!-- List what someone needs to run your pipeline: Python version, Snowflake account type, required CLI tools, etc. -->
-
-### Environment Variables
-
-<!-- List all required environment variables below. DO NOT include actual values. Those stay in your local .env file, which is gitignored. -->
+[List what someone needs to run your pipeline (Python version, Snowflake account, etc.), then provide step-by-step instructions to reproduce.]
 
 Copy `.env.example` to `.env` and fill in your credentials:
 
@@ -64,18 +58,11 @@ Copy `.env.example` to `.env` and fill in your credentials:
     SNOWFLAKE_DATABASE=
     SNOWFLAKE_SCHEMA=
     SNOWFLAKE_WAREHOUSE=
-
-### Running the Pipeline
-
-<!-- Step-by-step instructions to reproduce your extraction and loading pipeline. Number each step. -->
-
-## Dashboard
-
-**Live URL:** [Streamlit Community Cloud URL]
+    # Add any additional variables your sources require
 
 ## Repository Structure
 
-<!-- Update this tree if your structure differs from the template. -->
+[Update this tree to match your actual project structure.]
 
     .
     ├── .github/workflows/    # GitHub Actions pipeline
