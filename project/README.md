@@ -17,12 +17,15 @@ Your public GitHub repo is your submission. Submit the repo URL to Brightspace b
 
 You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard and a RAG chatbot, all automated via GitHub Actions.
 
-```
-Structured data path:
-  API Source → GitHub Actions → Snowflake Raw → dbt Staging → dbt Mart (star schema) → Streamlit Dashboard
+```mermaid
+graph LR
+    subgraph Structured Data Path
+        A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
+    end
 
-Text data path:
-  Web Scrape / Documents → GitHub Actions → Snowflake Raw → Cortex Search → Streamlit Chatbot (via Cortex Complete)
+    subgraph Text Data Path
+        G[Web Scrape / Documents] --> H[GitHub Actions] --> I[Snowflake Raw] --> J[Cortex Search] --> K[Streamlit Chatbot\nvia Cortex Complete]
+    end
 ```
 
 The dashboard answers "how much" and "what happened" using structured data. The chatbot answers "what does this mean" and "tell me about X" using text data.
