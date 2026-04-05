@@ -35,13 +35,13 @@ The dashboard answers "how much" and "what happened" using structured data. The 
 | Layer | Tool |
 |---|---|
 | IDE | [Cursor](https://www.cursor.com) |
-| AI Development | [Claude Code](https://code.claude.com/docs/en/overview) + Superpowers |
+| AI Development | [Claude Code](https://code.claude.com/docs/en/overview) + [Superpowers](https://github.com/obra/superpowers) |
 | Version Control | [Git](https://git-scm.com) + [GitHub](https://github.com) (public repo) |
 | Data Warehouse | [Snowflake](https://www.snowflake.com) (trial account, AWS US East 1) |
 | Transformation | [dbt](https://www.getdbt.com) |
 | Orchestration | [GitHub Actions](https://docs.github.com/en/actions) (scheduled) |
 | Dashboard | [Streamlit](https://streamlit.io) (deployed to Streamlit Community Cloud) |
-| RAG Chatbot | [Snowflake Cortex Search](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview) + Cortex Complete |
+| RAG Chatbot | [Snowflake Cortex Search](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview) + [Cortex Complete](https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex) |
 
 These are the same tools from the mini-projects. No new setup required.
 
