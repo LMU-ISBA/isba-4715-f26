@@ -6,7 +6,7 @@ You find a real job posting for a junior analytics engineer, data engineer, or d
 
 | Milestone | Due | What's Due |
 |---|---|---|
-| Proposal | Apr 13 | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
+| Proposal | Apr 13 (9:55 AM) | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
 | M1: Extract, Load & Transform | Apr 22 | Both sources loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
 | M2: Present & Polish | May 4 | Streamlit dashboard, RAG chatbot, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
@@ -61,7 +61,7 @@ All sources must be automated via **GitHub Actions on a schedule**. No manual da
 
 The sources you propose are tentative. You can change them as the project evolves. The proposal just shows you've thought through plausible sources, not that you're committed to them.
 
-## Proposal (10 pts) - Due Apr 13
+## Proposal (10 pts) - Due Mon, Apr 13 at 9:55 AM
 
 Create a structured 1-page proposal (PDF) with these sections: your name, project name, GitHub repo link, job posting summary, problem statement, proposed data sources (tentative), and solution overview. Save the job posting as a separate PDF. Commit both to `docs/` in your repo. Submit your repo URL to Brightspace.
 
