@@ -506,13 +506,13 @@ You are going to create a cloud database two ways. First through the AWS Console
 
 4. Under **Choose a database creation method**, make sure **Full configuration** is selected (not Easy create). Full configuration shows every setting so you can see what goes into creating a cloud database. That is the point of this step.
 
-5. Configure the new database. The page has a lot of settings. Here are the ones to change (leave everything else as default):
+5. Configure the new database. The page has a lot of settings. Work through these sections from top to bottom (leave anything not listed as default):
 
    **Engine options:**
-   - Select **PostgreSQL** (not Aurora PostgreSQL Compatible, which is the default). Look for the PostgreSQL elephant icon.
+   - Select **PostgreSQL** (not Aurora PostgreSQL Compatible). Look for the PostgreSQL elephant icon.
 
    **Templates:**
-   - Select **Free tier**. This limits the instance options to free-tier-eligible settings.
+   - Select **Free tier** (the third option). This auto-configures instance size and storage to stay within the free tier.
 
    **Settings:**
    - **DB instance identifier:** `basket-craft-console`
@@ -520,12 +520,19 @@ You are going to create a cloud database two ways. First through the AWS Console
    - **Credential management:** select **Self managed**
    - **Master password:** `go_lions` (confirm it)
 
+   **Instance configuration:**
+   - Free tier should have pre-selected a burstable instance class (db.t3.micro or db.t4g.micro). Leave it.
+
+   **Storage:**
+   - Free tier should have set this to 20 GB. If it shows a larger number, change it to `20`.
+
    **Connectivity:**
+   - **Compute resource:** leave as **Don't connect to an EC2 compute resource**
    - **Public access:** select **Yes**
    - **VPC security group:** select **Create new** and name it `basket-craft-sg`
 
-   **Additional configuration** (expand this section at the bottom):
-   - **Initial database name:** `basket_craft`. If you skip this, the database won't be created and DBeaver won't be able to connect to it.
+   **Additional configuration** (expand this section near the bottom of the page):
+   - **Initial database name:** `basket_craft`. If you skip this, the database won't exist and DBeaver won't be able to connect.
 
 6. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
 
