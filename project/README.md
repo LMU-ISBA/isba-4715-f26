@@ -164,11 +164,11 @@ Beyond the minimums, grading rewards quality across these themes:
 
 ## Getting Started
 
-No example projects are provided. Use Claude Code to brainstorm your project idea.
+No example projects are provided. Use Claude Code with the Superpowers brainstorming skill to develop your project idea.
 
 1. Find a real job posting for a junior analytics engineer, data engineer, or data analyst role.
 2. Save the job posting as a PDF.
-3. Open Claude Code and ask it to help you brainstorm project ideas. Reference the job posting by file path, screenshot, or copy-paste to give it context.
+3. Open Claude Code and ask it to help you brainstorm project ideas. The Superpowers brainstorming skill will guide you through a structured conversation. Reference the job posting by file path, screenshot, or copy-paste to give it context.
 4. Explore: what skills does the role require? What data would demonstrate those skills? What questions would you want to answer?
 
 Your proposal locks in the job posting and project framing, but data sources are tentative and can evolve as you learn more in MPs 2–4.
