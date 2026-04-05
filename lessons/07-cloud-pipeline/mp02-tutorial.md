@@ -534,14 +534,14 @@ You are going to create a cloud database two ways. First through the AWS Console
    **Additional configuration** (expand this section near the bottom of the page):
    - **Initial database name:** `basket_craft`. If you skip this, the database won't exist and DBeaver won't be able to connect.
 
-6. Click **Create database**. Provisioning takes 5-10 minutes. While you wait, the instructor will explain what each setting does.
+6. Click **Create database**. Provisioning takes 5-10 minutes.
 
-7. Once the status shows **Available**, click on the instance name. Go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
-
-8. Edit the security group to allow connections. Click the security group link under **Connectivity & security**, go to **Inbound rules > Edit inbound rules > Add rule**:
+7. While the instance is provisioning, edit the security group to allow connections. You can do this now because the security group was created immediately. Click on the instance name, go to the **Connectivity & security** tab, click the security group link, then go to **Inbound rules > Edit inbound rules > Add rule**:
    - Type: **PostgreSQL**
    - Source: **Anywhere-IPv4** (0.0.0.0/0)
    - Click **Save rules**
+
+8. Once the status shows **Available**, go to the **Connectivity & security** tab and copy the **Endpoint** (it looks like `basket-craft-console.xxxx.us-east-1.rds.amazonaws.com`).
 
 9. Open DBeaver and create a new PostgreSQL connection:
    - Host: paste the endpoint you copied
