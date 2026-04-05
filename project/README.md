@@ -19,12 +19,12 @@ You'll build a pipeline that moves data from two sources into Snowflake, transfo
 
 ```mermaid
 graph LR
-    subgraph Structured Data Path
-        A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
-    end
-
     subgraph Text Data Path
         G[Web Scrape / Documents] --> H[GitHub Actions] --> I[Snowflake Raw] --> J[Cortex Search] --> K[Streamlit Chatbot\nvia Cortex Complete]
+    end
+
+    subgraph Structured Data Path
+        A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
     end
 ```
 
