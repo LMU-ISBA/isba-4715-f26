@@ -446,6 +446,10 @@ These tools are prerequisites for Session 02. We cannot proceed without them, so
 
 ## Part 2: Moving to the Cloud (Session 02)
 
+In Session 01, your database ran in a Docker container on your laptop. That is fine for development, but production data lives in the cloud. AWS (Amazon Web Services) is the most widely used cloud platform. Most companies you will work for use AWS, Azure, or Google Cloud to run their databases and pipelines.
+
+In this session, you will create an AWS RDS (Relational Database Service) instance. RDS is a managed PostgreSQL database: same SQL you already know, but AWS handles the server, storage, and backups. You just connect and use it. Everything we do today is covered by the AWS free tier.
+
 ### Step 7: Verify AWS Setup
 
 Session 02 picks up in the same `basket-craft-pipeline` project from Session 01. Before building anything in the cloud, confirm the AWS tools from homework are working.
@@ -704,12 +708,12 @@ The pipeline works. Your data is in the cloud. Update your project documentation
 
 Sign up for a Snowflake trial account before the next class.
 
-1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and create a free trial account. You only need a valid email address. No credit card required. The trial lasts 30 days.
+1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and fill in the signup form. You only need a valid email address. No credit card required. The trial lasts 30 days.
 
-2. During signup, select:
-   - **Cloud provider:** AWS
-   - **Region:** US East (Northern Virginia)
-   - **Edition:** Standard
+2. **Before clicking Sign up**, look below the Sign up button. You will see the current edition, cloud provider, and region (e.g., "Enterprise Edition . AWS US East (Ohio)"). Click the `>` arrow next to it to change these settings:
+   - **Edition:** Standard (not Enterprise, to stretch your free credits further)
+   - **Cloud provider:** Amazon Web Services
+   - **Region:** US East (Northern Virginia) (same region as your AWS RDS)
 
 3. After signing up, log in to your Snowflake account and confirm you can see the Snowflake web interface (Snowsight).
 
