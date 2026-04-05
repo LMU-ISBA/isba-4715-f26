@@ -20,10 +20,17 @@
 
 ## Data Sources
 
-| Source | Type | Description |
-|---|---|---|
-| [Source 1 name] | API | [Brief description of what data it provides] |
-| [Source 2 name] | Web scrape / Document | [Brief description of what data it provides] |
+**Source 1:**
+- **Name:** [Source name]
+- **Type:** API
+- **Link:** [URL to the API or documentation]
+- **Description:** [Brief description of what data it provides]
+
+**Source 2:**
+- **Name:** [Source name]
+- **Type:** Web scrape / Document
+- **Link:** [URL to the site or document]
+- **Description:** [Brief description of what data it provides]
 
 These sources are tentative and may change as the project evolves.
 
