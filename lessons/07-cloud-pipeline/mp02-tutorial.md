@@ -577,7 +577,9 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
    Skip the final snapshot.
    ```
 
-2. Now create a new one with the same settings:
+2. Go back to the RDS Console in your browser and confirm the `basket-craft-console` instance is being deleted or has been deleted. You should see its status change to **Deleting**.
+
+3. Now create a new one with the same settings:
 
    ```
    Create an AWS RDS PostgreSQL 16 instance:
@@ -591,7 +593,7 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
    - Security group: basket-craft-sg
    ```
 
-3. Wait for the instance to become available. This is another provisioning wait, but notice the difference: the Console required your attention for every field. The CLI required one prompt. You are already done.
+4. Wait for the instance to become available. This is another provisioning wait, but notice the difference: the Console required your attention for every field. The CLI required one prompt. You are already done.
 
    Ask Claude Code to check the status:
 
@@ -599,13 +601,13 @@ That took a while. Every dropdown, every setting, the provisioning wait. Now you
    Check if my basket-craft-db RDS instance is available yet.
    ```
 
-4. Once available, get the endpoint:
+5. Once available, get the endpoint:
 
    ```
    What is the endpoint for my basket-craft-db RDS instance?
    ```
 
-5. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
+6. Open DBeaver, create a new PostgreSQL connection using the new endpoint (same credentials: `student` / `go_lions`, database `basket_craft`). Test the connection.
 
 **Why CLI matters:** The Console is good for learning what settings exist. The CLI is good for everything else: faster, repeatable, scriptable, and auditable. You will use CLIs for most cloud operations from here on.
 
