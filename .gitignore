@@ -255,10 +255,16 @@ tools/
 **/CLAUDE.md
 !/CLAUDE.md
 
+# Class session agendas (instructor only)
+agendas/
+
 # Meeting summaries, PRDs, specs (private working docs)
 meeting-summaries/
 prds/
 specs/
 planning/
 docs/
+
+# LMS setup notes (instructor only)
+project/lms-submission-instructions.md
 
