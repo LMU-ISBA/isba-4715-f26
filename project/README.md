@@ -8,14 +8,14 @@ You find a real job posting for a role you'd actually apply to, then build an en
 |---|---|---|
 | Proposal | Apr 13 at 9:55 AM | Proposal PDF, job posting PDF, GitHub repo, Snowflake account |
 | Milestone 01: Extract, Load & Transform | Apr 27 at 9:55 AM | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram |
-| Milestone 02: Present & Polish | May 4 at 9:55 AM | Web scrape source loaded, Streamlit dashboard, RAG chatbot, slides, README, ERD |
+| Milestone 02: Present & Polish | May 4 at 9:55 AM | Web scrape source loaded, Streamlit dashboard, knowledge base, slides, README, ERD |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
 Your public GitHub repo is your submission. Submit the repo URL to Brightspace by each due date.
 
 ## What You're Building
 
-You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard and a RAG chatbot, all automated via GitHub Actions.
+You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard, all automated via GitHub Actions. You'll also scrape domain content and use Claude Code to build a knowledge base of synthesized insights.
 
 ```mermaid
 flowchart TB
@@ -24,15 +24,15 @@ flowchart TB
         A[API Source] --> B[GitHub Actions] --> C[Snowflake Raw] --> D[dbt Staging] --> E[dbt Mart\nstar schema] --> F[Streamlit Dashboard]
     end
 
-    subgraph s2 [Text Data Path]
+    subgraph s2 [Knowledge Base Path]
         direction LR
-        G[Web Scrape / Documents] --> H[GitHub Actions] --> I[Snowflake Raw] --> J[Cortex Search] --> K[Streamlit Chatbot\nvia Cortex Complete]
+        G[Web Scrape / Documents] --> H[GitHub Actions] --> I[Raw Sources\nin repo] --> J[Claude Code] --> K[Knowledge Base\nwiki pages]
     end
 
     s1 ~~~ s2
 ```
 
-The dashboard answers "how much" and "what happened" using structured data. The chatbot answers "what does this mean" and "tell me about X" using text data.
+The **dashboard** answers "how much" and "what happened" using structured data from your star schema. The **knowledge base** is a set of Claude Code-generated summary pages that synthesize insights from your scraped sources. You use Claude Code to ingest, summarize, and query your domain content, building up a persistent collection of wiki-style pages in your repo.
 
 ## Tech Stack
 
@@ -45,7 +45,7 @@ The dashboard answers "how much" and "what happened" using structured data. The 
 | Transformation | [dbt](https://www.getdbt.com) |
 | Orchestration | [GitHub Actions](https://docs.github.com/en/actions) (scheduled) |
 | Dashboard | [Streamlit](https://streamlit.io) (deployed to Streamlit Community Cloud) |
-| RAG Chatbot | [Snowflake Cortex Search](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview) + [Cortex Complete](https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex) |
+| Knowledge Base | [Claude Code](https://code.claude.com/docs/en/overview) (scrape → summarize → query) |
 
 These are the same tools from the mini-projects. No new setup required.
 
@@ -76,7 +76,7 @@ Use the [proposal template](proposal-template.md) to create your 1-page proposal
 |---|---|---|---|
 | 1 | Project proposal + job posting PDF | 5 | Structured 1-page proposal PDF (`docs/proposal.pdf`) + job posting PDF (`docs/job-posting.pdf`). Both committed to your repo. |
 | 2 | GitHub repo initialized | 3 | Public repo, proper `.gitignore`, directory structure, `CLAUDE.md` with project context |
-| 3 | Snowflake account | 2 | Trial account in AWS US East 1 (required for Cortex Search). Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
+| 3 | Snowflake account | 2 | Trial account in AWS US East 1. Credentials stored securely, NOT in repo. Screenshot of account region in `docs/`. |
 
 ## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27 at 9:55 AM
 
@@ -87,18 +87,18 @@ API source extracted, loaded to Snowflake, and transformed through dbt. Submit y
 | 4 | Source 1 (API) extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials, scheduled via GitHub Actions |
 | 5 | dbt project (staging + mart models) | 15 | Star schema in Snowflake: staging models with tests, fact table(s) + dimension table(s) for analysis |
 | 6 | GitHub Actions pipeline | 5 | Source 1 automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
-| 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard/chatbot), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
+| 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard + knowledge base), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
 
 ## Milestone 02: Present & Polish (55 pts) - Due May 4 at 9:55 AM
 
-Add your second data source, build the dashboard and chatbot, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
+Add your second data source, build the dashboard and knowledge base, and polish everything for your portfolio. Submit your repo URL and slides PDF to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 8 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions. |
 | 9 | Streamlit dashboard (deployed) | 15 | Connected to Snowflake mart tables, descriptive + diagnostic analytics, interactive. Public URL |
 | 10 | Presentation slides (PDF) | 10 | Descriptive + diagnostic insights, recommendations. Graded on data storytelling principles (see Minimum Requirements). Portfolio artifact, not presented in final interview. Submitted as PDF to Brightspace. |
-| 11 | RAG chatbot in Streamlit (deployed) | 10 | Cortex Search + Cortex Complete. Answers domain questions from your web-scraped/document corpus. Same Streamlit app, separate tab. Public URL |
+| 11 | Knowledge base | 10 | Use Claude Code to ingest your scraped sources into a `knowledge/` folder. Includes raw sources in `knowledge/raw/`, Claude Code-generated wiki pages in `knowledge/wiki/` (overview, key entities, themes), and an `index.md`. |
 | 12 | README.md | 5 | Use the [README template](readme-template.md). Project overview, tech stack, pipeline setup, ERD, pipeline diagram, insights summary |
 | 13 | ERD (star schema) | 3 | Generated by Claude Code from dbt models. Fact + dimension tables. Included in README |
 | 14 | Commit history + repo structure | 2 | Frequent meaningful commits, clean directory structure |
@@ -138,13 +138,13 @@ Full checklists for the four highest-stakes deliverables. Other deliverables are
 - At least one interactive element (filter, selector, or tab)
 - Deployed to Streamlit Community Cloud with public URL
 
-#### RAG Chatbot (10 pts)
+#### Knowledge Base (10 pts)
 
-- Cortex Search service created on web-scraped/document text data
-- Cortex Complete used for answer generation
-- Working chat UI in Streamlit (`st.chat_input`, `st.chat_message`)
-- Returns relevant answers based on the scraped corpus
-- Deployed as a tab in the same Streamlit app (public URL)
+- Scraped sources saved in `knowledge/raw/` (at least 5 sources)
+- Claude Code-generated wiki pages in `knowledge/wiki/` (at least 3 pages: overview, key entities or themes, and one synthesis page)
+- `knowledge/index.md` listing all wiki pages with one-line summaries
+- Wiki pages show synthesis across multiple sources, not just individual summaries
+- Evidence of iterative use: sources were ingested and wiki pages were updated over time (visible in commit history)
 
 #### Presentation Slides (10 pts)
 
@@ -168,7 +168,7 @@ Beyond the minimums, grading rewards quality across these themes:
 
 **Technical quality:** Is the star schema well-designed? Are dbt models clean and tested? Is the pipeline reliable and well-organized? Is the code documented?
 
-**Polish and UX:** Is the dashboard layout thoughtful (labels, color, flow)? Is the chatbot responsive and helpful? Are the slides visually clear and story-driven? Would you demo this confidently in a job interview?
+**Polish and UX:** Is the dashboard layout thoughtful (labels, color, flow)? Does the knowledge base surface genuine insights from the scraped sources? Are the slides visually clear and story-driven? Would you demo this confidently in a job interview?
 
 **Documentation:** Does the README explain the project clearly to someone seeing it for the first time? Is the pipeline diagram accurate and complete? Does the ERD match the actual dbt models?
 

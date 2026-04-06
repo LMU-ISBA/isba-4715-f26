@@ -19,12 +19,12 @@
 | Data Warehouse | Snowflake |
 | Transformation | dbt |
 | Orchestration | GitHub Actions |
-| Dashboard + Chatbot | Streamlit |
-| RAG Chatbot | Snowflake Cortex Search + Cortex Complete |
+| Dashboard | Streamlit |
+| Knowledge Base | Claude Code (scrape → summarize → query) |
 
 ## Pipeline Diagram
 
-[Insert your pipeline diagram here (image or Mermaid). Show all layers: sources, raw, staging, mart, dashboard, chatbot. Label every tool.]
+[Insert your pipeline diagram here (image or Mermaid). Show all layers: sources, raw, staging, mart, dashboard, knowledge base. Label every tool.]
 
 ## ERD (Star Schema)
 
@@ -42,11 +42,9 @@
 
 **Recommendation:** [Action] → [Expected outcome]
 
-## Live Demo
+## Live Dashboard
 
-**Dashboard:** [Streamlit Community Cloud URL]
-
-**Chatbot:** [Same URL, chatbot tab]
+**URL:** [Streamlit Community Cloud URL]
 
 ## Setup & Reproduction
 
@@ -70,8 +68,8 @@ Copy `.env.example` to `.env` and fill in your credentials:
     ├── .github/workflows/    # GitHub Actions pipeline
     ├── extract/              # Extraction scripts
     ├── dbt_project/          # dbt models and tests
-    ├── streamlit_app/        # Dashboard + chatbot
-    ├── data/                 # Sample data (if applicable)
+    ├── streamlit_app/        # Dashboard
+    ├── knowledge/            # Knowledge base (raw sources + wiki pages)
     ├── docs/                 # Proposal, job posting, pipeline diagram, ERD, slides
     ├── .env.example          # Required environment variables
     ├── .gitignore
