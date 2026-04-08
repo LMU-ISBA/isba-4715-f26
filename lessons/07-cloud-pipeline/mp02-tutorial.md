@@ -1429,4 +1429,15 @@ This is a five-minute exercise. The point is to make sure the grain lesson from 
 
 ## Submission
 
-Submission details will be added when Sessions 02-03 are complete. MP02 is one lesson exercise covering all three sessions. You will submit your GitHub repository link as **Lesson Exercises 07** after finishing the full tutorial.
+MP02 is one lesson exercise covering all four sessions. After finishing the full tutorial, submit your GitHub repository link as **Lesson Exercises 07** in Brightspace by the due date listed on the syllabus.
+
+Your repository should contain at minimum:
+
+- The Session 01 local pipeline (`docker-compose.yml`, MySQL extraction script, transform/load script, and the local PostgreSQL summary tables you built)
+- Your AWS RDS connection configuration from Session 02 (credentials in `.env`, never committed)
+- The Snowflake loader script from Session 03
+- An updated `requirements.txt` with `snowflake-connector-python`, `dbt-snowflake`, and any other dependencies you added
+- The `basket_craft/` dbt project folder from Session 04 with all four staging models, the four mart models (`fct_order_items`, `dim_customers`, `dim_products`, `dim_date`), `_sources.yml`, and `_schema.yml` with at least one passing test
+- An updated `CLAUDE.md` describing the full pipeline (extract, load, transform) and how to run each piece
+- A `.gitignore` that excludes `.env` and any other secrets
+- No credentials of any kind committed anywhere in the history
