@@ -1,6 +1,6 @@
 # Mini-Project 02: Cloud Extraction Pipeline Tutorial
 
-This tutorial covers all three sessions of Mini-Project 02. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
+This tutorial covers all four sessions of Mini-Project 02. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
 ## Table of Contents
 
@@ -117,7 +117,7 @@ But when you are building a pipeline with multiple moving parts (a source databa
 
 **Why this matters:** Superpowers adds structured skills to Claude Code that activate automatically. When you describe something you want to build, Superpowers will recognize the situation and start a **brainstorming** conversation before jumping to code. You do not need to type a special command. Just describe what you need and Claude Code will announce which skill it is using. The two skills we will learn in this course are:
 - **Brainstorming:** Design before you build. Have a conversation about what you are trying to accomplish, and end up with a pipeline diagram and a plan. You will use this today.
-- **Writing plans:** Break complex work into steps. You will learn this one in Sessions 02-03.
+- **Writing plans:** Break complex work into steps. You will learn this one in a later session.
 
 Superpowers has many other skills (debugging, code review, testing, and more), but these two are the ones we will use in class.
 
@@ -300,7 +300,7 @@ Before it starts building, there are two things you need to set up manually.
 
 **Your file structure vs. your classmates':** Your brainstorm may have produced a different file structure than others. Some pipelines use one script for everything, others separate extraction, transformation, and loading into different files. What matters is that the pipeline extracts, transforms, and loads correctly.
 
-**What you are really building:** The summary tables you produce have measures (revenue, order count, average order value) grouped by dimensions (product category, month). If that sounds like it has a formal name, it does. These are the building blocks of a star schema, the standard structure for data warehouses. You will learn the vocabulary (fact tables, dimension tables, staging, marts) in Sessions 02-03 with dbt. For now, just notice the pattern: measures grouped by dimensions.
+**What you are really building:** The summary tables you produce have measures (revenue, order count, average order value) grouped by dimensions (product category, month). If that sounds like it has a formal name, it does. These are the building blocks of a star schema, the standard structure for data warehouses. You will learn the vocabulary (fact tables, dimension tables, staging, marts) in Session 04 with dbt. For now, just notice the pattern: measures grouped by dimensions.
 
 Superpowers may have already committed during the build. If not, commit and push now:
 
@@ -360,7 +360,7 @@ The pipeline ran. But did it work correctly? You will check the loaded data thre
    Show me the average order value by product category for each month, sorted by month.
    ```
 
-   This is the core of what the Basket Craft team asked for. If this query returns sensible results, your pipeline works. Notice the structure of what you built: numerical measures (revenue, order count, average order value) organized by descriptive categories (product category, month). This pattern has a name you will learn in Sessions 02-03.
+   This is the core of what the Basket Craft team asked for. If this query returns sensible results, your pipeline works. Notice the structure of what you built: numerical measures (revenue, order count, average order value) organized by descriptive categories (product category, month). This pattern has a name you will learn in Session 04.
 
 **Three tools, three purposes:**
 
@@ -413,7 +413,7 @@ In Step 4, you created a `CLAUDE.md` with a single instruction about virtual env
    Commit all files and push to GitHub.
    ```
 
-**Why this matters:** A good `CLAUDE.md` saves you time in every future session. Instead of re-explaining your project, Claude Code reads the file and picks up where you left off. This is especially useful in Sessions 02-03, where you will build on top of what you built today.
+**Why this matters:** A good `CLAUDE.md` saves you time in every future session. Instead of re-explaining your project, Claude Code reads the file and picks up where you left off. This is especially useful in Sessions 02, 03, and 04, where you will build on top of what you built today.
 
 **Checkpoint:** Your `CLAUDE.md` reflects the full project and your `README.md` explains the project to anyone visiting the repo. Both are committed and pushed to GitHub.
 
