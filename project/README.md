@@ -107,6 +107,8 @@ Your repo name is the first thing an employer sees. It has to look like somethin
 
 You're not limited to the example format. Brainstorm alternatives with Claude Code. The key question: "If a hiring manager saw this repo name on my resume, would they click it?"
 
+**You can rename your repo at any time.** GitHub will set up automatic redirects from the old name to the new one, so any existing links keep working. Don't let perfectionism block you on the proposal. Pick a name you can live with today, and rename it later if you find something better.
+
 ## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27 at 9:55 AM
 
 API source extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
