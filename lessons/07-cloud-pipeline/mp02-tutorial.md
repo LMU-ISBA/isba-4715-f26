@@ -26,16 +26,17 @@ This tutorial covers all three sessions of Mini-Project 02. If you fall behind d
 | 11 | [Verify the data](#step-11-verify-the-loaded-data) | Check results with DBeaver and Claude Code |
 | 12 | [Update documentation](#step-12-update-documentation-and-push) | Run /init, update README, commit and push |
 
-**Part 3: Data Warehouse and Transformations (Session 03)** *(coming soon)*
+**Part 3: Snowflake Load (Session 03)**
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 13 | Set up Snowflake | Create trial account, configure warehouse and database |
-| 14 | Load data into Snowflake | Move raw data from RDS to Snowflake |
-| 15 | Initialize dbt project | Install dbt, connect to Snowflake, create project structure |
-| 16 | Build staging models | Clean and rename raw data |
-| 17 | Build mart models | Create star schema with fact and dimension tables |
-| 18 | Run dbt tests and submit | Validate data quality, final commit and push |
+| 13 | [Verify your Snowflake account](#step-13-verify-your-snowflake-account) | Log in, confirm region and edition, copy account identifier |
+| 14 | [Create Snowflake objects](#step-14-create-snowflake-objects) | Build warehouse, database, and schema with one worksheet |
+| 15 | [Store Snowflake credentials](#step-15-store-snowflake-credentials-in-env) | Add Snowflake variables to `.env`, confirm gitignored |
+| 16 | [Brainstorm the loader](#step-16-brainstorm-the-rds-to-snowflake-loader) | Use Superpowers to design the RDS-to-Snowflake hop |
+| 17 | [Implement the loader](#step-17-implement-the-loader) | Let Claude Code write the Python loader based on the plan |
+| 18 | [Run and verify](#step-18-run-the-loader-and-verify) | Load all tables, confirm row counts match RDS |
+| 19 | [Commit and push](#step-19-commit-push-and-update-claudemd) | Update CLAUDE.md, commit, push to GitHub |
 
 ---
 
