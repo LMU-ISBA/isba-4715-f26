@@ -87,12 +87,12 @@ You'll finalize specific sources as you start Milestone 01. The proposal doesn't
 
 ## Proposal (10 pts) - Due Mon, Apr 13 at 9:55 AM
 
-The proposal is intentionally simple: a job posting, a one-paragraph reflection, and a GitHub repo. Use the [proposal template](proposal-template.md) to create your 1-page proposal. Export it as a PDF and commit it to `docs/proposal.pdf` in your repo. Save the job posting as `docs/job-posting.pdf`. Submit your repo URL to Brightspace.
+The proposal is intentionally simple: a job posting, a one-paragraph reflection, and a GitHub repo. Use the [proposal template](proposal-template.md) to create your 1-page proposal. Save it as a markdown file at `docs/proposal.md` in your repo. Save the job posting as `docs/job-posting.pdf`. Submit your repo URL to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 1 | Job posting PDF | 2 | Saved as `docs/job-posting.pdf`. Must mention SQL. |
-| 2 | Proposal PDF with reflection | 5 | 1-page proposal (`docs/proposal.pdf`) including a one-paragraph reflection on why this posting is relevant to this class and which coursework skills it requires. |
+| 2 | Proposal markdown with reflection | 5 | 1-page proposal (`docs/proposal.md`) including a one-paragraph reflection on why this posting is relevant to this class and which coursework skills it requires. |
 | 3 | GitHub repo initialized | 3 | Public repo with a professional, descriptive name (see below). Proper `.gitignore`, directory structure, `CLAUDE.md` with project context. |
 
 ### Repo Naming
@@ -235,7 +235,7 @@ When you open Claude Code and ask it to help you brainstorm, layer in context pr
 2. Open Claude Code and invoke the Superpowers brainstorming skill. Layer in context from the list above.
 3. Explore: What skills does the role require? Which coursework skills overlap? What data would prove you can do this work? What other roles would this project transfer to?
 4. Draft your one-paragraph reflection with Claude Code's help, then edit it yourself.
-5. Name your repo (see Repo Naming above), initialize it, and commit the proposal + job posting PDFs.
+5. Name your repo (see Repo Naming above), initialize it, and commit `docs/proposal.md` + `docs/job-posting.pdf`.
 
 **Transferability prompt to use during brainstorming:** "If I built this project, what 2-3 other roles in the same industry or domain could I use it for? What small changes would make it even more reusable across those roles?"
 
