@@ -745,11 +745,254 @@ This is required for Session 03. We cannot proceed without it.
 
 ---
 
-## Part 3: Data Warehouse and Transformations (Session 03)
+## Part 3: Snowflake Load (Session 03)
 
-*Coming soon.* This session covers Snowflake setup, loading data from your AWS RDS into Snowflake, and building dbt models (staging + marts) with a star schema.
+In Session 02 you landed the Basket Craft raw tables in a cloud PostgreSQL database on AWS RDS. Today you move that same data one more hop — into a cloud data warehouse, Snowflake. You will not transform anything yet. Today is the **L** in ELT: extract from RDS, load into Snowflake raw. Next session is the **T**, where dbt takes over.
 
-**Before this session:** Complete the [homework from Session 02](#homework-prepare-for-session-03) (Snowflake trial account signup).
+**Before this session:** Complete the [homework from Session 02](#homework-prepare-for-session-03) (Snowflake trial account signup). You should be able to log in to Snowsight, the Snowflake web UI, before class starts.
+
+### Step 13: Verify Your Snowflake Account
+
+Before we touch any code, confirm your Snowflake trial is set up correctly. Getting the region and edition wrong now will cause confusing failures later.
+
+**What to do:**
+
+1. Open a browser and go to [app.snowflake.com](https://app.snowflake.com). Log in with the account you created for homework.
+
+2. Once logged in, look at the URL bar. It will look like `app.snowflake.com/us-east-1/XXXXXXX/...`. The `us-east-1` confirms you are in the same AWS region as your RDS database. If you see a different region, stop and message the instructor. We cannot proceed across regions.
+
+3. In the top-left, click your account name to open the account menu, then click your username. You will see your account identifier in a format like `ORGNAME-ACCOUNTNAME`. Copy this — you will need it in Step 15.
+
+4. In the left sidebar, click **Admin** > **Accounts**. Confirm your edition reads **Standard** (not Enterprise). Standard gives you more free credits to work with during the trial.
+
+**Why this matters:** Snowflake's connection strings use the account identifier as the "hostname." Getting it right is the single most common failure point for first-time users. The region has to match your RDS region so your raw data does not cross regions (which is slow and, in production, expensive).
+
+**Checkpoint:** You can log in to Snowsight, your region is `us-east-1`, your edition is Standard, and you have copied your account identifier somewhere you can find it.
+
+---
+
+### Step 14: Create Snowflake Objects
+
+Snowflake separates four concepts that other databases bundle together: **warehouses** (compute), **databases** (storage containers), **schemas** (namespaces inside a database), and **roles** (access control). You will create one of each for this project.
+
+In Snowsight, the tool for running SQL is a **worksheet**. Think of it like a query editor in DBeaver — you paste SQL, hit run, and see results.
+
+**What to do:**
+
+1. In Snowsight, click the **+** button in the top-left and choose **SQL Worksheet**. A new worksheet opens.
+
+2. Paste the following SQL into the worksheet. Do not run it yet — read through the comments first so you understand what each statement does.
+
+   ```sql
+   -- Use the account admin role so we have permission to create objects
+   USE ROLE ACCOUNTADMIN;
+
+   -- Create a virtual warehouse (compute) for this project.
+   -- XS is the smallest size. Auto-suspend after 60s idle to save credits.
+   CREATE WAREHOUSE IF NOT EXISTS basket_craft_wh
+       WAREHOUSE_SIZE = 'XSMALL'
+       AUTO_SUSPEND = 60
+       AUTO_RESUME = TRUE
+       INITIALLY_SUSPENDED = TRUE;
+
+   -- Create a database to hold all Basket Craft data
+   CREATE DATABASE IF NOT EXISTS basket_craft;
+
+   -- Create a schema called "raw" for the untransformed data
+   CREATE SCHEMA IF NOT EXISTS basket_craft.raw;
+
+   -- Switch to the new warehouse, database, and schema
+   USE WAREHOUSE basket_craft_wh;
+   USE DATABASE basket_craft;
+   USE SCHEMA raw;
+   ```
+
+3. Select all the SQL (Cmd/Ctrl + A), then click the blue **Run** button in the top-right. You should see a sequence of "Statement executed successfully" messages in the results pane.
+
+4. Verify your objects exist. In the left sidebar of Snowsight, click **Data** > **Databases**. You should see `BASKET_CRAFT` in the list. Expand it and you should see the `RAW` schema inside.
+
+**Why this matters:** Warehouses, databases, and roles are orthogonal concepts in Snowflake. The same warehouse can serve many databases. The same role can have different permissions in different databases. Keeping them separate lets large teams share a single Snowflake account without stepping on each other. For this project you only need one of each, but the pattern is the same at any scale.
+
+**Checkpoint:** You can see `BASKET_CRAFT` with a `RAW` schema inside it in the Snowsight Data browser. Your worksheet ran without errors.
+
+---
+
+### Step 15: Store Snowflake Credentials in `.env`
+
+Your Python loader needs to connect to Snowflake, which means it needs credentials. Just like with RDS in Session 02, the credentials go in `.env`, and `.env` stays out of git forever.
+
+**What to do:**
+
+1. Open your project's `.env` file in Cursor. If you followed Session 02 it already contains your RDS credentials.
+
+2. Add these new lines at the bottom (replace the placeholder values with your real ones from Step 13):
+
+   ```
+   SNOWFLAKE_ACCOUNT=your-account-identifier-here
+   SNOWFLAKE_USER=your-snowflake-username
+   SNOWFLAKE_PASSWORD=your-snowflake-password
+   SNOWFLAKE_ROLE=ACCOUNTADMIN
+   SNOWFLAKE_WAREHOUSE=basket_craft_wh
+   SNOWFLAKE_DATABASE=basket_craft
+   SNOWFLAKE_SCHEMA=raw
+   ```
+
+3. Confirm `.env` is still in your `.gitignore`. In Cursor, open `.gitignore` and look for a line that says `.env`. If it is missing, add it. If you are unsure, ask Claude Code:
+
+   ```
+   Check that .env is gitignored and never accidentally committed. Run git status and tell me if .env shows up.
+   ```
+
+**Why this matters:** Every credential you add to a project is a new way to leak secrets. The rule is simple and absolute: credentials live in `.env`, `.env` lives in `.gitignore`, and both the Python loader and (next session) dbt read from the same `.env`. One source of truth.
+
+**Checkpoint:** Your `.env` has all seven Snowflake variables. `.env` is gitignored. `git status` does not show `.env` as a tracked file.
+
+---
+
+### Step 16: Brainstorm the RDS to Snowflake Loader
+
+You already know how to write a Python loader — you built one in Session 01 and another in Session 02. This one is similar in shape (read from one database, write to another), but Snowflake has quirks that are worth thinking through before you code. Use the Superpowers brainstorming skill, just like Session 01.
+
+**What to do:**
+
+1. In your Claude Code session, start a brainstorm:
+
+   ```
+   I need to write a Python script that reads the Basket Craft raw tables from my AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw schema. Use the superpowers brainstorming skill. Ask me one question at a time.
+   ```
+
+2. Work through the brainstorm conversation. Expect questions about:
+   - **Which tables** to load (answer: the same raw Basket Craft tables you loaded in Session 02)
+   - **Chunking strategy** — do you pull everything into memory, or batch it? (For this dataset, in-memory is fine.)
+   - **Idempotency** — if you run the loader twice, should it append or replace? (Answer: truncate-and-reload. Safer and simpler.)
+   - **Column name casing** — Snowflake uppercases unquoted identifiers by default. We will use lowercase everywhere and never quote. This avoids the #1 dbt failure next session.
+
+3. At the end of the brainstorm, Claude Code will summarize the plan. Read it carefully. If something does not match the above, push back before letting it write code.
+
+**Why this matters:** Snowflake's ingestion model is different enough from PostgreSQL that "I'll just write what I wrote last time" is a trap. Brainstorming forces the design decisions to the surface before the code gets written.
+
+**Checkpoint:** You have a clear plan in the Claude Code conversation that covers which tables, how to chunk, how to handle re-runs, and how to handle identifier casing.
+
+---
+
+### Step 17: Implement the Loader
+
+Now you let Claude Code write the script based on the brainstorm.
+
+**What to do:**
+
+1. Tell Claude Code to implement the loader:
+
+   ```
+   Implement the loader we just designed. Use snowflake-connector-python's write_pandas to load each table. Read credentials from .env using python-dotenv. Keep all identifiers lowercase and unquoted. Add any new dependencies to requirements.txt.
+   ```
+
+2. Claude Code will create the loader script and update `requirements.txt` to add `snowflake-connector-python` (and `python-dotenv` if it is not already there). Review the file it creates before running anything. Ask yourself:
+   - Is it reading credentials from `.env`?
+   - Is it truncating each target table before loading?
+   - Are all table and column names lowercase?
+   - Is it using `write_pandas` for the writes?
+
+3. Install the new dependencies:
+
+   ```
+   Install the new Python dependencies from requirements.txt into the project virtual environment.
+   ```
+
+**Why this matters:** One loader per hop. Session 01 had a loader from CSV to local PostgreSQL. Session 02 had a loader from CSV (or RDS) to cloud PostgreSQL. Today you have a loader from RDS to Snowflake. Each hop is a small, dumb, replayable script. If any single hop breaks, you can re-run it without touching the others. This is a pattern you will reuse for the rest of your career.
+
+**Checkpoint:** Your repo contains a new Python file that loads RDS data into Snowflake. `requirements.txt` has been updated. Dependencies are installed. The script has not been run yet.
+
+> ### What production teams do differently
+>
+> The Python loader you just wrote works perfectly well for this dataset. Most junior data engineering jobs will ask you to write one just like it on day one. But at scale, most companies use a different pattern.
+>
+> The most common production pattern is **object storage plus `COPY INTO`**: you dump raw data to S3 (or Azure Blob, or GCS) as CSV or Parquet files, then tell Snowflake to load those files with a single `COPY INTO` command. Snowflake reads many files in parallel, which is dramatically faster for large volumes. S3 also becomes a durable raw archive — if Snowflake ever loses a table, you re-load from the files. Tools like Fivetran, Airbyte, and Stitch are essentially managed wrappers around this pattern: they handle the "dump to S3" part for you and trigger the `COPY INTO`. Snowflake's own **Snowpipe** service automates `COPY INTO` whenever a new file lands in the bucket, giving you near-real-time ingestion.
+>
+> The secret is that `write_pandas` is already doing this under the hood. It serializes your DataFrame to Parquet files in a temporary Snowflake-managed stage, then fires a `COPY INTO` from that stage. Everything in Snowflake is `COPY INTO`. The only question is who is writing the files and where they land. We use `write_pandas` because it fits in one class session and is honest to the scale of this dataset. When your portfolio project or first job hits real scale, you will reach for S3 and `COPY INTO` directly — and the leap will be smaller than you expect.
+
+---
+
+### Step 18: Run the Loader and Verify
+
+**What to do:**
+
+1. Run the loader script from the Cursor terminal. Ask Claude Code to execute it:
+
+   ```
+   Run the Snowflake loader script and show me the output.
+   ```
+
+2. Watch the output. Expect to see one message per table ("Loaded X rows into orders," etc.). If you see errors, skip down to the troubleshooting section at the end of this part.
+
+3. Verify the data landed. Go back to your Snowsight worksheet and run:
+
+   ```sql
+   USE DATABASE basket_craft;
+   USE SCHEMA raw;
+
+   SELECT COUNT(order_id) AS row_count FROM orders;
+   SELECT COUNT(order_item_id) AS row_count FROM order_items;
+   SELECT COUNT(product_id) AS row_count FROM products;
+   SELECT COUNT(customer_id) AS row_count FROM customers;
+   ```
+
+4. Compare each row count to what you saw in RDS at the end of Session 02. They should match exactly. If any count is off, the loader has a bug — tell Claude Code which table is off and by how many rows, and work through it together.
+
+**Why this matters:** Row-count parity between source and destination is the cheapest integrity check you can run. It will not catch subtle column-level bugs (wrong types, truncated strings), but it catches every gross failure: missing tables, silent errors, partial loads. Run it every single time you load data anywhere.
+
+**Checkpoint:** Row counts in Snowflake match row counts in RDS for every table. You can see the tables in the Snowsight Data browser under `BASKET_CRAFT` > `RAW`.
+
+---
+
+### Step 19: Commit, Push, and Update CLAUDE.md
+
+**What to do:**
+
+1. Ask Claude Code to update `CLAUDE.md` to reflect the new Snowflake loader:
+
+   ```
+   Update CLAUDE.md to document the new Snowflake loader. Include how to run it, where its credentials come from, and the target database and schema. Do not commit any secrets.
+   ```
+
+2. Commit and push:
+
+   ```
+   Commit all changes and push to GitHub. The commit message should mention adding the Snowflake loader.
+   ```
+
+3. Confirm on GitHub that the loader script, updated `requirements.txt`, and updated `CLAUDE.md` all show up in your repo.
+
+**Why this matters:** Every session in this project ends the same way: update `CLAUDE.md`, commit, push. This ritual keeps your repo in a shippable state at all times and gives future Claude Code sessions (and future classmates, and future recruiters) the context they need to understand your project without reading every file.
+
+**Checkpoint:** Your repo on GitHub contains the Snowflake loader, updated `requirements.txt`, and an updated `CLAUDE.md` describing the new pipeline hop. Your working tree is clean.
+
+---
+
+### Troubleshooting Session 03
+
+**"Could not connect to Snowflake — unknown host."** Your `SNOWFLAKE_ACCOUNT` value is wrong. Snowflake uses a format like `orgname-accountname` (newer accounts) or a legacy account locator like `abc12345.us-east-1.aws` (older accounts). You can find the exact value in Snowsight under **Admin** > **Accounts**, in the **Account Identifier** column. Copy that whole string into `.env`.
+
+**"Region mismatch" or the Snowsight URL shows a different region than `us-east-1`.** You signed up for the wrong region. Unfortunately, Snowflake trial accounts cannot be moved between regions. Create a new trial account in AWS US East (Northern Virginia) and use that one.
+
+**"SQL compilation error: Object does not exist" when the loader runs.** Your role does not have `USAGE` grants on the warehouse, database, or schema. As long as you are using `ACCOUNTADMIN`, this should not happen. If you switched to a custom role, run this in a worksheet:
+
+```sql
+GRANT USAGE ON WAREHOUSE basket_craft_wh TO ROLE YOUR_ROLE;
+GRANT USAGE ON DATABASE basket_craft TO ROLE YOUR_ROLE;
+GRANT USAGE ON SCHEMA basket_craft.raw TO ROLE YOUR_ROLE;
+GRANT ALL ON SCHEMA basket_craft.raw TO ROLE YOUR_ROLE;
+```
+
+**"Connection refused" when reading from RDS.** The RDS security group from Session 02 only allows your old IP. If you changed networks (coffee shop, campus WiFi, VPN), your current IP is now blocked. Ask Claude Code to help you update the security group to allow your new IP.
+
+**The loader runs but every row count is zero.** The RDS connection is probably pointing at an empty database. Check that your `.env` has the Basket Craft RDS credentials, not a leftover dev database.
+
+---
+
+## Homework: Prepare for Session 04
+
+Nothing new to install. Come to Session 04 with your Snowflake raw tables loaded from Session 03. If your loader failed, message the instructor before class — we cannot start Session 04 without raw data in Snowflake.
 
 ---
 
