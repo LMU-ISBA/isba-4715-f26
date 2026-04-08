@@ -46,6 +46,18 @@
 
 **URL:** [Streamlit Community Cloud URL]
 
+## Knowledge Base
+
+A Claude Code-curated wiki built from [N] scraped sources. Wiki pages live in `knowledge/wiki/`, raw sources in `knowledge/raw/`. Browse `knowledge/index.md` to see all pages.
+
+**Query it:** Open Claude Code in this repo and ask questions like:
+
+- [Example question 1 your knowledge base can answer]
+- [Example question 2]
+- [Example question 3]
+
+Claude Code reads the wiki pages first and falls back to raw sources when needed. See `CLAUDE.md` for the query conventions.
+
 ## Setup & Reproduction
 
 [List what someone needs to run your pipeline (Python version, Snowflake account, etc.), then provide step-by-step instructions to reproduce.]
