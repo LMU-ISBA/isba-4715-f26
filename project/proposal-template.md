@@ -19,7 +19,7 @@
 [One paragraph (4-6 sentences). Answer all of these:
 
 1. Why is this posting relevant to this class?
-2. Which specific coursework skills does it require? (SQL, dimensional modeling, dbt, dashboards, pipelines, data storytelling, etc.)
+2. Which specific coursework skills does it require?
 3. What would you build to prove you can do this job?
 4. What 2-3 other similar roles could this same project transfer to?
 
