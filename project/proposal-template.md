@@ -26,14 +26,14 @@
 - **Link:** [URL to the API or documentation]
 - **Description:** [Brief description of what data it provides]
 
-**Source 2:**
+**Source 2 (feeds the knowledge base):**
 - **Name:** [Source name]
 - **Type:** Web scrape / Document
 - **Link:** [URL to the site or document]
-- **Description:** [Brief description of what data it provides]
+- **Description:** [Brief description of the domain content you'll scrape and what topics it covers]
 
 These sources are tentative and may change as the project evolves.
 
 ## Solution Overview
 
-[2-3 sentences: What will your pipeline do? What insights will your dashboard show? What will your chatbot answer questions about?]
+[2-3 sentences: What will your pipeline do? What insights will your dashboard show? What domain knowledge will your knowledge base capture from your scraped sources?]
