@@ -12,28 +12,15 @@
 - **Company:** [Company name]
 - **Link:** [URL to original posting]
 
-[1-2 sentences summarizing the key skills and responsibilities from the posting and how they connect to what you're learning in this class.]
+**SQL requirement (quote the posting):** [Paste the exact sentence or bullet from the posting where SQL is mentioned. If you can't find one, this isn't the right posting for this project.]
 
-## Problem Statement
+## Reflection
 
-[2-3 sentences: What business problem or question will your project address? Why does it matter?]
+[One paragraph (4-6 sentences). Answer all of these:
 
-## Data Sources
+1. Why is this posting relevant to this class?
+2. Which specific coursework skills does it require? (SQL, dimensional modeling, dbt, dashboards, pipelines, data storytelling, etc.)
+3. What would you build to prove you can do this job?
+4. What 2-3 other similar roles could this same project transfer to?
 
-**Source 1:**
-- **Name:** [Source name]
-- **Type:** API
-- **Link:** [URL to the API or documentation]
-- **Description:** [Brief description of what data it provides]
-
-**Source 2 (feeds the knowledge base):**
-- **Name:** [Source name]
-- **Type:** Web scrape / Document
-- **Link:** [URL to the site or document]
-- **Description:** [Brief description of the domain content you'll scrape and what topics it covers]
-
-These sources are tentative and may change as the project evolves.
-
-## Solution Overview
-
-[2-3 sentences: What will your pipeline do? What insights will your dashboard show? What domain knowledge will your knowledge base capture from your scraped sources?]
+Write naturally. Don't list the questions; weave them into one paragraph.]
