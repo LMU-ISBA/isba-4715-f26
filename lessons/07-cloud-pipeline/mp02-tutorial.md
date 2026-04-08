@@ -38,6 +38,21 @@ This tutorial covers all four sessions of Mini-Project 02. If you fall behind du
 | 18 | [Run and verify](#step-18-run-the-loader-and-verify) | Load all tables, confirm row counts match RDS |
 | 19 | [Commit and push](#step-19-commit-push-and-update-claudemd) | Update CLAUDE.md, commit, push to GitHub |
 
+**Part 4: dbt Core and Star Schema (Session 04)**
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 20 | [Install dbt Core](#step-20-install-dbt-core) | Install `dbt-snowflake` and update requirements.txt |
+| 21 | [Initialize the dbt project](#step-21-initialize-the-dbt-project) | Run `dbt init`, tour the folder structure |
+| 22 | [Configure profiles.yml with env_var](#step-22-configure-profilesyml-with-env_var) | Wire dbt to Snowflake without committing secrets |
+| 23 | [Declare raw tables as sources](#step-23-declare-the-raw-tables-as-dbt-sources) | Create `_sources.yml` for the four raw tables |
+| 24 | [Build the staging layer](#step-24-build-the-staging-layer) | One staging model per source: rename and cast only |
+| 25 | [Build the star](#step-25-build-the-star--fact-and-dimensions) | `fct_order_items` + `dim_customers` + `dim_products` + provided `dim_date` |
+| 26 | [Add a dbt test](#step-26-add-a-dbt-test) | Declare unique + not_null on the fact table primary key |
+| 27 | [Run dbt and verify](#step-27-run-dbt-and-verify-in-snowflake) | `dbt run`, `dbt test`, check results in Snowsight |
+| 28 | [Generate the lineage graph](#step-28-generate-and-view-the-lineage-graph) | `dbt docs generate && dbt docs serve` |
+| 29 | [Commit and push](#step-29-commit-push-and-update-claudemd-1) | Final commit, update CLAUDE.md, push |
+
 ---
 
 ## Part 1: Extract and Load (Session 01)
