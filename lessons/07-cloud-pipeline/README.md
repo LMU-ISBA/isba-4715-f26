@@ -76,19 +76,20 @@ By the end of this mini-project, you will be able to:
 - **Review:** Verify data using psql, DBeaver, and Claude Code (from MP01)
 - **Review:** Version-control with git and push to GitHub (from MP01)
 
-## How the Class Works (Three Sessions)
+## How the Class Works (Four Sessions)
 
 | Session | What Happens |
 |---------|--------------|
 | Session 01 | Install Superpowers. Brainstorm the pipeline design. Extract from MySQL, transform, load into local PostgreSQL, and verify. |
 | Session 02 | Verify AWS setup. Create RDS via Console and CLI. Load raw Basket Craft data into cloud PostgreSQL. |
-| Session 03 | Set up Snowflake. Load data from RDS to Snowflake. Build dbt staging and mart models. Star schema. *(tutorial coming later)* |
+| Session 03 | Verify Snowflake account. Create Snowflake objects. Write the RDS to Snowflake Python loader. Load raw Basket Craft tables into Snowflake. |
+| Session 04 | Install dbt Core. Configure `profiles.yml` with `env_var()`. Define sources. Build staging models, `fct_order_items`, and three dimensions. Add a dbt test. Run and verify. |
 
 ## Files in This Lesson
 
 | File | Description |
 |------|-------------|
-| [mp02-tutorial.md](mp02-tutorial.md) | Step-by-step tutorial for Session 01 (Sessions 02-03 will be added later) |
+| [mp02-tutorial.md](mp02-tutorial.md) | Step-by-step tutorial for all four sessions |
 
 ## Setup
 
@@ -112,7 +113,7 @@ MP01 gave you step-by-step instructions for what to build. MP02 introduces Super
 
 ### Aggregation as a Preview of Dimensional Modeling
 
-The summary tables you build in Session 01 have measures (revenue, order count, average order value) grouped by dimensions (product category, month). These are the building blocks of a star schema, which you will learn formally in Sessions 02-03 with dbt. Think of Session 01 as building the intuition that the vocabulary will name later.
+The summary tables you build in Session 01 have measures (revenue, order count, average order value) grouped by dimensions (product category, month). These are the building blocks of a star schema, which you will learn formally in Session 04 with dbt. Think of Session 01 as building the intuition that the vocabulary will name later.
 
 ### Outcome Variability
 
@@ -120,4 +121,4 @@ Two engineers given the same business question will design different pipelines. 
 
 ## Lesson Exercise
 
-Complete the full tutorial in [mp02-tutorial.md](mp02-tutorial.md) across all three sessions, push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 07. Submission details will be added when Sessions 02-03 are complete.
+Complete the full tutorial in [mp02-tutorial.md](mp02-tutorial.md) across all four sessions, push your finished repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 07.
