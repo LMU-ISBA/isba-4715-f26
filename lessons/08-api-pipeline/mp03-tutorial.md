@@ -62,15 +62,15 @@ Same workflow as MP02: create the repo on GitHub first, clone it into Cursor, th
    requests and pandas. Activate the virtual environment.
    ```
 
-   When it finishes, you should see `(venv)` at the start of your terminal prompt. That means the virtual environment is active and packages are installed in an isolated environment for this project only.
+   Claude Code will create a `venv/` folder, install the packages, and activate the environment in its shell session. It will tell you something like: "The virtual environment is set up at ./venv with requests and pandas installed."
 
-   If you close and reopen the terminal later, you will need to reactivate it:
+   Claude Code runs commands in its own shell, so it can use the venv for running your scripts. If you ever need to run Python directly in your own terminal (outside Claude Code), activate the venv first:
    - **Mac:** `source venv/bin/activate`
    - **Windows:** `venv\Scripts\activate`
 
    The Python `.gitignore` you selected when creating the repo already ignores the `venv/` folder, so it will not be committed to GitHub.
 
-**Checkpoint:** Your repo is cloned, Claude Code is running, and the virtual environment is active (`(venv)` in your prompt) with `requests` and `pandas` installed.
+**Checkpoint:** Your repo is cloned, Claude Code is running, and Claude Code has confirmed the virtual environment is set up with `requests` and `pandas` installed.
 
 ---
 
