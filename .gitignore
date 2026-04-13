@@ -245,6 +245,9 @@ tools/
 # Student submissions
 **/submissions/
 
+# Superpowers brainstorming sessions
+.superpowers/
+
 # IDE / tool config
 .claude/
 .playwright-mcp/
