@@ -208,11 +208,9 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
 
    `json.dumps()` converts the Python dictionary back into a JSON-formatted string. The `indent=2` parameter adds line breaks and spacing so the output is readable instead of a wall of text.
 
-2. Run the script again. You should see formatted JSON with clear nesting in your terminal.
+2. Run the script again. You should see formatted JSON with clear nesting in your terminal. Look at the structure: which keys are inside which objects, where the temperature lives, where the condition text is.
 
-3. Copy the formatted output from the terminal, go to [jsonformatter.org](https://jsonformatter.org/), and paste it into the left panel. Click **Format / Beautify**. Now you can collapse and expand sections to see exactly which keys are inside which objects, where the temperature lives, where the condition text is. Keep this tab open as a reference while you write the next lines.
-
-4. Now navigate the nesting. **Type these lines** to drill into the structure:
+3. Now navigate the nesting. **Type these lines** to drill into the structure:
 
    ```python
    print(data["location"]["name"])
@@ -221,7 +219,7 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
    print(data["current"]["condition"]["text"])
    ```
 
-5. Run the script. You should see something like:
+4. Run the script. You should see something like:
 
    ```
    Los Angeles
