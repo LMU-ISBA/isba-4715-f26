@@ -328,9 +328,9 @@ You have a list of dictionaries in memory. This step saves it to disk as a CSV s
 1. Ask Claude Code:
 
    ```
-   Add pandas to my weather script. Convert the results list to a
-   DataFrame and save it as weather_data.csv. Print the shape of the
-   DataFrame and the first few rows.
+   Save the weather data I collected to a CSV file called weather_data.csv.
+   Show me how many rows and columns it has, and print the first few rows
+   so I can check that it looks right.
    ```
 
 2. Review the output. You should see:
