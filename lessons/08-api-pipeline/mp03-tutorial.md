@@ -203,12 +203,14 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
    ```python
    data = response.json()
 
-   print(data)
+   print(json.dumps(data, indent=2))
    ```
 
-2. Run the script again. You will see the raw JSON — a wall of nested data.
+   `json.dumps()` converts the Python dictionary back into a JSON-formatted string. The `indent=2` parameter adds line breaks and spacing so the output is readable instead of a wall of text.
 
-3. The raw output is hard to read. Copy it from the terminal, go to [jsonformatter.org](https://jsonformatter.org/), paste it into the left panel, and click **Format / Beautify**. Now you can see the nesting clearly: which keys are inside which objects, where the temperature lives, where the condition text is. Keep this tab open as a reference while you write the next lines.
+2. Run the script again. You should see formatted JSON with clear nesting in your terminal.
+
+3. Copy the formatted output from the terminal, go to [jsonformatter.org](https://jsonformatter.org/), and paste it into the left panel. Click **Format / Beautify**. Now you can collapse and expand sections to see exactly which keys are inside which objects, where the temperature lives, where the condition text is. Keep this tab open as a reference while you write the next lines.
 
 4. Now navigate the nesting. **Type these lines** to drill into the structure:
 
