@@ -319,31 +319,32 @@ So far you have one data point per city: current conditions. The forecast endpoi
 
 ---
 
-### Step 07: Save to CSV
+### Step 07: View as a Table and Save to CSV
 
-You have a list of dictionaries in memory. This step saves it to disk as a CSV so you can analyze it later or load it into a database.
+Right now your data is a list of dictionaries in memory. Before saving it, you should see it in a tabular format so you can confirm it looks right.
 
 **What to do:**
 
-1. Ask Claude Code:
+1. Ask Claude Code to convert the data to a table and display it:
 
    ```
-   Save the weather data I collected to a CSV file called weather_data.csv.
-   Show me how many rows and columns it has, and print the first few rows
-   so I can check that it looks right.
+   Convert my weather results to a table using pandas and print it out.
+   Show me how many rows and columns it has.
    ```
 
-2. Review the output. You should see:
-   - `import pandas as pd`
-   - `df = pd.DataFrame(results)`
-   - `df.to_csv("weather_data.csv", index=False)`
-   - `print(df.shape)` and `print(df.head())`
+2. Run the script. You should see your data printed as a table with rows and columns, like a spreadsheet. This is a pandas DataFrame — the standard way to work with tabular data in Python. Check that the columns make sense and the row count is what you expect (~140 rows).
 
-3. Run the script. Confirm the CSV is created and the row count matches what you expect.
+3. Now save it. Ask Claude Code:
+
+   ```
+   Save the table to a CSV file called weather_data.csv.
+   ```
+
+4. Run the script. Confirm `weather_data.csv` appears in your file explorer. Open it in Cursor to see the raw data.
 
 **Why this matters:** Once the data is in a CSV, you can load it into a database, open it in a BI tool, or pass it to a transformation step. The CSV is the handoff point between collection and analysis.
 
-**Checkpoint:** You have a `weather_data.csv` file with roughly 140 rows of forecast data. That is the full pattern: request, parse, loop, DataFrame, CSV.
+**Checkpoint:** You have a `weather_data.csv` file with roughly 140 rows of forecast data. That is the full pattern: request, parse, loop, table, save.
 
 ---
 
