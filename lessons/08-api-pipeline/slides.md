@@ -92,6 +92,7 @@ style: |
     font-size: 1.3em;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 40px;
     letter-spacing: 2px;
     color: #fff;
   }
@@ -125,11 +126,19 @@ style: |
 
 ![bg right:40%](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800)
 
+<!-- _paginate: false -->
+
 # What apps do you use?
 
-- Instagram
-- Uber / Venmo
-- ChatGPT / Spotify
+Personal or work. Submit your top two on Teams.
+
+---
+
+![bg right:40%](https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800)
+
+# What apps do you use?
+
+Personal or work. Submit your top two on Teams.
 
 <div class="big-question">
 
@@ -201,6 +210,60 @@ The apps you use are wrappers around other services, connected by APIs.
 
 ![bg left:45%](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800)
 
+<!-- _paginate: false -->
+
+# API = Restaurant
+
+| Role | What They Do |
+|------|-------------|
+| **You** | Place an order |
+
+---
+
+![bg left:45%](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800)
+
+<!-- _paginate: false -->
+
+# API = Restaurant
+
+| Role | What They Do |
+|------|-------------|
+| **You** | Place an order |
+| **Waiter** | Carry it to the kitchen |
+
+---
+
+![bg left:45%](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800)
+
+<!-- _paginate: false -->
+
+# API = Restaurant
+
+| Role | What They Do |
+|------|-------------|
+| **You** | Place an order |
+| **Waiter** | Carry it to the kitchen |
+| **Kitchen** | Prepare your food |
+
+---
+
+![bg left:45%](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800)
+
+<!-- _paginate: false -->
+
+# API = Restaurant
+
+| Role | What They Do |
+|------|-------------|
+| **You** | Place an order |
+| **Waiter** | Carry it to the kitchen |
+| **Kitchen** | Prepare your food |
+| **Waiter** | Bring back your meal |
+
+---
+
+![bg left:45%](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800)
+
 # API = Restaurant
 
 | Role | What They Do |
@@ -215,6 +278,25 @@ You don't need to know how it works.
 
 ---
 
+<!-- _class: accent _paginate: false -->
+
+# What Is an API?
+
+> A remote service that lets you request data or trigger actions in another system
+
+---
+
+<!-- _class: accent _paginate: false -->
+
+# What Is an API?
+
+> A remote service that lets you request data or trigger actions in another system
+
+**You send a request:**
+"Give me the current weather for Los Angeles"
+
+---
+
 <!-- _class: accent -->
 
 # What Is an API?
@@ -226,6 +308,35 @@ You don't need to know how it works.
 
 **You get back a response:**
 `{ "temp_f": 72.0, "condition": "Sunny" }`
+
+---
+
+<!-- _paginate: false -->
+
+# REST: Request + Response
+
+![bg right:33%](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800)
+
+**Two actions:**
+- **GET** = "Give me data"
+- **POST** = "Create something"
+
+---
+
+<!-- _paginate: false -->
+
+# REST: Request + Response
+
+![bg right:33%](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800)
+
+**Two actions:**
+- **GET** = "Give me data"
+- **POST** = "Create something"
+
+**Three parts to a request:**
+- **URL** — where to send it
+- **Parameters** — what you want
+- **API key** — who you are
 
 ---
 
@@ -315,6 +426,28 @@ it tracks usage and enforces limits.
 | Financial data | Download CSVs manually | **Call a market data API** |
 
 APIs let you access data without building the source yourself.
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# One API Call = One Data Point
+
+`GET /current.json?q=90045`
+
+gives you weather for **one** zip code, **right now**
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# One API Call = One Data Point
+
+`GET /current.json?q=90045`
+
+gives you weather for **one** zip code, **right now**
+
+That is **one row** in your dataset.
 
 ---
 
@@ -416,6 +549,39 @@ request &nbsp; → &nbsp; parse &nbsp; → &nbsp; loop &nbsp; → &nbsp; DataFra
 CSV, SQL database, JSON file, Snowflake, another API, a dashboard
 
 This works for any API and any destination. Once you know it, switching is mostly reading documentation.
+
+---
+
+![bg right:40%](https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800)
+
+<!-- _paginate: false -->
+
+# Your Project Needs an API
+
+- Milestone 01 requires an API source
+
+---
+
+![bg right:40%](https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800)
+
+<!-- _paginate: false -->
+
+# Your Project Needs an API
+
+- Milestone 01 requires an API source
+- Today's pattern works for any REST API
+
+---
+
+![bg right:40%](https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800)
+
+<!-- _paginate: false -->
+
+# Your Project Needs an API
+
+- Milestone 01 requires an API source
+- Today's pattern works for any REST API
+- Your job posting tells you what data matters
 
 ---
 
