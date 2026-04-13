@@ -1,11 +1,12 @@
-# Lesson 08: API Data Collection — Session Guide
+# Mini-Project 03: API Data Collection Tutorial
 
-This guide covers the hands-on portions of today's class (Parts 02-04). Part 01 uses the slides. Keep this guide open in your browser or editor so you can copy links and reference code blocks.
+This tutorial covers the in-class session for Mini-Project 03. Part 01 uses the slides. Parts 02-04 are hands-on. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
 ## Table of Contents
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
+| 00 | [Create repo and start Claude Code](#step-00-create-github-repo-and-start-claude-code) | Set up the project repo, start Claude Code |
 | 01 | [Get your API key](#step-01-get-your-api-key) | Create a free weatherapi.com account and copy your key |
 | 02 | [Set up your Python file](#step-02-set-up-your-python-file) | Create the script, add imports and API key |
 | 03 | [Make your first API call](#step-03-make-your-first-api-call) | Build a request with URL, params, and requests.get() |
@@ -14,6 +15,47 @@ This guide covers the hands-on portions of today's class (Parts 02-04). Part 01 
 | 06 | [Extend the forecast](#step-06-extend-the-forecast) | Get multi-day forecasts with Claude Code |
 | 07 | [Save to CSV](#step-07-save-to-csv) | Build a DataFrame and export |
 | 08 | [Find APIs for your project](#step-08-find-apis-for-your-project) | Use Claude Code to discover APIs for your domain |
+| 09 | [Commit and push](#step-09-commit-and-push) | Push your work to GitHub |
+
+---
+
+## Part 01: Setup
+
+### Step 00: Create GitHub Repo and Start Claude Code
+
+Same workflow as MP02: create the repo on GitHub first, clone it into Cursor, then start building.
+
+**What to do:**
+
+1. Go to [github.com/new](https://github.com/new) and create a new repository:
+   - Name it `weather-api-pipeline`
+   - Set visibility to **Public**
+   - Under **Add .gitignore**, select **Python** from the dropdown
+   - Leave everything else as default
+   - Click **Create repository**
+
+2. On your new repository's GitHub page, click the green **Code** button, make sure **HTTPS** is selected, and copy the URL.
+
+3. Clone the repo into Cursor. Open a new Cursor window and click **Clone repo** on the welcome screen. Paste the URL you copied.
+
+   When Cursor asks where to save it, navigate to your `isba-4715` folder. Open the cloned folder when prompted.
+
+   Your folder structure should now look like:
+   ```
+   ~/isba-4715/
+   ├── campus-bites-pipeline/     <-- MP01
+   ├── basket-craft-pipeline/     <-- MP02
+   └── weather-api-pipeline/      <-- MP03 (this project)
+   ```
+
+4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
+
+5. Start Claude Code:
+   ```bash
+   claude
+   ```
+
+**Checkpoint:** Your repo is cloned and open in Cursor. Claude Code is running in the terminal.
 
 ---
 
@@ -325,4 +367,29 @@ For your portfolio project (Milestone 01), you need an API source relevant to th
 
 ---
 
-**No separate submission for the in-class session.** The Spotify tutorial (assigned Wednesday) will be submitted as part of Lesson Exercises 08.
+### Step 09: Commit and Push
+
+Your weather pipeline is complete. Time to save your work.
+
+**What to do:**
+
+1. In Claude Code, type:
+
+   ```
+   Commit all files and push to GitHub.
+   ```
+
+2. Verify on GitHub that your `weather-api-pipeline` repo contains your `weather.py` script and `weather_data.csv`.
+
+**Checkpoint:** Your repo is pushed to GitHub and visible at your repository URL.
+
+---
+
+## Submission
+
+Push your finished `weather-api-pipeline` repository to GitHub and submit the repo URL as your Lesson Exercises 08.
+
+Your repo should contain:
+- `weather.py` — your API extraction script with loops and forecast collection
+- `weather_data.csv` — the exported data
+- `.gitignore` — Python gitignore (from repo setup)

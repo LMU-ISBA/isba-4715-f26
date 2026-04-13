@@ -61,13 +61,13 @@ By the end of this lesson, you will be able to:
 
 | File | Description |
 |------|-------------|
+| [mp03-tutorial.md](mp03-tutorial.md) | Step-by-step tutorial for the full session |
 | [slides.md](slides.md) | MARP slide deck for Part 01 (API concepts) |
-| [session-guide.md](session-guide.md) | Step-by-step in-class guide for Parts 02-04 |
 | [spotify-tutorial.md](spotify-tutorial.md) | Async homework: Spotify playlist generator tutorial |
 
 ## Setup
 
-No new installations needed. You should already have Cursor, Claude Code, Python 3, `requests`, and `pandas` from earlier mini-projects. The one thing you will set up during class: a free account at weatherapi.com. Step 01 of the session guide walks you through it.
+No new installations needed. You should already have Cursor, Claude Code, Python 3, `requests`, and `pandas` from earlier mini-projects. The one thing you will set up during class: a free account at weatherapi.com. Step 01 of the tutorial walks you through it.
 
 ## Key Concepts
 
@@ -85,4 +85,4 @@ You will write your first API calls by hand so you understand what each line doe
 
 ## Lesson Exercise
 
-Complete the in-class session guide. Complete the Spotify playlist generator tutorial (assigned Wednesday, due over the weekend).
+Complete the full tutorial in [mp03-tutorial.md](mp03-tutorial.md), push your finished `weather-api-pipeline` repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 08. Also complete the Spotify playlist generator tutorial (assigned Wednesday, due over the weekend).
