@@ -122,12 +122,14 @@ You need `requests` to make HTTP calls and `json` to work with the response data
 3. **Type this line by hand** — replace `YOUR_API_KEY_HERE` with the key you copied in Step 01:
 
    ```python
-   api_key = 'YOUR_API_KEY_HERE'
+   api_key = "YOUR_API_KEY_HERE"
    ```
 
 4. **Save the file** (`Cmd+S` / `Ctrl+S`). Get in the habit of saving after every change.
 
 **Why type it:** Storing a key in a variable and referencing the variable (instead of pasting the raw key everywhere) is a habit that prevents bugs and security mistakes. You will do this for every API you work with.
+
+**A note on security:** Hardcoding an API key directly in a `.py` file is fine for learning today, but it is not safe for real projects. If you push this file to GitHub, anyone can see your key. In your portfolio project, you will store keys in a `.env` file and load them with `python-dotenv` so they never end up in your code. The Spotify tutorial covers this pattern.
 
 **Checkpoint:** You have a `weather.py` file with imports and your API key variable. The file is saved and you can see it in Cursor's file explorer on the left.
 
@@ -142,11 +144,11 @@ A REST API call has three parts: the URL (where to send it), the parameters (wha
 1. **Type these lines by hand** below your API key:
 
    ```python
-   api_url = 'https://api.weatherapi.com/v1/current.json'
+   api_url = "https://api.weatherapi.com/v1/current.json"
 
    params = {
-       'key': api_key,
-       'q': '90045'
+       "key": api_key,
+       "q": "90045"
    }
 
    response = requests.get(api_url, params=params)
@@ -154,7 +156,7 @@ A REST API call has three parts: the URL (where to send it), the parameters (wha
 
    Each line has a specific job:
    - `api_url` — the endpoint. This URL returns current weather conditions.
-   - `params` — a dictionary of query parameters. `key` is your API key, `q` is the location (a zip code).
+   - `params` — a dictionary of query parameters. `"key"` is your API key, `"q"` is the location (a zip code).
    - `requests.get()` — sends an HTTP GET request and stores the response.
 
 2. **Type this line** to check if the call worked:
@@ -196,10 +198,10 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
 3. Now navigate the nesting. **Type these lines** to drill into the structure:
 
    ```python
-   print(data['location']['name'])
-   print(data['location']['region'])
-   print(data['current']['temp_f'])
-   print(data['current']['condition']['text'])
+   print(data["location"]["name"])
+   print(data["location"]["region"])
+   print(data["current"]["temp_f"])
+   print(data["current"]["condition"]["text"])
    ```
 
 4. Run the script. You should see something like:
@@ -211,7 +213,7 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
    Sunny
    ```
 
-**Why this matters:** JSON nesting is the same problem regardless of the API. The weather response has `data['current']['temp_f']`. A Spotify track has `data['album']['artists'][0]['name']`. Different keys, same idea. Once you can read one, you can read any of them.
+**Why this matters:** JSON nesting is the same problem regardless of the API. The weather response has `data["current"]["temp_f"]`. A Spotify track has `data["album"]["artists"][0]["name"]`. Different keys, same idea. Once you can read one, you can read any of them.
 
 **Checkpoint:** Your script prints the city name, region, temperature, and weather condition.
 
@@ -230,19 +232,19 @@ You just got weather for one zip code. That is one row. Your project needs hundr
 1. **Type this by hand** — start a new section in your file (you can comment out or delete the previous print statements):
 
    ```python
-   zip_codes = ['90045', '10001', '60601', '98101', '33101']
+   zip_codes = ["90045", "10001", "60601", "98101", "33101"]
 
    for zip_code in zip_codes:
        params = {
-           'key': api_key,
-           'q': zip_code
+           "key": api_key,
+           "q": zip_code
        }
        response = requests.get(api_url, params=params)
        data = response.json()
 
-       city = data['location']['name']
-       temp = data['current']['temp_f']
-       condition = data['current']['condition']['text']
+       city = data["location"]["name"]
+       temp = data["current"]["temp_f"]
+       condition = data["current"]["condition"]["text"]
 
        print(f"{city}: {temp}°F, {condition}")
    ```
@@ -317,7 +319,7 @@ You have a list of dictionaries in memory. This step saves it to disk as a CSV s
 2. Review the output. You should see:
    - `import pandas as pd`
    - `df = pd.DataFrame(results)`
-   - `df.to_csv('weather_data.csv', index=False)`
+   - `df.to_csv("weather_data.csv", index=False)`
    - `print(df.shape)` and `print(df.head())`
 
 3. Run the script. Confirm the CSV is created and the row count matches what you expect.
