@@ -99,8 +99,17 @@ Every API needs to know who is calling it. An API key works like a library card:
 1. Go to [weatherapi.com](https://www.weatherapi.com/) and click **Sign Up** (free tier).
 2. After signing up, go to your dashboard. Your API key is displayed on the main page.
 3. Copy the key. You will paste it into your Python script in Step 02.
+4. Open the API documentation in a new tab: [WeatherAPI Swagger Docs](https://app.swaggerhub.com/apis-docs/WeatherAPI.com/WeatherAPI/1.0.2)
 
-**Checkpoint:** You have an API key copied to your clipboard.
+   Browse the docs before writing any code. Look for:
+   - **Realtime Weather API** (`/current.json`) — this is the endpoint we will use first
+   - **Forecast API** (`/forecast.json`) — we will switch to this in Step 06
+   - The **parameters** each endpoint accepts (`key`, `q`, `days`)
+   - The **response structure** — what JSON comes back
+
+   Reading API docs is a skill you will use for every API in your career. The docs tell you what endpoints exist, what parameters they accept, and what the response looks like. When code from the internet or from Claude Code does not work, the docs are the first place to check.
+
+**Checkpoint:** You have an API key copied to your clipboard and the API docs open in a browser tab.
 
 ---
 
@@ -278,7 +287,9 @@ So far you have one data point per city: current conditions. The forecast endpoi
 
 **What to do:**
 
-1. Ask Claude Code to extend your script:
+1. Before asking Claude Code, check the docs yourself. Go back to the [WeatherAPI Swagger Docs](https://app.swaggerhub.com/apis-docs/WeatherAPI.com/WeatherAPI/1.0.2) and find the **Forecast API** section. Look at what parameters it accepts and what the response JSON looks like. Specifically, find the `days` parameter and the `forecastday` array in the response. This is the habit: check the docs first, then write (or ask for) the code.
+
+2. Ask Claude Code to extend your script:
 
    ```
    Update my weather script to use the forecast endpoint instead of
@@ -292,9 +303,9 @@ So far you have one data point per city: current conditions. The forecast endpoi
    Store everything in the results list.
    ```
 
-2. Review what Claude Code produces. The key change is a nested loop: the outer loop iterates over cities, the inner loop iterates over forecast days. This turns 20 cities x 7 days into 140 rows from just 20 API calls.
+3. Review what Claude Code produces. The key change is a nested loop: the outer loop iterates over cities, the inner loop iterates over forecast days. Compare what Claude Code wrote to what you saw in the docs — do the parameter names and response keys match?
 
-3. Run the script and verify you get roughly 140 results.
+4. Run the script and verify you get roughly 140 results.
 
 **Why this matters:** Most project datasets are thin at first. This step shows two ways to bulk them up: loop over more parameters (zip codes) and request more data per call (forecast days). Your project will probably need one or both of these moves.
 
