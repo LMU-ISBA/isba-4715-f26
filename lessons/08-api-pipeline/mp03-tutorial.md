@@ -174,7 +174,7 @@ A REST API call has three parts: the URL (where to send it), the parameters (wha
    print(response.status_code)
    ```
 
-3. **Save the file** (`Cmd+S` / `Ctrl+S`), then run the script. Click into the terminal at the bottom of Cursor (the same terminal where Claude Code is running). If Claude Code is active, press `Escape` to get back to the regular terminal prompt. Then type:
+3. **Save the file** (`Cmd+S` / `Ctrl+S`), then run the script. Open a second terminal so Claude Code keeps running in the first one: click the **+** icon in the terminal panel, or go to **Terminal > New Terminal**. In the new terminal, type:
 
    ```bash
    python weather.py
