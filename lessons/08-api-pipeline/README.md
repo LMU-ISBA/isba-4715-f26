@@ -6,7 +6,7 @@ How to pull data from web APIs using Python. APIs are how you get data from exte
 
 ## The Scenario
 
-Your portfolio project requires an API data source. Before you can build a pipeline, you need to know how to get data out of an API. Today you learn the pattern: request, parse, loop, save.
+Your portfolio project requires an API data source for Milestone 01. Before you can build a pipeline, you need to know how to pull data from an API and collect enough of it to analyze. Today you learn the pattern: request, parse, loop, save.
 
 ## What You Are Building
 
@@ -81,7 +81,7 @@ Every API integration follows the same three steps: make a request, parse the re
 
 ### Hand-Code First, Then Automate
 
-You will write your first API calls by hand so you understand what each line does. Then you will use Claude Code to scale up with loops and bulk collection. The goal is not to memorize syntax. It is to understand the pattern well enough to verify what gets generated.
+You will write your first API calls by hand so you understand what each line does. Then you will use Claude Code to scale up with loops and bulk collection. The goal is not to memorize syntax. It is to understand the pattern well enough to direct Claude Code and verify what it produces.
 
 ## Lesson Exercise
 

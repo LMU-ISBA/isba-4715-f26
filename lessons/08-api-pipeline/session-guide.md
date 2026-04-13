@@ -53,7 +53,7 @@ You need `requests` to make HTTP calls and `json` to work with the response data
    api_key = 'YOUR_API_KEY_HERE'
    ```
 
-**Why type it:** You will deal with API keys and credentials throughout your career. The habit of "put the key in a variable, reference the variable" is worth building now, even when it feels tedious.
+**Why type it:** Storing a key in a variable and referencing the variable (instead of pasting the raw key everywhere) is a habit that prevents bugs and security mistakes. You will do this for every API you work with.
 
 **Checkpoint:** You have a `weather.py` file with imports and your API key variable.
 
@@ -61,7 +61,7 @@ You need `requests` to make HTTP calls and `json` to work with the response data
 
 ### Step 03: Make Your First API Call
 
-A REST API call has three parts: the URL (where to send it), the parameters (what you are asking for), and the headers (metadata about the caller). For weatherapi.com, authentication goes in the parameters, not the headers — that is slightly unusual, so it is worth noting.
+A REST API call has three parts: the URL (where to send it), the parameters (what you are asking for), and your API key (so the server knows who you are). You pass all three to `requests.get()` and get back a response.
 
 **What to do:**
 
@@ -145,6 +145,8 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
 
 ## Part 03: Loops and Bulk Collection
 
+You now know how to call an API and parse the response. The next skill is getting **enough** data. Everything in Part 03 builds toward the volume your project will need.
+
 ### Step 05: Loop Over Multiple Cities
 
 You just got weather for one zip code. That is one row. Your project needs hundreds. A loop handles the repetition so you are not writing a separate request for every location.
@@ -173,7 +175,7 @@ You just got weather for one zip code. That is one row. Your project needs hundr
 
 2. Run the script. You should see weather for all five cities.
 
-3. Now let Claude Code extend it. Open Claude Code and type:
+3. That loop works, but five cities is not enough data for a real project. Now let Claude Code scale it up. Open Claude Code and type:
 
    ```
    Look at my weather.py script. I'm looping over 5 zip codes to get
@@ -284,7 +286,7 @@ For your portfolio project (Milestone 01), you need an API source relevant to th
 
 3. No formal checkpoint here — this is exploration to support your project proposal and Milestone 01 planning.
 
-**What to take away:** The code you write for your project API will look almost identical to `weather.py`. Different URL, different keys to extract, same request-parse-loop-DataFrame-CSV structure. That is the point of today.
+**What to take away:** The code you write for your project API will look almost identical to `weather.py`. The URL and the JSON keys will change, but the structure will not: request, parse, loop, save. When you sit down to write your Milestone 01 extraction script, start by copying what you built today and swapping in your API's URL and fields.
 
 ---
 

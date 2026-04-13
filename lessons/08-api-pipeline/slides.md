@@ -58,10 +58,10 @@ You never go into the kitchen. You don't need to know how the food is made.
 
 # What Is an API?
 
-> An API is a remote service that exposes a system's data or functionality
+> A remote service that lets you request data or trigger actions in another system
 
-- You send a **request**: what do you want?
-- You get back a **response**: here is your data
+- You send a **request**: "Give me the current weather for LA"
+- You get back a **response**: `{ "temp_f": 72.0, "condition": "Sunny" }`
 
 That is the whole model.
 
@@ -130,12 +130,13 @@ APIs let you access data and functionality without building it yourself.
 
 # One API Call = One Data Point
 
-- `GET /current.json?q=90045` gives you weather for one zip code, right now
-- That is one row in your dataset
+`GET /current.json?q=90045`
 
-Your project needs hundreds or thousands of rows.
+gives you weather for **one** zip code, **right now**
 
-**How do you get enough data?**
+That is **one row** in your dataset.
+
+Your project needs hundreds or thousands of rows. **How?**
 
 ---
 
@@ -167,4 +168,5 @@ Once you know it, switching to a new API is mostly just reading documentation.
 
 - Milestone 01 requires an API data source
 - The pattern you just learned works for any REST API
-- **Next up:** we'll code it together
+- Your job posting tells you what data matters
+- **Next up:** we'll code it together with the Weather API
