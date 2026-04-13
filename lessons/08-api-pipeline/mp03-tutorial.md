@@ -50,12 +50,40 @@ Same workflow as MP02: create the repo on GitHub first, clone it into Cursor, th
 
 4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
 
-5. Start Claude Code:
+5. Create a virtual environment and install dependencies. A virtual environment keeps this project's Python packages separate from your other projects and your system Python.
+
+   **Mac:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install requests pandas
+   ```
+
+   **Windows:**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   pip install requests pandas
+   ```
+
+   You should see `(venv)` at the start of your terminal prompt. That means the virtual environment is active. If you close and reopen the terminal, you will need to activate it again with the `source` or `activate` command above.
+
+   The Python `.gitignore` you selected when creating the repo already ignores the `venv/` folder, so it will not be committed to GitHub.
+
+6. Verify Python works inside the virtual environment:
+
+   ```bash
+   python --version
+   ```
+
+   You should see `Python 3.x.x`.
+
+7. Start Claude Code:
    ```bash
    claude
    ```
 
-**Checkpoint:** Your repo is cloned and open in Cursor. Claude Code is running in the terminal.
+**Checkpoint:** Your repo is cloned, the virtual environment is active (`(venv)` in your prompt), `requests` and `pandas` are installed, and Claude Code is running.
 
 ---
 
@@ -70,24 +98,6 @@ This is our first time writing Python from scratch (instead of running a Colab n
 5. **Read the output** in the terminal, then go back to the file and add more code
 
 You will repeat this loop many times today: edit the file, save, run, check the output. If you forget to save before running, you will see old output, so save every time.
-
-**Quick setup check:**
-
-Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**) and run:
-
-```bash
-python --version
-```
-
-You should see `Python 3.x.x`. If you see an error or `Python 2.x`, try `python3 --version` instead. If that works, use `python3` instead of `python` for all commands today.
-
-Next, make sure `requests` is installed:
-
-```bash
-pip install requests pandas
-```
-
-If `pip` does not work, try `pip3 install requests pandas`.
 
 ---
 
@@ -373,13 +383,19 @@ Your weather pipeline is complete. Time to save your work.
 
 **What to do:**
 
-1. In Claude Code, type:
+1. First, save your dependencies so anyone who clones the repo can recreate your environment:
+
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+2. In Claude Code, type:
 
    ```
    Commit all files and push to GitHub.
    ```
 
-2. Verify on GitHub that your `weather-api-pipeline` repo contains your `weather.py` script and `weather_data.csv`.
+3. Verify on GitHub that your `weather-api-pipeline` repo contains your `weather.py` script, `weather_data.csv`, and `requirements.txt`.
 
 **Checkpoint:** Your repo is pushed to GitHub and visible at your repository URL.
 
@@ -392,4 +408,5 @@ Push your finished `weather-api-pipeline` repository to GitHub and submit the re
 Your repo should contain:
 - `weather.py` — your API extraction script with loops and forecast collection
 - `weather_data.csv` — the exported data
+- `requirements.txt` — your Python dependencies
 - `.gitignore` — Python gitignore (from repo setup)
