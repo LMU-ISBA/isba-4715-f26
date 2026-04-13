@@ -356,7 +356,11 @@ For your portfolio project (Milestone 01), you need an API source relevant to th
 
 **What to do:**
 
-1. In Claude Code, try a prompt like this (replace the bracketed parts with your actual job posting details):
+1. Open a **new Cursor window** (**File > New Window**). Clone your portfolio project repo into it the same way you did in Step 00 — click **Clone repo**, paste your project's GitHub URL, and open the folder. Start Claude Code in the terminal.
+
+   You are now working in your project repo, not the weather pipeline. This is where your API exploration will live.
+
+2. In Claude Code, try a prompt like this (replace the bracketed parts with your actual job posting details):
 
    ```
    I'm building a portfolio project for a [job title] role in [industry].
@@ -373,12 +377,12 @@ For your portfolio project (Milestone 01), you need an API source relevant to th
    Suggest 3-5 APIs with a brief description of what data they provide.
    ```
 
-2. Browse the suggestions. For each one, ask Claude Code follow-up questions:
+3. Browse the suggestions. For each one, ask Claude Code follow-up questions:
    - "What endpoints does [API name] have?"
    - "Show me a sample response from [endpoint]"
    - "How many rows of data could I realistically collect?"
 
-3. No formal checkpoint here — this is exploration to support your project proposal and Milestone 01 planning.
+4. No formal checkpoint here — this is exploration to support your project proposal and Milestone 01 planning.
 
 **What to take away:** The code you write for your project API will look almost identical to `weather.py`. The URL and the JSON keys will change, but the structure will not: request, parse, loop, save. When you sit down to write your Milestone 01 extraction script, start by copying what you built today and swapping in your API's URL and fields.
 
