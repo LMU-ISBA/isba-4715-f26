@@ -198,7 +198,7 @@ The API responded with JSON: a nested structure of dictionaries and lists. You n
 
 **What to do:**
 
-1. **Replace** the `print(response.status_code)` line with these lines. **Type them by hand:**
+1. **Comment out** the `print(response.status_code)` line by adding a `#` in front of it. Then **type these lines below it by hand:**
 
    ```python
    data = response.json()
