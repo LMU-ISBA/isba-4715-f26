@@ -356,7 +356,7 @@ For your portfolio project (Milestone 01), you need an API source relevant to th
 
 **What to do:**
 
-1. Open a **new Cursor window** (**File > New Window**). If you already cloned your portfolio project repo, open that folder (**File > Open Folder**). If you have not cloned it yet, click **Clone repo**, paste your project's GitHub URL, and open the folder. Start Claude Code in the terminal.
+1. Open a **new Cursor window** (**File > New Window**). Clone your portfolio project repo into it the same way you did in Step 00 — click **Clone repo**, paste your project's GitHub URL, and open the folder. Start Claude Code in the terminal.
 
    You are now working in your project repo, not the weather pipeline. This is where your API exploration will live.
 
