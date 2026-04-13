@@ -139,6 +139,50 @@ How do they talk to each other?
 
 ---
 
+<!-- _class: dark _paginate: false -->
+
+# APIs Are Everywhere
+
+When you check the weather on your phone → **API call**
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# APIs Are Everywhere
+
+When you check the weather on your phone → **API call**
+
+When Uber charges your card → **API call**
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# APIs Are Everywhere
+
+When you check the weather on your phone → **API call**
+
+When Uber charges your card → **API call**
+
+When Instagram loads your feed → **API call**
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# APIs Are Everywhere
+
+When you check the weather on your phone → **API call**
+
+When Uber charges your card → **API call**
+
+When Instagram loads your feed → **API call**
+
+When ChatGPT answers a question → **API call**
+
+---
+
 <!-- _class: dark -->
 
 # APIs Are Everywhere
@@ -241,6 +285,27 @@ it tracks usage and enforces limits.
 
 ---
 
+<!-- _paginate: false -->
+
+# Build vs. Buy
+
+| Need | Don't Do This | Do This |
+|------|---------------|---------|
+| Weather data | Build a weather station | **Call the Weather API** |
+
+---
+
+<!-- _paginate: false -->
+
+# Build vs. Buy
+
+| Need | Don't Do This | Do This |
+|------|---------------|---------|
+| Weather data | Build a weather station | **Call the Weather API** |
+| Music data | Scrape Spotify's website | **Call the Spotify API** |
+
+---
+
 # Build vs. Buy
 
 | Need | Don't Do This | Do This |
@@ -271,6 +336,42 @@ Your project needs hundreds of rows. How?
 
 ---
 
+<!-- _class: accent _paginate: false -->
+
+# Loops = Datasets
+
+<br>
+
+**20 locations** → Weather for 20 cities → **20 rows**
+
+---
+
+<!-- _class: accent _paginate: false -->
+
+# Loops = Datasets
+
+<br>
+
+**20 locations** → Weather for 20 cities → **20 rows**
+
+**× 7 days each** → Weekly forecast per city → **140 rows**
+
+---
+
+<!-- _class: accent _paginate: false -->
+
+# Loops = Datasets
+
+<br>
+
+**20 locations** → Weather for 20 cities → **20 rows**
+
+**× 7 days each** → Weekly forecast per city → **140 rows**
+
+**× 90 days history** → Three months of data → **1,800 rows**
+
+---
+
 <!-- _class: accent -->
 
 # Loops = Datasets
@@ -286,6 +387,18 @@ Your project needs hundreds of rows. How?
 <br>
 
 One API call = one row. **A loop = a dataset.**
+
+---
+
+<!-- _class: dark _paginate: false -->
+
+# The Pattern
+
+<div class="pattern-box">
+
+request &nbsp; → &nbsp; parse &nbsp; → &nbsp; loop &nbsp; → &nbsp; DataFrame &nbsp; → &nbsp; **save**
+
+</div>
 
 ---
 
