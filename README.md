@@ -31,6 +31,12 @@ We use the **Campus Bites** case study — a campus food delivery service — to
 |--------|-------|-------------------|
 | [01](lessons/01-introduction/) | Problem Analysis | "Orders dropped 20% — what happened?" |
 | [02](lessons/02-success-analysis/) | Success Analysis | "Revenue up 33% — what's working?" |
+| [03](lessons/03-rfm-joins/) | Customer Intelligence | "Who are our best customers and why?" |
+| [04](lessons/04-cte-funnels/) | Conversion Funnels | "Where are we losing visitors in the funnel?" |
+| [05](lessons/05-data-storytelling/) | Data Storytelling | "What should the executive team actually do?" |
+| [06](lessons/06-local-pipeline/) | Local Data Pipeline | "Can we build a working pipeline from scratch?" |
+| [07](lessons/07-cloud-pipeline/) | Cloud Extraction Pipeline | "What if the data lives in a remote database?" |
+| [08](lessons/08-api-pipeline/) | API Data Collection | "What if the data lives behind an API?" |
 
 ## What You'll Learn
 
