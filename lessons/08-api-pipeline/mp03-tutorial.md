@@ -50,40 +50,27 @@ Same workflow as MP02: create the repo on GitHub first, clone it into Cursor, th
 
 4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
 
-5. Create a virtual environment and install dependencies. A virtual environment keeps this project's Python packages separate from your other projects and your system Python.
-
-   **Mac:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install requests pandas
-   ```
-
-   **Windows:**
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate
-   pip install requests pandas
-   ```
-
-   You should see `(venv)` at the start of your terminal prompt. That means the virtual environment is active. If you close and reopen the terminal, you will need to activate it again with the `source` or `activate` command above.
-
-   The Python `.gitignore` you selected when creating the repo already ignores the `venv/` folder, so it will not be committed to GitHub.
-
-6. Verify Python works inside the virtual environment:
-
-   ```bash
-   python --version
-   ```
-
-   You should see `Python 3.x.x`.
-
-7. Start Claude Code:
+5. Start Claude Code:
    ```bash
    claude
    ```
 
-**Checkpoint:** Your repo is cloned, the virtual environment is active (`(venv)` in your prompt), `requests` and `pandas` are installed, and Claude Code is running.
+6. Ask Claude Code to set up a virtual environment and install dependencies:
+
+   ```
+   Set up a Python virtual environment for this project and install
+   requests and pandas. Activate the virtual environment.
+   ```
+
+   When it finishes, you should see `(venv)` at the start of your terminal prompt. That means the virtual environment is active and packages are installed in an isolated environment for this project only.
+
+   If you close and reopen the terminal later, you will need to reactivate it:
+   - **Mac:** `source venv/bin/activate`
+   - **Windows:** `venv\Scripts\activate`
+
+   The Python `.gitignore` you selected when creating the repo already ignores the `venv/` folder, so it will not be committed to GitHub.
+
+**Checkpoint:** Your repo is cloned, Claude Code is running, and the virtual environment is active (`(venv)` in your prompt) with `requests` and `pandas` installed.
 
 ---
 
