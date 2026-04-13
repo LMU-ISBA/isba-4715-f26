@@ -69,7 +69,7 @@ This is our first time writing Python from scratch (instead of running a Colab n
 4. **Run it in the terminal** by typing `python weather.py` and pressing Enter
 5. **Read the output** in the terminal, then go back to the file and add more code
 
-You will repeat this loop many times today: edit the file, save, run, check the output. It is the same cycle professional developers use. If you forget to save before running, you will see old output — so save every time.
+You will repeat this loop many times today: edit the file, save, run, check the output. If you forget to save before running, you will see old output, so save every time.
 
 **Quick setup check:**
 
@@ -109,7 +109,7 @@ Every API needs to know who is calling it. An API key works like a library card:
 
 ### Step 02: Set Up Your Python File
 
-You need `requests` to make HTTP calls and `json` to work with the response data. These two libraries show up in nearly every API integration you will write in Python.
+You need `requests` to make HTTP calls and `json` to work with the response data. These two libraries are standard for API work in Python.
 
 **What to do:**
 
@@ -325,7 +325,7 @@ You have a list of dictionaries in memory. This step saves it to disk as a CSV s
 
 3. Run the script. Confirm the CSV is created and the row count matches what you expect.
 
-**Why this matters:** A CSV is the handoff between collection and everything that comes after: loading into a database, opening in a BI tool, passing to a transformation step. Getting data out of memory and into a file is a small step that unlocks a lot.
+**Why this matters:** Once the data is in a CSV, you can load it into a database, open it in a BI tool, or pass it to a transformation step. The CSV is the handoff point between collection and analysis.
 
 **Checkpoint:** You have a `weather_data.csv` file with roughly 140 rows of forecast data. That is the full pattern: request, parse, loop, DataFrame, CSV.
 

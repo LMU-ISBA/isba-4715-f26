@@ -33,7 +33,7 @@ graph LR
 ```
 
 **How it fits together:**
-- **API Source:** WeatherAPI.com is a free REST API that returns weather data as JSON. It stands in for whatever external API your portfolio project uses.
+- **API Source:** WeatherAPI.com is a free REST API that returns weather data as JSON. Your portfolio project will use a different API, but the code pattern is the same.
 - **Python Script:** `weather.py` makes HTTP requests to the API, parses the JSON response, and organizes the data.
 - **pandas DataFrame:** The parsed data goes into a DataFrame for easy manipulation and inspection.
 - **CSV:** The DataFrame is saved to a CSV file, a portable output you can load into a database or hand off to another pipeline step.
@@ -73,7 +73,7 @@ No new installations needed. You should already have Cursor, Claude Code, Python
 
 ### APIs as Data Sources
 
-In the first half of the course, you queried data that was already in a database. In the real world, data often lives behind APIs. An API is a URL you call with specific parameters and it returns structured data, usually JSON. Calling that API is step one of any pipeline that pulls from an external source.
+In the first half of the course, you queried data that was already in a database. In the real world, data often lives behind APIs. An API is a URL you call with specific parameters and it returns structured data, usually JSON.
 
 ### The Request-Parse-Loop Pattern
 
