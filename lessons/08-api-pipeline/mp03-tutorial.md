@@ -174,13 +174,17 @@ A REST API call has three parts: the URL (where to send it), the parameters (wha
    print(response.status_code)
    ```
 
-3. Run the script:
+3. **Save the file** (`Cmd+S` / `Ctrl+S`), then run the script. Click into the terminal at the bottom of Cursor (the same terminal where Claude Code is running). If Claude Code is active, press `Escape` to get back to the regular terminal prompt. Then type:
 
    ```bash
    python weather.py
    ```
 
+   and press **Enter**. The terminal runs your script and prints the output directly below the command.
+
    You should see `200`. That means success. Any other number means something went wrong: `401` is unauthorized (check your key), `403` is forbidden (wrong permissions), `404` is not found (check the URL).
+
+   From now on, "run the script" means: save the file, go to the terminal, type `python weather.py`, press Enter.
 
 **Why status codes matter:** These codes are the same across every API you will ever use. Learning them now means you will know exactly what broke and where to look.
 
