@@ -24,17 +24,33 @@ This is an async homework exercise. Work through it at your own pace outside of 
 
 ---
 
-## Step 00: Open Your Portfolio Project in Cursor
+## Step 00: Create GitHub Repo and Start Claude Code
 
-You will build this script inside your portfolio project repo -- the same repo you have been using for your milestone work.
+Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into Cursor, then start building.
 
 **What to do:**
 
-1. If you have already cloned your portfolio project repo, open it in Cursor. Skip to step 4.
+1. Go to [github.com/new](https://github.com/new) and create a new repository:
+   - Name it `spotify-playlist-generator`
+   - Set visibility to **Public**
+   - Under **Add .gitignore**, select **Python** from the dropdown
+   - Leave everything else as default
+   - Click **Create repository**
 
-2. If you have not cloned it yet, go to your portfolio project repo on GitHub. Click the green **Code** button, make sure **HTTPS** is selected, and copy the URL.
+2. On your new repository's GitHub page, click the green **Code** button, make sure **HTTPS** is selected, and copy the URL.
 
-3. Clone the repo into Cursor. Open a new Cursor window and click **Clone repo** on the welcome screen. Paste the URL you copied. When Cursor asks where to save it, navigate to your `isba-4715` folder. Open the cloned folder when prompted.
+3. Clone the repo into Cursor. Open a new Cursor window and click **Clone repo** on the welcome screen. Paste the URL you copied.
+
+   When Cursor asks where to save it, navigate to your `isba-4715` folder. Open the cloned folder when prompted.
+
+   Your folder structure should now look like:
+   ```
+   ~/isba-4715/
+   ├── campus-bites-pipeline/         <-- MP01
+   ├── basket-craft-pipeline/         <-- MP02
+   ├── weather-api-pipeline/          <-- MP03
+   └── spotify-playlist-generator/    <-- This project
+   ```
 
 4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
 
@@ -43,7 +59,7 @@ You will build this script inside your portfolio project repo -- the same repo y
    claude
    ```
 
-**Checkpoint:** Your portfolio project repo is open in Cursor. Claude Code is running in the terminal.
+**Checkpoint:** Your repo is cloned and open in Cursor. Claude Code is running in the terminal.
 
 ---
 
@@ -526,7 +542,7 @@ Your playlist generator is complete. Time to save your work.
 
 2. Make sure your `.env` file is NOT included in the commit. Claude Code should respect the `.gitignore`, but double-check the commit output.
 
-3. Verify on GitHub that your repo contains `spotify.py` and `playlist_tracks.csv` but does NOT contain `.env`.
+3. Verify on GitHub that your `spotify-playlist-generator` repo contains `spotify.py` and `playlist_tracks.csv` but does NOT contain `.env`.
 
 **Checkpoint:** Your repo is pushed to GitHub and visible at your repository URL. No credentials are in the commit history.
 
@@ -536,7 +552,7 @@ Your playlist generator is complete. Time to save your work.
 
 This tutorial is part of Lesson Exercises 08. Completing it reinforces the API pattern you will use in your portfolio project.
 
-Push your portfolio project repository to GitHub and submit the repo URL.
+Push your finished `spotify-playlist-generator` repository to GitHub and submit the repo URL.
 
 Your repo should contain:
 - `spotify.py` -- your API script with OAuth, search, loop, filter, and playlist creation
