@@ -17,6 +17,38 @@ This guide covers the hands-on portions of today's class (Parts 02-04). Part 01 
 
 ---
 
+## Before You Start: Writing Python in Cursor
+
+This is our first time writing Python from scratch (instead of running a Colab notebook). Here is the workflow you will use for the rest of the course:
+
+1. **Create a `.py` file** in Cursor (like `weather.py`)
+2. **Write or paste code** into the file
+3. **Save the file** (`Cmd+S` on Mac, `Ctrl+S` on Windows)
+4. **Run it in the terminal** by typing `python weather.py` and pressing Enter
+5. **Read the output** in the terminal, then go back to the file and add more code
+
+You will repeat this loop many times today: edit the file, save, run, check the output. It is the same cycle professional developers use. If you forget to save before running, you will see old output — so save every time.
+
+**Quick setup check:**
+
+Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**) and run:
+
+```bash
+python --version
+```
+
+You should see `Python 3.x.x`. If you see an error or `Python 2.x`, try `python3 --version` instead. If that works, use `python3` instead of `python` for all commands today.
+
+Next, make sure `requests` is installed:
+
+```bash
+pip install requests pandas
+```
+
+If `pip` does not work, try `pip3 install requests pandas`.
+
+---
+
 ## Part 02: Weather API by Hand
 
 ### Step 01: Get Your API Key
@@ -39,23 +71,26 @@ You need `requests` to make HTTP calls and `json` to work with the response data
 
 **What to do:**
 
-1. In Cursor, create a new file called `weather.py` in your working directory.
-2. **Copy** these imports (no need to type these by hand):
+1. In Cursor, create a new file: **File > New File** (or `Cmd+N` / `Ctrl+N`). Save it immediately as `weather.py` (`Cmd+S` / `Ctrl+S`). Make sure it ends in `.py` — that tells Cursor to treat it as Python and give you syntax highlighting.
+
+2. **Copy** these imports into the file (no need to type these by hand):
 
    ```python
    import requests
    import json
    ```
 
-3. **Type this line by hand** — paste in your actual API key:
+3. **Type this line by hand** — replace `YOUR_API_KEY_HERE` with the key you copied in Step 01:
 
    ```python
    api_key = 'YOUR_API_KEY_HERE'
    ```
 
+4. **Save the file** (`Cmd+S` / `Ctrl+S`). Get in the habit of saving after every change.
+
 **Why type it:** Storing a key in a variable and referencing the variable (instead of pasting the raw key everywhere) is a habit that prevents bugs and security mistakes. You will do this for every API you work with.
 
-**Checkpoint:** You have a `weather.py` file with imports and your API key variable.
+**Checkpoint:** You have a `weather.py` file with imports and your API key variable. The file is saved and you can see it in Cursor's file explorer on the left.
 
 ---
 

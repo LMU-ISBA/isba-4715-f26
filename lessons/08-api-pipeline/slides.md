@@ -295,13 +295,14 @@ One API call = one row. **A loop = a dataset.**
 
 <div class="pattern-box">
 
-request &nbsp; → &nbsp; parse &nbsp; → &nbsp; loop &nbsp; → &nbsp; DataFrame &nbsp; → &nbsp; CSV
+request &nbsp; → &nbsp; parse &nbsp; → &nbsp; loop &nbsp; → &nbsp; DataFrame &nbsp; → &nbsp; **save**
 
 </div>
 
-This works for any API: weather, financial, sports, music, government data.
+**Where does it go?**
+CSV, SQL database, JSON file, Snowflake, another API, a dashboard
 
-Once you know it, switching to a new API is mostly just reading documentation.
+This works for any API and any destination. Once you know it, switching is mostly reading documentation.
 
 ---
 
