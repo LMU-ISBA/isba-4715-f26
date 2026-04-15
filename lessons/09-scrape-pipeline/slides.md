@@ -559,8 +559,7 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 ### 🐍 Python (Part 02)
 
-- ~30 lines of SDK calls
-- Loops, file writes
+- ~30 lines of requests.post, loops, file writes
 - Version-controlled
 - Runs in GitHub Actions
 

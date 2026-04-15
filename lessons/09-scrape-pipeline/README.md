@@ -47,7 +47,7 @@ By the end of this lesson, you will be able to:
 - **New:** Use Firecrawl's unified `search` endpoint to discover URLs and extract markdown in one call
 - **New:** Write scraped content as markdown files into a `knowledge/raw/` folder structured for Claude Code ingestion
 - **New:** Install and invoke the Firecrawl MCP server inside Claude Code
-- **New:** Know what an SDK is, and when to use one instead of raw `requests` calls
+- **New:** Know what an SDK is, and understand why this lesson uses raw `requests` instead of the Firecrawl SDK
 - **Reinforce:** `.env` + `python-dotenv` secrets pattern (from the async Spotify tutorial)
 - **Reinforce:** Create-repo-from-scratch workflow (from MP02/MP03)
 
@@ -85,7 +85,7 @@ In earlier courses you might have heard of BeautifulSoup, a Python library for p
 
 Both can find web content, but they return different shapes:
 
-- **Firecrawl's `search`** returns structured data (URLs, titles, descriptions, pre-scraped markdown) with a fixed schema every call. Your Python script loops over `response.data.web`.
+- **Firecrawl's `search`** returns structured data (URLs, titles, descriptions, pre-scraped markdown) with a fixed schema every call. Your Python script loops over `data["data"]["web"]`.
 - **Claude Code `WebSearch`** is a built-in tool that returns prose for Claude Code to read mid-conversation. The synthesis is fresh each call.
 
 Both can run in automation: Claude Code has a `-p` flag and an official GitHub Actions integration. The real distinction is output shape — a schema you can parse, versus prose the agent consumes. Pick based on who reads the output.
@@ -96,7 +96,7 @@ You will see the same collection happen two ways:
 
 | Approach | Pros | Cons |
 |---|---|---|
-| **Python + Firecrawl SDK** | Fixed response schema, direct control over parameters, runs anywhere Python does | More code, more setup |
+| **Python + `requests`** | Fixed response schema, direct control over parameters, reuses what you already know from MP03 | More code, more setup |
 | **MCP in Claude Code** | Single prompt, no Python, fast for ad-hoc collection | Output depends on Claude Code's judgment each run |
 
 Your project will use both: MCP for exploratory collection during development, Python + GitHub Actions for the scheduled production pipeline Milestone 02 requires.

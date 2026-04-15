@@ -52,10 +52,10 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 5. Ask Claude Code to set up the environment:
 
    ```
-   Set up a Python venv and install python-dotenv, firecrawl-py.
+   Set up a Python venv and install requests, python-dotenv.
    ```
 
-   `python-dotenv` loads your `.env` keys, `firecrawl-py` is the Firecrawl SDK.
+   `requests` makes HTTP calls to Firecrawl (same library as MP03's Weather API), `python-dotenv` loads your `.env` keys.
 
    The install takes 30-60s. **While it runs, sign up in your browser (step 6).** To run Python outside Claude Code later: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows).
 
@@ -77,7 +77,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives students 20,000 free credits (40× the default). **Two steps to redeem:** (1) sign up with your `.edu` email in step 6, not GitHub OAuth; (2) in the Firecrawl dashboard, open **Settings → Billing** and enter the coupon `STUDENTEDU`. The default 500 credits cover this lesson, but 20k carries you through Milestone 02's scheduled runs.
 
-**Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `python-dotenv` and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
+**Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests` and `python-dotenv` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
 
 ---
 
@@ -89,7 +89,7 @@ Find pages worth scraping and get their markdown in a single call. Firecrawl's `
 
 Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public by legal requirement and include press releases, leadership bios, and earnings material — the kind of content a knowledge base needs.
 
-**What is an SDK?** A Software Development Kit wraps an API in your language. In MP03 you wrote `requests.get(url)` with a URL string. Firecrawl's `firecrawl-py` hides the URL and HTTP details behind a client object you call methods on. Under the hood it is still an HTTP call — the SDK just handles the plumbing. Not every API ships an SDK (WeatherAPI in MP03 did not) — when there is no SDK, you call the API with `requests` directly. When an SDK exists, use it; it is the vendor's own supported interface.
+**SDK or raw HTTP?** Firecrawl publishes a Python SDK called `firecrawl-py`, and most of their docs use it. This tutorial uses raw `requests` instead — the same pattern MP03 used for WeatherAPI. Two reasons: you already know `requests` from MP03, and HTTP endpoints are more stable than SDK versions (we hit an SDK import-path break while writing this tutorial). Under the hood the SDK is doing `requests.post()` too. If you later want the SDK for a project, `pip install firecrawl-py` and swap it in — the request body we build below matches what the SDK sends.
 
 **What to do:**
 
@@ -103,18 +103,17 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
    import time
    from pathlib import Path
    from dotenv import load_dotenv
-   from firecrawl import Firecrawl
-   from firecrawl.v2.types import ScrapeOptions
+   import requests
    ```
 
-   `ScrapeOptions` is Firecrawl's type for configuring how it scrapes each result (markdown, HTML, screenshots, etc.). It lives in the `firecrawl.v2.types` submodule, not the top-level package — if you import it from `firecrawl` directly you will see `ImportError: cannot import name 'ScrapeOptions' from 'firecrawl'`. `re`, `time`, and `Path` are used in Step 02.
+   `re`, `time`, and `Path` are used in Step 02.
 
 3. **Type** these lines to load your key and create the client:
 
    ```python
    load_dotenv()
 
-   firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
+   api_key = os.getenv("FIRECRAWL_API_KEY")
    ```
 
    `load_dotenv()` reads `.env` into the environment so `os.getenv("KEY")` can retrieve values. Your key never appears in the source.
@@ -124,19 +123,24 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
    ```python
    # --- Step 01: Search + scrape with Firecrawl ---
 
-   response = firecrawl.search(
-       query="Chipotle investor relations press releases",
-       limit=5,
-       scrape_options=ScrapeOptions(formats=["markdown"]),
+   response = requests.post(
+       "https://api.firecrawl.dev/v2/search",
+       headers={"Authorization": f"Bearer {api_key}"},
+       json={
+           "query": "Chipotle investor relations press releases",
+           "limit": 5,
+           "scrapeOptions": {"formats": ["markdown"]},
+       },
    )
 
-   results = response.data.web
+   data = response.json()
+   results = data["data"]["web"]
    print(f"Firecrawl returned {len(results)} results")
 
    for r in results:
-       print(f"  - {r.title}")
-       print(f"    {r.url}")
-       print(f"    markdown length: {len(r.markdown or '')} chars")
+       print(f"  - {r['title']}")
+       print(f"    {r['url']}")
+       print(f"    markdown length: {len(r.get('markdown') or '')} chars")
    ```
 
 5. **Save** and run. Two ways to do this:
@@ -148,19 +152,19 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
      python scrape_pipeline.py
      ```
 
-     If you skip the activate step, you will hit `ModuleNotFoundError: No module named 'firecrawl'` because the system Python cannot see the venv's packages.
+     If you skip the activate step, you will hit `ModuleNotFoundError: No module named 'dotenv'` because the system Python cannot see the venv's packages.
 
    You should see five results, each with a title, a URL from `chipotle.com` or `ir.chipotle.com`, and a non-zero markdown length. The search found the pages and scraped them in a single call.
 
 **Why `limit=5`:** Keeps the demo fast and your credit budget low. In your project you might ask for 20 or 50.
 
-**What the response looks like:** `response.data.web` is a list of result objects, each with `.url`, `.title`, `.description`, and `.markdown`. Firecrawl returns an object (not a plain dict), so you use dot notation (`r.markdown`) rather than bracket access. To see the full shape, add `print(response)` after the `search(...)` call.
+**What the response looks like:** Firecrawl returns JSON with `{"success": true, "data": {...}, "creditsUsed": N}`. The results you want live at `data["data"]["web"]` — a list of dicts, each with `url`, `title`, `description`, and `markdown` keys. To see the full shape, add `print(data)` after the `response.json()` line.
 
-**Why `ScrapeOptions(formats=["markdown"])`:** Firecrawl can return HTML, markdown, summaries, screenshots, or links. Markdown preserves headings/lists/tables without HTML noise — right for a knowledge base.
+**Why `"scrapeOptions": {"formats": ["markdown"]}`:** Firecrawl can return HTML, markdown, summaries, screenshots, or links. Markdown preserves headings/lists/tables without HTML noise — right for a knowledge base. Note the JSON uses `scrapeOptions` in camelCase (Firecrawl's API convention), not `scrape_options`.
 
 **Boilerplate is normal:** Some scraped pages include cookie banners or footers. Claude Code synthesizes across many sources and ignores repeated boilerplate — collect sources, do not polish extractions.
 
-**Troubleshooting:** If `response.data.web` is empty or an exception is raised, add `print(response)` after the `search(...)` call to see what Firecrawl returned — usually an auth error, rate-limit message, or no-results-for-query response. If a specific result has `r.markdown == None`, that page failed to scrape (move on — next step handles this case).
+**Troubleshooting:** Check `response.status_code` before trusting the body — `200` means success, `401` means bad API key, `402` means out of credits, `429` means rate-limited. If it is anything other than `200`, print `response.json()` and read the error. If a specific result has `markdown == None`, that page failed to scrape (move on — next step handles this case).
 
 **Checkpoint:** Your script prints five Chipotle IR results with titles, URLs, and non-zero markdown lengths. Results vary from run to run — any five entries from `chipotle.com` or `ir.chipotle.com` domains means you succeeded.
 
@@ -170,7 +174,7 @@ You have five results with markdown already attached — search and scrape happe
 
 **What to do:**
 
-1. **Comment out or delete** your Step 01 print loop (everything after `results = response.data.web` below `# --- Step 01`). The loop below uses the same `results` variable.
+1. **Comment out or delete** your Step 01 print loop (everything after `results = data["data"]["web"]` below `# --- Step 01`). The loop below uses the same `results` variable.
 
 2. **Copy** this code below the Step 01 `search(...)` call:
 
@@ -185,9 +189,9 @@ You have five results with markdown already attached — search and scrape happe
        return s[:60] or "untitled"
 
    for i, r in enumerate(results, start=1):
-       title = r.title
-       url = r.url
-       md = r.markdown or ""
+       title = r["title"]
+       url = r["url"]
+       md = r.get("markdown") or ""
        print(f"[{i}/{len(results)}] {title}")
 
        if not md:
@@ -213,11 +217,11 @@ You have five results with markdown already attached — search and scrape happe
 
 **Why the index prefix in filenames (`01-`, `02-`):** Search results can share titles. A slug alone would cause filename collisions. The index prefix guarantees unique, ordered filenames.
 
-**Why no `time.sleep()` loop?** Firecrawl did the scrape once inside `search()` — the loop is not hitting the API again. If you later scrape additional URLs individually with `firecrawl.scrape(...)`, add `time.sleep(1)` between calls.
+**Why no `time.sleep()` loop?** The single `POST /v2/search` call above did the scraping — the loop below is just iterating over results already in memory. If you later make additional Firecrawl calls in a loop (e.g., `/v2/scrape` for specific URLs), add `time.sleep(1)` between them to be polite.
 
 **Why the source URL header:** Lets Claude Code cite where each fact came from when it reads `knowledge/raw/`. Preserve provenance.
 
-**Why `r.markdown or ""` and the `if not md: continue` guard:** If Firecrawl could not render a specific page during the search, `r.markdown` may be `None`. The `or ""` converts `None` to an empty string, and the guard skips writing an empty file.
+**Why `r.get("markdown") or ""` and the `if not md: continue` guard:** If Firecrawl could not render a specific page during the search, the `markdown` key may be missing or `None`. `.get("markdown")` returns `None` (not a `KeyError`) if the key is missing, `or ""` converts `None` to an empty string, and the guard skips writing an empty file.
 
 **Checkpoint:** You have up to five markdown files in `knowledge/raw/`, each with a title header, source URL, and scraped content. If a result's markdown was empty, the script skipped it. This is the full Python pipeline: **search + scrape → loop → save**.
 
@@ -286,7 +290,7 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
    - Loops over the returned results
    - Writes markdown files to `knowledge/raw/`
 
-   No Python. No SDK calls. No `os.getenv`. Claude Code is the executor.
+   No Python. No `requests.post`. No `os.getenv`. Claude Code is the executor.
 
 4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `earnings-NN-slug.md` files that Claude Code created, alongside the files your Python script already saved in Step 02. Your knowledge base just grew by five entries, and you only wrote one sentence of instruction.
 
