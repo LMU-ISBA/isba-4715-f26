@@ -16,7 +16,7 @@
 
 ## Reflection
 
-[One paragraph (4-6 sentences). Answer all of these:
+[One paragraph. Answer all of these:
 
 1. Why is this posting relevant to this class?
 2. Which specific coursework skills does it require?
