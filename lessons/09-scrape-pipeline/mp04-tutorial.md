@@ -380,7 +380,7 @@ Part 04 has 20 minutes. If you are running short on time, skip Step 06's brainst
 
 ### Step 06: Find Sources for Your Portfolio Project
 
-You are done with the `scrape-pipeline` demo repo. For the rest of class, you will work inside your portfolio project repo — applying the same pattern to your own domain.
+You are done with the `scrape-pipeline` demo repo. For the rest of class, you will work inside [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project) repo — applying the same pattern to your own domain.
 
 Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are aiming for at least one. The goal is to prove the pattern transfers — the rest is volume, which you can add async throughout the week.
 
