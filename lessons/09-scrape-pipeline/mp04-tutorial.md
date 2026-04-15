@@ -256,7 +256,7 @@ Install the Firecrawl MCP server so Claude Code can call Firecrawl directly, no 
    **Before running the next command, replace `YOUR_FIRECRAWL_KEY` in the URL with your actual `fc-...` key from `.env`.** Copy-paste, then edit the URL in your terminal before pressing Enter:
 
    ```bash
-   claude mcp add firecrawl --scope user --url https://mcp.firecrawl.dev/YOUR_FIRECRAWL_KEY/v2/mcp
+   claude mcp add --transport http --scope user firecrawl https://mcp.firecrawl.dev/YOUR_FIRECRAWL_KEY/v2/mcp
    ```
 
    You should see a confirmation message that the server was added.
