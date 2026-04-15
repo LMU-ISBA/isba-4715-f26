@@ -98,6 +98,8 @@ Your first job is to find things worth scraping. Instead of hand-picking URLs, y
 
 The demo target is **Chipotle Investor Relations (IR)** content. IR pages are the public-facing section of a company's website aimed at shareholders and analysts. Public companies are required to make them accessible, so no auth walls, no aggressive bot blocking, and abundant unstructured content: press releases, leadership bios, earnings highlights. That is exactly the shape your knowledge base needs, which makes it the right demo target.
 
+**What is an SDK?** SDK stands for **Software Development Kit** — a library that wraps an API in your language of choice. In MP03 you called the Weather API with raw `requests.get(...)` and a URL. Tavily and Firecrawl both publish Python SDKs (`tavily-python` and `firecrawl-py`, which you installed in Step 00) that do the same thing but hide the URL and HTTP details. Instead of building a request, you call a method on a client object and get back a Python data structure. Less boilerplate, easier to read, and the provider's docs are written around it — so when you paste sample code from Tavily or Firecrawl, it matches what you have here. Under the hood, the SDK is still making HTTP calls.
+
 **What to do:**
 
 1. In Cursor, create a new file: `scrape_pipeline.py`. Save it immediately (`Cmd+S` / `Ctrl+S`).
