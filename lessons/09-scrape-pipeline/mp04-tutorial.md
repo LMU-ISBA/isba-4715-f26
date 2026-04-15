@@ -73,7 +73,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Why `.env` instead of pasting keys into code?** MP03 hardcoded the WeatherAPI key into `weather.py` — fine for a demo, but any commit would leak the key to a public repo. From MP04 forward, keys live in `.env` (gitignored), loaded at runtime with `os.getenv()`. Same pattern as the async Spotify tutorial.
 
-**Why two services:** Tavily searches the web (**discover**) and Firecrawl turns URLs into markdown (**extract**). Together they are the two halves of scraping.
+**Why two services:** [Tavily](https://tavily.com) searches the web (**discover**) and [Firecrawl](https://firecrawl.dev) turns URLs into markdown (**extract**). Together they are the two halves of scraping.
 
 **Free tiers:** 500 Firecrawl scrapes/month, 1,000 Tavily searches/month — plenty for the semester.
 
