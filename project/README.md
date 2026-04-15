@@ -71,7 +71,7 @@ Find a real job posting for a role you'd actually apply to. Your project must ta
 
 **Role titles are examples, not requirements.** Junior analytics engineer, data analyst, data engineer, business intelligence analyst, reporting analyst: any of these work. What matters is that the posting lists skills from this course (SQL, dimensional modeling, dashboards, pipelines, etc.), not the exact job title.
 
-Save the posting as a PDF (`docs/job-posting.pdf`). In your proposal, you'll write a one-paragraph reflection explaining why this posting is relevant to this class and which coursework skills it requires. You'll also reference the posting in your final interview to connect what you built to what the role requires.
+Save the posting as a PDF (`docs/job-posting.pdf`). In your proposal, you'll write a one-paragraph reflection explaining why this posting is relevant to this class, which coursework skills it requires, two potential data sources (one API, one web scrape), and what other roles this project could transfer to. You'll also reference the posting in your final interview to connect what you built to what the role requires.
 
 ### Data Sources
 
@@ -92,7 +92,7 @@ The proposal is intentionally simple: a job posting, a one-paragraph reflection,
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 1 | Job posting PDF | 2 | Saved as `docs/job-posting.pdf`. Must mention SQL. |
-| 2 | Proposal markdown with reflection | 5 | 1-page proposal (`docs/proposal.md`) including a one-paragraph reflection on why this posting is relevant to this class and which coursework skills it requires. |
+| 2 | Proposal markdown with reflection | 5 | 1-page proposal (`docs/proposal.md`) including a one-paragraph reflection on why this posting is relevant to this class, which coursework skills it requires, two potential data sources (one API, one web scrape), and what other roles this project could transfer to. |
 | 3 | GitHub repo initialized | 3 | Public repo with a professional, descriptive name (see below). Proper `.gitignore`, directory structure, `CLAUDE.md` with project context. |
 
 ### Repo Naming

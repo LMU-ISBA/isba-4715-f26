@@ -21,6 +21,7 @@
 1. Why is this posting relevant to this class?
 2. Which specific coursework skills does it require?
 3. What would you build to prove you can do this job?
-4. What 2-3 other similar roles could this same project transfer to?
+4. What are two potential data sources you could use: one from an API and one from a web scrape?
+5. What 2-3 other similar roles could this same project transfer to?
 
 Write naturally. Don't list the questions; weave them into one paragraph.]
