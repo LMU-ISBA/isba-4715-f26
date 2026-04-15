@@ -2,11 +2,11 @@
 
 ## Overview
 
-How to collect unstructured web content into [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project)'s knowledge base using an AI-native scraping API. You will use **[Firecrawl](https://firecrawl.dev)**'s unified search endpoint to find relevant URLs and turn each into clean markdown in a single call, then see the same pipeline collapse into a Claude Code prompt using the Firecrawl MCP server.
+How to collect unstructured web content into [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project)'s knowledge base. You will use **[Firecrawl](https://firecrawl.dev)**'s search endpoint to find URLs and extract their markdown in a single call, then see the same pipeline collapse into a single Claude Code prompt using the Firecrawl MCP server.
 
 ## The Scenario
 
-Your portfolio project requires a web scrape or document source for Milestone 02 — at least 15 markdown files in `knowledge/raw/` from 3+ different sites, automated via GitHub Actions. Before you can schedule anything, you need to know how to do the collection once, by hand. Today you learn the pattern: **search, scrape, save** — then see how the Firecrawl MCP server lets Claude Code do the whole pipeline from a single prompt.
+Your portfolio project requires a web scrape or document source for Milestone 02: at least 15 markdown files in `knowledge/raw/` from 3+ different sites, automated via GitHub Actions. Before you can schedule anything, you need to know how to do the collection once, by hand. Today you learn the pattern (**search, scrape, save**), then see how the Firecrawl MCP server lets Claude Code do the whole pipeline from a single prompt.
 
 ## What You Are Building
 
@@ -36,18 +36,18 @@ graph LR
 ```
 
 **How it fits together:**
-- **Firecrawl:** An AI-native scraping API. One `search` call runs a web query and scrapes each result page as clean markdown. No separate search service needed.
+- **Firecrawl:** One `search` call runs a web query and scrapes each result page as markdown. No separate search service needed.
 - **Python Script:** Wraps the search call in a short script that writes each result to disk.
-- **`knowledge/raw/`:** The destination folder. These markdown files feed the knowledge-base path of your portfolio project.
+- **`knowledge/raw/`:** Where the scraped markdown files live. These feed the knowledge base in your portfolio project.
 
 ## Learning Objectives
 
 By the end of this lesson, you will be able to:
-- **New:** Explain the difference between a chat-tool web search (Claude Code's `WebSearch`) and an API-based search (Firecrawl) — namely, which is for humans vs. pipelines
+- **New:** Tell the difference between a chat-tool web search (Claude Code's `WebSearch`) and an API search (Firecrawl): one is for humans reading, one is for pipelines parsing
 - **New:** Use Firecrawl's unified `search` endpoint to discover URLs and extract markdown in one call
 - **New:** Write scraped content as markdown files into a `knowledge/raw/` folder structured for Claude Code ingestion
 - **New:** Install and invoke the Firecrawl MCP server inside Claude Code
-- **New:** Recognize what an SDK is and why it is preferred over raw HTTP calls
+- **New:** Know what an SDK is, and when to use one instead of raw `requests` calls
 - **Reinforce:** `.env` + `python-dotenv` secrets pattern (from the async Spotify tutorial)
 - **Reinforce:** Create-repo-from-scratch workflow (from MP02/MP03)
 
@@ -71,13 +71,15 @@ By the end of this lesson, you will be able to:
 
 ## Setup
 
-No pre-class setup required. Step 00 of the tutorial walks you through everything in class: creating the `chipotle-scrape-pipeline` repo, signing up for Firecrawl (use your LMU `.edu` email to qualify for the [Student Program](https://www.firecrawl.dev/student-program) and the `STUDENTEDU` coupon for 20,000 credits), setting up the venv, creating the `.env` file, and installing the Firecrawl MCP server.
+No pre-class setup required. Step 00 of the tutorial walks you through everything in class: creating the `chipotle-scrape-pipeline` repo, signing up for Firecrawl, setting up the venv, creating the `.env` file, and installing the Firecrawl MCP server.
+
+**For the student credit boost:** sign up at Firecrawl with your LMU `.edu` email (not GitHub OAuth) to qualify for the [Student Program](https://www.firecrawl.dev/student-program), then apply coupon `STUDENTEDU` in Settings → Billing for 20,000 credits.
 
 ## Key Concepts
 
 ### Web Scraping Without BeautifulSoup
 
-In earlier courses you might have heard of BeautifulSoup — a Python library for parsing HTML tag-by-tag. It still exists, but hosted scraping services (Firecrawl, Jina Reader) handle JS rendering, site structure changes, and content extraction far better than hand-written parsers. For the kind of content your knowledge base needs (press releases, bios, earnings, articles), a hosted API returns clean markdown in one call. If you want to learn BeautifulSoup for interview prep, go for it — but you do not need it for this project.
+In earlier courses you might have heard of BeautifulSoup, a Python library for parsing HTML tag-by-tag. It still works, but hosted services like Firecrawl and Jina Reader handle JS rendering and changing site structures without you touching any selectors. For press releases, bios, and earnings pages, a hosted API returns clean markdown in one call. Learn BeautifulSoup for interview prep if you want; you do not need it for this project.
 
 ### Firecrawl search vs. Claude Code's WebSearch
 
@@ -86,7 +88,7 @@ Both can find web content, but they return different shapes:
 - **Firecrawl's `search`** returns structured data (URLs, titles, descriptions, pre-scraped markdown) with a fixed schema every call. Your Python script loops over `response.data.web`.
 - **Claude Code `WebSearch`** is a built-in tool that returns prose for Claude Code to read mid-conversation. The synthesis is fresh each call.
 
-Both can run in automation — Claude Code has a `-p` flag and an official GitHub Actions integration. The real distinction is the output shape: a schema you can parse, versus prose the agent consumes. Pick the tool whose output matches the reader.
+Both can run in automation: Claude Code has a `-p` flag and an official GitHub Actions integration. The real distinction is output shape — a schema you can parse, versus prose the agent consumes. Pick based on who reads the output.
 
 ### Two Ways to Drive the Pipeline
 
