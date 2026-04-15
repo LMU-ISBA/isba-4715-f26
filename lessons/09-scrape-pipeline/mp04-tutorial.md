@@ -137,7 +137,7 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
    response = requests.post(api_url, headers=headers, json=payload)
 
-   print(response.status_code)
+   print(response)
    print(response.text)
    ```
 
@@ -158,9 +158,9 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
      If you skip the activate step, you will hit `ModuleNotFoundError: No module named 'dotenv'` because the system Python cannot see the venv's packages.
 
-   You should see a status code of `200` followed by a wall of JSON — the raw search results with titles, URLs, and scraped markdown for each page. It is dense and hard to read, which is exactly why the next step parses it.
+   You should see `<Response [200]>` (the Response object's repr — the `200` inside means the call succeeded) followed by a wall of JSON — the raw search results with titles, URLs, and scraped markdown for each page. It is dense and hard to read, which is exactly why the next step parses it.
 
-6. **Replace** `print(response.status_code)` and `print(response.text)` with parsing logic that turns the JSON into usable data and prints a clean summary:
+6. **Replace** `print(response)` and `print(response.text)` with parsing logic that turns the JSON into usable data and prints a clean summary:
 
    ```python
    data = response.json()
