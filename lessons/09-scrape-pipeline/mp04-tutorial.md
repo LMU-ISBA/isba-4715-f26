@@ -118,7 +118,7 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
    `load_dotenv()` reads `.env` into the environment so `os.getenv("KEY")` can retrieve values. Your key never appears in the source.
 
-4. **Copy** this code below the client setup:
+4. **Copy** this code below the client setup. It builds the request, sends it, and prints the raw response so you can see exactly what Firecrawl sent back:
 
    ```python
    # --- Step 01: Search + scrape with Firecrawl ---
@@ -137,14 +137,8 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
    response = requests.post(api_url, headers=headers, json=payload)
 
-   data = response.json()
-   results = data["data"]["web"]
-   print(f"Firecrawl returned {len(results)} results")
-
-   for r in results:
-       print(f"  - {r['title']}")
-       print(f"    {r['url']}")
-       print(f"    markdown length: {len(r.get('markdown') or '')} chars")
+   print(response.status_code)
+   print(response.text)
    ```
 
    Each line has a specific job, same shape as MP03's Weather API call:
@@ -164,7 +158,26 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
      If you skip the activate step, you will hit `ModuleNotFoundError: No module named 'dotenv'` because the system Python cannot see the venv's packages.
 
-   You should see five results, each with a title, a URL from `chipotle.com` or `ir.chipotle.com`, and a non-zero markdown length. The search found the pages and scraped them in a single call.
+   You should see a status code of `200` followed by a wall of JSON — the raw search results with titles, URLs, and scraped markdown for each page. It is dense and hard to read, which is exactly why the next step parses it.
+
+6. **Replace** `print(response.status_code)` and `print(response.text)` with parsing logic that turns the JSON into usable data and prints a clean summary:
+
+   ```python
+   data = response.json()
+   results = data["data"]["web"]
+   print(f"Firecrawl returned {len(results)} results")
+
+   for r in results:
+       print(f"  - {r['title']}")
+       print(f"    {r['url']}")
+       print(f"    markdown length: {len(r.get('markdown') or '')} chars")
+   ```
+
+   - `response.json()` — converts the JSON string from the previous step into a Python dictionary.
+   - `data["data"]["web"]` — drills into the nested structure to get the list of search results. The outer `data` key holds the payload; `web` holds the list you iterate.
+   - Each `r` in the loop is a dict with keys like `title`, `url`, `description`, and `markdown`.
+
+7. **Save** and run the script again. You should now see five results, each with a title, a URL from `chipotle.com` or `ir.chipotle.com`, and a non-zero markdown length. The search found the pages and scraped them in a single call.
 
 **Why `limit=5`:** Keeps the demo fast and your credit budget low. In your project you might ask for 20 or 50.
 
