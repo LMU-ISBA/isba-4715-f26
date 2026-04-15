@@ -82,6 +82,8 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 10. Verify `.env` is listed in your `.gitignore` — do this **before your first commit**. Open `.gitignore` and search for `.env`. The Python template already includes it. If it does not, add `.env` on its own line.
 
+**Why `.env` instead of pasting keys into your code?** In MP03 you pasted the WeatherAPI key directly into `weather.py`. That was fine for a quick demo, but it means the key ends up in your git history the moment you commit — and if your repo is public (which yours is), anyone can read it and use your quota. From MP04 forward, keys live in `.env`, `.env` is gitignored, and your Python code reads them with `os.getenv()` at runtime. Your scripts become safe to publish; your keys stay on your machine. This is the pattern every professional Python project uses, and the one the async Spotify tutorial walked you through.
+
 **Why two services:** Tavily searches the web and returns structured URLs. Firecrawl takes a URL and returns clean markdown. Together they cover the two halves of web scraping: **discover** and **extract**. You will use both in your pipeline, and both in the MCP demo later.
 
 **Free tier limits:** Firecrawl gives you 500 scrapes per month. Tavily gives you 1,000 searches per month. Both are far more than you need for this lesson and the rest of the semester.
@@ -126,7 +128,7 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
    tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
    ```
 
-   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment, where `os.getenv("KEY")` can retrieve it. This is safer than hardcoding keys in your script (which you did in MP03's `weather.py`) because anything not in the script itself cannot leak when you commit the code. If you worked through the async Spotify tutorial, you saw this pattern there first. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
+   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment. `os.getenv("TAVILY_API_KEY")` then retrieves the value you stored. This is the `.env` pattern Step 00 introduced — your key never appears in the source code, so committing `scrape_pipeline.py` to GitHub is safe. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
 
 4. **Copy** this code below the client setup:
 
