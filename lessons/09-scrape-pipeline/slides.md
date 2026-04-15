@@ -379,6 +379,47 @@ These feed your **knowledge base** — the unstructured side of your portfolio p
 
 ---
 
+<!-- _class: accent -->
+
+# You are building a **RAG system**
+
+**R**etrieval-**A**ugmented **G**eneration — the standard pattern for AI systems that answer questions using your own content rather than just what a model memorized during training.
+
+Every knowledge-base chatbot, internal-docs search, and "chat with your data" product you have seen is RAG.
+
+---
+
+<!-- _class: dark -->
+
+# How we got here
+
+<div class="flow">
+  <div class="flow-box">📚<small>Search engines<br/>(Google, 1998)</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">🤖<small>LLMs alone<br/>(ChatGPT, 2022)<br/>hallucinates facts</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">📄+🤖<small>RAG<br/>(2023–now)<br/>LLM cites sources</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">🔌<small>Agentic RAG<br/>(today)<br/>agent picks sources</small></div>
+</div>
+
+LLMs on their own confabulate. RAG grounds answers in documents you supply. Your project is the agentic flavor — Claude Code chooses which files in `knowledge/raw/` to read for each question.
+
+---
+
+# Your MP04 pipeline, in RAG terms
+
+<div class="icon-grid">
+  <div class="icon-item"><div class="icon-circle">🔍</div><div><strong>Retrieval</strong> — Firecrawl searches the web and pulls back markdown</div></div>
+  <div class="icon-item"><div class="icon-circle">📁</div><div><strong>Document store</strong> — <code>knowledge/raw/</code> holds the scraped markdown</div></div>
+  <div class="icon-item"><div class="icon-circle">📝</div><div><strong>Indexed notes</strong> — <code>knowledge/wiki/</code> (you build this in Milestone 02)</div></div>
+  <div class="icon-item"><div class="icon-circle">🤖</div><div><strong>Generation</strong> — Claude Code reads the notes and answers grounded in them</div></div>
+</div>
+
+No vector database, no embeddings — Claude Code uses grep, file reads, and its own reasoning. Simple RAG beats complex RAG until you have a reason otherwise.
+
+---
+
 # One API, Search + Extract
 
 <div class="flow">
