@@ -328,7 +328,62 @@ You just built a working Python pipeline. Now you will see what happens when Cla
 
 **Checkpoint:** `/mcp` inside Claude Code shows both `firecrawl` and `tavily-remote-mcp` as connected. If either fails, exit Claude Code, check the install command you ran, and re-run it.
 
-<!-- Step 05 fills in here -->
+### Step 05: Replicate the Pipeline via One MCP Prompt
+
+The Python pipeline you wrote in Steps 01-03 is about 35 lines of code. Now you will see Claude Code do the same work from a single natural-language prompt, using the Firecrawl and Tavily MCP tools you installed in Step 04.
+
+**What to do:**
+
+1. Make sure you are in the `scrape-pipeline` repo directory with Claude Code running. If you left Claude Code earlier for the MCP install, start it again:
+
+   ```bash
+   claude
+   ```
+
+2. Paste this prompt into Claude Code exactly as written:
+
+   ```
+   Use the tavily-remote-mcp search tool to find 5 URLs about Chipotle's
+   recent earnings announcements. Then use the Firecrawl MCP scrape tool
+   to fetch each URL as markdown and save each to knowledge/raw/ with
+   filenames like earnings-NN-slug.md (zero-padded index, title-based
+   slug). Include the source URL at the top of each file.
+   ```
+
+   The first time Claude Code calls the Tavily tool, your browser will open for OAuth authorization (the pop-up Step 04 warned you about). Click through to approve.
+
+3. Watch what Claude Code does:
+   - It calls the Tavily MCP tool to search for URLs
+   - It loops over the results
+   - It calls the Firecrawl MCP tool for each URL
+   - It writes markdown files to `knowledge/raw/`
+
+   No Python. No `requests.post`. No `os.getenv`. Claude Code is the executor.
+
+4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `earnings-NN-slug.md` files that Claude Code created, alongside the files your Python script already saved in Step 03. Your knowledge base just grew by five entries, and you only wrote one sentence of instruction.
+
+**Why the filename format in the prompt:** The prompt specifies `earnings-NN-slug.md` rather than the `NN-slug.md` pattern your Python script used. This does two things: it keeps the MCP-created files separate from the Python-created files so you can tell which approach produced which, and it gives Claude Code enough structure that it does not invent its own naming. A vague prompt ("save them somewhere") produces unpredictable output; a precise prompt produces exactly what you want.
+
+**Why this matters for your project:** Your portfolio project's Milestone 02 requires at least 15 sources in `knowledge/raw/` from 3+ different sites. You have two ways to get there: write a Python script (like Step 03) that runs on a schedule via GitHub Actions, or run MCP prompts like this one during development to add sources as you find them. Both are valid. Most projects use both.
+
+**When to use Python vs MCP:**
+
+| Situation | Use | Why |
+|---|---|---|
+| Scheduled, automated collection on GitHub Actions | Python | GitHub Actions runs scripts, not interactive Claude Code sessions |
+| One-off exploratory collection during development | MCP | One prompt beats 35 lines of code |
+| Adding a few more sources to your knowledge base | MCP | Fast, no code to maintain |
+| Reproducible collection that needs to run the same way every day | Python | Deterministic, version-controlled, testable |
+
+The Python pipeline is your production workflow. The MCP prompt is your exploration workflow. Milestone 02 needs the production workflow wired up for at least one scheduled source; the MCP prompt is how you expand coverage afterward.
+
+**If something goes wrong:**
+
+- **The Tavily tool is not listed as available:** Check `/mcp` inside Claude Code. If `tavily-remote-mcp` is not `✔ connected`, revisit Step 04's install command. You may also need to restart Claude Code (`exit`, then `claude` again).
+- **Claude Code writes the files to the wrong place:** Claude Code interprets paths relative to the current directory. Confirm you ran `claude` from inside your `scrape-pipeline` repo. If the files landed elsewhere, tell Claude Code: "Move those files to knowledge/raw/ in this repo and try again."
+- **The OAuth browser window did not open:** Some browsers block pop-ups from terminal-launched processes. Watch the Claude Code output for a URL — copy it into your browser manually.
+
+**Checkpoint:** You see 3–5 new `earnings-NN-slug.md` files in `knowledge/raw/` that Claude Code created via the MCP tools, without you writing any Python.
 
 ---
 
