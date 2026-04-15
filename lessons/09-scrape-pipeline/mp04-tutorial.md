@@ -63,24 +63,30 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
    the virtual environment.
    ```
 
+   The install takes 30-60 seconds. **While Claude Code runs the install, move ahead to steps 7-8 and sign up for the two services in your browser.** You will come back to the terminal once the install finishes.
+
+   Claude Code runs commands in its own shell, so it can use the venv for running your scripts. If you ever need to run Python directly in your own terminal (outside Claude Code), activate the venv first:
+   - **Mac:** `source venv/bin/activate`
+   - **Windows:** `venv\Scripts\activate`
+
 7. **Sign up for Firecrawl.** Go to [firecrawl.dev](https://firecrawl.dev) and sign in with GitHub. From the dashboard, open **API Keys** and copy the default key (it starts with `fc-`).
 
 8. **Sign up for Tavily.** Go to [tavily.com](https://tavily.com) and sign in with GitHub. From the dashboard, copy your API key (it starts with `tvly-`).
 
-9. Create a `.env` file in your project root. **Type** the variable names (not the values — paste those):
+9. Create a `.env` file in your project root. Paste your two keys, replacing the placeholders on the right side of each `=`:
 
    ```
-   FIRECRAWL_API_KEY=fc-...
-   TAVILY_API_KEY=tvly-...
+   FIRECRAWL_API_KEY=fc-your_firecrawl_key_here
+   TAVILY_API_KEY=tvly-your_tavily_key_here
    ```
 
-10. Verify `.env` is listed in your `.gitignore`. Open `.gitignore` and search for `.env`. The Python template already includes it. If it does not, add `.env` on its own line.
+10. Verify `.env` is listed in your `.gitignore` — do this **before your first commit**. Open `.gitignore` and search for `.env`. The Python template already includes it. If it does not, add `.env` on its own line.
 
 **Why two services:** Tavily searches the web and returns structured URLs. Firecrawl takes a URL and returns clean markdown. Together they cover the two halves of web scraping: **discover** and **extract**. You will use both in your pipeline, and both in the MCP demo later.
 
 **Free tier limits:** Firecrawl gives you 500 scrapes per month. Tavily gives you 1,000 searches per month. Both are far more than you need for this lesson and the rest of the semester.
 
-**Checkpoint:** Your `scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, `tavily-python`, and `firecrawl-py` installed, and your `.env` file contains both API keys.
+**Checkpoint:** Your `scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, `tavily-python`, and `firecrawl-py` installed, your `.env` file contains both API keys, and `.env` is listed in your `.gitignore`.
 
 ---
 
