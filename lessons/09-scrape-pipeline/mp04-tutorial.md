@@ -202,12 +202,12 @@ You wrote the API call by hand in Step 01 so you understand what is happening. F
 1. **Start a brainstorming session.** Paste this into Claude Code:
 
    ```
-   Use the superpowers:brainstorming skill. I want to extend
-   scrape_pipeline.py so it saves each Firecrawl search result as
-   a markdown file in knowledge/raw/. Help me decide how.
+   I want to extend scrape_pipeline.py so it saves each Firecrawl
+   search result as a markdown file in knowledge/raw/. Help me
+   decide how.
    ```
 
-   This deliberately gives Claude Code almost nothing to go on. If the `superpowers:brainstorming` skill is installed, it should refuse to start writing code and instead ask you clarifying questions one at a time — things like: *How should filenames be named? What goes at the top of each file? What happens if a result has no markdown?* Answer each question as it comes.
+   This deliberately gives Claude Code almost nothing to go on. If the `superpowers:brainstorming` skill is installed, Claude Code should recognize the open-ended phrasing, refuse to start writing code, and ask clarifying questions one at a time — things like: *How should filenames be named? What goes at the top of each file? What happens if a result has no markdown?* Answer each question as it comes.
 
    If you do not have Superpowers installed, this step still works — Claude Code will just ask fewer questions up front. Either way, the goal is the same: talk through the design, then let Claude Code implement it.
 
