@@ -209,7 +209,68 @@ Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no Beauti
 
 **Checkpoint:** Your script prints a page title, a multi-thousand-character markdown length, and a preview of the scraped content. If the title shows `None`, that is not a failure — some pages do not expose a title in their metadata. The markdown length being non-zero is the real success signal.
 
-<!-- Step 03 fills in here -->
+### Step 03: Loop and Save to `knowledge/raw/`
+
+You have one URL scraped. Your knowledge base needs many. The pattern is: loop over Tavily's results, scrape each with Firecrawl, save each as a markdown file. This is the same shape as MP03's `request → parse → loop → save`, adapted for scraping.
+
+**What to do:**
+
+1. **Comment out or delete** the Step 02 preview prints — you are replacing them with a loop. The `firecrawl` client from Step 01 stays; you will reuse it inside the loop.
+
+2. **Copy** this code below your Step 02 code (or in place of it):
+
+   ```python
+   # --- Step 03: Loop and save to knowledge/raw/ ---
+
+   out_dir = Path("knowledge/raw")
+   out_dir.mkdir(parents=True, exist_ok=True)
+
+   def slugify(title: str) -> str:
+       s = re.sub(r"[^a-zA-Z0-9]+", "-", title.lower()).strip("-")
+       return s[:60] or "untitled"
+
+   for i, result in enumerate(results, start=1):
+       url = result["url"]
+       title = result["title"]
+       print(f"[{i}/{len(results)}] {title}")
+
+       doc = firecrawl.scrape(url, formats=["markdown"])
+       md = doc.markdown or ""
+
+       if not md:
+           print("  skipped (empty markdown)")
+           continue
+
+       fname = f"{i:02d}-{slugify(title)}.md"
+       out_path = out_dir / fname
+       header = f"# {title}\n\nSource: {url}\n\n---\n\n"
+       out_path.write_text(header + md)
+       print(f"  saved: {out_path} ({len(md)} chars)")
+
+       time.sleep(1)
+
+   print("\nDone. Files in knowledge/raw/:")
+   for f in sorted(out_dir.iterdir()):
+       print(f"  {f.name}")
+   ```
+
+3. **Save** and run:
+
+   ```bash
+   python scrape_pipeline.py
+   ```
+
+   You should see five files being written. Open `knowledge/raw/` in Cursor's file explorer and inspect one or two — they are real press release and IR page content, formatted as markdown.
+
+**Why the index prefix in filenames (`01-`, `02-`):** Tavily can return multiple URLs with the same title — when I tested this query, three of the five results all had the title "News Releases". A slug alone would cause filename collisions and overwrite files you already saved. The index prefix guarantees unique, ordered filenames. Your knowledge base cares about coverage, not file naming, but naming that sorts cleanly is a nice-to-have.
+
+**Why the 1-second sleep:** Rate limit etiquette. Firecrawl's free tier is generous, but hammering any API with zero delay is rude and gets your key banned eventually. Same pattern you used in MP03.
+
+**Why the header with source URL:** When Claude Code reads `knowledge/raw/` for your knowledge base, the source URL lets it cite where each fact came from. Always preserve provenance — it is the difference between a knowledge base you can trust and one you cannot.
+
+**Why `doc.markdown or ""`:** If Firecrawl cannot render the page, `doc.markdown` may be `None` or empty. The `or ""` gives a safe default, and the `if not md: continue` line skips files that would be empty.
+
+**Checkpoint:** You have five markdown files in `knowledge/raw/`, each with a title header, source URL, and scraped content. This is the full Python pipeline: **search → extract → loop → save**.
 
 ---
 
