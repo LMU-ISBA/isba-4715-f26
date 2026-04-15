@@ -1,6 +1,6 @@
 # Mini-Project 04: Scrape Pipeline Tutorial
 
-This tutorial covers the in-class session for Mini-Project 04. The class opens with a 20-minute concepts block (Part 01 in the slide deck, not in this tutorial) — then the rest of class is hands-on using the four parts below. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
+This is the written companion to Lesson 09. The class opens with a 20-minute concepts block (see the slides, not this file) — the rest is hands-on. Use this if you fall behind, or to work through it on your own.
 
 ## Table of Contents
 
@@ -35,58 +35,47 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 2. On your new repository's GitHub page, click the green **Code** button, make sure **HTTPS** is selected, and copy the URL.
 
-3. Clone the repo into Cursor. Open a new Cursor window and click **Clone repo** on the welcome screen. Paste the URL you copied.
+3. Clone the repo into Cursor: new window → **Clone repo** → paste the URL → save under your `isba-4715` folder.
 
-   When Cursor asks where to save it, navigate to your `isba-4715` folder. Open the cloned folder when prompted.
-
-   Your folder structure should now look like:
    ```
    ~/isba-4715/
    ├── campus-bites-pipeline/     <-- MP01
    ├── basket-craft-pipeline/     <-- MP02
    ├── weather-api-pipeline/      <-- MP03
-   └── scrape-pipeline/           <-- MP04 (this project)
+   └── scrape-pipeline/           <-- MP04
    ```
 
-4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**).
-
-5. Start Claude Code:
+4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**) and start Claude Code:
    ```bash
    claude
    ```
 
-6. Ask Claude Code to set up the environment:
+5. Ask Claude Code to set up the environment:
 
    ```
-   Set up a Python virtual environment for this project and install
-   requests, python-dotenv, tavily-python, and firecrawl-py. Activate
-   the virtual environment.
+   Set up a Python venv and install requests, python-dotenv, tavily-python, firecrawl-py. Activate it.
    ```
 
-   The install takes 30-60 seconds. **While Claude Code runs the install, move ahead to steps 7-8 and sign up for the two services in your browser.** You will come back to the terminal once the install finishes.
+   The install takes 30-60s. **While it runs, sign up in your browser (steps 6-7).** To run Python outside Claude Code later: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows).
 
-   Claude Code runs commands in its own shell, so it can use the venv for running your scripts. If you ever need to run Python directly in your own terminal (outside Claude Code), activate the venv first:
-   - **Mac:** `source venv/bin/activate`
-   - **Windows:** `venv\Scripts\activate`
+6. **Sign up for Firecrawl** at [firecrawl.dev](https://firecrawl.dev) (GitHub sign-in). Dashboard → **API Keys** → copy the `fc-...` key.
 
-7. **Sign up for Firecrawl.** Go to [firecrawl.dev](https://firecrawl.dev) and sign in with GitHub. From the dashboard, open **API Keys** and copy the default key (it starts with `fc-`).
+7. **Sign up for Tavily** at [tavily.com](https://tavily.com) (GitHub sign-in). Dashboard → copy the `tvly-...` key.
 
-8. **Sign up for Tavily.** Go to [tavily.com](https://tavily.com) and sign in with GitHub. From the dashboard, copy your API key (it starts with `tvly-`).
-
-9. Create a `.env` file in your project root. Paste your two keys, replacing the placeholders on the right side of each `=`:
+8. Create `.env` in your project root. Replace the placeholders with your actual keys:
 
    ```
    FIRECRAWL_API_KEY=fc-your_firecrawl_key_here
    TAVILY_API_KEY=tvly-your_tavily_key_here
    ```
 
-10. Verify `.env` is listed in your `.gitignore` — do this **before your first commit**. Open `.gitignore` and search for `.env`. The Python template already includes it. If it does not, add `.env` on its own line.
+9. Verify `.env` is in your `.gitignore` — **before your first commit**. The Python template already includes it; if not, add `.env` on its own line.
 
-**Why `.env` instead of pasting keys into your code?** In MP03 you typed the WeatherAPI key directly into `weather.py`. That was fine for a quick demo, but it means the key ends up in your git history the moment you commit — and if your repo is public (which yours is), anyone can read it and use your quota. From MP04 forward, keys live in `.env`, `.env` is gitignored, and your Python code reads them with `os.getenv()` at runtime. Your scripts become safe to publish; your keys stay on your machine. This is the pattern every professional Python project uses (if you completed the async Spotify tutorial, you saw it there too).
+**Why `.env` instead of pasting keys into code?** MP03 hardcoded the WeatherAPI key into `weather.py` — fine for a demo, but any commit would leak the key to a public repo. From MP04 forward, keys live in `.env` (gitignored), loaded at runtime with `os.getenv()`. Same pattern as the async Spotify tutorial.
 
-**Why two services:** Tavily searches the web and returns structured URLs. Firecrawl takes a URL and returns clean markdown. Together they cover the two halves of web scraping: **discover** and **extract**. You will use both in your pipeline, and both in the MCP demo later.
+**Why two services:** Tavily searches the web (**discover**) and Firecrawl turns URLs into markdown (**extract**). Together they are the two halves of scraping.
 
-**Free tier limits:** Firecrawl gives you 500 scrapes per month. Tavily gives you 1,000 searches per month. Both are far more than you need for this lesson and the rest of the semester.
+**Free tiers:** 500 Firecrawl scrapes/month, 1,000 Tavily searches/month — plenty for the semester.
 
 **Checkpoint:** Your `scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, `tavily-python`, and `firecrawl-py` installed, your `.env` file contains both API keys, and `.env` is listed in your `.gitignore`.
 
@@ -96,11 +85,11 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 ### Step 01: Search with Tavily
 
-Your first job is to find things worth scraping. Instead of hand-picking URLs, you will use Tavily — an AI-native search service that returns a ranked list of URLs plus short content previews for any query. You call it with the Python SDK you installed in Step 00.
+Find URLs worth scraping. You call Tavily (an AI-native search service) with its Python SDK and get back ranked URLs with content previews.
 
-The demo target is **Chipotle Investor Relations (IR)** content. IR pages are the public-facing section of a company's website aimed at shareholders and analysts. Public companies are required to make them accessible, so no auth walls, no aggressive bot blocking, and abundant unstructured content: press releases, leadership bios, earnings highlights. That makes them a reliable demo target for a knowledge base.
+Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public, accessible by design, and full of press releases, bios, and earnings content — a reliable knowledge-base source.
 
-**What is an SDK?** SDK stands for **Software Development Kit** — a library that wraps an API in your language of choice. In MP03 you called the Weather API with raw `requests.get(...)` and a URL. Tavily and Firecrawl both publish Python SDKs (`tavily-python` and `firecrawl-py`, which you installed in Step 00) that do the same thing but hide the URL and HTTP details. Instead of building a request, you call a method on a client object and get back a Python data structure. Less boilerplate, easier to read, and the provider's docs are written around it — so when you paste sample code from Tavily or Firecrawl, it matches what you have here. Under the hood, the SDK is still making HTTP calls.
+**What is an SDK?** A Software Development Kit wraps an API in your language. In MP03 you wrote `requests.get(url)` with a URL string. Tavily's `tavily-python` and Firecrawl's `firecrawl-py` hide the URL and HTTP details behind a client object you call methods on. Under the hood it is still an HTTP call — the SDK just handles the plumbing.
 
 **What to do:**
 
@@ -118,7 +107,7 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
    from firecrawl import Firecrawl
    ```
 
-   You do not use all of these yet — `re`, `time`, and `Path` show up in Step 03, and `Firecrawl` shows up in Step 02. Importing them all now keeps the file from growing messier as you add each piece.
+   You do not use them all yet (`re`, `time`, `Path` appear in Step 03; `Firecrawl` in Step 02). Importing upfront keeps the file tidy.
 
 **Heads-up about the Firecrawl class name:** The current SDK import is `from firecrawl import Firecrawl`. Older tutorials and Stack Overflow answers may show `from firecrawl import FirecrawlApp` — that was the previous class name. If you see `FirecrawlApp` anywhere, replace it with `Firecrawl`.
 
@@ -131,7 +120,7 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
    firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
    ```
 
-   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment. `os.getenv("TAVILY_API_KEY")` then retrieves the value you stored. This is the `.env` pattern Step 00 introduced — your key never appears in the source code, so committing `scrape_pipeline.py` to GitHub is safe. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand. You create the `firecrawl` client now as well, even though Step 01 only uses Tavily — keeping all client setup in one place makes the file easier to read as it grows.
+   `load_dotenv()` reads `.env` into the environment so `os.getenv("KEY")` can retrieve values. Your keys never appear in the source. Both clients are created together (Firecrawl is used in Step 02) to keep setup in one place.
 
 4. **Copy** this code below the client setup:
 
@@ -163,15 +152,15 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
 
 **What the response looks like:** `response` is a dictionary. The interesting part is `response["results"]`, a list of dictionaries, each with `url`, `title`, `content`, `score`, and `raw_content`. If you want to see the full shape, add `print(response)` or `import json; print(json.dumps(response, indent=2))` to inspect it.
 
-**Heads-up about the docs:** Tavily's official docs ([docs.tavily.com](https://docs.tavily.com/documentation/quickstart)) show the same SDK pattern. If you paste their sample code into Claude Code, it will match what you have here. If you look at an older tutorial that uses `requests.post` against `https://api.tavily.com/search`, that still works — both approaches send the same HTTP request to Tavily's servers — but the SDK is the current recommended approach.
+**Heads-up about the docs:** Tavily's docs ([docs.tavily.com](https://docs.tavily.com/documentation/quickstart)) show the same SDK pattern you have here. Older tutorials using `requests.post` against `api.tavily.com/search` make the same HTTP call under the hood — use the SDK.
 
-**If something goes wrong:** The SDK does not expose an HTTP status code the way `requests.get` did in MP03. If you see a `KeyError` on `response["results"]` or any other exception, add `print(response)` right after the `search(...)` call and rerun. That usually reveals an auth error, a rate-limit message, or a typo in the query.
+**Troubleshooting:** If `response["results"]` raises `KeyError`, add `print(response)` after the `search(...)` call and rerun — you will see an auth error, rate-limit message, or query typo.
 
 **Checkpoint:** Your script prints five Chipotle IR URLs with titles. Tavily results vary from run to run — any five URLs from `chipotle.com` or `ir.chipotle.com` domains means you succeeded.
 
 ### Step 02: Scrape One URL with Firecrawl
 
-Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no BeautifulSoup selectors, no DOM inspection, no HTML parsing. You send the URL, you get back markdown ready for your knowledge base.
+Now turn one of those URLs into markdown. Firecrawl handles the HTML parsing — you send a URL, you get back clean markdown.
 
 **What to do:**
 
@@ -199,23 +188,23 @@ Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no Beauti
 
    You should see a title, a markdown length in the thousands of characters, and a preview starting with the page's actual content (something like `# News Releases` or a press release headline).
 
-**Tavily returned dicts, Firecrawl returns an object:** In Step 01 you accessed `response["results"]` — bracket notation, because Tavily's SDK returns a plain Python `dict`. In Step 02 you access `doc.markdown` — dot notation, because Firecrawl's SDK returns a `Document` object. Same idea (getting fields out of a response), different shapes, different access patterns. One quirk: `doc.metadata` is itself a dict, so you use `doc.metadata.get("title")` — dot notation to get to `metadata`, then bracket/`.get()` inside it.
+**Two SDK shapes:** Tavily returns a `dict` (bracket access: `response["results"]`). Firecrawl returns a `Document` object (dot access: `doc.markdown`). One quirk: `doc.metadata` is itself a dict, so `doc.metadata.get("title")` mixes both patterns.
 
-**Why `formats=["markdown"]`:** Firecrawl can return HTML, markdown, summaries, screenshots, or links. Markdown is the right choice for a knowledge base because it preserves structure (headings, lists, tables) without the noise of raw HTML. The `formats` parameter takes a list, so you can request multiple formats in one call if you need them.
+**Why `formats=["markdown"]`:** Firecrawl can return HTML, markdown, summaries, screenshots, or links. Markdown preserves headings/lists/tables without HTML noise — right for a knowledge base. The `formats` parameter is a list, so you can request multiple formats in one call.
 
-**Heads-up about extracted content:** The first few hundred characters are usually the main page content — Firecrawl is good at finding the body and skipping navigation. But some pages include cookie banners or footer text that leaks into the markdown. That is normal. Your knowledge base is read by Claude Code, which synthesizes across many sources and ignores boilerplate naturally. Focus on collecting sources, not on perfect extraction.
+**Boilerplate is normal:** Some scraped pages include cookie banners or footers. Claude Code synthesizes across many sources and ignores repeated boilerplate — collect sources, do not polish extractions.
 
-**If something goes wrong:** If the scrape fails with an exception or returns an empty `doc.markdown`, try `print(doc)` right after the `scrape()` call to see the full Document. If you see an `AttributeError: 'NoneType' object has no attribute 'markdown'`, the scrape returned `None` for that URL — pick a different URL from your Step 01 results and try again. You can also check [Firecrawl's status page](https://status.firecrawl.dev/) if calls consistently fail — occasionally the service has a degraded window.
+**Troubleshooting:** Empty `doc.markdown` or an exception? Add `print(doc)` after `scrape()`. An `AttributeError: 'NoneType'` means the scrape returned `None` — try a different URL. Persistent failures: check [Firecrawl's status page](https://status.firecrawl.dev/).
 
 **Checkpoint:** Your script prints a page title, a multi-thousand-character markdown length, and a preview of the scraped content. If the title shows `None`, that is not a failure — some pages do not expose a title in their metadata. The markdown length being non-zero is the real success signal.
 
 ### Step 03: Loop and Save to `knowledge/raw/`
 
-You have one URL scraped. Your knowledge base needs many. The pattern is: loop over Tavily's results, scrape each with Firecrawl, save each as a markdown file. This is the same shape as MP03's `request → parse → loop → save`, adapted for scraping.
+You have one URL scraped. The loop below does all five. Same shape as MP03's `request → parse → loop → save`.
 
 **What to do:**
 
-1. **Comment out or delete** all of your Step 02 code (everything below the `# --- Step 02 ---` comment, including `sample_url`, `doc = firecrawl.scrape(...)`, and the print statements). The loop below supersedes all of it and will make those calls itself. The `firecrawl` client from Step 01 stays; you will reuse it inside the loop.
+1. **Comment out or delete** your Step 02 code (everything below `# --- Step 02 ---`, including `sample_url` and `doc = firecrawl.scrape(...)`). The loop supersedes it. Your `firecrawl` client from Step 01 stays.
 
 2. **Copy** this code below your Step 02 code (or in place of it):
 
@@ -266,9 +255,9 @@ You have one URL scraped. Your knowledge base needs many. The pattern is: loop o
 
 **Why the index prefix in filenames (`01-`, `02-`):** Tavily can return multiple URLs with the same title — when I tested this query, three of the five results all had the title "News Releases". A slug alone would cause filename collisions and overwrite files you already saved. The index prefix guarantees unique, ordered filenames. Your knowledge base cares about coverage, not file naming, but naming that sorts cleanly is a nice-to-have.
 
-**Why the 1-second sleep:** Rate limit etiquette. Firecrawl's free tier is generous, but hammering any API with zero delay is rude and gets your key banned eventually. Same pattern you used in MP03.
+**Why the 1-second sleep:** Rate-limit etiquette. Zero-delay API calls get your key banned.
 
-**Why the header with source URL:** When Claude Code reads `knowledge/raw/` for your knowledge base, the source URL lets it cite where each fact came from. Always preserve provenance — it is the difference between a knowledge base you can trust and one you cannot.
+**Why the source URL header:** Lets Claude Code cite where each fact came from when it reads `knowledge/raw/`. Preserve provenance.
 
 **Why `doc.markdown or ""` and the `if not md: continue` guard:** If Firecrawl cannot render the page, `doc.markdown` may be `None`. The `or ""` converts `None` to an empty string so the next line does not crash trying to check its length. The `if not md: continue` guard then skips the file write when the string is empty (Python treats both `None` and `""` as falsy), so you do not create a zero-byte file for a failed scrape.
 
@@ -280,7 +269,7 @@ You have one URL scraped. Your knowledge base needs many. The pattern is: loop o
 
 ### Step 04: Install Firecrawl MCP and Tavily MCP
 
-You just built a working Python pipeline. Now you will see what happens when Claude Code can call Firecrawl and Tavily directly, without you writing any Python at all. That is what MCP servers do: they extend Claude Code with tools it can use during a conversation.
+Install two MCP servers so Claude Code can call Tavily and Firecrawl directly, no Python needed.
 
 **What is MCP?** MCP stands for **Model Context Protocol** — a way to plug external tools into an AI agent. Anthropic published the spec; Tavily, Firecrawl, GitHub, and many others publish MCP servers that expose their services to Claude Code. When you install an MCP server, its tools show up alongside Claude Code's built-in tools, and you can invoke them in plain prompts. Think of MCPs as "apps for Claude Code."
 
@@ -320,9 +309,7 @@ You just built a working Python pipeline. Now you will see what happens when Cla
 
    You should see both `firecrawl` and `tavily-remote-mcp` listed as `✔ connected`. If either shows an error, check the command you used (typos in the URL or key are the most common cause).
 
-**Why `--scope user`?** MCP servers can be installed at project scope (stored in `.claude/settings.json` inside the repo) or user scope (stored in `~/.claude/` in your home directory). Firecrawl's install embeds your API key directly in the server URL. If you installed it at project scope, that URL — and your key — would end up in a config file inside your public GitHub repo. The `--scope user` flag writes the config to your home directory instead, so the key stays off GitHub entirely. This is the same principle as Step 00's `.env` rule: keys belong on your machine, not in your repo.
-
-**Why does Firecrawl use a URL-embedded key but Tavily uses OAuth?** They made different product decisions. Firecrawl's URL approach is simple: one string, paste it in, done. Tavily's OAuth adds a browser handshake but keeps the key out of any config file entirely. Both are valid; the install command handles each correctly as long as you use `--scope user`.
+**Why `--scope user`?** Firecrawl's MCP install embeds your key in the server URL. Project scope would write that URL (and key) into `.claude/settings.json` inside your public repo. User scope writes to `~/.claude/` instead — keys stay off GitHub. Same principle as Step 00's `.env`.
 
 **Heads-up:** The MCP install is a one-time thing per machine. You do not need to reinstall these MCPs for future projects — they will be available in any Cursor window where you run Claude Code.
 
@@ -330,7 +317,7 @@ You just built a working Python pipeline. Now you will see what happens when Cla
 
 ### Step 05: Replicate the Pipeline via One MCP Prompt
 
-The Python pipeline you wrote in Steps 01-03 is about 35 lines of code: imports, two client instantiations, a search call, a loop, a scrape call, filename logic, file writes, and rate-limit sleeps. In this step you will watch Claude Code collapse all of it into a single natural-language prompt, using the Firecrawl and Tavily MCP tools you installed in Step 04. Same result. Zero lines of code you had to write.
+The Python pipeline is ~35 lines. This step collapses it into one prompt via the MCPs you installed in Step 04. Same result, zero code.
 
 **What to do:**
 
@@ -364,9 +351,9 @@ The Python pipeline you wrote in Steps 01-03 is about 35 lines of code: imports,
 
 4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `earnings-NN-slug.md` files that Claude Code created, alongside the files your Python script already saved in Step 03. Your knowledge base just grew by five entries, and you only wrote one sentence of instruction.
 
-**Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own conventions. A vague prompt ("save them somewhere") produces unpredictable output; a precise prompt ("filenames like `earnings-NN-slug.md`") produces exactly what you asked for. A second benefit: the `earnings-` prefix keeps the MCP-created files separate from the `NN-slug.md` files your Python script saved in Step 03, so you can tell which approach produced which.
+**Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own. The `earnings-` prefix also keeps MCP-created files separate from the `NN-slug.md` files Step 03 saved.
 
-**Why this matters for your project:** Your portfolio project's Milestone 02 requires at least 15 sources in `knowledge/raw/` from 3+ different sites. A useful workflow: use MCP prompts during development to explore what sources are available for your domain, then formalize the most useful ones into a Python pipeline that GitHub Actions runs on a schedule. Milestone 02 grading expects the Python side to be automated; the MCP side is how you expand coverage between automated runs.
+**Why this matters for your project:** Milestone 02 needs ≥15 sources in `knowledge/raw/` from 3+ sites, automated via GitHub Actions. Use MCP to explore your domain, then formalize the best sources into a Python pipeline. MCP for exploration, Python for production.
 
 **When to use Python vs MCP:**
 
@@ -376,8 +363,6 @@ The Python pipeline you wrote in Steps 01-03 is about 35 lines of code: imports,
 | Exploring an unfamiliar domain before committing to a pipeline | MCP | One prompt beats 35 lines of code when you do not yet know what to collect |
 | Adding known sources you found manually | MCP | Fast, no code to maintain for a handful of URLs |
 | Reproducible collection that must run the same way every day | Python | Deterministic, version-controlled, testable |
-
-The Python pipeline is your production workflow. The MCP prompt is your exploration workflow. Milestone 02 needs the production workflow wired up for at least one scheduled source; the MCP prompt is how you expand coverage afterward.
 
 **If something goes wrong:**
 
@@ -458,7 +443,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
 
 2. Confirm at least one new `.md` file appears in your portfolio repo's `knowledge/raw/`. Open it and verify the content is relevant to your domain — not every scrape is useful, and this is the moment to catch sources that will not help your knowledge base.
 
-**Why it matters:** Your knowledge base is only as good as the sources you feed it. In Milestone 02, Claude Code reads `knowledge/raw/` to generate the wiki pages you are graded on. A knowledge base full of cookie banners and navigation markup produces bad wiki pages. A knowledge base full of real press releases, leadership bios, and earnings content produces wiki pages you can defend in your final interview.
+**Why source quality matters:** Milestone 02's wiki grade comes from what Claude Code synthesizes from `knowledge/raw/`. Cookie banners produce bad wikis; real press releases and earnings content produce wikis you can defend in your final interview.
 
 **Checkpoint:** Your portfolio project repo has one or more markdown files in `knowledge/raw/` scraped from a real source relevant to your job posting.
 
@@ -466,11 +451,9 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
 
 ### Step 08: Commit and Push
 
-Both repos need pushed.
-
 **What to do:**
 
-You have two Cursor windows open — one for `scrape-pipeline` and one for your portfolio repo. Run each step in its respective window.
+You have two Cursor windows open (one per repo). Run each step in its respective window.
 
 1. In the `scrape-pipeline` Claude Code session, first run `git status` yourself in the terminal and look at the staged-and-untracked file list. If you see `.env` listed anywhere, STOP — your gitignore is missing `.env` and you need to fix it before continuing.
 
