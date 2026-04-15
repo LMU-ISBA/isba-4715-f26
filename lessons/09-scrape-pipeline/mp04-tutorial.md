@@ -82,7 +82,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 10. Verify `.env` is listed in your `.gitignore` — do this **before your first commit**. Open `.gitignore` and search for `.env`. The Python template already includes it. If it does not, add `.env` on its own line.
 
-**Why `.env` instead of pasting keys into your code?** In MP03 you pasted the WeatherAPI key directly into `weather.py`. That was fine for a quick demo, but it means the key ends up in your git history the moment you commit — and if your repo is public (which yours is), anyone can read it and use your quota. From MP04 forward, keys live in `.env`, `.env` is gitignored, and your Python code reads them with `os.getenv()` at runtime. Your scripts become safe to publish; your keys stay on your machine. This is the pattern every professional Python project uses, and the one the async Spotify tutorial walked you through.
+**Why `.env` instead of pasting keys into your code?** In MP03 you typed the WeatherAPI key directly into `weather.py`. That was fine for a quick demo, but it means the key ends up in your git history the moment you commit — and if your repo is public (which yours is), anyone can read it and use your quota. From MP04 forward, keys live in `.env`, `.env` is gitignored, and your Python code reads them with `os.getenv()` at runtime. Your scripts become safe to publish; your keys stay on your machine. This is the pattern every professional Python project uses (if you completed the async Spotify tutorial, you saw it there too).
 
 **Why two services:** Tavily searches the web and returns structured URLs. Firecrawl takes a URL and returns clean markdown. Together they cover the two halves of web scraping: **discover** and **extract**. You will use both in your pipeline, and both in the MCP demo later.
 
@@ -120,15 +120,18 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
 
    You do not use all of these yet — `re`, `time`, and `Path` show up in Step 03, and `Firecrawl` shows up in Step 02. Importing them all now keeps the file from growing messier as you add each piece.
 
-3. **Type** this line by hand to load your keys and create the Tavily client:
+**Heads-up about the Firecrawl class name:** The current SDK import is `from firecrawl import Firecrawl`. Older tutorials and Stack Overflow answers may show `from firecrawl import FirecrawlApp` — that was the previous class name. If you see `FirecrawlApp` anywhere, replace it with `Firecrawl`.
+
+3. **Type** these lines by hand to load your keys and create both clients:
 
    ```python
    load_dotenv()
 
    tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+   firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
    ```
 
-   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment. `os.getenv("TAVILY_API_KEY")` then retrieves the value you stored. This is the `.env` pattern Step 00 introduced — your key never appears in the source code, so committing `scrape_pipeline.py` to GitHub is safe. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
+   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment. `os.getenv("TAVILY_API_KEY")` then retrieves the value you stored. This is the `.env` pattern Step 00 introduced — your key never appears in the source code, so committing `scrape_pipeline.py` to GitHub is safe. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand. You create the `firecrawl` client now as well, even though Step 01 only uses Tavily — keeping all client setup in one place makes the file easier to read as it grows.
 
 4. **Copy** this code below the client setup:
 
@@ -172,13 +175,7 @@ Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no Beauti
 
 **What to do:**
 
-1. You already imported `Firecrawl` in Step 01. Now create the client. **Type** this below your `tavily_client` line:
-
-   ```python
-   firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
-   ```
-
-2. Pick one URL from the Step 01 output (you will scrape all of them in Step 03). For now, just scrape the first result. **Copy** this code below your Step 01 loop:
+1. Pick one URL from the Step 01 output (you will scrape all of them in Step 03). For now, just scrape the first result. **Copy** this code below your Step 01 loop:
 
    ```python
    # --- Step 02: Scrape one URL with Firecrawl ---
@@ -194,7 +191,7 @@ Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no Beauti
    print(doc.markdown[:400])
    ```
 
-3. **Save** and run:
+2. **Save** and run:
 
    ```bash
    python scrape_pipeline.py
@@ -208,11 +205,9 @@ Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no Beauti
 
 **Heads-up about extracted content:** The first few hundred characters are usually the main page content — Firecrawl is good at finding the body and skipping navigation. But some pages include cookie banners or footer text that leaks into the markdown. That is normal. Your knowledge base is read by Claude Code, which synthesizes across many sources and ignores boilerplate naturally. Focus on collecting sources, not on perfect extraction.
 
-**Heads-up about the class name:** Firecrawl's current SDK uses the class `Firecrawl`. If you read an older tutorial or Stack Overflow answer that imports `FirecrawlApp`, that was the previous name. The import is now `from firecrawl import Firecrawl`.
+**If something goes wrong:** If the scrape fails with an exception or returns an empty `doc.markdown`, try `print(doc)` right after the `scrape()` call to see the full Document. If you see an `AttributeError: 'NoneType' object has no attribute 'markdown'`, the scrape returned `None` for that URL — pick a different URL from your Step 01 results and try again. You can also check [Firecrawl's status page](https://status.firecrawl.dev/) if calls consistently fail — occasionally the service has a degraded window.
 
-**If something goes wrong:** If the scrape fails with an exception or returns an empty `doc.markdown`, try `print(doc)` right after the `scrape()` call to see the full Document. You can also check [Firecrawl's status page](https://status.firecrawl.dev/) if calls consistently fail — occasionally the service has a degraded window.
-
-**Checkpoint:** Your script prints a page title, a multi-thousand-character markdown length, and a preview of the scraped content.
+**Checkpoint:** Your script prints a page title, a multi-thousand-character markdown length, and a preview of the scraped content. If the title shows `None`, that is not a failure — some pages do not expose a title in their metadata. The markdown length being non-zero is the real success signal.
 
 <!-- Step 03 fills in here -->
 
