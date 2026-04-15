@@ -90,6 +90,10 @@ Both can find web content, but they return different shapes:
 
 Both can run in automation: Claude Code has a `-p` flag and an official GitHub Actions integration. The real distinction is output shape — a schema you can parse, versus prose the agent consumes. Pick based on who reads the output.
 
+### Why raw `requests` instead of the Firecrawl SDK
+
+Firecrawl publishes a Python SDK (`firecrawl-py`). This lesson skips it and uses raw `requests` instead for two reasons: you already know `requests` from MP03, and HTTP endpoints tend to be more stable across versions than SDK import paths (we hit an SDK-version breakage while building this tutorial). If you prefer the SDK for your own project, `pip install firecrawl-py` and swap it in — the request body you build here is identical to what the SDK sends.
+
 ### Two Ways to Drive the Pipeline
 
 You will see the same collection happen two ways:

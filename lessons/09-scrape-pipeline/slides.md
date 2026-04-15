@@ -455,6 +455,15 @@ No vector database, no embeddings — Claude Code uses grep, file reads, and its
 
 ---
 
+# We could use the SDK. We are using `requests` instead.
+
+- Firecrawl publishes `firecrawl-py`
+- You already know `requests` from MP03
+- HTTP endpoints break less than SDK versions
+- Same body, different wrapper
+
+---
+
 # One Firecrawl call = URLs + markdown
 
 <div class="logo-row">
