@@ -265,7 +265,7 @@ style: |
 | | Part | What |
 |---|------|------|
 | 1 | **Scraping Concepts** | What it is, etiquette, the tools we'll use *(slides)* |
-| 2 | **Python Pipeline** | Tavily + Firecrawl, saving to `knowledge/raw/` *(live code)* |
+| 2 | **Python Pipeline** | Firecrawl search + scrape, saving to `knowledge/raw/` *(live code)* |
 | 3 | **MCP Upgrade** | Claude Code as the pipeline *(demo)* |
 | 4 | **Your Project** | Scrape at least one source into your repo |
 
@@ -378,54 +378,33 @@ These feed your **knowledge base** — the unstructured side of your portfolio p
 
 ---
 
-# The Two-Step Pattern
+# One API, Search + Extract
 
 <div class="flow">
-  <div class="flow-box"><img src="images/tavily.svg" alt="Tavily" />discover<small>find URLs</small></div>
+  <div class="flow-box">🔍 query<small>"Chipotle earnings"</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" />extract<small>URL → markdown</small></div>
+  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box">💾<small>save to disk</small></div>
+  <div class="flow-box">📄 URLs + markdown<small>5 results, each scraped</small></div>
 </div>
 
-**Discover:** find URLs worth scraping → **Tavily**
-**Extract:** turn each URL into clean markdown → **Firecrawl**
-
----
-
-<!-- _class: dark _paginate: false -->
-
-# Tavily — AI-Native Search API
-
-<div class="logo-row">
-  <img src="images/tavily.svg" alt="Tavily" />
-</div>
-
-You send: a **query**
-You get back: **JSON** with ranked URLs, titles, content previews
-
-```json
-{"results": [
-  {"url": "...", "title": "...", "content": "...", "score": 0.87},
-  ...
-]}
-```
+**Older tools split this into two calls** — one service for search, another for scraping. Firecrawl's `search` endpoint does both in one round-trip.
 
 ---
 
 <!-- _class: dark -->
 
-# Tavily vs. Claude Code's WebSearch
+# Firecrawl vs. Claude Code's WebSearch
 
 <div class="logo-row logo-row-small">
-  <img src="images/tavily.svg" alt="Tavily" />
+  <img src="images/firecrawl.png" alt="Firecrawl" />
   <span style="font-size: 1.2em; color: #7eb8ff;">vs.</span>
   <img src="images/google.png" alt="Claude Code WebSearch" />
 </div>
 
-| Tavily (API) | WebSearch (Claude Code tool) |
+| Firecrawl (API) | WebSearch (Claude Code tool) |
 |---|---|
-| Returns structured JSON | Returns prose for the agent to read |
+| Returns structured data (URLs, titles, markdown) | Returns prose for the agent to read |
 | Designed for programmatic pipelines | Built into Claude Code conversations |
 | Same response schema every call | Different synthesized text each call |
 | Full control: filters, domains, depth | Whatever the tool decides |
@@ -434,18 +413,18 @@ You get back: **JSON** with ranked URLs, titles, content previews
 
 ---
 
-# Firecrawl — URL → Clean Markdown
+# Firecrawl — Search + Scrape API
 
 <div class="logo-row">
   <img src="images/firecrawl.png" alt="Firecrawl" />
 </div>
 
 <div class="flow">
-  <div class="flow-box">🔗 URL<small>https://ir.chipotle.com/...</small></div>
+  <div class="flow-box">🔍 query<small>"Chipotle earnings"</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box">📄 Markdown<small>ready for your KB</small></div>
+  <div class="flow-box">📄 List of results<small>each with url + markdown</small></div>
 </div>
 
 No BeautifulSoup. No `select` or `find`. No DOM inspection.
@@ -480,8 +459,7 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 | Problem | Don't | Do |
 |---|---|---|
-| 🔍 Find relevant URLs | Write a crawler | **Tavily** |
-| 📄 Turn URL into text | Write a parser | **Firecrawl** |
+| 🔍 Find + scrape URLs | Write a crawler + parser | **Firecrawl** |
 | 🖱️ Click through a login | Write a bot | Playwright |
 
 ---
@@ -491,18 +469,14 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 # The Pipeline
 
 <div class="flow">
-  <div class="flow-box"><img src="images/tavily.svg" alt="Tavily" /><small>Tavily</small></div>
+  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl<br/>search</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box">🔗<small>URLs</small></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl</small></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-box">📄<small>markdown</small></div>
+  <div class="flow-box">📄<small>URLs +<br/>markdown</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box">📁<small>knowledge/raw/</small></div>
 </div>
 
-One tool finds the pages. Another tool extracts the content. Your script glues them together.
+One API does the finding and the extracting. Your script saves the output.
 
 ---
 
@@ -510,7 +484,7 @@ One tool finds the pages. Another tool extracts the content. Your script glues t
 
 # Now the Upgrade: MCP
 
-What if Claude Code could call Tavily and Firecrawl **directly**, without you writing Python?
+What if Claude Code could call Firecrawl **directly**, without you writing Python?
 
 ![bg right:35%](https://images.unsplash.com/photo-1518770660439-4636190af475?w=900)
 
@@ -525,7 +499,7 @@ What if Claude Code could call Tavily and Firecrawl **directly**, without you wr
   <div class="flow-arrow">→</div>
   <div class="flow-box">🤖 Claude Code<small>reads the prompt</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box">🔌 MCP tools<small>Tavily + Firecrawl</small></div>
+  <div class="flow-box">🔌 Firecrawl MCP<small>search + scrape</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box">📁<small>files written</small></div>
 </div>
@@ -543,8 +517,8 @@ What if Claude Code could call Tavily and Firecrawl **directly**, without you wr
 
 ### 🐍 Python (Part 02)
 
-- ~35 lines of SDK calls
-- Loops, file writes, sleeps
+- ~30 lines of SDK calls
+- Loops, file writes
 - Version-controlled
 - Runs in GitHub Actions
 
@@ -581,15 +555,14 @@ What if Claude Code could call Tavily and Firecrawl **directly**, without you wr
 
 <div class="logo-row">
   <img src="images/firecrawl.png" alt="Firecrawl" />
-  <img src="images/tavily.svg" alt="Tavily" />
 </div>
 
 | Service | URL | Free Tier |
 |---|---|---|
-| Firecrawl | [firecrawl.dev](https://firecrawl.dev) | 500 scrapes/month |
-| Tavily | [tavily.com](https://tavily.com) | 1,000 searches/month |
+| Firecrawl | [firecrawl.dev](https://firecrawl.dev) | 500 credits/month |
+| **Student Program** | [firecrawl.dev/student-program](https://www.firecrawl.dev/student-program) | **20,000 credits** with `.edu` email |
 
-Both: GitHub sign-in, no card. Under 2 minutes each.
+GitHub sign-in, no card. Apply to the student program after you sign up — it is approved in under a day.
 
 ---
 
