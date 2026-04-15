@@ -91,7 +91,7 @@ Find URLs worth scraping. You call Tavily (an AI-native search service) with its
 
 Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public, accessible by design, and full of press releases, bios, and earnings content — a reliable knowledge-base source.
 
-**What is an SDK?** A Software Development Kit wraps an API in your language. In MP03 you wrote `requests.get(url)` with a URL string. Tavily's `tavily-python` and Firecrawl's `firecrawl-py` hide the URL and HTTP details behind a client object you call methods on. Under the hood it is still an HTTP call — the SDK just handles the plumbing.
+**What is an SDK?** A Software Development Kit wraps an API in your language. In MP03 you wrote `requests.get(url)` with a URL string. Tavily's `tavily-python` and Firecrawl's `firecrawl-py` hide the URL and HTTP details behind a client object you call methods on. Under the hood it is still an HTTP call — the SDK just handles the plumbing. Not every API ships an SDK (WeatherAPI in MP03 did not) — when there is no SDK, you call the API with `requests` directly. When an SDK exists, use it; it is the vendor's own supported interface.
 
 **What to do:**
 
