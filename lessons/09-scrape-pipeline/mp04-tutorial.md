@@ -286,13 +286,15 @@ You just built a working Python pipeline. Now you will see what happens when Cla
 
 **What to do:**
 
-1. **Install the Firecrawl MCP server.** In your regular terminal (NOT inside Claude Code — exit Claude Code first if it is running), paste this command, replacing `YOUR_FIRECRAWL_KEY` with your actual Firecrawl key from `.env`:
+1. **Install the Firecrawl MCP server.** First, return to your regular shell prompt: inside Claude Code, type `exit` (or press `Ctrl+D`) to leave the Claude Code session. You should now see your shell prompt (`$` on Mac, `>` on Windows). Cursor's built-in terminal panel is fine — you do not need a new window.
+
+   **Before running the next command, replace `YOUR_FIRECRAWL_KEY` in the URL with your actual `fc-...` key from `.env`.** Copy-paste, then edit the URL in your terminal before pressing Enter:
 
    ```bash
    claude mcp add firecrawl --scope user --url https://mcp.firecrawl.dev/YOUR_FIRECRAWL_KEY/v2/mcp
    ```
 
-   Press Enter. You should see a confirmation message that the server was added.
+   You should see a confirmation message that the server was added.
 
 2. **Install the Tavily MCP server:**
 
@@ -300,7 +302,9 @@ You just built a working Python pipeline. Now you will see what happens when Cla
    claude mcp add tavily-remote-mcp --scope user --transport http https://mcp.tavily.com/mcp/
    ```
 
-   Tavily uses OAuth instead of an API key in the URL. The first time Claude Code calls a Tavily tool, a browser window will open asking you to authorize — click through to approve. This is the same OAuth pattern you saw in the async Spotify tutorial.
+   The `--transport http` flag tells Claude Code that this server communicates over HTTP rather than running as a local process. Firecrawl's command did not need it because the URL's scheme (`https://`) already implied HTTP transport for that style of install.
+
+   **Heads-up about the OAuth pop-up:** Tavily uses OAuth instead of an API key in the URL. The first time Claude Code calls a Tavily tool (which happens in Step 05, not right now), a browser window will open asking you to authorize. Click through to approve. This is the same OAuth pattern you saw in the async Spotify tutorial. Do not be surprised when your browser opens during the MCP demo — that is expected.
 
 3. **Restart Claude Code** in your `scrape-pipeline` repo terminal:
 
