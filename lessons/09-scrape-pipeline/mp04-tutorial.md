@@ -288,7 +288,7 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
 2. Paste this prompt:
 
    ```
-   Use the firecrawl_search tool to find 5 URLs about Chipotle's
+   Use the firecrawl search tool to find 5 URLs about Chipotle's
    executive leadership team and senior hires, scraping each as
    markdown. Save each result to knowledge/raw/ with filenames like
    leadership-NN-slug.md (zero-padded index, title-based slug).
@@ -296,7 +296,7 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
    ```
 
 3. Watch:
-   - Claude Code calls the `firecrawl_search` MCP tool
+   - Claude Code picks the right Firecrawl MCP tool
    - Loops over the returned results
    - Writes markdown files to `knowledge/raw/`
 
@@ -304,7 +304,7 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
 
 4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `leadership-NN-slug.md` files that Claude Code created, alongside the `NN-slug.md` files your Python script already saved in Step 02. Your knowledge base just grew by five entries covering a different content type (leadership, not press releases), and you only wrote one sentence of instruction.
 
-**Tool name to expect:** The prompt references `firecrawl_search` (Firecrawl's search+scrape MCP tool, uses an underscore). If Claude Code mentions invoking a different name, type `/mcp` to list what is actually connected.
+**Which tool will Claude Code actually call?** The Firecrawl MCP server exposes several tools — the one that combines search and scraping has a name you do not need to memorize. Claude Code will pick the right one from your natural-language prompt. If you want to see what is available, type `/mcp` inside Claude Code to list every connected tool.
 
 **Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own. The `leadership-` prefix also keeps MCP-created files separate from the `NN-slug.md` press-release files Step 02 saved. Different query, different prefix, different content — same knowledge base.
 
@@ -382,7 +382,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
    **Option B — use the MCP prompt.** In your portfolio repo's Claude Code session, paste a prompt similar to Step 04's, but with your own query. Example:
 
    ```
-   Use the firecrawl_search tool to find 3 URLs about [your industry
+   Use the firecrawl search tool to find 3 URLs about [your industry
    topic] and scrape each as markdown. Save each result to knowledge/raw/
    with filenames like NN-slug.md. Include the source URL at the top
    of each file.
