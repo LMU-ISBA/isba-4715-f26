@@ -21,7 +21,7 @@ This is the written companion to Lesson 09. The class opens with a 20-minute con
 
 ### Step 00: Create GitHub Repo and Start Claude Code
 
-Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into Cursor, then start building. This time you also sign up for Firecrawl before you touch any code.
+Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into Cursor, then start building. This time you also sign up for Firecrawl first.
 
 **What to do:**
 
@@ -71,11 +71,11 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Why `.env` instead of pasting keys into code?** MP03 hardcoded the WeatherAPI key into `weather.py` — fine for a demo, but any commit would leak the key to a public repo. From MP04 forward, keys live in `.env` (gitignored), loaded at runtime with `os.getenv()`. Same pattern as the async Spotify tutorial.
 
-**Why Firecrawl:** Firecrawl is a single API that combines web search with automatic markdown extraction. One call gives you a ranked list of URLs and the cleaned markdown content of each page. Older tutorials in this space use two services — one for search, one for scraping — but Firecrawl's [`search` endpoint](https://docs.firecrawl.dev/features/search) does both in one round-trip.
+**Why Firecrawl:** Firecrawl is a single API that combines web search with automatic markdown extraction. One call gives you a ranked list of URLs and the cleaned markdown content of each page. Older tutorials use two services (one for search, one for scraping), but Firecrawl's [`search` endpoint](https://docs.firecrawl.dev/features/search) does both in one round-trip.
 
 **Free tier:** 500 Firecrawl credits on signup — plenty for this lesson. If you applied the student coupon (see below) you have 20,000 instead.
 
-**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost. **Redemption is two steps:** (1) sign up with your `.edu` email (step 6 above — not GitHub OAuth), (2) in the Firecrawl dashboard go to **Settings → Billing** and enter the coupon code `STUDENTEDU`. The default 500 credits are enough for this lesson, but the student 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
+**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives students 20,000 free credits (40× the default). **Two steps to redeem:** (1) sign up with your `.edu` email in step 6, not GitHub OAuth; (2) in the Firecrawl dashboard, open **Settings → Billing** and enter the coupon `STUDENTEDU`. The default 500 credits cover this lesson, but 20k carries you through Milestone 02's scheduled runs.
 
 **Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `python-dotenv` and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
 
@@ -87,7 +87,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 Find pages worth scraping and get their markdown in a single call. Firecrawl's `search` endpoint runs a web query, then automatically scrapes each result page. You send a query, you get back a list of URLs with titles, descriptions, and cleaned markdown content.
 
-Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public by legal requirement and packed with press releases, bios, and earnings material — exactly the kind of content a knowledge base needs.
+Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public by legal requirement and include press releases, leadership bios, and earnings material — the kind of content a knowledge base needs.
 
 **What is an SDK?** A Software Development Kit wraps an API in your language. In MP03 you wrote `requests.get(url)` with a URL string. Firecrawl's `firecrawl-py` hides the URL and HTTP details behind a client object you call methods on. Under the hood it is still an HTTP call — the SDK just handles the plumbing. Not every API ships an SDK (WeatherAPI in MP03 did not) — when there is no SDK, you call the API with `requests` directly. When an SDK exists, use it; it is the vendor's own supported interface.
 
@@ -213,7 +213,7 @@ You have five results with markdown already attached — search and scrape happe
 
 **Why the index prefix in filenames (`01-`, `02-`):** Search results can share titles. A slug alone would cause filename collisions. The index prefix guarantees unique, ordered filenames.
 
-**Why no `time.sleep()` loop?** Firecrawl did the scrape once inside `search()` — you are not hitting the API a second time in the loop. That is the whole benefit of the unified endpoint. If you later switch to scraping additional URLs individually (e.g., with `firecrawl.scrape(...)` in a follow-up pass), add the `time.sleep(1)` between calls.
+**Why no `time.sleep()` loop?** Firecrawl did the scrape once inside `search()` — the loop is not hitting the API again. If you later scrape additional URLs individually with `firecrawl.scrape(...)`, add `time.sleep(1)` between calls.
 
 **Why the source URL header:** Lets Claude Code cite where each fact came from when it reads `knowledge/raw/`. Preserve provenance.
 
@@ -322,7 +322,7 @@ Part 04 has 20 minutes. If you are running short on time, skip Step 05's brainst
 
 You are done with the `chipotle-scrape-pipeline` demo repo. For the rest of class, you will work inside [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project) repo — applying the same pattern to your own domain.
 
-Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are getting at least one. The pattern is the same as what you just did with Chipotle — only the query changes. More volume you can add throughout the week.
+Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are getting at least one. The pattern is the same as what you just did with Chipotle; only the query changes. You can add more throughout the week.
 
 **What to do:**
 
@@ -435,4 +435,4 @@ Your `chipotle-scrape-pipeline` repo must NOT contain:
 
 **Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.
 
-You built a full scraping pipeline, upgraded it to an MCP workflow, and seeded your portfolio project's knowledge base.
+You built a full scraping pipeline and seeded your portfolio knowledge base with real content.
