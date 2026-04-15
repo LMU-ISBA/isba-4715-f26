@@ -278,7 +278,53 @@ You have one URL scraped. Your knowledge base needs many. The pattern is: loop o
 
 ## Part 03: MCP Upgrade
 
-<!-- Steps 04-05 fill in here -->
+### Step 04: Install Firecrawl MCP and Tavily MCP
+
+You just built a working Python pipeline. Now you will see what happens when Claude Code can call Firecrawl and Tavily directly, without you writing any Python at all. That is what MCP servers do: they extend Claude Code with tools it can use during a conversation.
+
+**What is MCP?** MCP stands for **Model Context Protocol** — a way to plug external tools into an AI agent. Anthropic published the spec; Tavily, Firecrawl, GitHub, and many others publish MCP servers that expose their services to Claude Code. When you install an MCP server, its tools show up alongside Claude Code's built-in tools, and you can invoke them in plain prompts. Think of MCPs as "apps for Claude Code."
+
+**What to do:**
+
+1. **Install the Firecrawl MCP server.** In your regular terminal (NOT inside Claude Code — exit Claude Code first if it is running), paste this command, replacing `YOUR_FIRECRAWL_KEY` with your actual Firecrawl key from `.env`:
+
+   ```bash
+   claude mcp add firecrawl --scope user --url https://mcp.firecrawl.dev/YOUR_FIRECRAWL_KEY/v2/mcp
+   ```
+
+   Press Enter. You should see a confirmation message that the server was added.
+
+2. **Install the Tavily MCP server:**
+
+   ```bash
+   claude mcp add tavily-remote-mcp --scope user --transport http https://mcp.tavily.com/mcp/
+   ```
+
+   Tavily uses OAuth instead of an API key in the URL. The first time Claude Code calls a Tavily tool, a browser window will open asking you to authorize — click through to approve. This is the same OAuth pattern you saw in the async Spotify tutorial.
+
+3. **Restart Claude Code** in your `scrape-pipeline` repo terminal:
+
+   ```bash
+   claude
+   ```
+
+4. **Verify both MCPs are connected.** Inside Claude Code, type:
+
+   ```
+   /mcp
+   ```
+
+   You should see both `firecrawl` and `tavily-remote-mcp` listed as `✔ connected`. If either shows an error, check the command you used (typos in the URL or key are the most common cause).
+
+**Why `--scope user`?** MCP servers can be installed at project scope (stored in `.claude/settings.json` inside the repo) or user scope (stored in `~/.claude/` in your home directory). Firecrawl's install embeds your API key directly in the server URL. If you installed it at project scope, that URL — and your key — would end up in a config file inside your public GitHub repo. The `--scope user` flag writes the config to your home directory instead, so the key stays off GitHub entirely. This is the same principle as Step 00's `.env` rule: keys belong on your machine, not in your repo.
+
+**Why does Firecrawl use a URL-embedded key but Tavily uses OAuth?** They made different product decisions. Firecrawl's URL approach is simple: one string, paste it in, done. Tavily's OAuth adds a browser handshake but keeps the key out of any config file entirely. Both are valid; the install command handles each correctly as long as you use `--scope user`.
+
+**Heads-up:** The MCP install is a one-time thing per machine. You do not need to reinstall these MCPs for future projects — they will be available in any Cursor window where you run Claude Code.
+
+**Checkpoint:** `/mcp` inside Claude Code shows both `firecrawl` and `tavily-remote-mcp` as connected. If either fails, exit Claude Code, check the install command you ran, and re-run it.
+
+<!-- Step 05 fills in here -->
 
 ---
 
