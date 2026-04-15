@@ -359,7 +359,7 @@ The Python pipeline is ~35 lines. This step collapses it into one prompt via the
 
 | Situation | Use | Why |
 |---|---|---|
-| Scheduled, automated collection on GitHub Actions | Python | GitHub Actions runs scripts, not interactive Claude Code sessions |
+| Scheduled, automated production pipeline | Python | Fixed response schema, deterministic parameters, easy to version and test |
 | Exploring an unfamiliar domain before committing to a pipeline | MCP | One prompt beats 35 lines of code when you do not yet know what to collect |
 | Adding known sources you found manually | MCP | Fast, no code to maintain for a handful of URLs |
 | Reproducible collection that must run the same way every day | Python | Deterministic, version-controlled, testable |

@@ -89,12 +89,12 @@ In earlier courses you might have heard of BeautifulSoup — a Python library fo
 
 ### Tavily vs. Claude Code's WebSearch
 
-Both can find web content, but they are built for different consumers:
+Both can find web content, but they return different shapes:
 
-- **Claude Code `WebSearch`** is for **you**, reading in chat. It returns natural-language answers synthesized on the fly.
-- **Tavily** is for your **pipeline**. It returns structured JSON (URLs, titles, content, scores) that a Python script or GitHub Action can loop over.
+- **Tavily** returns structured JSON (URLs, titles, content, scores) with a fixed schema every call. Your Python script loops over the `results` array.
+- **Claude Code `WebSearch`** is a built-in tool that returns prose for Claude Code to read mid-conversation. The synthesis is fresh each call.
 
-One-liner to memorize: *"If a cron job needs the answer, use the API. If a human needs the answer, use the chat tool."*
+Both can run in automation — Claude Code has a `-p` flag and an official GitHub Actions integration. The real distinction is the output shape: a schema you can parse, versus prose the agent consumes. Pick the tool whose output matches the reader.
 
 ### Two Ways to Drive the Pipeline
 
@@ -102,10 +102,10 @@ You will see the same collection happen two ways:
 
 | Approach | Pros | Cons |
 |---|---|---|
-| **Python + APIs** | Reproducible, runs in GitHub Actions, commits into your repo's history | More code, more setup |
-| **MCP in Claude Code** | Single prompt, no Python, fast for ad-hoc collection | Requires interactive Claude Code session, not scheduled |
+| **Python + SDKs** | Fixed response schema, direct control over parameters, runs anywhere Python does | More code, more setup |
+| **MCP in Claude Code** | Single prompt, no Python, fast for ad-hoc collection | Output depends on Claude Code's judgment each run |
 
-Your project will use both: MCP for exploratory collection during development, Python + GitHub Actions for the scheduled pipeline that Milestone 02 requires.
+Your project will use both: MCP for exploratory collection during development, Python + GitHub Actions for the scheduled production pipeline Milestone 02 requires.
 
 ### The Pattern Transfers
 

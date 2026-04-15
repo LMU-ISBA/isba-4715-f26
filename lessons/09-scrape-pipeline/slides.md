@@ -423,14 +423,14 @@ You get back: **JSON** with ranked URLs, titles, content previews
   <img src="images/google.png" alt="Claude Code WebSearch" />
 </div>
 
-| Tavily (API) | WebSearch (chat) |
+| Tavily (API) | WebSearch (Claude Code tool) |
 |---|---|
-| Returns JSON | Returns a paragraph |
-| For your pipeline | For you |
-| Runs in GitHub Actions | Requires interactive Claude Code |
-| Reproducible | Each answer is different |
+| Returns structured JSON | Returns prose for the agent to read |
+| Designed for programmatic pipelines | Built into Claude Code conversations |
+| Same response schema every call | Different synthesized text each call |
+| Full control: filters, domains, depth | Whatever the tool decides |
 
-> If a cron job needs the answer, use the API. If a human needs the answer, use the chat tool.
+> Cron jobs need structured data to parse. Humans need readable prose. Pick the right tool for the reader.
 
 ---
 
