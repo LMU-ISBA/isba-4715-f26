@@ -103,10 +103,11 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
    import time
    from pathlib import Path
    from dotenv import load_dotenv
-   from firecrawl import Firecrawl, ScrapeOptions
+   from firecrawl import Firecrawl
+   from firecrawl.v2.types import ScrapeOptions
    ```
 
-   `ScrapeOptions` is Firecrawl's type for configuring how it scrapes each result (markdown, HTML, screenshots, etc.). `re`, `time`, and `Path` are used in Step 02.
+   `ScrapeOptions` is Firecrawl's type for configuring how it scrapes each result (markdown, HTML, screenshots, etc.). It lives in the `firecrawl.v2.types` submodule, not the top-level package — if you import it from `firecrawl` directly you will see `ImportError: cannot import name 'ScrapeOptions' from 'firecrawl'`. `re`, `time`, and `Path` are used in Step 02.
 
 3. **Type** these lines to load your key and create the client:
 
