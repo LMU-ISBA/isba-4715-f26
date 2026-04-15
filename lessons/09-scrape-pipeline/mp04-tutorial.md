@@ -1,6 +1,6 @@
 # Mini-Project 04: Scrape Pipeline Tutorial
 
-This tutorial covers the in-class session for Mini-Project 04. Part 01 uses the slides. Parts 02–04 are hands-on. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
+This tutorial covers the in-class session for Mini-Project 04. The class opens with a 20-minute concepts block (Part 01 in the slide deck, not in this tutorial) — then the rest of class is hands-on using the four parts below. If you fall behind during class, use this tutorial to catch up. Every command and prompt is written out so you can follow along on your own.
 
 ## Table of Contents
 
