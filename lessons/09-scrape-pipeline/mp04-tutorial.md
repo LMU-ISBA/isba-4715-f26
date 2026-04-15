@@ -71,7 +71,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Why `.env` instead of pasting keys into code?** MP03 hardcoded the WeatherAPI key into `weather.py` — fine for a demo, but any commit would leak the key to a public repo. From MP04 forward, keys live in `.env` (gitignored), loaded at runtime with `os.getenv()`. Same pattern as the async Spotify tutorial.
 
-**Why Firecrawl:** Firecrawl is a single API that combines web search with automatic markdown extraction. One call gives you a ranked list of URLs and the cleaned markdown content of each page. Older tutorials in this space use two services — one for search, one for scraping — but Firecrawl's `search` endpoint does both in one round-trip.
+**Why Firecrawl:** Firecrawl is a single API that combines web search with automatic markdown extraction. One call gives you a ranked list of URLs and the cleaned markdown content of each page. Older tutorials in this space use two services — one for search, one for scraping — but Firecrawl's [`search` endpoint](https://docs.firecrawl.dev/features/search) does both in one round-trip.
 
 **Free tier:** 500 Firecrawl credits on signup — plenty for this lesson. If you applied the student coupon (see below) you have 20,000 instead.
 
