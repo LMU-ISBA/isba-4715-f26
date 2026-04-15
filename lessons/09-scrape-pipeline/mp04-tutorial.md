@@ -126,7 +126,7 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
    tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
    ```
 
-   `load_dotenv()` reads your `.env` file and makes the variables available via `os.getenv()`. This is the same pattern you used in the Spotify tutorial. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
+   `load_dotenv()` reads your `.env` file at runtime and loads each `KEY=value` line into the environment, where `os.getenv("KEY")` can retrieve it. This is safer than hardcoding keys in your script (which you did in MP03's `weather.py`) because anything not in the script itself cannot leak when you commit the code. If you worked through the async Spotify tutorial, you saw this pattern there first. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
 
 4. **Copy** this code below the client setup:
 
@@ -158,9 +158,11 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
 
 **What the response looks like:** `response` is a dictionary. The interesting part is `response["results"]`, a list of dictionaries, each with `url`, `title`, `content`, `score`, and `raw_content`. If you want to see the full shape, add `print(response)` or `import json; print(json.dumps(response, indent=2))` to inspect it.
 
-**Heads-up about the docs:** Tavily's official docs ([docs.tavily.com](https://docs.tavily.com/documentation/quickstart)) show the same SDK pattern. If you paste their sample code into Claude Code, it will match what you have here. If you look at an older tutorial that uses `requests.post` against `https://api.tavily.com/search`, that still works — it is the same API under the hood — but the SDK is the current recommended approach.
+**Heads-up about the docs:** Tavily's official docs ([docs.tavily.com](https://docs.tavily.com/documentation/quickstart)) show the same SDK pattern. If you paste their sample code into Claude Code, it will match what you have here. If you look at an older tutorial that uses `requests.post` against `https://api.tavily.com/search`, that still works — both approaches send the same HTTP request to Tavily's servers — but the SDK is the current recommended approach.
 
-**Checkpoint:** Your script prints five Chipotle IR URLs with titles.
+**If something goes wrong:** The SDK does not expose an HTTP status code the way `requests.get` did in MP03. If you see a `KeyError` on `response["results"]` or any other exception, add `print(response)` right after the `search(...)` call and rerun. That usually reveals an auth error, a rate-limit message, or a typo in the query.
+
+**Checkpoint:** Your script prints five Chipotle IR URLs with titles. Tavily results vary from run to run — any five URLs from `chipotle.com` or `ir.chipotle.com` domains means you succeeded.
 
 ---
 
