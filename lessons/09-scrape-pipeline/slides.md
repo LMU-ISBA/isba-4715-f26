@@ -39,18 +39,25 @@ style: |
     color: #ccc;
     border-left-color: #7eb8ff;
   }
+  section.dark table,
+  section.dark table th,
+  section.dark table td {
+    border-color: rgba(0,0,0,0.15) !important;
+    color: #222 !important;
+  }
   section.dark table th {
-    border-color: rgba(255,255,255,0.3) !important;
-    color: #fff !important;
-    background: rgba(255,255,255,0.15) !important;
+    background: #e8eef7 !important;
+    color: #1a1a2e !important;
   }
   section.dark table td {
-    border-color: rgba(255,255,255,0.2) !important;
-    color: #fff !important;
-    background: transparent !important;
+    background: #ffffff !important;
   }
   section.dark table tr:nth-child(even) td {
-    background: rgba(255,255,255,0.08) !important;
+    background: #f5f7fa !important;
+  }
+  section.dark table td strong,
+  section.dark table th strong {
+    color: #1a1a2e !important;
   }
   section.accent {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -71,20 +78,35 @@ style: |
     color: #ccc;
     border-left-color: #64ffda;
   }
+  section.accent table,
+  section.accent table th,
+  section.accent table td {
+    border-color: rgba(0,0,0,0.15) !important;
+    color: #222 !important;
+  }
   section.accent table th {
-    border-color: rgba(255,255,255,0.3) !important;
-    color: #fff !important;
-    background: rgba(255,255,255,0.15) !important;
+    background: #e8eef7 !important;
+    color: #1a1a2e !important;
   }
   section.accent table td {
-    border-color: rgba(255,255,255,0.2) !important;
-    color: #fff !important;
-    background: transparent !important;
+    background: #ffffff !important;
   }
   section.accent table tr:nth-child(even) td {
-    background: rgba(255,255,255,0.08) !important;
+    background: #f5f7fa !important;
   }
-  .pattern-box {
+  .pattern-box-light {
+    background: #f0f4ff;
+    border: 2px solid #3a5ba0;
+    border-radius: 12px;
+    padding: 24px 32px;
+    font-size: 1.3em;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    color: #1a1a2e;
+  }
+  .pattern-box-dark {
     background: rgba(255,255,255,0.1);
     border: 2px solid #7eb8ff;
     border-radius: 12px;
@@ -103,6 +125,129 @@ style: |
     margin-top: 60px;
     color: #fff;
   }
+  .logo-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .logo-row img {
+    height: 72px;
+    object-fit: contain;
+  }
+  .logo-row-small img {
+    height: 48px;
+  }
+  .arrow {
+    font-size: 2em;
+    font-weight: 700;
+    color: #3a5ba0;
+  }
+  section.dark .arrow, section.accent .arrow {
+    color: #7eb8ff;
+  }
+  .flow {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .flow-box {
+    background: #f0f4ff;
+    border: 2px solid #3a5ba0;
+    border-radius: 10px;
+    padding: 14px 18px;
+    min-width: 140px;
+    text-align: center;
+    font-weight: 600;
+    color: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .flow-box img {
+    height: 40px;
+    margin-bottom: 8px;
+  }
+  .flow-box small {
+    font-weight: 400;
+    font-size: 0.65em;
+    color: #555;
+    margin-top: 4px;
+    letter-spacing: 0;
+  }
+  section.dark .flow-box {
+    background: rgba(255,255,255,0.08);
+    border-color: #7eb8ff;
+    color: #f0f0f0;
+  }
+  section.dark .flow-box small {
+    color: #b0c4e0;
+  }
+  section.accent .flow-box {
+    background: rgba(255,255,255,0.08);
+    border-color: #64ffda;
+    color: #f0f0f0;
+  }
+  section.accent .flow-box small {
+    color: #a0e0d0;
+  }
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    color: #3a5ba0;
+    font-weight: 700;
+  }
+  section.dark .flow-arrow {
+    color: #7eb8ff;
+  }
+  section.accent .flow-arrow {
+    color: #64ffda;
+  }
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .icon-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .icon-circle {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f0f4ff;
+    border: 2px solid #3a5ba0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+  }
+  section.dark .icon-circle {
+    background: rgba(255,255,255,0.1);
+    border-color: #7eb8ff;
+  }
+  .compare-col {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px;
+    min-height: 220px;
+  }
+  .compare-col h3 {
+    margin: 0 0 10px 0;
+    color: #7eb8ff;
+  }
 ---
 
 <!-- _class: accent -->
@@ -110,6 +255,8 @@ style: |
 # Scrape Pipeline
 
 **Lesson 09** · ISBA 4715
+
+![bg right:40%](https://images.unsplash.com/photo-1518770660439-4636190af475?w=900)
 
 ---
 
@@ -124,23 +271,31 @@ style: |
 
 ---
 
-![bg right:40%](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800)
-
 <!-- _paginate: false -->
 
 # How did Google build its first index?
 
+<div class="logo-row">
+  <img src="images/google.png" alt="Google" />
+</div>
+
 Before anyone wrote an API for the web...
+
+![bg right:40%](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900)
 
 ---
 
-![bg right:40%](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800)
-
 # How did Google build its first index?
+
+<div class="logo-row">
+  <img src="images/google.png" alt="Google" />
+</div>
 
 Before anyone wrote an API for the web...
 
 **Web scraping** — reading pages programmatically.
+
+![bg right:40%](https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900)
 
 ---
 
@@ -150,20 +305,26 @@ Before anyone wrote an API for the web...
 
 > Gathering data from websites **without an API** and **without a human clicking around in a browser**
 
+![bg right:35%](https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900)
+
 ---
 
 <!-- _class: dark -->
 
 # Why Scrape?
 
-- No API exists for this data
-- The API is paywalled
-- The data is a constantly-changing list (press releases, bios, news)
-- You want to automate something a human would otherwise do
+<div class="icon-grid">
+  <div class="icon-item"><div class="icon-circle">🚫</div><div>No API exists for this data</div></div>
+  <div class="icon-item"><div class="icon-circle">💳</div><div>The API is paywalled</div></div>
+  <div class="icon-item"><div class="icon-circle">📰</div><div>Constantly-changing list (press releases, bios, news)</div></div>
+  <div class="icon-item"><div class="icon-circle">🤖</div><div>You want to automate something a human would do</div></div>
+</div>
 
 ---
 
 # Etiquette and Caveats
+
+![bg right:30%](https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900)
 
 | Rule | Why |
 |---|---|
@@ -183,21 +344,35 @@ Before anyone wrote an API for the web...
 
 <!-- _class: accent -->
 
-# Where does scraped data go in THIS project?
+# Where does scraped data go?
 
-**MP03 (API):** CSV file → later, a SQL warehouse
-
-**MP04 (Scrape):** Markdown files in `knowledge/raw/`
+<div class="flow">
+  <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
+</div>
 
 ---
 
 <!-- _class: accent -->
 
-# Where does scraped data go in THIS project?
+# Where does scraped data go?
 
-**MP03 (API):** CSV file → later, a SQL warehouse
+<div class="flow">
+  <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">MP04 (Scrape)<small>extract → markdown → knowledge/raw/</small></div>
+</div>
 
-**MP04 (Scrape):** Markdown files in `knowledge/raw/`
+---
+
+<!-- _class: accent -->
+
+# Where does scraped data go?
+
+<div class="flow">
+  <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">MP04 (Scrape)<small>extract → markdown → knowledge/raw/</small></div>
+</div>
 
 These feed your **knowledge base** — the unstructured side of your portfolio project.
 
@@ -205,10 +380,12 @@ These feed your **knowledge base** — the unstructured side of your portfolio p
 
 # The Two-Step Pattern
 
-<div class="pattern-box">
-
-**discover** &nbsp; → &nbsp; **extract** &nbsp; → &nbsp; loop &nbsp; → &nbsp; save
-
+<div class="flow">
+  <div class="flow-box"><img src="images/tavily.svg" alt="Tavily" />discover<small>find URLs</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" />extract<small>URL → markdown</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">💾<small>save to disk</small></div>
 </div>
 
 **Discover:** find URLs worth scraping → **Tavily**
@@ -220,9 +397,12 @@ These feed your **knowledge base** — the unstructured side of your portfolio p
 
 # Tavily — AI-Native Search API
 
-You send: a query
+<div class="logo-row">
+  <img src="images/tavily.svg" alt="Tavily" />
+</div>
 
-You get back: JSON with ranked URLs, titles, and content previews
+You send: a **query**
+You get back: **JSON** with ranked URLs, titles, content previews
 
 ```json
 {"results": [
@@ -237,25 +417,36 @@ You get back: JSON with ranked URLs, titles, and content previews
 
 # Tavily vs. Claude Code's WebSearch
 
+<div class="logo-row logo-row-small">
+  <img src="images/tavily.svg" alt="Tavily" />
+  <span style="font-size: 1.2em; color: #7eb8ff;">vs.</span>
+  <img src="images/google.png" alt="Claude Code WebSearch" />
+</div>
+
 | Tavily (API) | WebSearch (chat) |
 |---|---|
-| Returns **JSON** | Returns a **paragraph** |
-| For your **pipeline** | For **you** |
-| Runs in **GitHub Actions** | Requires interactive Claude Code |
-| **Reproducible** | Each answer is different |
+| Returns JSON | Returns a paragraph |
+| For your pipeline | For you |
+| Runs in GitHub Actions | Requires interactive Claude Code |
+| Reproducible | Each answer is different |
 
-> If a cron job needs the answer, use the API.
-> If a human needs the answer, use the chat tool.
+> If a cron job needs the answer, use the API. If a human needs the answer, use the chat tool.
 
 ---
 
-![bg right:35%](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800)
-
 # Firecrawl — URL → Clean Markdown
 
-You send: a URL
+<div class="logo-row">
+  <img src="images/firecrawl.png" alt="Firecrawl" />
+</div>
 
-You get back: JSON with the page rendered as markdown
+<div class="flow">
+  <div class="flow-box">🔗 URL<small>https://ir.chipotle.com/...</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">📄 Markdown<small>ready for your KB</small></div>
+</div>
 
 No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
@@ -265,6 +456,8 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 # Last Year We Taught BeautifulSoup
 
+![bg right:35%](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900)
+
 - Parse HTML tag-by-tag
 - Hunt for the right CSS selector
 - Break every time the site redesigns
@@ -272,6 +465,8 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 ---
 
 # Last Year We Taught BeautifulSoup
+
+![bg right:35%](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900)
 
 - Parse HTML tag-by-tag
 - Hunt for the right CSS selector
@@ -285,9 +480,9 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 | Problem | Don't | Do |
 |---|---|---|
-| Find relevant URLs | Write a crawler | **Tavily** |
-| Turn URL into text | Write a parser | **Firecrawl** |
-| Click through a login | Write a bot | Playwright *(advanced)* |
+| 🔍 Find relevant URLs | Write a crawler | **Tavily** |
+| 📄 Turn URL into text | Write a parser | **Firecrawl** |
+| 🖱️ Click through a login | Write a bot | Playwright |
 
 ---
 
@@ -295,10 +490,16 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 # The Pipeline
 
-<div class="pattern-box">
-
-Tavily &nbsp; → &nbsp; URLs &nbsp; → &nbsp; Firecrawl &nbsp; → &nbsp; markdown &nbsp; → &nbsp; `knowledge/raw/`
-
+<div class="flow">
+  <div class="flow-box"><img src="images/tavily.svg" alt="Tavily" /><small>Tavily</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">🔗<small>URLs</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">📄<small>markdown</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">📁<small>knowledge/raw/</small></div>
 </div>
 
 One tool finds the pages. Another tool extracts the content. Your script glues them together.
@@ -311,13 +512,23 @@ One tool finds the pages. Another tool extracts the content. Your script glues t
 
 What if Claude Code could call Tavily and Firecrawl **directly**, without you writing Python?
 
+![bg right:35%](https://images.unsplash.com/photo-1518770660439-4636190af475?w=900)
+
 ---
 
 <!-- _class: accent -->
 
 # Now the Upgrade: MCP
 
-What if Claude Code could call Tavily and Firecrawl **directly**, without you writing Python?
+<div class="flow">
+  <div class="flow-box">💬<small>your prompt</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">🤖 Claude Code<small>reads the prompt</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">🔌 MCP tools<small>Tavily + Firecrawl</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">📁<small>files written</small></div>
+</div>
 
 **MCP servers** (Model Context Protocol) extend Claude Code with new tools. Install one, and Claude Code can use it inside any prompt.
 
@@ -327,30 +538,51 @@ What if Claude Code could call Tavily and Firecrawl **directly**, without you wr
 
 # Python vs. MCP
 
-**Python (what you'll write in Part 02):**
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+<div class="compare-col">
 
-~35 lines of SDK calls, loops, file writes
+### 🐍 Python (Part 02)
 
-**MCP (what you'll see in Part 03):**
+- ~35 lines of SDK calls
+- Loops, file writes, sleeps
+- Version-controlled
+- Runs in GitHub Actions
 
-> "Find 5 URLs about Chipotle's recent earnings and save each one as markdown in `knowledge/raw/`."
+</div>
+<div class="compare-col">
 
-Same result. No code.
+### 💬 MCP (Part 03)
+
+> "Find 5 URLs about Chipotle's recent earnings and save each as markdown in `knowledge/raw/`."
+
+**Same result. No code.**
+
+</div>
+</div>
 
 ---
 
-![bg right:40%](https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800)
-
 # Today's Demo Domain: Chipotle IR
 
-- **IR = Investor Relations** — the shareholder-facing section of a public company's website
-- Press releases, leadership bios, earnings, regulatory filings
-- Legally required to be accessible — no bot blocking
-- Structured, accessible — good fit for a knowledge base
+<div class="logo-row">
+  <img src="images/chipotle.png" alt="Chipotle" />
+</div>
+
+<div class="icon-grid">
+  <div class="icon-item"><div class="icon-circle">📈</div><div><strong>IR = Investor Relations</strong> — shareholder-facing content</div></div>
+  <div class="icon-item"><div class="icon-circle">📰</div><div>Press releases, bios, earnings, filings</div></div>
+  <div class="icon-item"><div class="icon-circle">🔓</div><div>Legally required to be accessible</div></div>
+  <div class="icon-item"><div class="icon-circle">✨</div><div>Great fit for a knowledge base</div></div>
+</div>
 
 ---
 
 # Accounts You Need
+
+<div class="logo-row">
+  <img src="images/firecrawl.png" alt="Firecrawl" />
+  <img src="images/tavily.svg" alt="Tavily" />
+</div>
 
 | Service | URL | Free Tier |
 |---|---|---|
@@ -361,21 +593,26 @@ Both: GitHub sign-in, no card. Under 2 minutes each.
 
 ---
 
-![bg right:40%](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800)
-
 # Your Project Needs This
 
-- Milestone 02 requires **≥15 sources in `knowledge/raw/`** from 3+ different sites
-- Today's pattern works for any URL you can put in a browser
-- Your job posting tells you what content matters
+![bg right:40%](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900)
+
+<div class="icon-grid">
+  <div class="icon-item"><div class="icon-circle">🎯</div><div>Milestone 02: <strong>≥15 sources</strong> from 3+ sites</div></div>
+  <div class="icon-item"><div class="icon-circle">🔗</div><div>Pattern works for any URL in a browser</div></div>
+  <div class="icon-item"><div class="icon-circle">💼</div><div>Your job posting says what content matters</div></div>
+  <div class="icon-item"><div class="icon-circle">📚</div><div>Feeds your knowledge base wiki</div></div>
+</div>
 
 ---
 
 # The Pattern Transfers
 
-**MP03 (APIs):** request → parse → loop → save (CSV)
-
-**MP04 (Scraping):** search → extract → loop → save (markdown)
+<div class="flow">
+  <div class="flow-box">MP03 (APIs)<small>request → parse → loop → save (CSV)</small></div>
+  <div class="flow-arrow">↔</div>
+  <div class="flow-box">MP04 (Scraping)<small>search → extract → loop → save (markdown)</small></div>
+</div>
 
 Different tools. Same shape. If you learned MP03, you already know MP04.
 
