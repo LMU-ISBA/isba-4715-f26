@@ -164,6 +164,56 @@ The demo target is **Chipotle Investor Relations (IR)** content. IR pages are th
 
 **Checkpoint:** Your script prints five Chipotle IR URLs with titles. Tavily results vary from run to run — any five URLs from `chipotle.com` or `ir.chipotle.com` domains means you succeeded.
 
+### Step 02: Scrape One URL with Firecrawl
+
+Tavily gave you URLs. Firecrawl turns each URL into clean markdown — no BeautifulSoup selectors, no DOM inspection, no HTML parsing. You send the URL, you get back markdown ready for your knowledge base.
+
+**What to do:**
+
+1. You already imported `Firecrawl` in Step 01. Now create the client. **Type** this below your `tavily_client` line:
+
+   ```python
+   firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
+   ```
+
+2. Pick one URL from the Step 01 output (you will scrape all of them in Step 03). For now, just scrape the first result. **Copy** this code below your Step 01 loop:
+
+   ```python
+   # --- Step 02: Scrape one URL with Firecrawl ---
+
+   sample_url = results[0]["url"]
+
+   doc = firecrawl.scrape(sample_url, formats=["markdown"])
+
+   print("Title:", doc.metadata.get("title"))
+   print("Markdown length:", len(doc.markdown), "chars")
+   print()
+   print("--- first 400 chars ---")
+   print(doc.markdown[:400])
+   ```
+
+3. **Save** and run:
+
+   ```bash
+   python scrape_pipeline.py
+   ```
+
+   You should see a title, a markdown length in the thousands of characters, and a preview starting with the page's actual content (something like `# News Releases` or a press release headline).
+
+**Tavily returned dicts, Firecrawl returns an object:** In Step 01 you accessed `response["results"]` — bracket notation, because Tavily's SDK returns a plain Python `dict`. In Step 02 you access `doc.markdown` — dot notation, because Firecrawl's SDK returns a `Document` object. Same idea (getting fields out of a response), different shapes, different access patterns. One quirk: `doc.metadata` is itself a dict, so you use `doc.metadata.get("title")` — dot notation to get to `metadata`, then bracket/`.get()` inside it.
+
+**Why `formats=["markdown"]`:** Firecrawl can return HTML, markdown, summaries, screenshots, or links. Markdown is the right choice for a knowledge base because it preserves structure (headings, lists, tables) without the noise of raw HTML. The `formats` parameter takes a list, so you can request multiple formats in one call if you need them.
+
+**Heads-up about extracted content:** The first few hundred characters are usually the main page content — Firecrawl is good at finding the body and skipping navigation. But some pages include cookie banners or footer text that leaks into the markdown. That is normal. Your knowledge base is read by Claude Code, which synthesizes across many sources and ignores boilerplate naturally. Focus on collecting sources, not on perfect extraction.
+
+**Heads-up about the class name:** Firecrawl's current SDK uses the class `Firecrawl`. If you read an older tutorial or Stack Overflow answer that imports `FirecrawlApp`, that was the previous name. The import is now `from firecrawl import Firecrawl`.
+
+**If something goes wrong:** If the scrape fails with an exception or returns an empty `doc.markdown`, try `print(doc)` right after the `scrape()` call to see the full Document. You can also check [Firecrawl's status page](https://status.firecrawl.dev/) if calls consistently fail — occasionally the service has a degraded window.
+
+**Checkpoint:** Your script prints a page title, a multi-thousand-character markdown length, and a preview of the scraped content.
+
+<!-- Step 03 fills in here -->
+
 ---
 
 ## Part 03: MCP Upgrade
