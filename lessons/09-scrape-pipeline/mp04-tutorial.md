@@ -195,43 +195,23 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
 You have five results with markdown already attached — search and scrape happened in Step 01's single call. This step loops over them and writes one markdown file per result.
 
-You wrote the API call by hand in Step 01 so you understand what is happening. For this step, you hand the loop-and-save work to Claude Code. This is the real workflow: you build the parts that require judgment, the AI writes the boilerplate around them.
+You wrote the API call by hand in Step 01 so you understand what is happening. For this step, you hand the loop-and-save work to Claude Code. This is the real workflow: you build the parts that require judgment, the AI writes the boilerplate around them — and in this case, you also practice letting the AI help you *design* the boilerplate before it writes any code.
 
 **What to do:**
 
-1. **Paste this prompt into Claude Code** (in the same terminal where your venv is active):
+1. **Start a brainstorming session.** Paste this into Claude Code:
 
    ```
-   Extend scrape_pipeline.py with a Step 02 block that loops over
-   the `results` list from Step 01 and writes each result as a
-   markdown file into knowledge/raw/. Use these exact conventions:
-
-   - Section comment: # --- Step 02: Loop and save to knowledge/raw/ ---
-   - Create knowledge/raw/ if it does not exist.
-   - Filename format: NN-slug.md where NN is a zero-padded index
-     (01, 02, ...) and slug comes from the page title, lowercased,
-     with non-alphanumeric characters replaced by hyphens, trimmed
-     at the ends, capped at 60 characters, or "untitled" if empty.
-   - Each file starts with a header block:
-     # {title}
-
-     Source: {url}
-
-     ---
-
-   - Use r.get("markdown") or "" to safely read the markdown field.
-   - If markdown is empty, print "skipped (empty markdown)" and skip
-     the file write.
-   - Print progress as [i/N] title for each iteration, then the
-     saved path and character count on successful writes.
-   - At the end, list every file in knowledge/raw/.
-
-   Replace my Step 01 print loop (the `for r in results:` block
-   that prints title + URL + markdown length) — the new loop
-   supersedes it. Keep the Step 01 API call intact.
+   Use the superpowers:brainstorming skill. I want to extend
+   scrape_pipeline.py so it saves each Firecrawl search result as
+   a markdown file in knowledge/raw/. Help me decide how.
    ```
 
-2. **Review what Claude Code wrote.** Read the diff before accepting it. The generated code should look roughly like this — compare against what you got:
+   This deliberately gives Claude Code almost nothing to go on. If the `superpowers:brainstorming` skill is installed, it should refuse to start writing code and instead ask you clarifying questions one at a time — things like: *How should filenames be named? What goes at the top of each file? What happens if a result has no markdown?* Answer each question as it comes.
+
+   If you do not have Superpowers installed, this step still works — Claude Code will just ask fewer questions up front. Either way, the goal is the same: talk through the design, then let Claude Code implement it.
+
+2. **Review what Claude Code wrote.** Once the brainstorm wraps up and Claude Code produces code, read the diff before accepting it. Your code should end up looking roughly like this:
 
    ```python
    # --- Step 02: Loop and save to knowledge/raw/ ---
@@ -270,7 +250,7 @@ You wrote the API call by hand in Step 01 so you understand what is happening. F
 
    You should see up to five files being written. Open `knowledge/raw/` in Cursor to inspect them.
 
-**Why prompt Claude Code here instead of copy-paste?** The loop logic (slugify a title, handle missing fields, write files with a header) is exactly the kind of mechanical code that AI generates reliably. You saved ~25 lines of typing, you stayed in control of the pattern by specifying the spec in the prompt, and you practiced the review step that matters more than the writing step.
+**Why brainstorm instead of copy-paste?** A well-specified prompt is itself an engineering skill. If your initial request is vague ("save the results to files"), a good AI collaborator should not jump straight to code — it should surface the decisions hiding in your request (filenames? headers? empty-result handling?) and let you answer them. That is the whole point of the `superpowers:brainstorming` skill: turn an idea into a design through dialogue, *then* implement. You practiced that here. In your portfolio project, you will use the same move for every non-trivial feature.
 
 **What `slugify()` does:** The helper turns a page title into a filename-safe string. For example, `"News Releases — Q1 2025"` becomes `"news-releases-q1-2025"`. The regex `[^a-zA-Z0-9]+` replaces any run of non-alphanumeric characters with a single hyphen, `.strip("-")` trims hyphens at the ends, and `[:60]` caps length so long titles do not produce unwieldy filenames.
 
