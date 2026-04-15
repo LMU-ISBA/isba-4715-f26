@@ -346,7 +346,7 @@ Same result. No code.
 - **IR = Investor Relations** — the shareholder-facing section of a public company's website
 - Press releases, leadership bios, earnings, regulatory filings
 - Legally required to be accessible — no bot blocking
-- **Exactly the content shape your knowledge base needs**
+- Structured, accessible — good fit for a knowledge base
 
 ---
 

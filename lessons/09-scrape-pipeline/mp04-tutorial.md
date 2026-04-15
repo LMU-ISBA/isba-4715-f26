@@ -98,7 +98,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 Your first job is to find things worth scraping. Instead of hand-picking URLs, you will use Tavily — an AI-native search service that returns a ranked list of URLs plus short content previews for any query. You call it with the Python SDK you installed in Step 00.
 
-The demo target is **Chipotle Investor Relations (IR)** content. IR pages are the public-facing section of a company's website aimed at shareholders and analysts. Public companies are required to make them accessible, so no auth walls, no aggressive bot blocking, and abundant unstructured content: press releases, leadership bios, earnings highlights. That is exactly the shape your knowledge base needs, which makes it the right demo target.
+The demo target is **Chipotle Investor Relations (IR)** content. IR pages are the public-facing section of a company's website aimed at shareholders and analysts. Public companies are required to make them accessible, so no auth walls, no aggressive bot blocking, and abundant unstructured content: press releases, leadership bios, earnings highlights. That makes them a reliable demo target for a knowledge base.
 
 **What is an SDK?** SDK stands for **Software Development Kit** — a library that wraps an API in your language of choice. In MP03 you called the Weather API with raw `requests.get(...)` and a URL. Tavily and Firecrawl both publish Python SDKs (`tavily-python` and `firecrawl-py`, which you installed in Step 00) that do the same thing but hide the URL and HTTP details. Instead of building a request, you call a method on a client object and get back a Python data structure. Less boilerplate, easier to read, and the provider's docs are written around it — so when you paste sample code from Tavily or Firecrawl, it matches what you have here. Under the hood, the SDK is still making HTTP calls.
 
@@ -366,7 +366,7 @@ The Python pipeline you wrote in Steps 01-03 is about 35 lines of code: imports,
 
 **Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own conventions. A vague prompt ("save them somewhere") produces unpredictable output; a precise prompt ("filenames like `earnings-NN-slug.md`") produces exactly what you asked for. A second benefit: the `earnings-` prefix keeps the MCP-created files separate from the `NN-slug.md` files your Python script saved in Step 03, so you can tell which approach produced which.
 
-**Why this matters for your project:** Your portfolio project's Milestone 02 requires at least 15 sources in `knowledge/raw/` from 3+ different sites. A useful workflow: use MCP prompts during development to explore what kinds of sources are available for your domain, then formalize the most valuable sources into a Python pipeline that GitHub Actions runs on a schedule. Milestone 02 grading expects the Python side to be automated; the MCP side is how you expand coverage between automated runs.
+**Why this matters for your project:** Your portfolio project's Milestone 02 requires at least 15 sources in `knowledge/raw/` from 3+ different sites. A useful workflow: use MCP prompts during development to explore what sources are available for your domain, then formalize the most useful ones into a Python pipeline that GitHub Actions runs on a schedule. Milestone 02 grading expects the Python side to be automated; the MCP side is how you expand coverage between automated runs.
 
 **When to use Python vs MCP:**
 
@@ -512,4 +512,4 @@ Your `scrape-pipeline` repo must NOT contain:
 
 **Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.
 
-You just built a full scraping pipeline, upgraded it to an MCP workflow, and seeded your portfolio project's knowledge base. That is the complete MP04 loop.
+You built a full scraping pipeline, upgraded it to an MCP workflow, and seeded your portfolio project's knowledge base.
