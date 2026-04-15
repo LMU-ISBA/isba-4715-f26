@@ -123,15 +123,19 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
    ```python
    # --- Step 01: Search + scrape with Firecrawl ---
 
-   response = requests.post(
-       "https://api.firecrawl.dev/v2/search",
-       headers={"Authorization": f"Bearer {api_key}"},
-       json={
-           "query": "Chipotle investor relations press releases",
-           "limit": 5,
-           "scrapeOptions": {"formats": ["markdown"]},
-       },
-   )
+   api_url = "https://api.firecrawl.dev/v2/search"
+
+   headers = {
+       "Authorization": f"Bearer {api_key}"
+   }
+
+   payload = {
+       "query": "Chipotle investor relations press releases",
+       "limit": 5,
+       "scrapeOptions": {"formats": ["markdown"]}
+   }
+
+   response = requests.post(api_url, headers=headers, json=payload)
 
    data = response.json()
    results = data["data"]["web"]
@@ -142,6 +146,12 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
        print(f"    {r['url']}")
        print(f"    markdown length: {len(r.get('markdown') or '')} chars")
    ```
+
+   Each line has a specific job, same shape as MP03's Weather API call:
+   - `api_url` — the endpoint you are hitting.
+   - `headers` — a dict of HTTP headers. Firecrawl authenticates via `Authorization: Bearer <your-key>` instead of a `?key=...` URL parameter like WeatherAPI used.
+   - `payload` — the request body. Goes as JSON because this is a `POST`, not a `GET`.
+   - `requests.post()` — sends the HTTP POST request and returns the response.
 
 5. **Save** and run. Two ways to do this:
 
