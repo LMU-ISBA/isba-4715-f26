@@ -138,11 +138,16 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
        print(f"    markdown length: {len(r.markdown or '')} chars")
    ```
 
-5. **Save** and run:
+5. **Save** and run. Two ways to do this:
 
-   ```bash
-   python scrape_pipeline.py
-   ```
+   - **Ask Claude Code to run it.** Type something like `run scrape_pipeline.py`. Claude Code uses the venv automatically.
+   - **Run it yourself in the terminal.** First activate the venv: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows). Then:
+
+     ```bash
+     python scrape_pipeline.py
+     ```
+
+     If you skip the activate step, you will hit `ModuleNotFoundError: No module named 'firecrawl'` because the system Python cannot see the venv's packages.
 
    You should see five results, each with a title, a URL from `chipotle.com` or `ir.chipotle.com`, and a non-zero markdown length. The search found the pages and scraped them in a single call.
 
@@ -199,11 +204,7 @@ You have five results with markdown already attached — search and scrape happe
        print(f"  {f.name}")
    ```
 
-3. **Save** and run:
-
-   ```bash
-   python scrape_pipeline.py
-   ```
+3. **Save** and run (same two ways as Step 01 — ask Claude Code, or activate the venv first, then `python scrape_pipeline.py`).
 
    You should see up to five files being written. Open `knowledge/raw/` in Cursor to inspect them.
 
