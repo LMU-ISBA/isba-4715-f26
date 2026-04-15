@@ -92,7 +92,73 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 ## Part 02: Python Pipeline — Tavily + Firecrawl
 
-<!-- Steps 01-03 fill in here -->
+### Step 01: Search with Tavily
+
+Your first job is to find things worth scraping. Instead of hand-picking URLs, you will use Tavily — an AI-native search service that returns a ranked list of URLs plus short content previews for any query. You call it with the Python SDK you installed in Step 00.
+
+The demo target is **Chipotle Investor Relations (IR)** content. IR pages are the public-facing section of a company's website aimed at shareholders and analysts. Public companies are required to make them accessible, so no auth walls, no aggressive bot blocking, and abundant unstructured content: press releases, leadership bios, earnings highlights. That is exactly the shape your knowledge base needs, which makes it the right demo target.
+
+**What to do:**
+
+1. In Cursor, create a new file: `scrape_pipeline.py`. Save it immediately (`Cmd+S` / `Ctrl+S`).
+
+2. **Copy** these imports into the file:
+
+   ```python
+   import os
+   import re
+   import time
+   from pathlib import Path
+   from dotenv import load_dotenv
+   from tavily import TavilyClient
+   from firecrawl import Firecrawl
+   ```
+
+   You do not use all of these yet — `re`, `time`, and `Path` show up in Step 03, and `Firecrawl` shows up in Step 02. Importing them all now keeps the file from growing messier as you add each piece.
+
+3. **Type** this line by hand to load your keys and create the Tavily client:
+
+   ```python
+   load_dotenv()
+
+   tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+   ```
+
+   `load_dotenv()` reads your `.env` file and makes the variables available via `os.getenv()`. This is the same pattern you used in the Spotify tutorial. `TavilyClient` wraps the Tavily API in a Python object so you can call methods on it instead of building HTTP requests by hand.
+
+4. **Copy** this code below the client setup:
+
+   ```python
+   # --- Step 01: Search with Tavily ---
+
+   response = tavily_client.search(
+       query="Chipotle investor relations press releases",
+       max_results=5,
+   )
+
+   results = response["results"]
+   print(f"Tavily returned {len(results)} results")
+
+   for result in results:
+       print(f"  - {result['title']}")
+       print(f"    {result['url']}")
+   ```
+
+5. **Save** and run:
+
+   ```bash
+   python scrape_pipeline.py
+   ```
+
+   You should see five results, all from `ir.chipotle.com` or `chipotle.com` domains. Titles will look like "News Releases", "Chipotle InvestorRoom - Home", or specific press release headlines.
+
+**Why `max_results=5`:** Keeps the demo fast and your Firecrawl budget low. In your project you might ask for 20 or 50.
+
+**What the response looks like:** `response` is a dictionary. The interesting part is `response["results"]`, a list of dictionaries, each with `url`, `title`, `content`, `score`, and `raw_content`. If you want to see the full shape, add `print(response)` or `import json; print(json.dumps(response, indent=2))` to inspect it.
+
+**Heads-up about the docs:** Tavily's official docs ([docs.tavily.com](https://docs.tavily.com/documentation/quickstart)) show the same SDK pattern. If you paste their sample code into Claude Code, it will match what you have here. If you look at an older tutorial that uses `requests.post` against `https://api.tavily.com/search`, that still works — it is the same API under the hood — but the SDK is the current recommended approach.
+
+**Checkpoint:** Your script prints five Chipotle IR URLs with titles.
 
 ---
 
