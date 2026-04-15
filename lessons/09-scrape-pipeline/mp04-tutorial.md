@@ -195,11 +195,43 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
 You have five results with markdown already attached — search and scrape happened in Step 01's single call. This step loops over them and writes one markdown file per result.
 
+You wrote the API call by hand in Step 01 so you understand what is happening. For this step, you hand the loop-and-save work to Claude Code. This is the real workflow: you build the parts that require judgment, the AI writes the boilerplate around them.
+
 **What to do:**
 
-1. **Comment out or delete** your Step 01 print loop (everything after `results = data["data"]["web"]` below `# --- Step 01`). The loop below uses the same `results` variable.
+1. **Paste this prompt into Claude Code** (in the same terminal where your venv is active):
 
-2. **Copy** this code below the Step 01 `search(...)` call:
+   ```
+   Extend scrape_pipeline.py with a Step 02 block that loops over
+   the `results` list from Step 01 and writes each result as a
+   markdown file into knowledge/raw/. Use these exact conventions:
+
+   - Section comment: # --- Step 02: Loop and save to knowledge/raw/ ---
+   - Create knowledge/raw/ if it does not exist.
+   - Filename format: NN-slug.md where NN is a zero-padded index
+     (01, 02, ...) and slug comes from the page title, lowercased,
+     with non-alphanumeric characters replaced by hyphens, trimmed
+     at the ends, capped at 60 characters, or "untitled" if empty.
+   - Each file starts with a header block:
+     # {title}
+
+     Source: {url}
+
+     ---
+
+   - Use r.get("markdown") or "" to safely read the markdown field.
+   - If markdown is empty, print "skipped (empty markdown)" and skip
+     the file write.
+   - Print progress as [i/N] title for each iteration, then the
+     saved path and character count on successful writes.
+   - At the end, list every file in knowledge/raw/.
+
+   Replace my Step 01 print loop (the `for r in results:` block
+   that prints title + URL + markdown length) — the new loop
+   supersedes it. Keep the Step 01 API call intact.
+   ```
+
+2. **Review what Claude Code wrote.** Read the diff before accepting it. The generated code should look roughly like this — compare against what you got:
 
    ```python
    # --- Step 02: Loop and save to knowledge/raw/ ---
@@ -232,9 +264,13 @@ You have five results with markdown already attached — search and scrape happe
        print(f"  {f.name}")
    ```
 
+   If Claude Code's output differs substantially (e.g., a different slugify regex, no empty-markdown guard, different file header), ask it to match the spec — or accept its version if the differences are cosmetic. This is a real skill: reading AI-generated code and deciding whether it does what you asked.
+
 3. **Save** and run (same two ways as Step 01 — ask Claude Code, or activate the venv first, then `python scrape_pipeline.py`).
 
    You should see up to five files being written. Open `knowledge/raw/` in Cursor to inspect them.
+
+**Why prompt Claude Code here instead of copy-paste?** The loop logic (slugify a title, handle missing fields, write files with a header) is exactly the kind of mechanical code that AI generates reliably. You saved ~25 lines of typing, you stayed in control of the pattern by specifying the spec in the prompt, and you practiced the review step that matters more than the writing step.
 
 **What `slugify()` does:** The helper turns a page title into a filename-safe string. For example, `"News Releases — Q1 2025"` becomes `"news-releases-q1-2025"`. The regex `[^a-zA-Z0-9]+` replaces any run of non-alphanumeric characters with a single hyphen, `.strip("-")` trims hyphens at the ends, and `[:60]` caps length so long titles do not produce unwieldy filenames.
 
