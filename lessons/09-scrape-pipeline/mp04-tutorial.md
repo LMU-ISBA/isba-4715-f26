@@ -59,7 +59,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
    The install takes 30-60s. **While it runs, sign up in your browser (step 6).** To run Python outside Claude Code later: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows).
 
-6. **Sign up for Firecrawl** at [firecrawl.dev](https://firecrawl.dev) (GitHub sign-in, no card). Dashboard → **API Keys** → copy the `fc-...` key.
+6. **Sign up for Firecrawl** at [firecrawl.dev](https://firecrawl.dev). **Use your LMU `.edu` email** (not GitHub OAuth) so the student-program coupon can verify your school email in the next step. Create a password, confirm via email, then open **Dashboard → API Keys** and copy the `fc-...` key.
 
 7. Create `.env` in your project root. Replace the placeholder with your actual key:
 
@@ -73,9 +73,9 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Why Firecrawl:** Firecrawl is a single API that combines web search with automatic markdown extraction. One call gives you a ranked list of URLs and the cleaned markdown content of each page. Older tutorials in this space use two services — one for search, one for scraping — but Firecrawl's `search` endpoint does both in one round-trip.
 
-**Free tiers:** 500 Firecrawl credits/month — plenty for this lesson.
+**Free tier:** 500 Firecrawl credits on signup — plenty for this lesson. If you applied the student coupon (see below) you have 20,000 instead.
 
-**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost with a valid `.edu` email. **To redeem:** after you sign up, go to **Settings → Billing** in the Firecrawl dashboard and enter the coupon code `STUDENTEDU`. The default 500 credits are enough for this lesson, but the student 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
+**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost. **Redemption is two steps:** (1) sign up with your `.edu` email (step 6 above — not GitHub OAuth), (2) in the Firecrawl dashboard go to **Settings → Billing** and enter the coupon code `STUDENTEDU`. The default 500 credits are enough for this lesson, but the student 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
 
 **Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
 

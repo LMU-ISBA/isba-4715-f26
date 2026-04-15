@@ -606,7 +606,7 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 **To redeem student credits:** Dashboard → **Settings → Billing** → apply coupon code `STUDENTEDU`.
 
-GitHub sign-in, no card.
+**Sign up with your `.edu` email** (not GitHub OAuth) so the coupon can verify your school. No card required.
 
 ---
 
