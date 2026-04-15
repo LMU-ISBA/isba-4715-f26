@@ -215,7 +215,7 @@ You have one URL scraped. Your knowledge base needs many. The pattern is: loop o
 
 **What to do:**
 
-1. **Comment out or delete** the Step 02 preview prints — you are replacing them with a loop. The `firecrawl` client from Step 01 stays; you will reuse it inside the loop.
+1. **Comment out or delete** all of your Step 02 code (everything below the `# --- Step 02 ---` comment, including `sample_url`, `doc = firecrawl.scrape(...)`, and the print statements). The loop below supersedes all of it and will make those calls itself. The `firecrawl` client from Step 01 stays; you will reuse it inside the loop.
 
 2. **Copy** this code below your Step 02 code (or in place of it):
 
@@ -262,15 +262,17 @@ You have one URL scraped. Your knowledge base needs many. The pattern is: loop o
 
    You should see five files being written. Open `knowledge/raw/` in Cursor's file explorer and inspect one or two — they are real press release and IR page content, formatted as markdown.
 
+**What `slugify()` does:** The helper turns a page title into a filename-safe string. For example, `"News Releases — Q1 2025"` becomes `"news-releases-q1-2025"`. The regex `[^a-zA-Z0-9]+` replaces any run of non-alphanumeric characters with a single hyphen, `.strip("-")` trims hyphens at the ends, and `[:60]` caps length so long titles do not produce unwieldy filenames.
+
 **Why the index prefix in filenames (`01-`, `02-`):** Tavily can return multiple URLs with the same title — when I tested this query, three of the five results all had the title "News Releases". A slug alone would cause filename collisions and overwrite files you already saved. The index prefix guarantees unique, ordered filenames. Your knowledge base cares about coverage, not file naming, but naming that sorts cleanly is a nice-to-have.
 
 **Why the 1-second sleep:** Rate limit etiquette. Firecrawl's free tier is generous, but hammering any API with zero delay is rude and gets your key banned eventually. Same pattern you used in MP03.
 
 **Why the header with source URL:** When Claude Code reads `knowledge/raw/` for your knowledge base, the source URL lets it cite where each fact came from. Always preserve provenance — it is the difference between a knowledge base you can trust and one you cannot.
 
-**Why `doc.markdown or ""`:** If Firecrawl cannot render the page, `doc.markdown` may be `None` or empty. The `or ""` gives a safe default, and the `if not md: continue` line skips files that would be empty.
+**Why `doc.markdown or ""` and the `if not md: continue` guard:** If Firecrawl cannot render the page, `doc.markdown` may be `None`. The `or ""` converts `None` to an empty string so the next line does not crash trying to check its length. The `if not md: continue` guard then skips the file write when the string is empty (Python treats both `None` and `""` as falsy), so you do not create a zero-byte file for a failed scrape.
 
-**Checkpoint:** You have five markdown files in `knowledge/raw/`, each with a title header, source URL, and scraped content. This is the full Python pipeline: **search → extract → loop → save**.
+**Checkpoint:** You have up to five markdown files in `knowledge/raw/` (one per Tavily result that Firecrawl successfully scraped), each with a title header, source URL, and scraped content. If a result returned empty markdown, the script skipped it and you will see fewer files — that is normal. This is the full Python pipeline: **search → extract → loop → save**.
 
 ---
 
