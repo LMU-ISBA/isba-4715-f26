@@ -52,10 +52,10 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 5. Ask Claude Code to set up the environment:
 
    ```
-   Set up a Python venv and install requests, python-dotenv, firecrawl-py.
+   Set up a Python venv and install python-dotenv, firecrawl-py.
    ```
 
-   `requests` for HTTP calls (still useful as a general tool), `python-dotenv` to load your `.env` keys, `firecrawl-py` for the Firecrawl SDK.
+   `python-dotenv` loads your `.env` keys, `firecrawl-py` is the Firecrawl SDK.
 
    The install takes 30-60s. **While it runs, sign up in your browser (step 6).** To run Python outside Claude Code later: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows).
 
@@ -77,7 +77,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost. **Redemption is two steps:** (1) sign up with your `.edu` email (step 6 above — not GitHub OAuth), (2) in the Firecrawl dashboard go to **Settings → Billing** and enter the coupon code `STUDENTEDU`. The default 500 credits are enough for this lesson, but the student 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
 
-**Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
+**Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `python-dotenv` and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
 
 ---
 
