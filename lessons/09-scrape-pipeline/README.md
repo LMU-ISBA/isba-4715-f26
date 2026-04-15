@@ -71,11 +71,7 @@ By the end of this lesson, you will be able to:
 
 ## Setup
 
-Before class:
-- Sign up for a free [Firecrawl](https://firecrawl.dev) account. **If you have an LMU `.edu` email, use it (not GitHub OAuth)** so you can redeem the [Student Program](https://www.firecrawl.dev/student-program) for 20,000 credits. After signing up, go to **Settings → Billing** in the Firecrawl dashboard and enter the coupon code `STUDENTEDU`.
-- Optionally install the Firecrawl MCP server in Claude Code (command in [mp04-tutorial.md Step 03](mp04-tutorial.md#step-03-install-firecrawl-mcp)). Doing this before class keeps Part 03 on schedule.
-
-In class, Step 00 of the tutorial walks you through creating the `chipotle-scrape-pipeline` repo, setting up the venv, and creating the `.env` file.
+No pre-class setup required. Step 00 of the tutorial walks you through everything in class: creating the `chipotle-scrape-pipeline` repo, signing up for Firecrawl (use your LMU `.edu` email to qualify for the [Student Program](https://www.firecrawl.dev/student-program) and the `STUDENTEDU` coupon for 20,000 credits), setting up the venv, creating the `.env` file, and installing the Firecrawl MCP server.
 
 ## Key Concepts
 
