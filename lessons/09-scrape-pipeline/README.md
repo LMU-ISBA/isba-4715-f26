@@ -65,13 +65,15 @@ By the end of this lesson, you will be able to:
 | File | Description |
 |------|-------------|
 | [mp04-tutorial.md](mp04-tutorial.md) | Step-by-step tutorial for the full session |
-| [slides.md](slides.md) | MARP slide deck for Part 01 (scraping concepts) |
+| [slides.md](slides.md) | MARP slide deck source for Part 01 (scraping concepts) |
+| [slides.html](slides.html) | Rendered HTML slides (open in a browser to present; arrow keys advance) |
+| [slides.pdf](slides.pdf) | Rendered PDF slides (for distribution and printing) |
 
 ## Setup
 
 Before class:
 - Sign up for a free [Firecrawl](https://firecrawl.dev) account (GitHub sign-in, no card)
-- If you have a `.edu` email, apply to the [Firecrawl Student Program](https://www.firecrawl.dev/student-program) for 20,000 credits (optional but recommended)
+- If you have a `.edu` email, apply to the [Firecrawl Student Program](https://www.firecrawl.dev/student-program) for 20,000 credits (optional but recommended). After signing up, go to **Settings → Billing** in the Firecrawl dashboard and enter the coupon code `STUDENTEDU`.
 - Optionally install the Firecrawl MCP server in Claude Code (command in [mp04-tutorial.md Step 03](mp04-tutorial.md#step-03-install-firecrawl-mcp)). Doing this before class keeps Part 03 on schedule.
 
 In class, Step 00 of the tutorial walks you through creating the `chipotle-scrape-pipeline` repo, setting up the venv, and creating the `.env` file.

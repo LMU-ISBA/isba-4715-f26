@@ -75,7 +75,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Free tiers:** 500 Firecrawl credits/month — plenty for this lesson.
 
-**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost with a valid `.edu` email. Apply after you sign up — the default 500 credits are enough for this lesson, but 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
+**Student credits:** Firecrawl's [Student Program](https://www.firecrawl.dev/student-program) gives verified students 20,000 credits (40× the default free tier) at no cost with a valid `.edu` email. **To redeem:** after you sign up, go to **Settings → Billing** in the Firecrawl dashboard and enter the coupon code `STUDENTEDU`. The default 500 credits are enough for this lesson, but the student 20k carries you through the scheduled Milestone 02 GitHub Actions runs.
 
 **Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, and `firecrawl-py` installed, your `.env` file contains your Firecrawl API key, and `.env` is listed in your `.gitignore`.
 

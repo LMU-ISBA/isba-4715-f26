@@ -3,6 +3,7 @@ marp: true
 theme: default
 paginate: true
 size: 16:9
+transition: fade
 style: |
   section {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -559,10 +560,12 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 | Service | URL | Free Tier |
 |---|---|---|
-| Firecrawl | [firecrawl.dev](https://firecrawl.dev) | 500 credits/month |
+| Firecrawl | [firecrawl.dev](https://firecrawl.dev) | 500 credits |
 | **Student Program** | [firecrawl.dev/student-program](https://www.firecrawl.dev/student-program) | **20,000 credits** with `.edu` email |
 
-GitHub sign-in, no card. Apply to the student program after you sign up — it is approved in under a day.
+**To redeem student credits:** Dashboard → **Settings → Billing** → apply coupon code `STUDENTEDU`.
+
+GitHub sign-in, no card.
 
 ---
 
