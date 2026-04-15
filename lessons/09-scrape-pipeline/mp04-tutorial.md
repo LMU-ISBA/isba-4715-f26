@@ -292,11 +292,11 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
 2. Paste this prompt:
 
    ```
-   Use the firecrawl_search tool to find 5 URLs about Chipotle's recent
-   earnings announcements, scraping each as markdown. Save each result
-   to knowledge/raw/ with filenames like earnings-NN-slug.md (zero-
-   padded index, title-based slug). Include the source URL at the top
-   of each file.
+   Use the firecrawl_search tool to find 5 URLs about Chipotle's
+   executive leadership team and senior hires, scraping each as
+   markdown. Save each result to knowledge/raw/ with filenames like
+   leadership-NN-slug.md (zero-padded index, title-based slug).
+   Include the source URL at the top of each file.
    ```
 
 3. Watch:
@@ -306,11 +306,11 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
 
    No Python. No `requests.post`. No `os.getenv`. Claude Code is the executor.
 
-4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `earnings-NN-slug.md` files that Claude Code created, alongside the files your Python script already saved in Step 02. Your knowledge base just grew by five entries, and you only wrote one sentence of instruction.
+4. Check `knowledge/raw/` in Cursor's file explorer. You should see the `leadership-NN-slug.md` files that Claude Code created, alongside the `NN-slug.md` files your Python script already saved in Step 02. Your knowledge base just grew by five entries covering a different content type (leadership, not press releases), and you only wrote one sentence of instruction.
 
 **Tool name to expect:** The prompt references `firecrawl_search` (Firecrawl's search+scrape MCP tool, uses an underscore). If Claude Code mentions invoking a different name, type `/mcp` to list what is actually connected.
 
-**Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own. The `earnings-` prefix also keeps MCP-created files separate from the `NN-slug.md` files Step 02 saved.
+**Why the filename format in the prompt:** Precise naming prevents Claude Code from inventing its own. The `leadership-` prefix also keeps MCP-created files separate from the `NN-slug.md` press-release files Step 02 saved. Different query, different prefix, different content — same knowledge base.
 
 **Why this matters for your project:** Milestone 02 needs ≥15 sources in `knowledge/raw/` from 3+ sites, automated via GitHub Actions. Use MCP to explore your domain, then formalize the best sources into a Python pipeline. MCP for exploration, Python for production.
 
@@ -326,9 +326,9 @@ The Python pipeline is ~30 lines. This step collapses it into one prompt via the
 **If something goes wrong:**
 
 - **The Firecrawl tool is not listed:** Check `/mcp` inside Claude Code. If `firecrawl` is not `✔ connected`, revisit Step 03's install command. You may need to restart Claude Code (`exit`, then `claude` again).
-- **Claude Code writes files to the wrong place:** Claude Code interprets paths relative to the current directory. Confirm you ran `claude` from inside your `chipotle-scrape-pipeline` repo (not your portfolio project, not your home directory). If files landed in the wrong folder, run `pwd` to see where Claude Code is, then tell it: `Move the earnings-NN-slug.md files you just created into knowledge/raw/ under the current directory.`
+- **Claude Code writes files to the wrong place:** Claude Code interprets paths relative to the current directory. Confirm you ran `claude` from inside your `chipotle-scrape-pipeline` repo (not your portfolio project, not your home directory). If files landed in the wrong folder, run `pwd` to see where Claude Code is, then tell it: `Move the leadership-NN-slug.md files you just created into knowledge/raw/ under the current directory.`
 
-**Checkpoint:** You see up to 5 new `earnings-NN-slug.md` files in `knowledge/raw/` that Claude Code created via the MCP tool, without you writing any Python. If a scrape returned empty content, Claude Code may have skipped that result — fewer than 5 files is normal for the same reasons Step 02 noted. This is the same pipeline you wrote in Part 02, issued as one sentence instead of ~30 lines of code.
+**Checkpoint:** You see up to 5 new `leadership-NN-slug.md` files in `knowledge/raw/` that Claude Code created via the MCP tool, without you writing any Python. If a scrape returned empty content, Claude Code may have skipped that result — fewer than 5 files is normal for the same reasons Step 02 noted. This is the same pipeline you wrote in Part 02, issued as one sentence instead of ~30 lines of code.
 
 ---
 
@@ -444,7 +444,7 @@ Push your finished `chipotle-scrape-pipeline` repository to GitHub and submit th
 
 Your `chipotle-scrape-pipeline` repo should contain:
 - `scrape_pipeline.py` — your Firecrawl pipeline
-- `knowledge/raw/` — at least 5 `NN-slug.md` files from the Python pipeline (Step 02) AND at least 1 `earnings-NN-slug.md` file from the MCP prompt (Step 04). Both naming patterns are expected.
+- `knowledge/raw/` — at least 5 `NN-slug.md` files from the Python pipeline (Step 02) AND at least 1 `leadership-NN-slug.md` file from the MCP prompt (Step 04). Both naming patterns are expected.
 - `requirements.txt` — Python dependencies
 - `.gitignore` — Python gitignore (must exclude `.env`)
 
