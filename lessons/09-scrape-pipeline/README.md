@@ -2,7 +2,7 @@
 
 ## Overview
 
-How to collect unstructured web content into your portfolio project's knowledge base using AI-native scraping tools. You will use **Tavily** to search for relevant URLs and **Firecrawl** to turn each URL into clean markdown, then see the same pipeline collapse into a single Claude Code prompt using MCP servers.
+How to collect unstructured web content into [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project)'s knowledge base using AI-native scraping tools. You will use **[Tavily](https://tavily.com)** to search for relevant URLs and **[Firecrawl](https://firecrawl.dev)** to turn each URL into clean markdown, then see the same pipeline collapse into a single Claude Code prompt using MCP servers.
 
 ## The Scenario
 
