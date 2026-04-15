@@ -391,7 +391,11 @@ The Python pipeline is your production workflow. The MCP prompt is your explorat
 
 ## Part 04: Project Connection
 
+Part 04 has 20 minutes. If you are running short on time, skip Step 06's brainstorming prompt and jump directly to Step 07 Option B using a domain topic you already know. Step 08 (commit and push) is required regardless — leave time for it.
+
 ### Step 06: Find Sources for Your Portfolio Project
+
+You are done with the `scrape-pipeline` demo repo. For the rest of class, you will work inside your portfolio project repo — applying the same pattern to your own domain.
 
 Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are aiming for at least one. The goal is to prove the pattern transfers — the rest is volume, which you can add async throughout the week.
 
@@ -405,7 +409,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
    mkdir -p knowledge/raw
    ```
 
-3. Brainstorm source candidates with Claude Code:
+3. Brainstorm source candidates with Claude Code. The prompt below references `docs/job-posting.pdf` and `docs/proposal.md` — if your portfolio repo does not yet have those files, either add them now or remove those references from the prompt before pasting:
 
    ```
    I'm building a portfolio project targeting a [job title] role in
@@ -423,10 +427,10 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
 - SEC filings ([sec.gov/cgi-bin/browse-edgar](https://www.sec.gov/cgi-bin/browse-edgar))
 - Press release archives (PR Newswire, Business Wire, GlobeNewswire)
 - Wikipedia
-- Seeking Alpha earnings call transcripts
+- Seeking Alpha earnings call transcripts (free tier previews only — full transcripts require an account)
 - Company blog posts and newsroom pages
 
-**Checkpoint:** You have identified at least one specific URL or site pattern relevant to your portfolio project.
+**Checkpoint:** You have identified at least one specific URL or site pattern relevant to your portfolio project. Write it down in a scratch note or terminal comment — you will use it in Step 07.
 
 ---
 
@@ -434,9 +438,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
 
 **What to do:**
 
-1. You have two ways to scrape into your portfolio repo's `knowledge/raw/`:
-
-   **Option A — reuse your Python script.** Copy `scrape_pipeline.py` and `.env` from your `scrape-pipeline` repo into your portfolio repo. (Verify your portfolio repo's `.gitignore` excludes `.env` before you do anything else.) Change the Tavily query in the script to something relevant to your project, then run it.
+1. You have two ways to scrape into your portfolio repo's `knowledge/raw/`. **For the remaining class time, use Option B — it is faster and you already have Claude Code running with both MCPs connected.** Option A is the approach you will formalize for GitHub Actions later in your project, so you may prefer it async this week.
 
    **Option B — use the MCP prompt.** In your portfolio repo's Claude Code session, paste a prompt similar to Step 05's, but with your own query. Example:
 
@@ -447,7 +449,12 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
    the source URL at the top of each file.
    ```
 
-   Option B is faster for class. Option A is what you will schedule on GitHub Actions later.
+   **Option A — reuse your Python script.** Follow this sequence exactly — the ordering matters so your key never reaches git:
+
+   1. Open your portfolio repo's `.gitignore` and confirm `.env` is listed. If it is not, add `.env` on its own line and save the file.
+   2. Only then copy `scrape_pipeline.py` and `.env` from your `scrape-pipeline` repo into your portfolio repo.
+   3. Run `git status` in your portfolio repo. If `.env` appears as an untracked file in the output, your gitignore is wrong — stop and fix it before continuing.
+   4. Change the Tavily query in the script to something relevant to your project, then run it.
 
 2. Confirm at least one new `.md` file appears in your portfolio repo's `knowledge/raw/`. Open it and verify the content is relevant to your domain — not every scrape is useful, and this is the moment to catch sources that will not help your knowledge base.
 
@@ -463,23 +470,30 @@ Both repos need pushed.
 
 **What to do:**
 
-1. In the `scrape-pipeline` repo's Claude Code session:
+You have two Cursor windows open — one for `scrape-pipeline` and one for your portfolio repo. Run each step in its respective window.
+
+1. In the `scrape-pipeline` Claude Code session, first run `git status` yourself in the terminal and look at the staged-and-untracked file list. If you see `.env` listed anywhere, STOP — your gitignore is missing `.env` and you need to fix it before continuing.
+
+2. Once `git status` is clean, use Claude Code to finish the commit:
 
    ```
-   Save pip freeze to requirements.txt, then commit all files
-   (confirming .env is NOT included) and push to GitHub.
+   Save pip freeze to requirements.txt, then commit all files and
+   push to GitHub. Before staging, run `git status` and abort if .env
+   appears in the output.
    ```
 
-2. In the portfolio repo's Claude Code session:
+3. In the portfolio repo's Claude Code session, run `git status` yourself first. Again, confirm no `.env` entry. Then use Claude Code:
 
    ```
-   Commit the new files in knowledge/raw/ (confirming .env is NOT
-   included) and push to GitHub.
+   Commit the new files in knowledge/raw/ and push to GitHub. Before
+   staging, run `git status` and abort if .env appears in the output.
    ```
 
-3. Verify both repos on GitHub. Open `knowledge/raw/` in each and confirm the markdown files are visible.
+4. Verify both repos on GitHub. Open each repo's root directory in the GitHub file browser and confirm:
+   - `knowledge/raw/` is visible and contains your markdown files
+   - `.env` does NOT appear in the root file listing
 
-**Checkpoint:** Both repos are pushed. Neither contains a `.env` file in its git history.
+**Checkpoint:** Both repos are pushed, and the GitHub root file listing for each shows no `.env` file.
 
 ---
 
@@ -489,7 +503,7 @@ Push your finished `scrape-pipeline` repository to GitHub and submit the repo UR
 
 Your `scrape-pipeline` repo should contain:
 - `scrape_pipeline.py` — your Tavily + Firecrawl pipeline
-- `knowledge/raw/*.md` — at least 5 scraped Chipotle IR markdown files (from the Python pipeline), plus any additional files Claude Code saved via the MCP prompt in Step 05
+- `knowledge/raw/` — at least 5 `NN-slug.md` files from the Python pipeline (Step 03) AND at least 1 `earnings-NN-slug.md` file from the MCP prompt (Step 05). Both naming patterns are expected.
 - `requirements.txt` — Python dependencies
 - `.gitignore` — Python gitignore (must exclude `.env`)
 
@@ -497,3 +511,5 @@ Your `scrape-pipeline` repo must NOT contain:
 - `.env` — must be gitignored, no keys in git history
 
 **Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.
+
+You just built a full scraping pipeline, upgraded it to an MCP workflow, and seeded your portfolio project's knowledge base. That is the complete MP04 loop.
