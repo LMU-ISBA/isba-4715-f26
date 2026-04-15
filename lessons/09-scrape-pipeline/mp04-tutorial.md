@@ -211,40 +211,15 @@ You wrote the API call by hand in Step 01 so you understand what is happening. F
 
    If you do not have Superpowers installed, this step still works — Claude Code will just ask fewer questions up front. Either way, the goal is the same: talk through the design, then let Claude Code implement it.
 
-2. **Review what Claude Code wrote.** Once the brainstorm wraps up and Claude Code produces code, read the diff before accepting it. Your code should end up looking roughly like this:
+2. **Open `scrape_pipeline.py` in Cursor and read the new Step 02 block Claude Code wrote.** Do not accept it blindly. Walk through the code line by line and ask yourself:
 
-   ```python
-   # --- Step 02: Loop and save to knowledge/raw/ ---
+   - Does it create `knowledge/raw/` if the folder does not exist yet?
+   - Does it loop over the `results` list from your Step 01 code?
+   - How does it turn each result's title into a filename?
+   - What happens if a result has no markdown content?
+   - Does it include the source URL somewhere so you can trace each file back to its origin?
 
-   out_dir = Path("knowledge/raw")
-   out_dir.mkdir(parents=True, exist_ok=True)
-
-   def slugify(title: str) -> str:
-       s = re.sub(r"[^a-zA-Z0-9]+", "-", title.lower()).strip("-")
-       return s[:60] or "untitled"
-
-   for i, r in enumerate(results, start=1):
-       title = r["title"]
-       url = r["url"]
-       md = r.get("markdown") or ""
-       print(f"[{i}/{len(results)}] {title}")
-
-       if not md:
-           print("  skipped (empty markdown)")
-           continue
-
-       fname = f"{i:02d}-{slugify(title)}.md"
-       out_path = out_dir / fname
-       header = f"# {title}\n\nSource: {url}\n\n---\n\n"
-       out_path.write_text(header + md)
-       print(f"  saved: {out_path} ({len(md)} chars)")
-
-   print("\nDone. Files in knowledge/raw/:")
-   for f in sorted(out_dir.iterdir()):
-       print(f"  {f.name}")
-   ```
-
-   If Claude Code's output differs substantially (e.g., a different slugify regex, no empty-markdown guard, different file header), ask it to match the spec — or accept its version if the differences are cosmetic. This is a real skill: reading AI-generated code and deciding whether it does what you asked.
+   If the answer to any of these is unclear or unsatisfying, go back to Claude Code and ask it to explain or change it. Reading AI-generated code and deciding whether it does what you asked is the skill you are practicing here — it matters more than the writing.
 
 3. **Save** and run (same two ways as Step 01 — ask Claude Code, or activate the venv first, then `python scrape_pipeline.py`).
 
