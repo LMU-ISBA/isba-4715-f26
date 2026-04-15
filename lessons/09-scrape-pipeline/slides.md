@@ -302,7 +302,7 @@ Before anyone wrote an API for the web...
 
 <!-- _class: dark -->
 
-# Web Scraping
+# Scraping is what you do when there is no API
 
 > Gathering data from websites **without an API** and **without a human clicking around in a browser**
 
@@ -312,18 +312,18 @@ Before anyone wrote an API for the web...
 
 <!-- _class: dark -->
 
-# Why Scrape?
+# Scrape when the data has no other door
 
 <div class="icon-grid">
-  <div class="icon-item"><div class="icon-circle">🚫</div><div>No API exists for this data</div></div>
+  <div class="icon-item"><div class="icon-circle">🚫</div><div>No API exists</div></div>
   <div class="icon-item"><div class="icon-circle">💳</div><div>The API is paywalled</div></div>
-  <div class="icon-item"><div class="icon-circle">📰</div><div>Constantly-changing list (press releases, bios, news)</div></div>
-  <div class="icon-item"><div class="icon-circle">🤖</div><div>You want to automate something a human would do</div></div>
+  <div class="icon-item"><div class="icon-circle">📰</div><div>Content changes constantly</div></div>
+  <div class="icon-item"><div class="icon-circle">🤖</div><div>Automate a human task</div></div>
 </div>
 
 ---
 
-# Etiquette and Caveats
+# Scrape like a guest, not a thief
 
 ![bg right:30%](https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=900)
 
@@ -339,13 +339,13 @@ Before anyone wrote an API for the web...
 
 <!-- _class: accent -->
 
-# Where does scraped data go in THIS project?
+# Scraped markdown feeds your knowledge base
 
 ---
 
 <!-- _class: accent -->
 
-# Where does scraped data go?
+# Scraped markdown feeds your knowledge base
 
 <div class="flow">
   <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
@@ -355,7 +355,7 @@ Before anyone wrote an API for the web...
 
 <!-- _class: accent -->
 
-# Where does scraped data go?
+# Scraped markdown feeds your knowledge base
 
 <div class="flow">
   <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
@@ -367,7 +367,7 @@ Before anyone wrote an API for the web...
 
 <!-- _class: accent -->
 
-# Where does scraped data go?
+# Scraped markdown feeds your knowledge base
 
 <div class="flow">
   <div class="flow-box">MP03 (API)<small>request → CSV → SQL warehouse</small></div>
@@ -391,7 +391,7 @@ Every knowledge-base chatbot, internal-docs search, and "chat with your data" pr
 
 <!-- _class: dark -->
 
-# How we got here
+# LLMs made stuff up. RAG fixed that.
 
 <div class="flow">
   <div class="flow-box">📚<small>Search engines<br/>(Google, 1998)</small></div>
@@ -407,7 +407,7 @@ LLMs on their own confabulate. RAG grounds answers in documents you supply. Your
 
 ---
 
-# Your MP04 pipeline, in RAG terms
+# You already have the four RAG parts
 
 <div class="icon-grid">
   <div class="icon-item"><div class="icon-circle">🔍</div><div><strong>Retrieval</strong> — Firecrawl searches the web and pulls back markdown</div></div>
@@ -436,7 +436,7 @@ No vector database, no embeddings — Claude Code uses grep, file reads, and its
 
 <!-- _class: dark -->
 
-# Firecrawl vs. Claude Code's WebSearch
+# JSON for scripts. Prose for humans.
 
 <div class="logo-row logo-row-small">
   <img src="images/firecrawl.png" alt="Firecrawl" />
@@ -455,7 +455,7 @@ No vector database, no embeddings — Claude Code uses grep, file reads, and its
 
 ---
 
-# Firecrawl — Search + Scrape API
+# One Firecrawl call = URLs + markdown
 
 <div class="logo-row">
   <img src="images/firecrawl.png" alt="Firecrawl" />
@@ -475,7 +475,7 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 <!-- _paginate: false -->
 
-# Last Year We Taught BeautifulSoup
+# BeautifulSoup still works. You do not need it.
 
 ![bg right:35%](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900)
 
@@ -485,7 +485,7 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 ---
 
-# Last Year We Taught BeautifulSoup
+# BeautifulSoup still works. You do not need it.
 
 ![bg right:35%](https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=900)
 
@@ -497,7 +497,7 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 ---
 
-# Build vs. Buy — Scraping Edition
+# Buy the API. Build the pipeline.
 
 | Problem | Don't | Do |
 |---|---|---|
@@ -508,7 +508,7 @@ No BeautifulSoup. No `select` or `find`. No DOM inspection.
 
 <!-- _class: dark -->
 
-# The Pipeline
+# Firecrawl finds. Firecrawl extracts. You save.
 
 <div class="flow">
   <div class="flow-box"><img src="images/firecrawl.png" alt="Firecrawl" /><small>Firecrawl<br/>search</small></div>
@@ -524,7 +524,7 @@ One API does the finding and the extracting. Your script saves the output.
 
 <!-- _class: accent -->
 
-# Now the Upgrade: MCP
+# MCP turns your prompt into the pipeline
 
 What if Claude Code could call Firecrawl **directly**, without you writing Python?
 
@@ -534,7 +534,7 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 <!-- _class: accent -->
 
-# Now the Upgrade: MCP
+# MCP turns your prompt into the pipeline
 
 <div class="flow">
   <div class="flow-box">💬<small>your prompt</small></div>
@@ -552,7 +552,7 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 <!-- _class: dark -->
 
-# Python vs. MCP
+# Python for production. MCP for exploration.
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
 <div class="compare-col">
@@ -578,22 +578,22 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 ---
 
-# Today's Demo Domain: Chipotle IR
+# Chipotle IR: public, rich, scrape-friendly
 
 <div class="logo-row">
   <img src="images/chipotle.png" alt="Chipotle" />
 </div>
 
 <div class="icon-grid">
-  <div class="icon-item"><div class="icon-circle">📈</div><div><strong>IR = Investor Relations</strong> — shareholder-facing content</div></div>
-  <div class="icon-item"><div class="icon-circle">📰</div><div>Press releases, bios, earnings, filings</div></div>
-  <div class="icon-item"><div class="icon-circle">🔓</div><div>Legally required to be accessible</div></div>
-  <div class="icon-item"><div class="icon-circle">✨</div><div>Great fit for a knowledge base</div></div>
+  <div class="icon-item"><div class="icon-circle">📈</div><div><strong>IR</strong> = Investor Relations</div></div>
+  <div class="icon-item"><div class="icon-circle">📰</div><div>Press releases, bios, earnings</div></div>
+  <div class="icon-item"><div class="icon-circle">🔓</div><div>Legally required to be public</div></div>
+  <div class="icon-item"><div class="icon-circle">✨</div><div>Great knowledge-base fodder</div></div>
 </div>
 
 ---
 
-# Accounts You Need
+# One account, 20,000 credits with STUDENTEDU
 
 <div class="logo-row">
   <img src="images/firecrawl.png" alt="Firecrawl" />
@@ -610,20 +610,20 @@ What if Claude Code could call Firecrawl **directly**, without you writing Pytho
 
 ---
 
-# Your Project Needs This
+# Milestone 02 needs 15 sources. Start today.
 
 ![bg right:40%](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900)
 
 <div class="icon-grid">
-  <div class="icon-item"><div class="icon-circle">🎯</div><div>Milestone 02: <strong>≥15 sources</strong> from 3+ sites</div></div>
-  <div class="icon-item"><div class="icon-circle">🔗</div><div>Pattern works for any URL in a browser</div></div>
-  <div class="icon-item"><div class="icon-circle">💼</div><div>Your job posting says what content matters</div></div>
-  <div class="icon-item"><div class="icon-circle">📚</div><div>Feeds your knowledge base wiki</div></div>
+  <div class="icon-item"><div class="icon-circle">🎯</div><div><strong>15 sources</strong>, 3+ sites</div></div>
+  <div class="icon-item"><div class="icon-circle">🔗</div><div>Same pattern, any URL</div></div>
+  <div class="icon-item"><div class="icon-circle">💼</div><div>Job posting shapes content</div></div>
+  <div class="icon-item"><div class="icon-circle">📚</div><div>Feeds your wiki pages</div></div>
 </div>
 
 ---
 
-# The Pattern Transfers
+# Same pattern as MP03, different tool
 
 <div class="flow">
   <div class="flow-box">MP03 (APIs)<small>request → parse → loop → save (CSV)</small></div>

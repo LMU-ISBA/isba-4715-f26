@@ -108,8 +108,6 @@ Demo target: **Chipotle Investor Relations (IR)** content. IR pages are public b
 
    `ScrapeOptions` is Firecrawl's type for configuring how it scrapes each result (markdown, HTML, screenshots, etc.). `re`, `time`, and `Path` are used in Step 02.
 
-   **Heads-up about the Firecrawl class name:** The current SDK import is `from firecrawl import Firecrawl`. Older tutorials may show `FirecrawlApp` — that was the previous class name. If you see `FirecrawlApp` anywhere, replace it with `Firecrawl`.
-
 3. **Type** these lines to load your key and create the client:
 
    ```python
