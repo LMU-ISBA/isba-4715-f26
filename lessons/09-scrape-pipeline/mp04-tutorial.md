@@ -391,10 +391,109 @@ The Python pipeline is your production workflow. The MCP prompt is your explorat
 
 ## Part 04: Project Connection
 
-<!-- Steps 06-07 fill in here -->
+### Step 06: Find Sources for Your Portfolio Project
+
+Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are aiming for at least one. The goal is to prove the pattern transfers — the rest is volume, which you can add async throughout the week.
+
+**What to do:**
+
+1. Open a **new Cursor window** (**File > New Window**). Clone your portfolio project repo into it the same way you did for `scrape-pipeline` in Step 00. Start Claude Code in the terminal.
+
+2. You are now working in your portfolio project repo, not the scrape pipeline. If your portfolio repo does not have a `knowledge/raw/` folder yet, create one:
+
+   ```bash
+   mkdir -p knowledge/raw
+   ```
+
+3. Brainstorm source candidates with Claude Code:
+
+   ```
+   I'm building a portfolio project targeting a [job title] role in
+   [industry]. Based on my job posting (in docs/job-posting.pdf) and
+   my proposal (in docs/proposal.md), suggest 5 unstructured web
+   sources I should scrape into my knowledge base. For each source,
+   give me a Tavily search query I could use.
+   ```
+
+4. Pick one source to scrape right now. You can scrape more async this week.
+
+**If your target site blocks scraping:** Some sites (LinkedIn full profiles, many SaaS dashboards, sites behind aggressive Cloudflare) return 403 errors or empty content through Firecrawl. Public fallbacks that almost always work:
+
+- Company investor relations pages (`ir.<company>.com`)
+- SEC filings ([sec.gov/cgi-bin/browse-edgar](https://www.sec.gov/cgi-bin/browse-edgar))
+- Press release archives (PR Newswire, Business Wire, GlobeNewswire)
+- Wikipedia
+- Seeking Alpha earnings call transcripts
+- Company blog posts and newsroom pages
+
+**Checkpoint:** You have identified at least one specific URL or site pattern relevant to your portfolio project.
+
+---
+
+### Step 07: Scrape at Least One Source into Your Project
+
+**What to do:**
+
+1. You have two ways to scrape into your portfolio repo's `knowledge/raw/`:
+
+   **Option A — reuse your Python script.** Copy `scrape_pipeline.py` and `.env` from your `scrape-pipeline` repo into your portfolio repo. (Verify your portfolio repo's `.gitignore` excludes `.env` before you do anything else.) Change the Tavily query in the script to something relevant to your project, then run it.
+
+   **Option B — use the MCP prompt.** In your portfolio repo's Claude Code session, paste a prompt similar to Step 05's, but with your own query. Example:
+
+   ```
+   Use the tavily-search tool to find 3 URLs about [your industry
+   topic]. Then use the firecrawl_scrape tool to save each URL as
+   markdown in knowledge/raw/ with filenames like NN-slug.md. Include
+   the source URL at the top of each file.
+   ```
+
+   Option B is faster for class. Option A is what you will schedule on GitHub Actions later.
+
+2. Confirm at least one new `.md` file appears in your portfolio repo's `knowledge/raw/`. Open it and verify the content is relevant to your domain — not every scrape is useful, and this is the moment to catch sources that will not help your knowledge base.
+
+**Why it matters:** Your knowledge base is only as good as the sources you feed it. In Milestone 02, Claude Code reads `knowledge/raw/` to generate the wiki pages you are graded on. A knowledge base full of cookie banners and navigation markup produces bad wiki pages. A knowledge base full of real press releases, leadership bios, and earnings content produces wiki pages you can defend in your final interview.
+
+**Checkpoint:** Your portfolio project repo has one or more markdown files in `knowledge/raw/` scraped from a real source relevant to your job posting.
+
+---
+
+### Step 08: Commit and Push
+
+Both repos need pushed.
+
+**What to do:**
+
+1. In the `scrape-pipeline` repo's Claude Code session:
+
+   ```
+   Save pip freeze to requirements.txt, then commit all files
+   (confirming .env is NOT included) and push to GitHub.
+   ```
+
+2. In the portfolio repo's Claude Code session:
+
+   ```
+   Commit the new files in knowledge/raw/ (confirming .env is NOT
+   included) and push to GitHub.
+   ```
+
+3. Verify both repos on GitHub. Open `knowledge/raw/` in each and confirm the markdown files are visible.
+
+**Checkpoint:** Both repos are pushed. Neither contains a `.env` file in its git history.
 
 ---
 
 ## Submission
 
-<!-- Filled in at the end -->
+Push your finished `scrape-pipeline` repository to GitHub and submit the repo URL as your Lesson Exercises 09.
+
+Your `scrape-pipeline` repo should contain:
+- `scrape_pipeline.py` — your Tavily + Firecrawl pipeline
+- `knowledge/raw/*.md` — at least 5 scraped Chipotle IR markdown files (from the Python pipeline), plus any additional files Claude Code saved via the MCP prompt in Step 05
+- `requirements.txt` — Python dependencies
+- `.gitignore` — Python gitignore (must exclude `.env`)
+
+Your `scrape-pipeline` repo must NOT contain:
+- `.env` — must be gitignored, no keys in git history
+
+**Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.
