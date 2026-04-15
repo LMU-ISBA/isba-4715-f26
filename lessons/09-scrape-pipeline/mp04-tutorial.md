@@ -27,7 +27,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 **What to do:**
 
 1. Go to [github.com/new](https://github.com/new) and create a new repository:
-   - Name it `scrape-pipeline`
+   - Name it `chipotle-scrape-pipeline`
    - Set visibility to **Public**
    - Under **Add .gitignore**, select **Python** from the dropdown
    - Leave everything else as default
@@ -42,7 +42,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
    ├── campus-bites-pipeline/     <-- MP01
    ├── basket-craft-pipeline/     <-- MP02
    ├── weather-api-pipeline/      <-- MP03
-   └── scrape-pipeline/           <-- MP04
+   └── chipotle-scrape-pipeline/   <-- MP04
    ```
 
 4. Open a terminal in Cursor (`` Ctrl+` `` or **Terminal > New Terminal**) and start Claude Code:
@@ -53,8 +53,10 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 5. Ask Claude Code to set up the environment:
 
    ```
-   Set up a Python venv and install requests, python-dotenv, tavily-python, firecrawl-py. Activate it.
+   Set up a Python venv and install requests, python-dotenv, tavily-python, firecrawl-py.
    ```
+
+   `requests` for HTTP calls, `python-dotenv` to load your `.env` keys, `tavily-python` for the Tavily search SDK, `firecrawl-py` for the Firecrawl scrape SDK.
 
    The install takes 30-60s. **While it runs, sign up in your browser (steps 6-7).** To run Python outside Claude Code later: `source venv/bin/activate` (Mac) or `venv\Scripts\activate` (Windows).
 
@@ -77,7 +79,7 @@ Same workflow as MP02 and MP03: create the repo on GitHub first, clone it into C
 
 **Free tiers:** 500 Firecrawl scrapes/month, 1,000 Tavily searches/month — plenty for the semester.
 
-**Checkpoint:** Your `scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, `tavily-python`, and `firecrawl-py` installed, your `.env` file contains both API keys, and `.env` is listed in your `.gitignore`.
+**Checkpoint:** Your `chipotle-scrape-pipeline` repo is cloned, Claude Code confirms the virtual environment has `requests`, `python-dotenv`, `tavily-python`, and `firecrawl-py` installed, your `.env` file contains both API keys, and `.env` is listed in your `.gitignore`.
 
 ---
 
@@ -295,7 +297,7 @@ Install two MCP servers so Claude Code can call Tavily and Firecrawl directly, n
 
    **Heads-up about the OAuth pop-up:** Tavily uses OAuth instead of an API key in the URL. The first time Claude Code calls a Tavily tool (which happens in Step 05, not right now), a browser window will open asking you to authorize. Click through to approve. This is the same OAuth pattern you saw in the async Spotify tutorial. Do not be surprised when your browser opens during the MCP demo — that is expected.
 
-3. **Restart Claude Code** in your `scrape-pipeline` repo terminal:
+3. **Restart Claude Code** in your `chipotle-scrape-pipeline` repo terminal:
 
    ```bash
    claude
@@ -321,7 +323,7 @@ The Python pipeline is ~35 lines. This step collapses it into one prompt via the
 
 **What to do:**
 
-1. Make sure you are in the `scrape-pipeline` repo directory with Claude Code running. If you left Claude Code earlier for the MCP install, start it again:
+1. Make sure you are in the `chipotle-scrape-pipeline` repo directory with Claude Code running. If you left Claude Code earlier for the MCP install, start it again:
 
    ```bash
    claude
@@ -367,7 +369,7 @@ The Python pipeline is ~35 lines. This step collapses it into one prompt via the
 **If something goes wrong:**
 
 - **The Tavily tool is not listed as available:** Check `/mcp` inside Claude Code. If `tavily-remote-mcp` is not `✔ connected`, revisit Step 04's install command. You may also need to restart Claude Code (`exit`, then `claude` again).
-- **Claude Code writes the files to the wrong place:** Claude Code interprets paths relative to the current directory. Confirm you ran `claude` from inside your `scrape-pipeline` repo (not your portfolio project, not your home directory). If files landed in the wrong folder, run `pwd` to see where Claude Code is, then tell it: `Move the earnings-NN-slug.md files you just created into knowledge/raw/ under the current directory.`
+- **Claude Code writes the files to the wrong place:** Claude Code interprets paths relative to the current directory. Confirm you ran `claude` from inside your `chipotle-scrape-pipeline` repo (not your portfolio project, not your home directory). If files landed in the wrong folder, run `pwd` to see where Claude Code is, then tell it: `Move the earnings-NN-slug.md files you just created into knowledge/raw/ under the current directory.`
 - **The OAuth browser window did not open:** Some browsers block pop-ups from terminal-launched processes. Watch the Claude Code output for a URL — copy it into your browser manually.
 
 **Checkpoint:** You see up to 5 new `earnings-NN-slug.md` files in `knowledge/raw/` that Claude Code created via the MCP tools, without you writing any Python. If a scrape returned empty content, Claude Code may have skipped that result — fewer than 5 files is normal for the same reasons Step 03 noted. This is the same pipeline you wrote in Part 02, issued as one sentence instead of 35 lines of code.
@@ -380,13 +382,13 @@ Part 04 has 20 minutes. If you are running short on time, skip Step 06's brainst
 
 ### Step 06: Find Sources for Your Portfolio Project
 
-You are done with the `scrape-pipeline` demo repo. For the rest of class, you will work inside [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project) repo — applying the same pattern to your own domain.
+You are done with the `chipotle-scrape-pipeline` demo repo. For the rest of class, you will work inside [your portfolio project](https://github.com/LMU-ISBA/isba-4715-f26/tree/main/project) repo — applying the same pattern to your own domain.
 
 Your project's knowledge base needs at least 15 sources from 3+ different sites by Milestone 02. Today you are aiming for at least one. The goal is to prove the pattern transfers — the rest is volume, which you can add async throughout the week.
 
 **What to do:**
 
-1. Open a **new Cursor window** (**File > New Window**). Clone your portfolio project repo into it the same way you did for `scrape-pipeline` in Step 00. Start Claude Code in the terminal.
+1. Open a **new Cursor window** (**File > New Window**). Clone your portfolio project repo into it the same way you did for `chipotle-scrape-pipeline` in Step 00. Start Claude Code in the terminal.
 
 2. You are now working in your portfolio project repo, not the scrape pipeline. If your portfolio repo does not have a `knowledge/raw/` folder yet, create one:
 
@@ -437,7 +439,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
    **Option A — reuse your Python script.** Follow this sequence exactly — the ordering matters so your key never reaches git:
 
    1. Open your portfolio repo's `.gitignore` and confirm `.env` is listed. If it is not, add `.env` on its own line and save the file.
-   2. Only then copy `scrape_pipeline.py` and `.env` from your `scrape-pipeline` repo into your portfolio repo.
+   2. Only then copy `scrape_pipeline.py` and `.env` from your `chipotle-scrape-pipeline` repo into your portfolio repo.
    3. Run `git status` in your portfolio repo. If `.env` appears as an untracked file in the output, your gitignore is wrong — stop and fix it before continuing.
    4. Change the Tavily query in the script to something relevant to your project, then run it.
 
@@ -455,7 +457,7 @@ Your project's knowledge base needs at least 15 sources from 3+ different sites 
 
 You have two Cursor windows open (one per repo). Run each step in its respective window.
 
-1. In the `scrape-pipeline` Claude Code session, first run `git status` yourself in the terminal and look at the staged-and-untracked file list. If you see `.env` listed anywhere, STOP — your gitignore is missing `.env` and you need to fix it before continuing.
+1. In the `chipotle-scrape-pipeline` Claude Code session, first run `git status` yourself in the terminal and look at the staged-and-untracked file list. If you see `.env` listed anywhere, STOP — your gitignore is missing `.env` and you need to fix it before continuing.
 
 2. Once `git status` is clean, use Claude Code to finish the commit:
 
@@ -482,15 +484,15 @@ You have two Cursor windows open (one per repo). Run each step in its respective
 
 ## Submission
 
-Push your finished `scrape-pipeline` repository to GitHub and submit the repo URL as your Lesson Exercises 09.
+Push your finished `chipotle-scrape-pipeline` repository to GitHub and submit the repo URL as your Lesson Exercises 09.
 
-Your `scrape-pipeline` repo should contain:
+Your `chipotle-scrape-pipeline` repo should contain:
 - `scrape_pipeline.py` — your Tavily + Firecrawl pipeline
 - `knowledge/raw/` — at least 5 `NN-slug.md` files from the Python pipeline (Step 03) AND at least 1 `earnings-NN-slug.md` file from the MCP prompt (Step 05). Both naming patterns are expected.
 - `requirements.txt` — Python dependencies
 - `.gitignore` — Python gitignore (must exclude `.env`)
 
-Your `scrape-pipeline` repo must NOT contain:
+Your `chipotle-scrape-pipeline` repo must NOT contain:
 - `.env` — must be gitignored, no keys in git history
 
 **Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.

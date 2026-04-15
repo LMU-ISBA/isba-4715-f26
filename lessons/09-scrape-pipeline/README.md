@@ -79,7 +79,7 @@ Before class:
 - Sign up for a free [Tavily](https://tavily.com) account (GitHub sign-in, no card)
 - Optionally install the Firecrawl MCP and Tavily MCP servers in Claude Code (commands in [mp04-tutorial.md Step 04](mp04-tutorial.md#step-04-install-firecrawl-mcp-and-tavily-mcp)). Doing this before class keeps Part 03 on schedule.
 
-In class, Step 00 of the tutorial walks you through creating the `scrape-pipeline` repo, setting up the venv, and creating the `.env` file.
+In class, Step 00 of the tutorial walks you through creating the `chipotle-scrape-pipeline` repo, setting up the venv, and creating the `.env` file.
 
 ## Key Concepts
 
@@ -116,4 +116,4 @@ Different tools. Same shape. If you learned MP03, you already know MP04.
 
 ## Lesson Exercise
 
-Complete the full tutorial in [mp04-tutorial.md](mp04-tutorial.md), push your finished `scrape-pipeline` repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 09. Optionally, commit at least one new scraped source into your portfolio project repo's `knowledge/raw/`.
+Complete the full tutorial in [mp04-tutorial.md](mp04-tutorial.md), push your finished `chipotle-scrape-pipeline` repository to GitHub, and submit the GitHub repo link as your Lesson Exercises 09. Optionally, commit at least one new scraped source into your portfolio project repo's `knowledge/raw/`.
