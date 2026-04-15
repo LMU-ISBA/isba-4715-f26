@@ -227,15 +227,11 @@ You wrote the API call by hand in Step 01 so you understand what is happening. F
 
 **Why brainstorm instead of copy-paste?** A well-specified prompt is itself an engineering skill. If your initial request is vague ("save the results to files"), a good AI collaborator should not jump straight to code — it should surface the decisions hiding in your request (filenames? headers? empty-result handling?) and let you answer them. That is the whole point of the `superpowers:brainstorming` skill: turn an idea into a design through dialogue, *then* implement. You practiced that here. In your portfolio project, you will use the same move for every non-trivial feature.
 
-**What `slugify()` does:** The helper turns a page title into a filename-safe string. For example, `"News Releases — Q1 2025"` becomes `"news-releases-q1-2025"`. The regex `[^a-zA-Z0-9]+` replaces any run of non-alphanumeric characters with a single hyphen, `.strip("-")` trims hyphens at the ends, and `[:60]` caps length so long titles do not produce unwieldy filenames.
+**When the brainstorm asks about filenames:** Search results can share titles — Firecrawl sometimes returns multiple pages titled "News Releases." A title-based slug alone causes filename collisions. Tell Claude Code to prefix filenames with a zero-padded index (`01-`, `02-`) so each file is unique and sorts in order.
 
-**Why the index prefix in filenames (`01-`, `02-`):** Search results can share titles. A slug alone would cause filename collisions. The index prefix guarantees unique, ordered filenames.
+**When the brainstorm asks about the file header:** Ask for the source URL at the top of each file. That provenance is what lets Claude Code cite where each fact came from when it later reads `knowledge/raw/` to write your wiki pages.
 
-**Why no `time.sleep()` loop?** The single `POST /v2/search` call above did the scraping — the loop below is just iterating over results already in memory. If you later make additional Firecrawl calls in a loop (e.g., `/v2/scrape` for specific URLs), add `time.sleep(1)` between them to be polite.
-
-**Why the source URL header:** Lets Claude Code cite where each fact came from when it reads `knowledge/raw/`. Preserve provenance.
-
-**Why `r.get("markdown") or ""` and the `if not md: continue` guard:** If Firecrawl could not render a specific page during the search, the `markdown` key may be missing or `None`. `.get("markdown")` returns `None` (not a `KeyError`) if the key is missing, `or ""` converts `None` to an empty string, and the guard skips writing an empty file.
+**When the brainstorm asks about empty results:** Firecrawl may return `None` for the markdown field if a specific page could not be rendered. Tell Claude Code to skip those instead of writing empty files — a zero-byte file is worse than no file.
 
 **Checkpoint:** You have up to five markdown files in `knowledge/raw/`, each with a title header, source URL, and scraped content. If a result's markdown was empty, the script skipped it. This is the full Python pipeline: **search + scrape → loop → save**.
 
