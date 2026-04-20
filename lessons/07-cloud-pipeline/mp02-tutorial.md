@@ -1005,7 +1005,7 @@ This loader happens to read from RDS and write to Snowflake `raw`, but the shape
 3. When execution finishes, review the loader script it produced. Ask yourself:
    - Is it reading credentials from `.env`?
    - Is it truncating each target table before loading?
-   - Are all table and column names lowercase?
+   - Does it create tables and columns as UPPERCASE in Snowflake (either by uppercasing the DataFrame before `write_pandas`, or by passing `quote_identifiers=False`)?
    - Is it using `write_pandas` for the writes?
 
 If any answer is "no," say so to Claude Code and ask it to fix that specific item. Do not hand-edit the generated code.
