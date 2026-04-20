@@ -24,7 +24,7 @@ This tutorial covers all four sessions of Mini-Project 02. If you fall behind du
 | 9 | [Recreate RDS via CLI](#step-9-delete-console-instance-recreate-via-cli) | Delete the Console instance, recreate with one CLI command |
 | 10 | [Load raw data into RDS](#step-10-load-raw-data-into-aws-rds) | Extract all Basket Craft tables and load into cloud PostgreSQL |
 | 11 | [Verify the data](#step-11-verify-the-loaded-data) | Check results with DBeaver and Claude Code |
-| 12 | [Update documentation](#step-12-update-documentation-and-push) | Run /init, update README, commit and push |
+| 12 | [Update documentation](#step-12-update-documentation-and-push) | Update CLAUDE.md, update README, commit and push |
 
 **Part 3: Snowflake Load (Session 03)**
 
@@ -664,7 +664,7 @@ You have a cloud database. Now fill it with data. You will extract all raw Baske
 
 **Superpowers may brainstorm again.** Even though this task is straightforward, Superpowers may activate the brainstorming skill because it detects you are building something. That is fine. The brainstorm will be shorter than Session 01 since the task is simpler (same source, new destination, no design decisions). Let it work through its process.
 
-**Raw data for a reason:** You are loading raw, untransformed data. In Session 03, dbt will transform this into a star schema (fact and dimension tables). Raw data goes in first, transformations happen in the warehouse. That is the ELT pattern. Loading raw now means you have the full source to work with later.
+**Raw data for a reason:** You are loading raw, untransformed data. In Session 04, dbt will transform this into a star schema (fact and dimension tables). Raw data goes in first, transformations happen in the warehouse. That is the ELT pattern. Loading raw now means you have the full source to work with later.
 
 **Checkpoint:** All 8 raw Basket Craft tables are loaded into the AWS RDS. Row counts per table match the source MySQL database.
 
@@ -691,7 +691,7 @@ Check the data before calling it done. This time the database is remote.
 
 1. In DBeaver, refresh your connection to the `basket-craft-db` instance (right-click > **Refresh**).
 
-2. Navigate to **basket_craft > Schemas > public > Tables**. You should see all 8 tables.
+2. Navigate to **basket_craft > Schemas** and expand the schemas. Your 8 tables will be under `public` (the PostgreSQL default) or under another schema that Claude Code created during the load (for example, `raw`). Open whichever schema contains them.
 
 3. Open a few tables and browse the data. Does it look like the same Basket Craft data you queried in Lessons 01-05?
 
@@ -719,11 +719,17 @@ Check the data before calling it done. This time the database is remote.
 
 ### Step 12: Update Documentation and Push
 
-The pipeline works. Your data is in the cloud. Update your project documentation to reflect what you built. After every implementation session, run `/init` and update the README.
+The pipeline works. Your data is in the cloud. Update your project documentation to reflect what you built. After every implementation session, update `CLAUDE.md` and the README.
 
 **What to do:**
 
-1. Run `/init` in Claude Code to update the `CLAUDE.md` file. It will detect the new AWS RDS connection and scripts.
+1. Ask Claude Code to update `CLAUDE.md`:
+
+   ```
+   Update CLAUDE.md to document the new AWS RDS database and
+   the load scripts. Keep the existing instructions (like the
+   virtual environment rule) as they are.
+   ```
 
 2. Review the updated `CLAUDE.md` in Cursor. It should now mention both the local Docker PostgreSQL (from Session 01) and the AWS RDS you just created. Check that it has the RDS endpoint, database name, and how to connect.
 
@@ -833,7 +839,7 @@ flowchart LR
     class STG,MART future
 ```
 
-Today's work follows the solid arrows: the Python loader reads Basket Craft rows out of RDS with `SELECT`, connects to the `basket_craft_wh` warehouse, and the warehouse executes `INSERT` into the `raw` schema. Inside the Snowflake account, the warehouse (compute) and the database (storage) are **separate account-level objects that sit side by side** — the same warehouse could write to a different database later, and the same database could be queried by a different warehouse. Every query or write you run in Snowflake travels through a warehouse on its way to (or from) a schema. The dashed `staging` and `mart` schemas are Session 04's job; dbt will read from `raw` and build them.
+Today's work follows the solid arrows: the Python loader reads Basket Craft rows out of RDS with `SELECT`, connects to the `basket_craft_wh` warehouse, and the warehouse executes `INSERT` into the `raw` schema. Inside the Snowflake account, the warehouse (compute) and the database (storage) are **separate account-level objects that sit side by side**. The same warehouse could write to a different database later, and the same database could be queried by a different warehouse. Every query or write you run in Snowflake travels through a warehouse on its way to (or from) a schema. The dashed `staging` and `mart` schemas are Session 04's job; dbt will read from `raw` and build them.
 
 ---
 
@@ -930,7 +936,7 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
 
 2. Find your Snowflake account identifier. Open the **Account Details** dialog — the fastest path is to click your username in the **lower-left corner**, hover over your current account, and click **View account details**. (You can also reach the same dialog via **Admin** → **Accounts** and clicking on your account row.)
 
-   In the dialog's **Account** tab, click the copy icon next to **Account identifier**. The value will be in the format `ORGNAME-ACCOUNT_NAME` (for example, `ASTUBUO-ZNC70222`). That is Snowflake's preferred account identifier format for connection strings — never hand-assemble your own from URL fragments or the Accounts table.
+   In the dialog's **Account** tab, click the copy icon next to **Account identifier**. The value will be in the format `ORGNAME-ACCOUNT_NAME` (for example, `ASTUBUO-ZNC70222`). That is Snowflake's preferred account identifier format for connection strings. Never hand-assemble your own from URL fragments or the Accounts table.
 
    Prefer SQL? The same dialog has a **SQL Commands** tab with a one-click version. Or run the query yourself in your Snowsight SQL file from Step 14:
 
@@ -976,8 +982,10 @@ You already know how to write a Python loader. You built one in Session 01 and a
    ```
    I need to write a Python script that reads the Basket Craft raw tables from my
    AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw
-   schema. Use the superpowers brainstorming skill.
+   schema.
    ```
+
+   After you send that, Claude Code should recognize the design-before-build pattern and automatically load the `superpowers:brainstorming` skill, announcing it in its first response. That auto-load is the point — Superpowers are trained to kick in when you describe something you want to build. If the skill does not load on its own, reply with `Use the superpowers brainstorming skill.` as a fallback.
 
 2. Work through the conversation. Expect questions covering four decisions:
    - **Which tables** to load (the same raw Basket Craft tables you loaded in Session 02)
@@ -997,7 +1005,7 @@ You already know how to write a Python loader. You built one in Session 01 and a
 
 Now you let Claude Code write the script based on the brainstorm. This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS. Remember that today.
 
-**One tool-picking move before Claude writes any code: name the library.** For anything running against a cloud service — Snowflake, AWS, Stripe, OpenAI, GitHub, your portfolio's API — the default is to search the vendor's docs for their **official Python package** and use it. Official packages expose service-specific optimizations that generic libraries miss. [`snowflake-connector-python`](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector) has `write_pandas`, which uses Snowflake's internal stages and `COPY INTO` under the hood — much faster than row-by-row `INSERT`s through a generic SQL driver. Official packages also handle auth, session tokens, and retries the way the vendor intends, and stay current when new features ship.
+**One tool-picking move before Claude writes any code: name the library.** For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, GitHub, your portfolio's API), the default is to search the vendor's docs for their **official Python package** and use it. Official packages expose service-specific optimizations that generic libraries miss. [`snowflake-connector-python`](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector) has `write_pandas`, which uses Snowflake's internal stages and `COPY INTO` under the hood. That is much faster than row-by-row `INSERT`s through a generic SQL driver. Official packages also handle auth, session tokens, and retries the way the vendor intends, and stay current when new features ship.
 
 Generic libraries (SQLAlchemy `to_sql`, `pyodbc`, raw JDBC) can technically talk to Snowflake, but they go through a lowest-common-denominator SQL path and lose the fast `COPY INTO` trick. Fine for exploration, not for a loader you will re-run every day.
 
