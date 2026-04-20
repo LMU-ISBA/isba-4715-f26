@@ -30,13 +30,15 @@ This tutorial covers all four sessions of Mini-Project 02. If you fall behind du
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
+| Intro | [What Snowflake is](#what-snowflake-is-before-you-touch-it) | Read the 3-minute primer on cloud data warehouses before Step 13 |
 | 13 | [Verify your Snowflake account](#step-13-verify-your-snowflake-account) | Log in, confirm region and edition, copy account identifier |
 | 14 | [Create Snowflake objects](#step-14-create-snowflake-objects) | Build warehouse, database, and schema with one worksheet |
 | 15 | [Store Snowflake credentials](#step-15-store-snowflake-credentials-in-env) | Add Snowflake variables to `.env`, confirm gitignored |
-| 16 | [Brainstorm the loader](#step-16-brainstorm-the-rds-to-snowflake-loader) | Use Superpowers to design the RDS-to-Snowflake hop |
+| 16 | [Brainstorm the loader (time-boxed)](#step-16-brainstorm-the-rds-to-snowflake-loader-time-boxed) | Design the RDS-to-Snowflake hop in a 10-minute Superpowers brainstorm |
 | 17 | [Implement the loader](#step-17-implement-the-loader) | Let Claude Code write the Python loader based on the plan |
 | 18 | [Run and verify](#step-18-run-the-loader-and-verify) | Load all tables, confirm row counts match RDS |
 | 19 | [Commit and push](#step-19-commit-push-and-update-claudemd) | Update CLAUDE.md, commit, push to GitHub |
+| Recap | [Portfolio transfer](#portfolio-transfer-what-you-just-learned) | Map Session 03 skills onto your portfolio project requirements |
 
 **Part 4: dbt Core and Star Schema (Session 04)**
 
@@ -746,18 +748,25 @@ The pipeline works. Your data is in the cloud. Update your project documentation
 
 ## Homework: Prepare for Session 03
 
-Sign up for a Snowflake trial account before the next class.
+Sign up for a Snowflake trial account before the next class. This same account will also power your portfolio project, so read the timing note at the bottom before you click anything.
 
-1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and fill in the signup form. You only need a valid email address. No credit card required. The trial lasts 30 days.
+1. Go to [signup.snowflake.com](https://signup.snowflake.com/) and fill in the signup form. You only need a valid email address. No credit card required. The trial lasts 30 days and gives you $400 of free credits.
 
-2. **Before clicking Sign up**, look below the Sign up button. You will see the current edition, cloud provider, and region (e.g., "Enterprise Edition . AWS US East (Ohio)"). Click the `>` arrow next to it to change these settings:
-   - **Edition:** Standard (not Enterprise, to stretch your free credits further)
+2. **Before clicking Sign up**, look below the Sign up button. You will see the current edition, cloud provider, and region. Click the `>` arrow to change these settings:
+   - **Edition:** Standard (not Enterprise, to stretch your free credits)
    - **Cloud provider:** Amazon Web Services
    - **Region:** US East (Northern Virginia) (same region as your AWS RDS)
 
-3. After signing up, log in to your Snowflake account and confirm you can see the Snowflake web interface (Snowsight).
+3. After signing up, log in and confirm you can see Snowsight, the Snowflake web interface.
 
 This is required for Session 03. We cannot proceed without it.
+
+**Timing, read this.** The trial is 30 days from signup. If you sign up on April 8, 2026, it expires May 8, 2026, three days before the May 11 final interview. You have two options:
+
+- **Option A (recommended):** Use the same trial account for MP02 and your portfolio. Be conservative with warehouse runtime (auto-suspend is your friend). If credits run low near May 11, create a second trial account with a different email a week before the interview as backup.
+- **Option B:** Sign up now for MP02, then create a second trial account with a different email when you start Milestone 01 around April 13-14. The fresh trial will easily survive past May 11.
+
+Either works. Option A is simpler if you monitor credits. Option B doubles your free runtime at the cost of managing two accounts.
 
 ---
 
@@ -766,6 +775,33 @@ This is required for Session 03. We cannot proceed without it.
 In Session 02 you landed the Basket Craft raw tables in a cloud PostgreSQL database on AWS RDS. Today you move that same data one more hop — into a cloud data warehouse, Snowflake. You will not transform anything yet. Today is the **L** in ELT: extract from RDS, load into Snowflake raw. Next session is the **T**, where dbt takes over.
 
 **Before this session:** Complete the [homework from Session 02](#homework-prepare-for-session-03) (Snowflake trial account signup). You should be able to log in to Snowsight, the Snowflake web UI, before class starts.
+
+### What Snowflake Is (Before You Touch It)
+
+Read this before Step 13. Three minutes now will save you a lot of confusion in Step 13 and in Session 04.
+
+**Snowflake is a cloud data warehouse.** The word *warehouse* is doing real work here. The PostgreSQL database you used in Sessions 01 and 02 is an **operational** database (OLTP), tuned for lots of small reads and writes, like an e-commerce app saving an order. A warehouse is an **analytical** database (OLAP), tuned for scanning millions of rows to answer questions like "what were sales by region last quarter?" Different job, different internal design.
+
+**The one Snowflake idea that explains everything else: storage and compute are separate.**
+
+- **Storage** is where your data physically lives (columnar files on cloud object storage under the hood). You pay for bytes stored, cheaply, whether you query them or not.
+- **Compute** is a **virtual warehouse**: a cluster of machines you spin up to run SQL. You pay per second while it runs, and nothing while it is suspended.
+
+Why this matters:
+- The same warehouse can query many databases. The same database can be queried by many warehouses. They are independent layers.
+- When nobody is querying, compute auto-suspends and your credit meter stops. When someone fires a query, it wakes back up in a second or two.
+- For a big transform, you can spin up a larger warehouse briefly, then drop back to extra-small. No re-platforming, just a config change. That is why dbt jobs in Session 04 run fast even on free-tier credits.
+
+**Today is about loading raw data. No transformations yet.** You will create one warehouse, one database, and one `raw` schema, then write a Python script that copies your Basket Craft tables out of RDS and into `raw`. "Raw" means the data lands exactly as it is in the source: same table names, same column names, no cleaning. Session 04 turns that raw layer into a proper star schema with dbt.
+
+**One honest note on how this works in real jobs.** At medium and large companies, most raw loading is handled by managed ELT tools like Fivetran, Airbyte, Stitch, Hevo, and Matillion. You click-configure a source, they land rows in Snowflake raw on a schedule, handle schema drift and retries, and charge by row volume. A custom Python loader like the one you will write today is less common in production because a pre-built connector usually exists.
+
+So why write it yourself? Three reasons:
+1. **You understand the whole stack.** When a Fivetran sync breaks, someone who has built a loader can debug it. Someone who has only ever clicked "Connect" cannot.
+2. **Real work shows up without a connector.** Proprietary internal APIs, weird legacy systems, one-off scrapes. These need custom loaders, and junior data engineers get asked to write them on day one.
+3. **You see what Fivetran is actually doing.** `write_pandas` and `COPY INTO` are the primitives. Managed tools are wrappers around the same operations. Knowing the primitives gives you interview answers that "I used Fivetran" cannot.
+
+---
 
 ### Step 13: Verify Your Snowflake Account
 
@@ -865,35 +901,41 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
 
 ---
 
-### Step 16: Brainstorm the RDS to Snowflake Loader
+### Step 16: Brainstorm the RDS to Snowflake Loader (time-boxed)
 
-You already know how to write a Python loader — you built one in Session 01 and another in Session 02. This one is similar in shape (read from one database, write to another), but Snowflake has quirks that are worth thinking through before you code. Use the Superpowers brainstorming skill, just like Session 01.
+You already know how to write a Python loader. You built one in Session 01 and another in Session 02. This one is similar in shape, but Snowflake has quirks worth thinking through before you code. You will use Superpowers brainstorming again, with a twist: **timebox the conversation to 10 minutes.** Session 01 taught you how to brainstorm. Today you learn how to wrap one up on schedule, a skill you will need in every real meeting and every real AI conversation.
 
 **What to do:**
 
-1. In your Claude Code session, start a brainstorm:
+1. In Claude Code, start a brainstorm:
 
    ```
-   I need to write a Python script that reads the Basket Craft raw tables from my AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw schema. Use the superpowers brainstorming skill. Ask me one question at a time.
+   I need to write a Python script that reads the Basket Craft raw tables from my AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw schema. Use the superpowers brainstorming skill. Keep it tight — we have 10 minutes. Ask me one question at a time.
    ```
 
-2. Work through the brainstorm conversation. Expect questions about:
-   - **Which tables** to load (answer: the same raw Basket Craft tables you loaded in Session 02)
-   - **Chunking strategy** — do you pull everything into memory, or batch it? (For this dataset, in-memory is fine.)
-   - **Idempotency** — if you run the loader twice, should it append or replace? (Answer: truncate-and-reload. Safer and simpler.)
-   - **Column name casing** — Snowflake uppercases unquoted identifiers by default. We will use lowercase everywhere and never quote. This avoids the #1 dbt failure next session.
+2. Work through the conversation. Expect questions covering four decisions:
+   - **Which tables** to load (the same raw Basket Craft tables you loaded in Session 02)
+   - **Chunking strategy**: in-memory or batched? (In-memory is fine for this dataset.)
+   - **Idempotency**: on a re-run, append or replace? (Truncate-and-reload.)
+   - **Column name casing**: Snowflake uppercases unquoted identifiers by default. Use lowercase everywhere and never quote. This prevents the #1 dbt failure next session.
 
-3. At the end of the brainstorm, Claude Code will summarize the plan. Read it carefully. If something does not match the above, push back before letting it write code.
+3. At the 10-minute mark, wherever the conversation is, send:
 
-**Why this matters:** Snowflake's ingestion model is different enough from PostgreSQL that "I'll just write what I wrote last time" is a trap. Brainstorming forces the design decisions to the surface before the code gets written.
+   ```
+   Time is up. Summarize the final plan now, in the shortest form that still captures: which tables, chunking, idempotency, and identifier casing. No more questions.
+   ```
 
-**Checkpoint:** You have a clear plan in the Claude Code conversation that covers which tables, how to chunk, how to handle re-runs, and how to handle identifier casing.
+4. Read the summary. If any of the four decisions look wrong, push back in one focused message and ask Claude to fix that specific item. Do not let the conversation re-open.
+
+**Why this matters:** Open-ended AI brainstorms sprawl. Timeboxing them is a production skill. In a real job, the 15-minute design discussion ends at 15 minutes whether every question was answered or not. You lock in a plan, ship it, and course-correct next iteration. Practicing this with Claude is the cheapest place to learn it.
+
+**Checkpoint:** You have a plan with four decisions locked in (tables, chunking, idempotency, casing). Elapsed time: 10-12 minutes.
 
 ---
 
 ### Step 17: Implement the Loader
 
-Now you let Claude Code write the script based on the brainstorm.
+Now you let Claude Code write the script based on the brainstorm. This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS. Remember that today.
 
 **What to do:**
 
@@ -1003,6 +1045,22 @@ GRANT ALL ON SCHEMA basket_craft.raw TO ROLE YOUR_ROLE;
 **"Connection refused" when reading from RDS.** The RDS security group from Session 02 only allows your old IP. If you changed networks (coffee shop, campus WiFi, VPN), your current IP is now blocked. Ask Claude Code to help you update the security group to allow your new IP.
 
 **The loader runs but every row count is zero.** The RDS connection is probably pointing at an empty database. Check that your `.env` has the Basket Craft RDS credentials, not a leftover dev database.
+
+---
+
+### Portfolio Transfer: What You Just Learned
+
+Before you close your laptop, note what transfers from today's work directly into your portfolio project (Milestone 01, due April 27):
+
+- **Snowflake trial account in AWS US East 1** → portfolio prerequisite, satisfied.
+- **Warehouse, database, and `raw` schema setup** → same SQL, just rename for your project (e.g., `your_project_wh`, `your_project_db.raw`).
+- **Credentials in `.env`, `.env` gitignored** → identical. The portfolio rubric explicitly penalizes committed credentials.
+- **Python loader using `write_pandas`, truncate-and-reload, lowercase identifiers** → same shape. In the portfolio the source will be an API response instead of an RDS query, but everything else stays the same.
+- **Row-count verification after a load** → carry this into every portfolio run. Cheapest data-quality check there is.
+
+What is *not* yet covered that the portfolio requires:
+- **Scheduled runs via GitHub Actions**: MP03 Session 01 (April 15) teaches this.
+- **API source instead of database source**: MP03 Session 01 also.
 
 ---
 
