@@ -30,7 +30,7 @@ This tutorial covers all four sessions of Mini-Project 02. If you fall behind du
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| Intro | [What Snowflake is](#what-snowflake-is-before-you-touch-it) | Read the 3-minute primer on cloud data warehouses before Step 13 |
+| Intro | [Concept primer (slides)](#concept-primer-slides) | Read the Session 03 slide deck (PDF) before Step 13 |
 | 13 | [Verify your Snowflake account](#step-13-verify-your-snowflake-account) | Log in, confirm region and edition, copy account identifier |
 | 14 | [Create Snowflake objects](#step-14-create-snowflake-objects) | Build warehouse, database, and schema with one worksheet |
 | 15 | [Store Snowflake credentials](#step-15-store-snowflake-credentials-in-env) | Add Snowflake variables to `.env`, confirm gitignored |
@@ -784,32 +784,15 @@ In Session 02 you landed the Basket Craft raw tables in a cloud PostgreSQL datab
 
 **To start:** Open your `basket-craft-pipeline` project in Cursor — the same repo from Sessions 01 and 02. Open a terminal in Cursor and confirm `git status` shows a clean working tree before you begin.
 
-### What Snowflake Is (Before You Touch It)
+### Concept primer (slides)
 
-Read this before Step 13. Three minutes now will save you a lot of confusion in Step 13 and in Session 04.
+Before you touch Snowflake, read the slide deck for Session 03 (about five minutes):
 
-**Snowflake is a cloud data warehouse.** The word *warehouse* is doing real work here. The PostgreSQL database you used in Sessions 01 and 02 is an **operational** database (OLTP), tuned for lots of small reads and writes, like an e-commerce app saving an order. A warehouse is an **analytical** database (OLAP), tuned for scanning millions of rows to answer questions like "what were sales by region last quarter?" Different job, different internal design.
+**[Session 03 slides (PDF)](slides-session-03.pdf)**
 
-**The one Snowflake idea that explains everything else: storage and compute are separate.**
+The slides cover what Snowflake is, why storage and compute are separate, how managed ELT tools (Fivetran, Airbyte, Stitch, Hevo, Matillion) compare to a custom Python loader, and the pipeline you are about to build. Reading them now saves you confusion in Step 13 and in Session 04.
 
-- **Storage** is where your data physically lives (columnar files on cloud object storage under the hood). You pay for bytes stored, cheaply, whether you query them or not.
-- **Compute** is a **virtual warehouse**: a cluster of machines you spin up to run SQL. You pay per second while it runs, and nothing while it is suspended.
-
-Why this matters:
-- The same warehouse can query many databases. The same database can be queried by many warehouses. They are independent layers.
-- When nobody is querying, compute auto-suspends and your credit meter stops. When someone fires a query, it wakes back up in a second or two.
-- For a big transform, you can spin up a larger warehouse briefly, then drop back to extra-small. No re-platforming, just a config change. That is why dbt jobs in Session 04 run fast even on free-tier credits.
-
-**Today is about loading raw data. No transformations yet.** You will create one warehouse, one database, and one `raw` schema, then write a Python script that copies your Basket Craft tables out of RDS and into `raw`. "Raw" means the data lands exactly as it is in the source: same table names, same column names, no cleaning. Session 04 turns that raw layer into a proper star schema with dbt.
-
-**One honest note on how this works in real jobs.** At medium and large companies, most raw loading is handled by managed ELT tools like [Fivetran](https://www.fivetran.com), [Airbyte](https://airbyte.com), [Stitch](https://www.stitchdata.com), [Hevo](https://hevodata.com), and [Matillion](https://www.matillion.com). You click-configure a source, they land rows in Snowflake raw on a schedule, handle schema drift and retries, and charge by row volume. A custom Python loader like the one you will write today is less common in production because a pre-built connector usually exists.
-
-So why write it yourself? Three reasons:
-1. **You understand the whole stack.** When a Fivetran sync breaks, someone who has built a loader can debug it. Someone who has only ever clicked "Connect" cannot.
-2. **Real work shows up without a connector.** Proprietary internal APIs, weird legacy systems, one-off scrapes. These need custom loaders, and junior data engineers get asked to write them on day one.
-3. **You see what Fivetran is actually doing.** `write_pandas` and `COPY INTO` are the primitives. Managed tools are wrappers around the same operations. Knowing the primitives gives you interview answers that "I used Fivetran" cannot.
-
-**Here is what you are about to build, and where it fits:**
+**Here is the pipeline you are about to build, and where it fits:**
 
 ```mermaid
 flowchart LR
