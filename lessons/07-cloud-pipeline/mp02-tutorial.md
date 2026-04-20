@@ -986,7 +986,7 @@ You already know how to write a Python loader. You built one in Session 01 and a
 
 ### Step 17: Implement the Loader
 
-Now you let Claude Code write the script based on the brainstorm. This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS. Remember that today.
+Now you let Claude Code write the script based on the brainstorm. This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS.
 
 **One tool-picking move before Claude writes any code: name the library.** For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, GitHub, your portfolio's API), the default is to search the vendor's docs for their **official Python package** and use it. Official packages expose service-specific optimizations that generic libraries miss. [`snowflake-connector-python`](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector) has `write_pandas`, which uses Snowflake's internal stages and `COPY INTO` under the hood. That is much faster than row-by-row `INSERT`s through a generic SQL driver. Official packages also handle auth, session tokens, and retries the way the vendor intends, and stay current when new features ship.
 
@@ -1001,7 +1001,7 @@ Everything else (truncate-and-reload, lowercase identifiers, reading `.env`) is 
 1. Tell Claude Code to implement the loader, specifying the official Snowflake library:
 
    ```
-   Implement the loader we designed using snowflake-connector-python.
+   Implement the loader we designed using Snowflake's official Python connector.
    Update requirements.txt with any new dependencies.
    ```
 
