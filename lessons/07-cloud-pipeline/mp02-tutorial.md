@@ -30,7 +30,7 @@ This tutorial covers all four sessions of Mini-Project 02. If you fall behind du
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| Intro | [Concept primer (slides)](#concept-primer-slides) | Read the Session 03 slide deck (PDF) before Step 13 |
+| Intro | [Concept primer (slides)](#concept-primer-slides) | Read the Session 03 slide deck before Step 13 |
 | 13 | [Verify your Snowflake account](#step-13-verify-your-snowflake-account) | Log in, confirm region and edition, copy account identifier |
 | 14 | [Create Snowflake objects](#step-14-create-snowflake-objects) | Build warehouse, database, and schema with one worksheet |
 | 15 | [Store Snowflake credentials](#step-15-store-snowflake-credentials-in-env) | Add Snowflake variables to `.env`, confirm gitignored |
@@ -788,7 +788,7 @@ In Session 02 you landed the Basket Craft raw tables in a cloud PostgreSQL datab
 
 Before you touch Snowflake, read the slide deck for Session 03 (about five minutes):
 
-**[Session 03 slides (PDF)](slides-session-03.pdf)**
+**[Session 03 slides](https://lmu-isba.github.io/isba-4715-f26/lessons/07-cloud-pipeline/slides-session-03.html)**
 
 The slides cover what Snowflake is, why storage and compute are separate, how managed ELT tools (Fivetran, Airbyte, Stitch, Hevo, Matillion) compare to a custom Python loader, and the pipeline you are about to build. Reading them now saves you confusion in Step 13 and in Session 04.
 
