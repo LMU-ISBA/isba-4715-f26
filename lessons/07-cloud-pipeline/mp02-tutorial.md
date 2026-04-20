@@ -776,6 +776,8 @@ In Session 02 you landed the Basket Craft raw tables in a cloud PostgreSQL datab
 
 **Before this session:** Complete the [homework from Session 02](#homework-prepare-for-session-03) (Snowflake trial account signup). You should be able to log in to Snowsight, the Snowflake web UI, before class starts.
 
+**To start:** Open your `basket-craft-pipeline` project in Cursor — the same repo from Sessions 01 and 02. Open a terminal in Cursor and confirm `git status` shows a clean working tree before you begin.
+
 ### What Snowflake Is (Before You Touch It)
 
 Read this before Step 13. Three minutes now will save you a lot of confusion in Step 13 and in Session 04.
