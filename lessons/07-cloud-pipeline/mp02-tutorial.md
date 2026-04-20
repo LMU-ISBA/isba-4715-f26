@@ -801,6 +801,38 @@ So why write it yourself? Three reasons:
 2. **Real work shows up without a connector.** Proprietary internal APIs, weird legacy systems, one-off scrapes. These need custom loaders, and junior data engineers get asked to write them on day one.
 3. **You see what Fivetran is actually doing.** `write_pandas` and `COPY INTO` are the primitives. Managed tools are wrappers around the same operations. Knowing the primitives gives you interview answers that "I used Fivetran" cannot.
 
+**Here is what you are about to build, and where it fits:**
+
+```mermaid
+flowchart LR
+    RDS[("AWS RDS<br/>PostgreSQL<br/>Session 02")]
+    PY["Python loader<br/>write_pandas<br/>truncate-and-reload"]
+    ENV[/".env<br/>credentials"/]
+
+    subgraph SF["Snowflake"]
+        direction TB
+        WH(["basket_craft_wh<br/>virtual warehouse<br/>(compute)"])
+        subgraph DB["basket_craft database (storage)"]
+            direction TB
+            RAW["raw schema<br/>orders, order_items,<br/>products, customers"]
+            STG["staging schema<br/>(Session 04)"]
+            MART["mart schema<br/>fct + dim tables<br/>(Session 04)"]
+            RAW -. dbt .-> STG
+            STG -. dbt .-> MART
+        end
+        WH -. runs SQL against .- DB
+    end
+
+    RDS ==>|SELECT| PY
+    PY ==>|INSERT| RAW
+    ENV -. reads .-> PY
+
+    classDef future fill:#f7f7f7,stroke:#bbb,stroke-dasharray: 4 4,color:#888
+    class STG,MART future
+```
+
+Today's work is the two solid arrows on the left: read every Basket Craft table out of RDS with `SELECT`, write each one into the `raw` schema with `write_pandas`. Compute (`basket_craft_wh`) and storage (`basket_craft` database) are separate Snowflake objects — the warehouse executes the loader's SQL against whichever schema you point at. The dashed `staging` and `mart` schemas are Session 04's job; dbt will read from `raw` and build them.
+
 ---
 
 ### Step 13: Verify Your Snowflake Account
