@@ -953,7 +953,8 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
 4. Confirm `.env` is still in your `.gitignore`. In Cursor, open `.gitignore` and look for a line that says `.env`. If it is missing, add it. If you are unsure, ask Claude Code:
 
    ```
-   Check that .env is gitignored and never accidentally committed. Run git status and tell me if .env shows up.
+   Check that .env is gitignored and never accidentally committed.
+   Run git status and tell me if .env shows up.
    ```
 
 **Why this matters:** Every credential you add to a project is a new way to leak secrets. The rule is simple and absolute: credentials live in `.env`, `.env` lives in `.gitignore`, and both the Python loader and (next session) dbt read from the same `.env`. One source of truth.
@@ -973,7 +974,9 @@ You already know how to write a Python loader. You built one in Session 01 and a
 1. In Claude Code, start a brainstorm:
 
    ```
-   I need to write a Python script that reads the Basket Craft raw tables from my AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw schema. Use the superpowers brainstorming skill. Ask me one question at a time.
+   I need to write a Python script that reads the Basket Craft raw tables from my
+   AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw
+   schema. Use the superpowers brainstorming skill.
    ```
 
 2. Work through the conversation. Expect questions covering four decisions:
@@ -1007,7 +1010,8 @@ Everything else (truncate-and-reload, lowercase identifiers, reading `.env`) is 
 1. Tell Claude Code to implement the loader, specifying the official Snowflake library:
 
    ```
-   Implement the loader we designed using snowflake-connector-python. Update requirements.txt with any new dependencies.
+   Implement the loader we designed using snowflake-connector-python.
+   Update requirements.txt with any new dependencies.
    ```
 
 2. Claude Code will create the loader script and update `requirements.txt` to add `snowflake-connector-python` (and `python-dotenv` if it is not already there). Review the file it creates before running anything. Ask yourself:
@@ -1019,7 +1023,8 @@ Everything else (truncate-and-reload, lowercase identifiers, reading `.env`) is 
 3. Install the new dependencies:
 
    ```
-   Install the new Python dependencies from requirements.txt into the project virtual environment.
+   Install the new Python dependencies from requirements.txt
+   into the project virtual environment.
    ```
 
 **Why this matters:** One loader per hop. Session 01 had a loader from CSV to local PostgreSQL. Session 02 had a loader from CSV (or RDS) to cloud PostgreSQL. Today you have a loader from RDS to Snowflake. Each hop is a small, dumb, replayable script. If any single hop breaks, you can re-run it without touching the others. This is a pattern you will reuse for the rest of your career.
@@ -1075,13 +1080,16 @@ Everything else (truncate-and-reload, lowercase identifiers, reading `.env`) is 
 1. Ask Claude Code to update `CLAUDE.md` to reflect the new Snowflake loader:
 
    ```
-   Update CLAUDE.md to document the new Snowflake loader. Include how to run it, where its credentials come from, and the target database and schema. Do not commit any secrets.
+   Update CLAUDE.md to document the new Snowflake loader.
+   Include how to run it, where its credentials come from,
+   and the target database and schema. Do not commit any secrets.
    ```
 
 2. Commit and push:
 
    ```
-   Commit all changes and push to GitHub. The commit message should mention adding the Snowflake loader.
+   Commit all changes and push to GitHub.
+   The commit message should mention adding the Snowflake loader.
    ```
 
 3. Confirm on GitHub that the loader script, updated `requirements.txt`, and updated `CLAUDE.md` all show up in your repo.
