@@ -970,8 +970,8 @@ For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, yo
 
    ```
    I need to write a Python script that reads the Basket Craft raw tables from my
-   AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw
-   schema using Snowflake's official Python connector.
+   AWS RDS PostgreSQL database and loads them into my Snowflake raw schema
+   using Snowflake's official Python connector.
    ```
 
    After you send that, Claude Code should recognize the design-before-build pattern and automatically load the `superpowers:brainstorming` skill, announcing it in its first response. That auto-load is the point — Superpowers are trained to kick in when you describe something you want to build. If the skill does not load on its own, reply with `Use the superpowers brainstorming skill.` as a fallback.
