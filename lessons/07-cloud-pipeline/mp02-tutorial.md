@@ -992,35 +992,27 @@ For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, yo
 
 ### Step 17: Implement the Loader
 
-Now you let Claude Code write the script based on the brainstorm plan. Everything the loader needs (tables, chunking, idempotency, casing, library) is already decided. Your job is to review, not re-specify.
+When the brainstorm ends, Superpowers automatically writes an implementation plan and offers you an execution choice. You did not prompt for this. The brainstorming skill's terminal state is invoking writing-plans, which in turn offers execution. The whole chain runs off that one opening prompt from Step 16.
 
 This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS.
 
 **What to do:**
 
-1. Tell Claude Code to implement the loader:
+1. When Claude Code offers execution options (Subagent-Driven or Inline Execution), pick **Subagent-Driven**. It dispatches a fresh subagent per task and runs two reviews between tasks (spec compliance, then code quality), so you get checkpoints instead of one big result at the end.
 
-   ```
-   Implement the loader we designed.
-   Update requirements.txt with any new dependencies.
-   ```
+2. Watch Claude work through the plan. For each task you will see: the code change, a spec-compliance review, and a code-quality review. Read the reviews, not just the code. Reviewers catch things implementers miss.
 
-2. Claude Code will create the loader script and update `requirements.txt` to add `snowflake-connector-python` (and `python-dotenv` if it is not already there). Review the file it creates before running anything. Ask yourself:
+3. When execution finishes, review the loader script it produced. Ask yourself:
    - Is it reading credentials from `.env`?
    - Is it truncating each target table before loading?
    - Are all table and column names lowercase?
    - Is it using `write_pandas` for the writes?
 
-3. Install the new dependencies:
-
-   ```
-   Install the new Python dependencies from requirements.txt
-   into the project virtual environment.
-   ```
+If any answer is "no," say so to Claude Code and ask it to fix that specific item. Do not hand-edit the generated code.
 
 **Why this matters:** One loader per hop. Session 01 had a loader from CSV to local PostgreSQL. Session 02 had a loader from CSV (or RDS) to cloud PostgreSQL. Today you have a loader from RDS to Snowflake. Each hop is a small, dumb, replayable script. If any single hop breaks, you can re-run it without touching the others. This is a pattern you will reuse for the rest of your career.
 
-**Checkpoint:** Your repo contains a new Python file that loads RDS data into Snowflake. `requirements.txt` has been updated. Dependencies are installed. The script has not been run yet.
+**Checkpoint:** Your repo contains a new Python file that loads RDS data into Snowflake. `requirements.txt` has been updated. The loader has not been executed yet (that is Step 18).
 
 > ### What production teams do differently
 >
@@ -1033,6 +1025,8 @@ This loader happens to read from RDS and write to Snowflake `raw`, but the shape
 ---
 
 ### Step 18: Run the Loader and Verify
+
+> "Loading the data took about a minute, and proving it was correct took about seven. Most of a data engineer's job is verification, not transfer."
 
 **What to do:**
 
