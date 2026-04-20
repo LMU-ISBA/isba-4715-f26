@@ -887,6 +887,23 @@ In Snowsight, the tool for running SQL is a **SQL file** (older Snowflake docs a
    -- Create a schema called "raw" for the untransformed data
    CREATE SCHEMA IF NOT EXISTS basket_craft.raw;
 
+   -- Create a least-privilege role for the Python loader to use at runtime.
+   -- ACCOUNTADMIN stays reserved for one-time admin tasks like this worksheet.
+   CREATE ROLE IF NOT EXISTS basket_craft_loader;
+
+   -- Grant the loader role exactly what it needs: use the warehouse, work in the
+   -- database, and read/write in the raw schema (current and future tables).
+   GRANT USAGE ON WAREHOUSE basket_craft_wh TO ROLE basket_craft_loader;
+   GRANT USAGE ON DATABASE basket_craft TO ROLE basket_craft_loader;
+   GRANT USAGE ON SCHEMA basket_craft.raw TO ROLE basket_craft_loader;
+   GRANT CREATE TABLE ON SCHEMA basket_craft.raw TO ROLE basket_craft_loader;
+   GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA basket_craft.raw TO ROLE basket_craft_loader;
+   GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON FUTURE TABLES IN SCHEMA basket_craft.raw TO ROLE basket_craft_loader;
+
+   -- Let your own Snowflake user assume this new role.
+   SET my_user = CURRENT_USER();
+   GRANT ROLE basket_craft_loader TO USER IDENTIFIER($my_user);
+
    -- Switch to the new warehouse, database, and schema
    USE WAREHOUSE basket_craft_wh;
    USE DATABASE basket_craft;
@@ -897,9 +914,9 @@ In Snowsight, the tool for running SQL is a **SQL file** (older Snowflake docs a
 
 4. Verify your objects exist. In the left sidebar of Snowsight, click **Data** > **Databases**. You should see `BASKET_CRAFT` in the list. Expand it and you should see the `RAW` schema inside.
 
-**Why this matters:** Warehouses, databases, and roles are orthogonal concepts in Snowflake. The same warehouse can serve many databases. The same role can have different permissions in different databases. Keeping them separate lets large teams share a single Snowflake account without stepping on each other. For this project you only need one of each, but the pattern is the same at any scale.
+**Why this matters:** Warehouses, databases, and roles are orthogonal concepts in Snowflake. The same warehouse can serve many databases. The same role can have different permissions in different databases. Keeping them separate lets large teams share a single Snowflake account without stepping on each other. The `basket_craft_loader` role is deliberately narrow — it can only touch the `raw` schema of this one database, through the `basket_craft_wh` warehouse. `ACCOUNTADMIN` stays put for setup-only work like the worksheet above. Your Python loader will connect as `basket_craft_loader` at runtime, so a leaked or committed credential cannot blast your whole Snowflake account.
 
-**Checkpoint:** You can see `BASKET_CRAFT` with a `RAW` schema inside it in the Snowsight Data browser. Your SQL ran without errors.
+**Checkpoint:** You can see `BASKET_CRAFT` with a `RAW` schema inside it in the Snowsight Data browser. The `basket_craft_loader` role exists (run `SHOW ROLES LIKE 'basket_craft_loader';` if you want to confirm). Your SQL ran without errors.
 
 ---
 
@@ -911,7 +928,15 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
 
 1. Open your project's `.env` file in Cursor. If you followed Session 02 it already contains your RDS credentials.
 
-2. Find your Snowflake account identifier. In Snowsight, click your account name in the top-left to open the account menu, then click your username. The value shown in the format `ORGNAME-ACCOUNTNAME` is what you need. Keep this tab open — you will paste it in the next step.
+2. Find your Snowflake account identifier. Open the **Account Details** dialog — the fastest path is to click your username in the **lower-left corner**, hover over your current account, and click **View account details**. (You can also reach the same dialog via **Admin** → **Accounts** and clicking on your account row.)
+
+   In the dialog's **Account** tab, click the copy icon next to **Account identifier**. The value will be in the format `ORGNAME-ACCOUNT_NAME` (for example, `ASTUBUO-ZNC70222`). That is Snowflake's preferred account identifier format for connection strings — never hand-assemble your own from URL fragments or the Accounts table.
+
+   Prefer SQL? The same dialog has a **SQL Commands** tab with a one-click version. Or run the query yourself in your Snowsight SQL file from Step 14:
+
+   ```sql
+   SELECT CURRENT_ORGANIZATION_NAME() || '-' || CURRENT_ACCOUNT_NAME() AS account_identifier;
+   ```
 
 3. Add these new lines at the bottom of `.env`, pasting your account identifier from the previous step and your Snowflake username and password where shown:
 
@@ -919,7 +944,7 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
    SNOWFLAKE_ACCOUNT=your-account-identifier-here
    SNOWFLAKE_USER=your-snowflake-username
    SNOWFLAKE_PASSWORD=your-snowflake-password
-   SNOWFLAKE_ROLE=ACCOUNTADMIN
+   SNOWFLAKE_ROLE=basket_craft_loader
    SNOWFLAKE_WAREHOUSE=basket_craft_wh
    SNOWFLAKE_DATABASE=basket_craft
    SNOWFLAKE_SCHEMA=raw
@@ -931,7 +956,9 @@ Your Python loader needs to connect to Snowflake, which means it needs credentia
    Check that .env is gitignored and never accidentally committed. Run git status and tell me if .env shows up.
    ```
 
-**Why this matters:** Every credential you add to a project is a new way to leak secrets. The rule is simple and absolute: credentials live in `.env`, `.env` lives in `.gitignore`, and both the Python loader and (next session) dbt read from the same `.env`. One source of truth. Snowflake's connection strings use the account identifier as the "hostname" — getting it right is the single most common failure point for first-time users, which is why you copy it straight into `.env` instead of writing it down somewhere else.
+**Why this matters:** Every credential you add to a project is a new way to leak secrets. The rule is simple and absolute: credentials live in `.env`, `.env` lives in `.gitignore`, and both the Python loader and (next session) dbt read from the same `.env`. One source of truth.
+
+Notice `SNOWFLAKE_ROLE=basket_craft_loader`, not `ACCOUNTADMIN`. That is intentional. `ACCOUNTADMIN` has unrestricted rights across your entire Snowflake account — fine for the one-time setup worksheet in Step 14, but dangerous to carry in `.env` where a leak or accidental commit would compromise everything. The `basket_craft_loader` role is scoped to exactly what the Python script needs: use the warehouse, read and write the `raw` schema. Nothing else. Least-privilege at runtime is the production pattern Snowflake expects, and it is the same discipline your portfolio project will be graded on.
 
 **Checkpoint:** Your `.env` has all seven Snowflake variables. `.env` is gitignored. `git status` does not show `.env` as a tracked file.
 
