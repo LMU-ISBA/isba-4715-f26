@@ -827,13 +827,15 @@ Before we touch any code, confirm your Snowflake trial is set up correctly. Gett
 
 Snowflake separates four concepts that other databases bundle together: **warehouses** (compute), **databases** (storage containers), **schemas** (namespaces inside a database), and **roles** (access control). You will create one of each for this project.
 
-In Snowsight, the tool for running SQL is a **worksheet**. Think of it like a query editor in DBeaver — you paste SQL, hit run, and see results.
+**Database vs. schema, why two levels?** Think of the database as a folder and the schema as a sub-folder inside it. You will put raw Basket Craft data in a `raw` schema today; in Session 04, dbt adds `staging` and `mart` schemas inside the same `basket_craft` database, so messy source tables and cleaned star-schema tables never share a namespace.
+
+In Snowsight, the tool for running SQL is a **SQL file** (older Snowflake docs and screenshots call it a "worksheet" — same thing). Think of it like a query editor in DBeaver: you paste SQL, hit run, and see results.
 
 **What to do:**
 
-1. In Snowsight, click the **+** button in the top-left and choose **SQL Worksheet**. A new worksheet opens.
+1. In Snowsight, click the **+** button in the top-left (the hover label reads "Create") and choose **SQL File** from the menu. A new SQL file opens in the editor.
 
-2. Paste the following SQL into the worksheet. Do not run it yet — read through the comments first so you understand what each statement does.
+2. Paste the following SQL into the editor. Do not run it yet — read through the comments first so you understand what each statement does.
 
    ```sql
    -- Use the account admin role so we have permission to create objects
@@ -865,7 +867,7 @@ In Snowsight, the tool for running SQL is a **worksheet**. Think of it like a qu
 
 **Why this matters:** Warehouses, databases, and roles are orthogonal concepts in Snowflake. The same warehouse can serve many databases. The same role can have different permissions in different databases. Keeping them separate lets large teams share a single Snowflake account without stepping on each other. For this project you only need one of each, but the pattern is the same at any scale.
 
-**Checkpoint:** You can see `BASKET_CRAFT` with a `RAW` schema inside it in the Snowsight Data browser. Your worksheet ran without errors.
+**Checkpoint:** You can see `BASKET_CRAFT` with a `RAW` schema inside it in the Snowsight Data browser. Your SQL ran without errors.
 
 ---
 
