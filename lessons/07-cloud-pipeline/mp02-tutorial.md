@@ -980,7 +980,7 @@ For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, yo
    - **Which tables** to load (the same raw Basket Craft tables you loaded in Session 02)
    - **Chunking strategy**: in-memory or batched? (In-memory is fine for this dataset.)
    - **Idempotency**: on a re-run, append or replace? (Truncate-and-reload.)
-   - **Column name casing**: Snowflake uppercases unquoted identifiers by default. Use lowercase everywhere and never quote. This prevents the #1 dbt failure next session.
+   - **Identifier casing**: Create tables and columns as UPPERCASE in Snowflake. The loader should either pass uppercase names to `write_pandas` (e.g., uppercase the DataFrame columns and pass `"ORDERS"` as the table name), or set `quote_identifiers=False`. All SQL queries stay lowercase and unquoted, because Snowflake normalizes unquoted identifiers to uppercase and the two meet in the middle. Mismatching this causes the #1 dbt failure next session.
 
 3. When you feel the design is clear, ask Claude to summarize the plan. Read the summary carefully. If any of the four decisions look wrong, push back in one focused message and ask Claude to fix that specific item before it writes code.
 
