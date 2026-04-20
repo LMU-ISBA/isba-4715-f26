@@ -11,8 +11,8 @@ You find a real job posting for a role you'd actually apply to, then build an en
 | Milestone | Due | What's Due |
 |---|---|---|
 | Proposal | Apr 13 at 9:55 AM | Job posting PDF, one-paragraph reflection, GitHub repo link |
-| Milestone 01: Extract, Load & Transform | Apr 27 at 9:55 AM | API source loaded, dbt models, GitHub Actions pipeline, pipeline diagram, Snowflake account |
-| Milestone 02: Present & Polish | May 4 at 9:55 AM | Web scrape source loaded, Streamlit dashboard, knowledge base, slides, README, ERD |
+| Milestone 01: Extract & Load | Apr 27 at 9:55 AM | API source + web scrape source loaded to Snowflake raw, GitHub Actions pipelines, pipeline diagram, Snowflake account |
+| Milestone 02: Transform, Present & Polish | May 4 at 9:55 AM | dbt models, Streamlit dashboard, knowledge base, slides, README, ERD |
 | Final Submission | May 11 | Updated resume committed to repo |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
 
@@ -109,26 +109,26 @@ You're not limited to the example format. Brainstorm alternatives with Claude Co
 
 **You can rename your repo at any time.** GitHub will set up automatic redirects from the old name to the new one, so any existing links keep working. Don't let perfectionism block you on the proposal. Pick a name you can live with today, and rename it later if you find something better.
 
-## Milestone 01: Extract, Load & Transform (35 pts) - Due Apr 27 at 9:55 AM
+## Milestone 01: Extract & Load (30 pts) - Due Apr 27 at 9:55 AM
 
-API source extracted, loaded to Snowflake, and transformed through dbt. Submit your repo URL to Brightspace.
+Both data sources extracted and loaded to Snowflake raw, with GitHub Actions automating each pipeline. No transformation yet: the goal is clean, reliable ingestion. Submit your repo URL to Brightspace.
 
 You'll also need your Snowflake trial account created by this milestone (trial account in AWS US East 1, credentials stored securely via environment variables and never committed to the repo). If you haven't set it up yet, do it in Week 1 of Milestone 01.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 4 | Source 1 (API) extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials, scheduled via GitHub Actions |
-| 5 | dbt project (staging + mart models) | 15 | Star schema in Snowflake: staging models with tests, fact table(s) + dimension table(s) for analysis |
-| 6 | GitHub Actions pipeline | 5 | Source 1 automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
+| 5 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Python script, loads to Snowflake raw schema, scheduled via GitHub Actions. |
+| 6 | GitHub Actions pipelines | 5 | Both sources automated on a schedule or manual trigger. Graded on pipeline completeness and secrets management. |
 | 7 | Data pipeline diagram | 5 | All layers (sources → raw → staging → mart → dashboard + knowledge base), every tool labeled. Open format (Mermaid, draw.io, Excalidraw, etc.). Included in README |
 
-## Milestone 02: Present & Polish (50 pts) - Due May 4 at 9:55 AM
+## Milestone 02: Transform, Present & Polish (55 pts) - Due May 4 at 9:55 AM
 
-Add your second data source, build the dashboard and knowledge base, and polish everything for your portfolio. Before submitting, clean the repository: standardize naming conventions, organize files into the right folders, and remove anything that should not be public (scratch files, test outputs, credentials, personal notes). A hiring manager should be able to open this repo and navigate it without confusion. Submit your repo URL and slides PDF to Brightspace.
+Transform your raw data through dbt, build the dashboard and knowledge base, and polish everything for your portfolio. Before submitting, clean the repository: standardize naming conventions, organize files into the right folders, and remove anything that should not be public (scratch files, test outputs, credentials, personal notes). A hiring manager should be able to open this repo and navigate it without confusion. Submit your repo URL and slides PDF to Brightspace.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
-| 8 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Scheduled via GitHub Actions. |
+| 8 | dbt project (staging + mart models) | 15 | Star schema in Snowflake: staging models with tests, fact table(s) + dimension table(s) for analysis |
 | 9 | Streamlit dashboard (deployed) | 15 | Connected to Snowflake mart tables, descriptive + diagnostic analytics, interactive. Public URL |
 | 10 | Presentation slides (PDF) | 7 | Descriptive + diagnostic insights, recommendations. Graded on data storytelling principles (see Minimum Requirements). Portfolio artifact, not presented in final interview. Submitted as PDF to Brightspace. |
 | 11 | Knowledge base | 8 | Use Claude Code to ingest scraped sources into a `knowledge/` folder. At least 15 raw sources from 3+ different sites/authors in `knowledge/raw/`. Sources can include anything unstructured about your chosen company, industry, or domain: company website, press releases, leadership bios, LinkedIn profiles, earnings call transcripts, research papers, market reports, competitor analysis, regulatory filings. Claude Code-generated wiki pages in `knowledge/wiki/` (overview, key entities, themes), plus an `index.md`. Queryable via Claude Code in your final interview demo. |
