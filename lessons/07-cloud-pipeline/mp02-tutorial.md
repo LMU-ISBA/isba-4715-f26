@@ -958,6 +958,12 @@ Notice `SNOWFLAKE_ROLE=basket_craft_loader`, not `ACCOUNTADMIN`. That is intenti
 
 You already know how to write a Python loader. You built one in Session 01 and another in Session 02. This one is similar in shape, but Snowflake has quirks worth thinking through before you code. Use Superpowers brainstorming again to surface the design decisions before letting Claude Code write any code.
 
+**One tool-picking move before you brainstorm: name the library.** Superpowers turns your brainstorm into a spec, then an implementation plan, then code. If the package choice is not in your opening prompt, Claude either asks you about it mid-brainstorm (forcing a decision you have not researched) or picks one in the plan that might be wrong. Settle it now and let the choice flow through every downstream artifact.
+
+For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, your portfolio's API), the default is to use the vendor's **official Python package**. Official packages expose service-specific optimizations that generic libraries miss. Snowflake's [Python connector](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector) has `write_pandas`, which uses internal stages and `COPY INTO` under the hood. That is much faster than row-by-row `INSERT`s through a generic SQL driver like SQLAlchemy's `to_sql`. Official packages also handle auth, session tokens, and retries the way the vendor intends.
+
+**Rule of thumb:** describe the package by role in your prompt ("Snowflake's official Python connector"), not by its exact name. Claude will resolve the right package.
+
 **What to do:**
 
 1. In Claude Code, start a brainstorm:
@@ -965,7 +971,7 @@ You already know how to write a Python loader. You built one in Session 01 and a
    ```
    I need to write a Python script that reads the Basket Craft raw tables from my
    AWS RDS PostgreSQL database and loads them into my Snowflake basket_craft.raw
-   schema.
+   schema using Snowflake's official Python connector.
    ```
 
    After you send that, Claude Code should recognize the design-before-build pattern and automatically load the `superpowers:brainstorming` skill, announcing it in its first response. That auto-load is the point — Superpowers are trained to kick in when you describe something you want to build. If the skill does not load on its own, reply with `Use the superpowers brainstorming skill.` as a fallback.
@@ -986,22 +992,16 @@ You already know how to write a Python loader. You built one in Session 01 and a
 
 ### Step 17: Implement the Loader
 
-Now you let Claude Code write the script based on the brainstorm. This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS.
+Now you let Claude Code write the script based on the brainstorm plan. Everything the loader needs (tables, chunking, idempotency, casing, library) is already decided. Your job is to review, not re-specify.
 
-**One tool-picking move before Claude writes any code: name the library.** For anything running against a cloud service (Snowflake, AWS, Stripe, OpenAI, GitHub, your portfolio's API), the default is to search the vendor's docs for their **official Python package** and use it. Official packages expose service-specific optimizations that generic libraries miss. [`snowflake-connector-python`](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector) has `write_pandas`, which uses Snowflake's internal stages and `COPY INTO` under the hood. That is much faster than row-by-row `INSERT`s through a generic SQL driver. Official packages also handle auth, session tokens, and retries the way the vendor intends, and stay current when new features ship.
-
-Generic libraries (SQLAlchemy `to_sql`, `pyodbc`, raw JDBC) can technically talk to Snowflake, but they go through a lowest-common-denominator SQL path and lose the fast `COPY INTO` trick. Fine for exploration, not for a loader you will re-run every day.
-
-**Rule of thumb:** if your tool has an "SDK," "client library," or "Python connector" page in its docs, use that. Fall back to a generic library only when no official one exists. And always tell Claude which package to use so it doesn't guess.
-
-Everything else (truncate-and-reload, lowercase identifiers, reading `.env`) is already in the brainstorm plan, so you don't need to re-specify those — Claude will carry them forward.
+This loader happens to read from RDS and write to Snowflake `raw`, but the shape (read a dataframe, call `write_pandas`, target the `raw` schema) is the same pattern you will reuse in your portfolio project, where the source will be an API instead of RDS.
 
 **What to do:**
 
-1. Tell Claude Code to implement the loader, specifying the official Snowflake library:
+1. Tell Claude Code to implement the loader:
 
    ```
-   Implement the loader we designed using Snowflake's official Python connector.
+   Implement the loader we designed.
    Update requirements.txt with any new dependencies.
    ```
 
