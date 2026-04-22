@@ -1514,21 +1514,21 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="what-is-dbt">What is dbt?</h1>
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 240px;">You write<br /><strong>SELECT</strong> statements<br /><small>one per .sql file</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br /><small>data build tool</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br /><strong>as tables or views</strong><br /><small>in the right order</small></div>
 </div>
-<div class="flow" style="margin-top: 4px;">
+<div class="flow" data-marpit-fragment style="margin-top: 4px;">
   <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Groceries</strong><br /><small>raw data</small></div>
   <div class="flow-arrow" style="color: #d4a017;">→</div>
   <div class="flow-box" style="min-width: 180px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Recipes</strong><br /><small>models</small></div>
   <div class="flow-arrow" style="color: #d4a017;">→</div>
   <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plated meal</strong><br /><small>star schema</small></div>
 </div>
-<p style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
+<p data-marpit-fragment style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -2559,7 +2559,7 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="the-dbt-mental-model">The dbt mental model</h1>
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br /><small>SELECT FROM raw</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br /><small>{{ ref('stg_products') }}</small></div>
@@ -2567,10 +2567,10 @@ section.dark .dbt-box {
   <div class="flow-box dbt-box" style="min-width: 200px;">fct_order_items.sql<br /><small>{{ ref('dim_*') }}</small></div>
 </div>
 <ul>
-<li>Every <code>.sql</code> in <code>models/</code> becomes one <strong>table or view</strong> in Snowflake</li>
-<li><strong><code>{{ ref('model_name') }}</code></strong> is how one model points at another</li>
-<li>dbt reads all the refs, builds a dependency graph, runs models in the right order — you never write the order yourself</li>
-<li><code>dbt test</code> checks declared invariants · <code>dbt docs</code> renders the graph as clickable lineage</li>
+  <li data-marpit-fragment>Every <code>.sql</code> in <code>models/</code> becomes one <strong>table or view</strong> in Snowflake</li>
+  <li data-marpit-fragment><strong><code>{{ ref('model_name') }}</code></strong> is how one model points at another</li>
+  <li data-marpit-fragment>dbt reads all the refs, builds a dependency graph, and runs models in the right order. You never write the order yourself.</li>
+  <li data-marpit-fragment><code>dbt test</code> checks declared invariants · <code>dbt docs</code> renders the graph as clickable lineage</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
@@ -3071,8 +3071,8 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="dimensional-modeling-two-kinds-of-columns">Dimensional modeling: two kinds of columns</h1>
-<p style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
-<div class="flow" style="margin-top: 16px;">
+<p data-marpit-fragment style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
+<div class="flow" data-marpit-fragment style="margin-top: 16px;">
   <div class="flow-box" style="min-width: 320px; padding: 24px;">
     <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br />
     <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br />
@@ -3084,7 +3084,7 @@ section.dark .dbt-box {
     <span style="color: #7eb8ff; font-weight: 700; margin-top: 12px; display: block;">go in DIMENSION tables</span>
   </div>
 </div>
-<p>Ralph Kimball's insight (1996): every analytical question is &quot;what happened, in what context?&quot;</p>
+<p data-marpit-fragment>Ralph Kimball's insight (1996): every analytical question is "what happened, in what context?"</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -3622,13 +3622,15 @@ section.dark .dbt-box {
     <text x="450" y="167" font-size="10" fill="#7a2e13">one row per line item</text>
   </g>
 </svg>
-<p>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>.</p>
+<p data-marpit-fragment>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>.</p>
+<div data-marpit-fragment>
 <p><strong>Why this shape wins:</strong></p>
+</div>
 <ul>
-<li><strong>Simple joins</strong> — one <code>fact JOIN dim</code> per filter, not 7-way chains</li>
-<li><strong>Fast on columnar warehouses</strong> — Snowflake's sweet spot</li>
-<li><strong>BI-tool native</strong> — Tableau, Power BI, Looker, Streamlit all expect this</li>
-<li><strong>Maps to how questions are asked</strong> — &quot;revenue by X by Y&quot; = fact + two dims</li>
+  <li data-marpit-fragment><strong>Simple joins</strong> — one <code>fact JOIN dim</code> per filter, not 7-way chains</li>
+  <li data-marpit-fragment><strong>Fast on columnar warehouses</strong> — Snowflake's sweet spot</li>
+  <li data-marpit-fragment><strong>BI-tool native</strong> — Tableau, Power BI, Looker, Streamlit all expect this</li>
+  <li data-marpit-fragment><strong>Maps to how questions are asked</strong> — "revenue by X by Y" = fact + two dims</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
@@ -4129,12 +4131,12 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="grain--what-does-one-row-of-the-fact-mean">Grain = &quot;what does one row of the fact mean?&quot;</h1>
-<p class="big-idea">"Which products do Basket Craft customers<br />buy <strong>together</strong>?"</p>
+<p class="big-idea" data-marpit-fragment>"Which products do Basket Craft customers<br />buy <strong>together</strong>?"</p>
 <ul>
-<li><strong><code>fct_orders</code></strong> (one row per order) — <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/274c.svg" data-marp-twemoji=""/> no answer. Per-product detail is already summed away.</li>
-<li><strong><code>fct_order_items</code></strong> (one row per line item) — <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2705.svg" data-marp-twemoji=""/> answer is right there. Each product sits on its own row.</li>
+  <li data-marpit-fragment><strong><code>fct_orders</code></strong> (one row per order) — ❌ no answer. Per-product detail is already summed away.</li>
+  <li data-marpit-fragment><strong><code>fct_order_items</code></strong> (one row per line item) — ✅ answer is right there. Each product sits on its own row.</li>
 </ul>
-<p>Pick the smaller grain. You can always roll up. You can never split back down.</p>
+<p data-marpit-fragment>Pick the smaller grain. You can always roll up. You can never split back down.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -4634,17 +4636,17 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="staging-and-marts-prep-then-plate">Staging and marts: prep, then plate</h1>
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br /><small>rename + cast only<br />(dbt views)</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br /><small>facts + dims<br />(dbt tables)</small></div>
 </div>
-<div class="flow" style="margin-top: 4px;">
+<div class="flow" data-marpit-fragment style="margin-top: 4px;">
   <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Mise en place</strong><br /><small>wash + chop the groceries</small></div>
   <div class="flow-arrow" style="color: #d4a017;">→</div>
   <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plating</strong><br /><small>serve the dish</small></div>
 </div>
-<p style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
+<p data-marpit-fragment style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="steps" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;

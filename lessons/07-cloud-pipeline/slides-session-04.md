@@ -281,7 +281,7 @@ Both layers land in the **analytics** schema — folder split, not schema split.
 
 # What is dbt?
 
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 240px;">You write<br/><strong>SELECT</strong> statements<br/><small>one per .sql file</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br/><small>data build tool</small></div>
@@ -289,7 +289,7 @@ Both layers land in the **analytics** schema — folder split, not schema split.
   <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br/><strong>as tables or views</strong><br/><small>in the right order</small></div>
 </div>
 
-<div class="flow" style="margin-top: 4px;">
+<div class="flow" data-marpit-fragment style="margin-top: 4px;">
   <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Groceries</strong><br/><small>raw data</small></div>
   <div class="flow-arrow" style="color: #d4a017;">→</div>
   <div class="flow-box" style="min-width: 180px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Recipes</strong><br/><small>models</small></div>
@@ -297,7 +297,7 @@ Both layers land in the **analytics** schema — folder split, not schema split.
   <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plated meal</strong><br/><small>star schema</small></div>
 </div>
 
-<p style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
+<p data-marpit-fragment style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
 
 ---
 
@@ -316,7 +316,7 @@ Everything dbt does is built out of these four ideas. Data engineering and analy
 
 # The dbt mental model
 
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br/><small>SELECT FROM raw</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br/><small>{{ ref('stg_products') }}</small></div>
@@ -324,10 +324,12 @@ Everything dbt does is built out of these four ideas. Data engineering and analy
   <div class="flow-box dbt-box" style="min-width: 200px;">fct_order_items.sql<br/><small>{{ ref('dim_*') }}</small></div>
 </div>
 
-- Every `.sql` in `models/` becomes one **table or view** in Snowflake
-- **`{{ ref('model_name') }}`** is how one model points at another
-- dbt reads all the refs, builds a dependency graph, runs models in the right order — you never write the order yourself
-- `dbt test` checks declared invariants · `dbt docs` renders the graph as clickable lineage
+<ul>
+  <li data-marpit-fragment>Every <code>.sql</code> in <code>models/</code> becomes one <strong>table or view</strong> in Snowflake</li>
+  <li data-marpit-fragment><strong><code>{{ ref('model_name') }}</code></strong> is how one model points at another</li>
+  <li data-marpit-fragment>dbt reads all the refs, builds a dependency graph, and runs models in the right order. You never write the order yourself.</li>
+  <li data-marpit-fragment><code>dbt test</code> checks declared invariants · <code>dbt docs</code> renders the graph as clickable lineage</li>
+</ul>
 
 ---
 
@@ -335,9 +337,9 @@ Everything dbt does is built out of these four ideas. Data engineering and analy
 
 # Dimensional modeling: two kinds of columns
 
-<p style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
+<p data-marpit-fragment style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
 
-<div class="flow" style="margin-top: 16px;">
+<div class="flow" data-marpit-fragment style="margin-top: 16px;">
   <div class="flow-box" style="min-width: 320px; padding: 24px;">
     <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br/>
     <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br/>
@@ -350,7 +352,7 @@ Everything dbt does is built out of these four ideas. Data engineering and analy
   </div>
 </div>
 
-Ralph Kimball's insight (1996): every analytical question is "what happened, in what context?"
+<p data-marpit-fragment>Ralph Kimball's insight (1996): every analytical question is "what happened, in what context?"</p>
 
 ---
 
@@ -395,13 +397,20 @@ Ralph Kimball's insight (1996): every analytical question is "what happened, in 
   </g>
 </svg>
 
-Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (PK)**.
+<p data-marpit-fragment>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>.</p>
+
+<div data-marpit-fragment>
 
 **Why this shape wins:**
-- **Simple joins** — one `fact JOIN dim` per filter, not 7-way chains
-- **Fast on columnar warehouses** — Snowflake's sweet spot
-- **BI-tool native** — Tableau, Power BI, Looker, Streamlit all expect this
-- **Maps to how questions are asked** — "revenue by X by Y" = fact + two dims
+
+</div>
+
+<ul>
+  <li data-marpit-fragment><strong>Simple joins</strong> — one <code>fact JOIN dim</code> per filter, not 7-way chains</li>
+  <li data-marpit-fragment><strong>Fast on columnar warehouses</strong> — Snowflake's sweet spot</li>
+  <li data-marpit-fragment><strong>BI-tool native</strong> — Tableau, Power BI, Looker, Streamlit all expect this</li>
+  <li data-marpit-fragment><strong>Maps to how questions are asked</strong> — "revenue by X by Y" = fact + two dims</li>
+</ul>
 
 ---
 
@@ -409,30 +418,32 @@ Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (P
 
 # Grain = "what does one row of the fact mean?"
 
-<p class="big-idea">"Which products do Basket Craft customers<br/>buy <strong>together</strong>?"</p>
+<p class="big-idea" data-marpit-fragment>"Which products do Basket Craft customers<br/>buy <strong>together</strong>?"</p>
 
-- **`fct_orders`** (one row per order) — ❌ no answer. Per-product detail is already summed away.
-- **`fct_order_items`** (one row per line item) — ✅ answer is right there. Each product sits on its own row.
+<ul>
+  <li data-marpit-fragment><strong><code>fct_orders</code></strong> (one row per order) — ❌ no answer. Per-product detail is already summed away.</li>
+  <li data-marpit-fragment><strong><code>fct_order_items</code></strong> (one row per line item) — ✅ answer is right there. Each product sits on its own row.</li>
+</ul>
 
-Pick the smaller grain. You can always roll up. You can never split back down.
+<p data-marpit-fragment>Pick the smaller grain. You can always roll up. You can never split back down.</p>
 
 ---
 
 # Staging and marts: prep, then plate
 
-<div class="flow">
+<div class="flow" data-marpit-fragment>
   <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br/><small>rename + cast only<br/>(dbt views)</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br/><small>facts + dims<br/>(dbt tables)</small></div>
 </div>
 
-<div class="flow" style="margin-top: 4px;">
+<div class="flow" data-marpit-fragment style="margin-top: 4px;">
   <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Mise en place</strong><br/><small>wash + chop the groceries</small></div>
   <div class="flow-arrow" style="color: #d4a017;">→</div>
   <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plating</strong><br/><small>serve the dish</small></div>
 </div>
 
-<p style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
+<p data-marpit-fragment style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
 
 ---
 
