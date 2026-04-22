@@ -1109,81 +1109,126 @@ Nothing new to install. Come to Session 04 with your Snowflake raw tables loaded
 
 ## Part 4: dbt Core and Star Schema (Session 04)
 
-Today your raw Basket Craft data moves from "sitting in Snowflake" to "modeled as a star schema you can actually analyze." The tool for the job is **dbt** (data build tool), the standard for SQL-based transformation in modern data teams. You will install dbt Core, point it at your Snowflake raw schema, and build a small star schema with a fact table and three dimension tables.
+Today you turn raw Snowflake tables into a **star schema** — a shape BI tools can read directly.
 
-**Before this session:** Complete Session 03. Your Snowflake `basket_craft.raw` schema must contain the loaded Basket Craft tables.
+**What is [dbt](https://www.getdbt.com/)?** dbt ("data build tool") turns SQL files in your repo into tables and views in your warehouse. You write `SELECT` statements; dbt runs them in the right order, tracks dependencies, and auto-generates docs. That's it.
+
+**Why teams are adopting it.** Before dbt, transformations lived scattered across stored procedures, Python scripts, and BI-tool settings — hard to version, hard to test, hard to trace. dbt pulls all of that into git, adds built-in testing, and generates lineage docs automatically. Data engineering and analytics engineering teams at thousands of companies now use it as the default transformation layer. Your portfolio rubric expects it too.
+
+**Before this session:** Complete Session 03. Your `basket_craft.raw` schema must contain the loaded Basket Craft tables.
+
+**Today's pipeline.** In Session 03, the pipeline diagram showed `staging` and `mart` as dashed arrows. Today they become solid. dbt reads from `raw`, builds a staging layer (clean column names and types only), then builds a mart layer (the star schema). Both layers write to a new `analytics` schema.
+
+```mermaid
+flowchart LR
+    subgraph ACCT["Snowflake account"]
+        direction TB
+        WH(["basket_craft_wh<br/>virtual warehouse<br/>(compute)"])
+        subgraph DB["basket_craft database (storage)"]
+            direction TB
+            RAW["raw schema<br/>orders, order_items,<br/>products, customers<br/>(Session 03)"]
+            subgraph ANALYTICS["analytics schema (today)"]
+                direction TB
+                STG["staging/<br/>stg_orders, stg_order_items,<br/>stg_products, stg_customers<br/>(views, rename and cast)"]
+                MART["marts/<br/>fct_order_items<br/>+ dim_customers, dim_products, dim_date<br/>(tables, star schema)"]
+                STG ==>|"{{ ref }}"| MART
+            end
+            RAW ==>|"{{ source }}"| STG
+        end
+        WH ==>|executes SQL for| RAW
+        WH ==>|executes SQL for| ANALYTICS
+    end
+
+    classDef today fill:#e6f9e8,stroke:#2c8a3f,color:#1a4d25
+    class STG,MART today
+```
+
+dbt replaces Python for SQL work from here on. Same warehouse, same `.env`, new tool. The `staging/` and `marts/` folders in your repo both write to the `analytics` schema in Snowflake.
 
 ### Step 20: Install dbt Core
 
-dbt Core is an open-source Python package. You install it into the same virtual environment your loader uses, which means dbt and the Python loader share the same dependencies and the same `.env` file.
+dbt Core runs as a Python package inside your project's virtual environment — no external service, no extra account.
 
 **What to do:**
 
-1. In your Claude Code session, ask for dbt Core with the Snowflake adapter:
+Ask Claude Code:
 
-   ```
-   Install dbt-snowflake into the project virtual environment and add it to requirements.txt. Confirm dbt is installed by running `dbt --version` and show me the output.
-   ```
+```
+Let's install dbt with the Snowflake adapter in this project.
+```
 
-2. Read the output. You should see a dbt version number and the `dbt-snowflake` adapter listed.
-
-**Why this matters:** dbt Core is a Python package, not a separate platform. Everything dbt does happens inside your repo and inside your Snowflake account. There is no external service to sign up for, no extra credentials to manage, and no place your models can "live" outside of git. If it is not in your repo, it does not exist.
-
-**Checkpoint:** `dbt --version` prints a dbt Core version and shows `dbt-snowflake` as an installed adapter. `requirements.txt` has been updated.
+**Checkpoint:** `dbt --version` prints a version and lists `dbt-snowflake`. `requirements.txt` is updated.
 
 ---
 
 ### Step 21: Initialize the dbt Project
 
-`dbt init` scaffolds a new dbt project with the standard folder layout. You run it once, read what it creates, and then you own the files.
+`dbt init` scaffolds the standard dbt folder layout in your repo.
 
 **What to do:**
 
-1. Ask Claude Code to initialize the dbt project inside your repo:
+1. Ask Claude Code:
 
    ```
-   From the repo root, run `dbt init` to create a new dbt project for Basket Craft. When it asks for a project name, use basket_craft. When it asks for a database adapter, pick snowflake. Skip any connection prompts — we will configure profiles.yml manually in the next step.
+   Start a new dbt project in this repo, named basket_craft (we'll reuse that name in later steps). It should connect to Snowflake. Skip connection prompts — we'll set those up next.
    ```
 
-2. After it finishes, look at the new folder structure. You should see something like:
+   After it runs, a `basket_craft/` folder exists with standard dbt sub-folders (`models/`, `tests/`, `macros/`, etc.).
+
+2. Drop the example models dbt dropped in:
 
    ```
-   basket_craft/
-   ├── dbt_project.yml
-   ├── models/
-   │   └── example/
-   ├── macros/
-   ├── tests/
-   ├── seeds/
-   ├── snapshots/
-   └── analyses/
+   Remove the example models dbt created. We'll build our own.
    ```
 
-3. Delete the `models/example/` folder — it contains tutorial models from dbt that you do not need:
+3. Keep dbt's build artifacts out of git:
 
    ```
-   Delete the models/example/ folder inside the basket_craft dbt project. We will build our own models from scratch.
+   Make sure dbt's build artifact folders never get committed.
    ```
 
-**Why this matters:** dbt's folder conventions are the whole API. `models/` holds SQL files that become tables or views. `tests/` holds custom tests. `macros/` holds reusable SQL snippets. Every dbt project on earth has this same shape, which means a dbt project you wrote last year is instantly legible to someone who has never seen your repo.
+   This catches `target/` (compiled SQL), `logs/` (run logs), and `dbt_packages/` (downloaded packages). All are derived from your source files — committing them adds noise without adding information. Do this before your first `dbt run`; cleaning them out of git history afterward is painful.
 
-**Checkpoint:** You have a `basket_craft/` dbt project folder next to your Snowflake loader. The `models/example/` folder is gone. `dbt_project.yml` exists.
+**Why this matters:** dbt's folder layout is its API. Every dbt project you ever open — yours last year, a teammate's today — has the same shape. That predictability is a big part of why teams adopt it.
+
+**Checkpoint:** `basket_craft/` exists with `dbt_project.yml`. Example models are gone. `.gitignore` ignores `target/`, `logs/`, and `dbt_packages/`.
 
 ---
 
-### Step 22: Configure `profiles.yml` with `env_var()`
+### Step 22: Extend the loader role to `analytics`, then connect dbt
 
-dbt reads its connection details from a file called `profiles.yml`. By default, `profiles.yml` lives in `~/.dbt/` — **outside your repo**. This is not a mistake. It keeps credentials out of git permanently, no matter how careless you are with `git add`.
+Two things happen in order. First, extend your Session 03 loader role so it can write to a new `analytics` schema. Then point dbt at Snowflake.
+
+**Why the new grants.** Session 03 scoped `basket_craft_loader` to `raw` only. dbt needs to write views and tables into `analytics`. Escalating to `ACCOUNTADMIN` would undo the least-privilege lesson from Session 03. Instead, grow the role one schema at a time — the pattern real teams use.
 
 **What to do:**
 
-1. Ask Claude Code to write `profiles.yml` using `env_var()` so it reads from the same `.env` file as your Python loader:
+1. In Snowsight, open a new SQL file (same as Session 03 Step 14). Paste and run:
+
+   ```sql
+   USE ROLE ACCOUNTADMIN;
+
+   -- Pre-create analytics so dbt doesn't need CREATE SCHEMA on the database
+   CREATE SCHEMA IF NOT EXISTS basket_craft.analytics;
+
+   -- Give the loader role what it needs inside analytics only
+   GRANT USAGE ON SCHEMA basket_craft.analytics TO ROLE basket_craft_loader;
+   GRANT CREATE TABLE, CREATE VIEW ON SCHEMA basket_craft.analytics TO ROLE basket_craft_loader;
+   GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON ALL TABLES IN SCHEMA basket_craft.analytics TO ROLE basket_craft_loader;
+   GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON FUTURE TABLES IN SCHEMA basket_craft.analytics TO ROLE basket_craft_loader;
+
+   SHOW SCHEMAS IN DATABASE basket_craft;
+   ```
+
+   The final `SHOW SCHEMAS` should list `RAW` and `ANALYTICS` side by side.
+
+2. Wire dbt to Snowflake:
 
    ```
-   Create ~/.dbt/profiles.yml for the basket_craft dbt project. Use env_var() to read all Snowflake credentials from the environment. The profile name should match what dbt init created. Use the warehouse, database, and role from my .env, and set the schema to "analytics" (not raw — that's where the transformed models will live). Show me the file when you're done.
+   Help me connect dbt to my Snowflake account. Read the credentials from my existing .env — no hardcoded secrets. Target the analytics schema. Then verify the connection works.
    ```
 
-2. Review the file. It should look roughly like this:
+   dbt stores its connection in a file called `profiles.yml`. It lives outside your repo (in `~/.dbt/`) on purpose — credentials can't be committed. The profile ends up looking like:
 
    ```yaml
    basket_craft:
@@ -1201,136 +1246,139 @@ dbt reads its connection details from a file called `profiles.yml`. By default, 
          threads: 4
    ```
 
-3. Test the connection from inside the dbt project folder:
+   `env_var()` is dbt's way to read from your environment. Python loader and dbt now share one source of truth (`.env`) and write to different schemas (`raw` vs `analytics`).
 
-   ```
-   cd into the basket_craft dbt project and run `dbt debug`. Show me the full output.
-   ```
+3. `dbt debug` should print "Connection test: OK connection ok." If it doesn't, look at the error — it's usually a typo or an unloaded `.env` in the current terminal.
 
-   Expected: every check passes, including "Connection test: OK connection ok."
-
-**Why this matters:** Credentials never commit. Python loader and dbt share one source of truth (`.env`). `env_var()` is the canonical dbt way to read secrets, and every dbt project you ever work on in your career will use it. Get comfortable with `dbt debug` — it is the universal "is my setup OK?" check and should be your first move when anything breaks.
-
-**Checkpoint:** `dbt debug` reports all checks passing. Your `profiles.yml` lives in `~/.dbt/` and uses `env_var()` for every secret.
+**Checkpoint:** `analytics` schema exists. `dbt debug` passes. No secrets are hardcoded anywhere.
 
 ---
 
 ### Step 23: Declare the Raw Tables as dbt Sources
 
-In dbt, "sources" are tables you did not create but want to reference. They are the boundary between data you don't own and data you model. Declaring your Snowflake raw tables as sources gives you lineage tracking, documentation, and the nice `{{ source('raw', 'orders') }}` syntax in your models.
+A **source** in dbt means "this table exists upstream — I read from it, I didn't create it." Declaring sources gives you lineage tracking and a shorthand for referencing them in SQL.
 
 **What to do:**
 
-1. Ask Claude Code to create the sources file:
+Ask Claude Code:
 
-   ```
-   Create a file at basket_craft/models/staging/_sources.yml that declares four Snowflake sources: orders, order_items, products, and customers. They all live in the basket_craft database, raw schema. Use the source name "raw". Add a brief description for each source.
-   ```
+```
+Let's tell dbt about my raw Snowflake tables from Session 03 so I can build transformations on top of them.
+```
 
-2. Review the file. It should look like:
+The result is a YAML file under the staging folder that ends up looking roughly like this:
 
-   ```yaml
-   version: 2
+```yaml
+version: 2
 
-   sources:
-     - name: raw
-       database: basket_craft
-       schema: raw
-       description: "Raw Basket Craft tables loaded from AWS RDS in Session 03."
-       tables:
-         - name: orders
-           description: "One row per order."
-         - name: order_items
-           description: "One row per line item within an order."
-         - name: products
-           description: "Product catalog."
-         - name: customers
-           description: "Customer master."
-   ```
+sources:
+  - name: raw
+    database: basket_craft
+    schema: raw
+    tables:
+      - name: orders
+      - name: order_items
+      - name: products
+      - name: customers
+```
 
-**Why this matters:** Sources are the contract between your pipeline's "L" (load) and "T" (transform). They say: "These tables exist, I did not create them, and I am going to build on top of them." Every dbt model that references a source gets a lineage edge in the docs graph. You will see that graph in Step 29.
-
-**Checkpoint:** `_sources.yml` exists under `models/staging/` and declares all four raw tables.
+**Checkpoint:** A sources file under `models/staging/` declares all four raw tables.
 
 ---
 
 ### Step 24: Build the Staging Layer
 
-Staging models are the **rename-and-cast-only** layer. One staging model per source table. No joins. No filters. No aggregations. No calculations. Just clean column names, proper types, and nothing else. This discipline is the single biggest dbt win, and breaking it is the single biggest beginner mistake.
+**Staging = rename and cast only.** One staging model (a dbt "view") per raw table. No joins, no filters, no aggregations. Staging's only job is to give the rest of your project clean column names and types, so cleanup never gets repeated downstream.
 
 **What to do:**
 
-1. Ask Claude Code to build four staging models:
+Ask Claude Code:
 
-   ```
-   Create four staging models under basket_craft/models/staging/:
-   - stg_orders.sql
-   - stg_order_items.sql
-   - stg_products.sql
-   - stg_customers.sql
+```
+Help me build a dbt staging layer on top of my raw sources. Staging's rule: rename columns and cast types — nothing else, no joins or filters. Keep identifiers lowercase and unquoted (Session 03 casing rule).
+```
 
-   Each model should:
-   - Select from the corresponding source using {{ source('raw', 'table_name') }}
-   - Rename columns to clear snake_case (order_id, customer_id, order_date, etc.)
-   - Cast dates and timestamps to proper types if needed
-   - Do NOT join, filter, aggregate, or compute anything. Just rename and cast.
+Review each generated file. If you see a JOIN, WHERE, or aggregation, push back — staging is a discipline, not a suggestion.
 
-   Keep all identifiers lowercase. Do not quote any identifiers.
-   ```
-
-2. Open each file and read it. If any model has a JOIN, a WHERE clause, or a calculated column, tell Claude Code to remove it. Staging is a discipline, not a suggestion.
-
-> ### Why staging and marts are separate layers
->
-> The first time you see the staging/marts split, it looks redundant. Why write `stg_orders` that just selects from `raw.orders` and renames a few columns? Why not go straight to the fact table?
->
-> Because the staging layer is where you **pay the cost of cleanup once**. Every mart model that touches orders goes through `stg_orders`, so if the raw data gets a new column, or a column name changes, you fix it in exactly one place. If you skip staging and let every mart query the raw table directly, one upstream change breaks five downstream models.
->
-> The rule — **one staging model per source, rename and cast only** — is boring on purpose. It prevents you from accidentally baking business logic into the cleanup layer. Business logic belongs in marts. Cleanup belongs in staging. When those two mix, your project rots from the inside, and six months later you cannot tell whether a number is wrong because the raw data is wrong or because the staging layer silently filtered something out.
->
-> Wrong:
+> **Wrong — logic hiding in cleanup**
 > ```sql
-> -- stg_orders.sql -- DON'T DO THIS
-> select
->     o.order_id,
->     o.order_date,
->     c.customer_name,
->     sum(oi.quantity * oi.unit_price) as order_total
-> from {{ source('raw', 'orders') }} o
-> left join {{ source('raw', 'customers') }} c on o.customer_id = c.customer_id
-> left join {{ source('raw', 'order_items') }} oi on o.order_id = oi.order_id
+> -- stg_orders.sql
+> select o.order_id, c.customer_name,
+>        sum(oi.quantity * oi.unit_price) as order_total
+> from {{ source('raw','orders') }} o
+> join {{ source('raw','customers') }} c on o.customer_id = c.customer_id
+> join {{ source('raw','order_items') }} oi on o.order_id = oi.order_id
 > where o.order_status != 'cancelled'
-> group by 1, 2, 3
+> group by 1, 2
 > ```
 >
-> Right:
+> **Right — boring on purpose**
 > ```sql
-> -- stg_orders.sql -- DO THIS
+> -- stg_orders.sql
 > select
 >     order_id,
 >     customer_id,
 >     order_date::date as order_date,
 >     order_status
-> from {{ source('raw', 'orders') }}
+> from {{ source('raw','orders') }}
 > ```
->
-> The wrong version joins, filters, and aggregates — all of which belong in a mart. The right version is boring and correct.
 
-**Why this matters:** Staging discipline is the habit that separates a dbt project you can maintain from one you can't. Your portfolio rubric explicitly requires "at least one staging model per source" for the same reason. Getting this right now will save you hours on your portfolio project.
+When raw data changes, you fix it in one place. Business logic lives in marts (next step), not here.
 
-**Checkpoint:** You have four staging models under `models/staging/`. None of them joins, filters, aggregates, or computes anything. Each one is a rename-and-cast of a single source.
+**Checkpoint:** Four staging models under `models/staging/`. None joins, filters, or aggregates.
 
 ---
 
 ### Step 25: Build the Star — Fact and Dimensions
 
-The mart layer is where the interesting modeling happens. You will build one fact table at **order-item grain** (one row per line item within an order) and three dimension tables (customers, products, date). This shape — one fact table connected to several dimension tables — is called a **star schema** and it is the workhorse of analytical data modeling.
+You will build one **fact table** (the measurements — quantity, price, revenue) and three **dimension tables** (the context — who, what, when). Fact in the middle, dims around it. That shape is called a **star schema**.
 
-**Grain is the single most important decision in dimensional modeling.** The grain of your fact table is "what does one row mean?" In this project, one row of `fct_order_items` means "one product was sold as part of one order." Picking line-item grain (instead of order grain) is what lets you answer questions like "which products are most often bought together" or "which customers buy the most of product X." Order grain cannot answer those questions because it has thrown away the per-product detail.
+**Here is what you are building:**
+
+```mermaid
+erDiagram
+    DIM_CUSTOMERS ||--o{ FCT_ORDER_ITEMS : "bought by"
+    DIM_PRODUCTS  ||--o{ FCT_ORDER_ITEMS : "contains"
+    DIM_DATE      ||--o{ FCT_ORDER_ITEMS : "sold on"
+
+    FCT_ORDER_ITEMS {
+        bigint   order_item_id PK
+        bigint   order_id
+        bigint   customer_id   FK
+        bigint   product_id    FK
+        date     order_date    FK
+        int      quantity
+        numeric  unit_price
+        numeric  line_total
+    }
+    DIM_CUSTOMERS {
+        bigint  customer_id PK
+        string  customer_name
+        string  email
+        date    signup_date
+    }
+    DIM_PRODUCTS {
+        bigint  product_id PK
+        string  product_name
+        string  category
+        numeric price
+    }
+    DIM_DATE {
+        date   date_day PK
+        int    year
+        int    quarter
+        string month_name
+        bool   is_weekend
+    }
+```
+
+Every row in `FCT_ORDER_ITEMS` points to one customer, one product, and one date. Those arrows are **foreign keys (FK)**, pointing at each dim's **primary key (PK)**.
+
+**Grain** is the most important choice. Grain = "what does one row of the fact mean?" Here: one row = one product sold in one order. Smaller grain answers more questions. You can always roll line items up into order totals; you can never split an order total back into products.
 
 **What to do:**
 
-1. First, create the `dim_date` table using this provided snippet. Building a date dimension from scratch is a calendar-math rabbit hole that teaches nothing about dimensional modeling, so we give it to you. Create `basket_craft/models/marts/dim_date.sql` with these contents:
+1. Create the date dimension using this snippet (we hand it over because building a date dim from scratch teaches nothing about dimensional modeling). Save it under `models/marts/`:
 
    ```sql
    {{ config(materialized='table') }}
@@ -1354,62 +1402,50 @@ The mart layer is where the interesting modeling happens. You will build one fac
    from date_spine
    ```
 
-2. Now ask Claude Code to build the rest of the mart layer:
+2. Brainstorm the rest of the star with Claude Code:
 
    ```
-   Create three more mart models under basket_craft/models/marts/:
-
-   - dim_customers.sql: one row per customer, built from stg_customers. Select customer_id as the surrogate key and include all customer attributes (name, email, signup date, etc. — whatever stg_customers has).
-
-   - dim_products.sql: one row per product, built from stg_products. Select product_id as the surrogate key and include product name, category, price, etc.
-
-   - fct_order_items.sql: one row per order line item. The grain is one row per row in stg_order_items. Join in stg_orders to get order_date and any order-header attributes. Include foreign keys to customer, product, and date (cast order_date to date for joining to dim_date). Include measures: quantity, unit_price, and line_total (quantity * unit_price).
-
-   Use {{ ref('stg_orders') }} etc. to reference the staging models. Materialize everything as tables.
+   I want to build the star schema shown in the ERD on top of my dbt staging layer — a fact table for order line items, plus dim tables for customers and products (date is already done). Help me pick the right grain and design each model.
    ```
 
-3. Open each file and verify:
-   - `fct_order_items` has the foreign keys (customer_id, product_id, order_date) and the measures (quantity, unit_price, line_total)
-   - Each dim has a surrogate key and descriptive attributes
-   - Everything references staging models via `{{ ref(...) }}`, never raw sources directly
+3. Review each file. The fact table should have FKs to each dim plus measures (quantity, unit price, line total). Each dim should have a primary key and descriptive attributes. Everything should reference the staging models (not the raw sources directly).
 
-**Why this matters:** The star schema is the universal analytical pattern. Every BI tool on earth (Tableau, Power BI, Looker, Streamlit) expects something shaped like this. If you can build a clean star, you can power a dashboard. If you can pick the right grain for a fact table, you can answer questions your competitors cannot. This is the single most portable skill in all of analytics engineering.
+**Materializations.** dbt stores results two ways: **views** (saved queries that re-run when called — cheap, always fresh) and **tables** (stored results — fast, but must rebuild to update). Staging defaults to views. Marts use `{{ config(materialized='table') }}` because dashboards hit them over and over.
 
-**Checkpoint:** You have `fct_order_items`, `dim_customers`, `dim_products`, and `dim_date` under `models/marts/`. The fact table is at order-line grain with foreign keys and measures.
+**Checkpoint:** `fct_order_items`, `dim_customers`, `dim_products`, and `dim_date` exist under `models/marts/`. The fact table is at line-item grain.
 
 ---
 
 ### Step 26: Add a dbt Test
 
-dbt tests are YAML, not SQL. You describe the invariant ("this column should be unique," "this column should never be null") and dbt generates the test query for you.
+dbt tests are YAML, not SQL. You declare an invariant (e.g., "this column is unique" or "never null"); dbt generates the check query.
 
 **What to do:**
 
-1. Ask Claude Code to create a test file:
+Ask Claude Code:
 
-   ```
-   Create basket_craft/models/marts/_schema.yml with a dbt schema file that declares fct_order_items and tests that its primary key column (order_item_id) is both unique and not_null. Add a brief description of the table and its grain.
-   ```
+```
+Add a dbt test that catches duplicate or missing primary keys in the fact table.
+```
 
-2. The file should look like:
+The resulting schema file ends up looking like:
 
-   ```yaml
-   version: 2
+```yaml
+version: 2
 
-   models:
-     - name: fct_order_items
-       description: "Fact table at order-line grain. One row per product sold in one order."
-       columns:
-         - name: order_item_id
-           description: "Surrogate key. Unique per line item."
-           tests:
-             - unique
-             - not_null
-   ```
+models:
+  - name: fct_order_items
+    description: "One row per product sold in one order."
+    columns:
+      - name: order_item_id
+        tests:
+          - unique
+          - not_null
+```
 
-**Why this matters:** Tests are how dbt projects stay honest. Every time you run `dbt test`, dbt executes these invariants against your actual data and fails loudly if they break. One test is the minimum; real projects have dozens. Your portfolio rubric requires "at least one dbt test passing" — you now have two.
+Every `dbt test` run re-executes these checks against live data. If drift ever creeps in, the test fails loudly instead of quietly corrupting your dashboards.
 
-**Checkpoint:** `_schema.yml` exists in `models/marts/` and declares `unique` + `not_null` tests on `fct_order_items.order_item_id`.
+**Checkpoint:** A schema file in `models/marts/` declares `unique` + `not_null` on the fact's primary key.
 
 ---
 
@@ -1417,17 +1453,15 @@ dbt tests are YAML, not SQL. You describe the invariant ("this column should be 
 
 **What to do:**
 
-1. Run the whole project:
+1. Ask Claude Code:
 
    ```
-   From the basket_craft dbt project folder, run `dbt run` and show me the output. Then run `dbt test` and show me that output too.
+   Build the whole dbt project, then run all tests. Show me both outputs.
    ```
 
-2. Expected output for `dbt run`: four staging models and four mart models all built successfully. Look for "Completed successfully" at the bottom.
+   Expected: `dbt run` builds four staging views + four mart tables ("Completed successfully"). `dbt test` reports `PASS` on both tests.
 
-3. Expected output for `dbt test`: both tests pass (`PASS unique_fct_order_items_order_item_id`, `PASS not_null_fct_order_items_order_item_id`).
-
-4. Verify in Snowsight. Open your worksheet and run:
+2. Verify in Snowsight:
 
    ```sql
    USE DATABASE basket_craft;
@@ -1441,38 +1475,35 @@ dbt tests are YAML, not SQL. You describe the invariant ("this column should be 
    SELECT COUNT(date_day) AS dim_date_rows FROM dim_date;
    ```
 
-   You should see all your staging and mart tables listed, and the fact table should have roughly the same row count as the raw `order_items` table.
+   `fct_order_items` should have roughly the same row count as the raw `order_items` table.
 
-**Why this matters:** `dbt run` is the command that turns your `.sql` files into actual tables in Snowflake. Under the hood, dbt is generating `CREATE TABLE AS` statements and running them in dependency order. Your staging models build first (because marts depend on them), then marts build on top. dbt figures out the order automatically from your `{{ ref(...) }}` calls.
+Under the hood, dbt compiled each `.sql` file into a `CREATE TABLE AS` (or `CREATE VIEW AS`) and ran them in the right order, which it inferred from your `{{ ref() }}` calls.
 
-**Checkpoint:** `dbt run` and `dbt test` both pass. The `analytics` schema in Snowflake contains all four staging and four mart tables. Row counts look sensible.
+**Checkpoint:** `dbt run` and `dbt test` both pass. `analytics` schema contains four staging + four mart objects.
 
 ---
 
 ### Step 28: Generate and View the Lineage Graph
 
-dbt can generate an interactive documentation site from your project — including a full lineage graph that shows how every model connects to every source and every other model. This is the visual that makes dbt click for most people.
+dbt auto-generates a docs site with a clickable lineage graph — every source, staging model, and mart, connected by arrows.
 
 **What to do:**
 
-1. Generate and serve the docs:
+1. Ask Claude Code:
 
    ```
-   From the basket_craft dbt project folder, run `dbt docs generate`, then `dbt docs serve`. Open the URL it prints in a browser.
+   Generate dbt's docs site and open the lineage graph in my browser.
    ```
 
-2. In the docs site, click the blue circle in the bottom-right to open the lineage graph. You should see:
-   - Four green source nodes (the raw tables)
-   - Four blue staging model nodes connected to the sources
-   - Four blue mart model nodes connected to the staging layer
+2. Click the blue circle in the bottom-right of the docs page. You'll see four green source nodes → four blue staging nodes → four blue mart nodes.
 
-3. Take a screenshot of the lineage graph. You will want it for your portfolio project later.
+3. Screenshot the graph. You'll want it for your portfolio.
 
-4. Stop the docs server when you are done (Ctrl+C in the terminal).
+4. Stop the server with Ctrl+C when you're done.
 
-**Why this matters:** Documentation generated from code is always up to date. Documentation written by hand is always out of date. dbt's docs are a byproduct of the models you already wrote, which means they literally cannot drift. Every analytics engineering team uses these docs as the canonical reference for "what does this table mean and where does it come from."
+Docs generated from code can't drift — they're a byproduct of the SQL you already wrote. Every dbt team uses these as the canonical "what is this table?" reference.
 
-**Checkpoint:** You have seen the lineage graph and taken a screenshot of it.
+**Checkpoint:** You've seen the lineage graph and screenshotted it.
 
 ---
 
@@ -1480,23 +1511,17 @@ dbt can generate an interactive documentation site from your project — includi
 
 **What to do:**
 
-1. Update `CLAUDE.md` to document the dbt workflow:
+1. Ask Claude Code:
 
    ```
-   Update CLAUDE.md to document the dbt project. Include: where the dbt project lives, how to run dbt run and dbt test, the fact that profiles.yml lives outside the repo and reads from .env, and the names of the staging and mart models. Do not include any credentials.
+   Update CLAUDE.md to capture this session's dbt setup — no secrets — then commit and push.
    ```
 
-2. Commit and push:
+2. On GitHub, confirm `basket_craft/`, the updated `requirements.txt`, and the updated `CLAUDE.md` all appear. `profiles.yml` should **not** appear (it lives in `~/.dbt/`, outside the repo).
 
-   ```
-   Commit all changes and push to GitHub. The commit message should mention adding the dbt project and the star schema.
-   ```
+MP02 is done. Extract from RDS → load to Snowflake → transform with dbt into a star schema, tested and documented. Every tool here is also required for your portfolio project.
 
-3. On GitHub, confirm the `basket_craft/` dbt project folder, updated `requirements.txt`, and updated `CLAUDE.md` all appear in your repo. `profiles.yml` should NOT appear (it lives in `~/.dbt/`, not in the repo).
-
-**Why this matters:** MP02 is done. You now have a full ELT pipeline: extract from RDS, load to Snowflake, transform with dbt into a star schema, tested, documented. Every tool you touched today — Snowflake, dbt Core, `env_var()`, staging/marts discipline — is required for Milestone 01 of your portfolio project. You are not just finishing a mini-project, you are shipping your portfolio's foundation.
-
-**Checkpoint:** Your repo on GitHub contains the full dbt project. `dbt run` and `dbt test` both pass. Your working tree is clean.
+**Checkpoint:** Repo has the full dbt project on GitHub. `dbt run` and `dbt test` both pass. Working tree is clean.
 
 ---
 
@@ -1505,20 +1530,6 @@ dbt can generate an interactive documentation site from your project — includi
 Before the next class, write a short note to yourself (in a new `notes.md` in your repo, or in a sticky note, or on paper — this one is for your learning, not for a grade). Write down **one business question you could answer with `fct_order_items` that you could not answer with `fct_orders`**.
 
 This is a five-minute exercise. The point is to make sure the grain lesson from Step 25 has landed. If you can articulate a question that needs line-item detail, you have internalized the concept. If you cannot, go back and look at `fct_order_items` again — the answer is hiding in the columns.
-
----
-
-### Troubleshooting Session 04
-
-**`dbt debug` fails with "Connection test: ERROR."** Usually a `profiles.yml` problem. The most common causes: (1) YAML indentation wrong (YAML is unforgiving — all indents must be spaces, not tabs, and must line up), (2) wrong `account` format (same issue as Session 03 — go back and check Step 13 of Part 3), (3) `.env` variables not loaded in the current terminal session. Try opening a fresh terminal and running `dbt debug` again.
-
-**`dbt run` fails on a staging model with "invalid identifier" or "column does not exist."** This is the classic casing trap. Snowflake uppercased your raw table column names when the Python loader wrote them, and your staging model is using lowercase names that do not match. The fix: keep everything unquoted and lowercase in your SQL — dbt will resolve identifiers case-insensitively as long as you never quote them. If you see quote marks around column names in your staging model, remove them.
-
-**`dbt run` fails with "Database does not exist."** The database name in `profiles.yml` does not match what is in Snowflake. Check that `SNOWFLAKE_DATABASE` in `.env` says `basket_craft` (lowercase, no quotes).
-
-**`dbt test` fails on `unique` or `not_null`.** The test is working — your data has a real problem. Go look at the failing rows. Most commonly this means the raw loader from Session 03 loaded duplicate rows, or a supposedly-required column has nulls in the source data. Fix the loader, re-load Snowflake, then re-run dbt.
-
-**`dbt docs serve` opens but the lineage graph is empty.** You probably forgot to run `dbt docs generate` first. The `generate` step writes the graph data; `serve` just serves it.
 
 ---
 
