@@ -1012,7 +1012,7 @@ section.dark .dbt-box {
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box">staging/<br /><small>stg_orders, stg_order_items,<br />stg_products, stg_customers<br />(views · rename + cast)</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box dbt-box">marts/<br /><small>fct_order_items<br />+ dim_customers, dim_products, dim_date<br />(tables · star schema)</small></div>
+  <div class="flow-box dbt-box">marts/<br /><small>fct_order_items + fct_orders<br />+ dim_customers, dim_products, dim_date<br />(tables · star schema)</small></div>
 </div>
 <p>Both layers land in the <strong>analytics</strong> schema — folder split, not schema split. Same warehouse, same <code>.env</code>, new tool.</p>
 </section>
@@ -2546,7 +2546,7 @@ section.dark .dbt-box {
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="the-dbt-mental-model">The dbt mental model</h1>
 <div class="flow">
-  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br /><small>SELECT from raw</small></div>
+  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br /><small>SELECT FROM raw</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br /><small>{{ ref('stg_products') }}</small></div>
   <div class="flow-arrow">→</div>
@@ -3607,7 +3607,14 @@ section.dark .dbt-box {
     <text x="450" y="226" font-size="11" fill="#7a2e13">one row per line item</text>
   </g>
 </svg>
-<p>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>. Every BI tool on Earth reads this shape.</p>
+<p>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>.</p>
+<p><strong>Why this shape wins:</strong></p>
+<ul>
+<li><strong>Simple joins</strong> — <code>fact JOIN dim</code> per filter; no 7-way chains through normalized tables</li>
+<li><strong>Fast on columnar warehouses</strong> — narrow facts + denormalized dims is Snowflake's sweet spot</li>
+<li><strong>BI-tool native</strong> — Tableau, Power BI, Looker, Streamlit all assume this shape</li>
+<li><strong>Maps to how stakeholders ask questions</strong> — &quot;revenue by category by month&quot; = fact + two dims, literally</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -5159,7 +5166,7 @@ section.dark .dbt-box {
 <tr>
 <td>25</td>
 <td>Marts layer</td>
-<td><code>fct_order_items</code> + three <code>dim_*</code> tables</td>
+<td><code>fct_order_items</code> + <code>fct_orders</code> (rollup) + three <code>dim_*</code> tables</td>
 </tr>
 <tr>
 <td>26</td>

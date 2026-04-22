@@ -1130,7 +1130,7 @@ flowchart LR
             subgraph ANALYTICS["analytics schema (today)"]
                 direction TB
                 STG["staging/<br/>stg_orders, stg_order_items,<br/>stg_products, stg_customers<br/>(views, rename and cast)"]
-                MART["marts/<br/>fct_order_items<br/>+ dim_customers, dim_products, dim_date<br/>(tables, star schema)"]
+                MART["marts/<br/>fct_order_items + fct_orders<br/>+ dim_customers, dim_products, dim_date<br/>(tables, star schema)"]
                 STG ==>|"{{ ref }}"| MART
             end
             RAW ==>|"{{ source }}"| STG
@@ -1144,6 +1144,18 @@ flowchart LR
 ```
 
 dbt replaces Python for SQL work from here on. Same warehouse, same `.env`, new tool. The `staging/` and `marts/` folders in your repo both write to the `analytics` schema in Snowflake.
+
+**The dbt commands you'll run today.** Skim this once so the flow makes sense; you'll mostly ask Claude Code to run them for you.
+
+| Command | What it does |
+|---------|--------------|
+| `dbt --version` | Prints the installed dbt Core version + adapter. Proves the install worked. |
+| `dbt init <name>` | Scaffolds a new dbt project folder with the standard layout. |
+| `dbt debug` | Checks your config — can dbt find `profiles.yml`? Can it connect to the warehouse? First move when anything breaks. |
+| `dbt run` | Compiles every model into SQL and runs it in dependency order, creating tables and views in Snowflake. |
+| `dbt test` | Executes every invariant you declared (`unique`, `not_null`, etc.). Fails loudly when data breaks a rule. |
+| `dbt docs generate` | Builds the documentation site (model descriptions, columns, tests, lineage) from your project. |
+| `dbt docs serve` | Hosts the generated docs site locally (usually `http://localhost:8080`) in your browser. |
 
 ### Step 20: Install dbt Core
 
@@ -1325,24 +1337,24 @@ Review each generated file. If you see a JOIN, WHERE, or aggregation, push back 
 > **Wrong — logic hiding in cleanup**
 > ```sql
 > -- stg_orders.sql
-> select o.order_id, c.customer_name,
->        sum(oi.quantity * oi.unit_price) as order_total
-> from {{ source('raw','orders') }} o
-> join {{ source('raw','customers') }} c on o.customer_id = c.customer_id
-> join {{ source('raw','order_items') }} oi on o.order_id = oi.order_id
-> where o.order_status != 'cancelled'
-> group by 1, 2
+> SELECT o.order_id, c.customer_name,
+>        SUM(oi.quantity * oi.unit_price) AS order_total
+> FROM {{ source('raw','orders') }} o
+> JOIN {{ source('raw','customers') }} c ON o.customer_id = c.customer_id
+> JOIN {{ source('raw','order_items') }} oi ON o.order_id = oi.order_id
+> WHERE o.order_status != 'cancelled'
+> GROUP BY 1, 2
 > ```
 >
 > **Right — boring on purpose**
 > ```sql
 > -- stg_orders.sql
-> select
+> SELECT
 >     order_id,
 >     customer_id,
->     order_date::date as order_date,
+>     order_date::DATE AS order_date,
 >     order_status
-> from {{ source('raw','orders') }}
+> FROM {{ source('raw','orders') }}
 > ```
 
 When raw data changes, you fix it in one place. Business logic lives in marts (next step), not here.
@@ -1351,9 +1363,14 @@ When raw data changes, you fix it in one place. Business logic lives in marts (n
 
 ---
 
-### Step 25: Build the Star — Fact and Dimensions
+### Step 25: Build the Star — Facts and Dimensions
 
-You will build one **fact table** (the measurements — quantity, price, revenue) and three **dimension tables** (the context — who, what, when). Fact in the middle, dims around it. That shape is called a **star schema**.
+You will build **two fact tables** (the measurements) and three **dimension tables** (the context — who, what, when).
+
+- `fct_order_items` — **atomic** fact at line-item grain. One row per product sold in one order.
+- `fct_orders` — **summary** fact at order grain, rolled up from `fct_order_items`. One row per order.
+
+Atomic-plus-summary is the pattern that traditional data warehouses have used for decades, and dbt makes it clean: the summary reads the atomic via `{{ ref('fct_order_items') }}` (never from raw), so there is one source of truth and the two fact tables can never disagree.
 
 **Here is what you are building:**
 
@@ -1362,16 +1379,27 @@ erDiagram
     DIM_CUSTOMERS ||--o{ FCT_ORDER_ITEMS : "bought by"
     DIM_PRODUCTS  ||--o{ FCT_ORDER_ITEMS : "contains"
     DIM_DATE      ||--o{ FCT_ORDER_ITEMS : "sold on"
+    DIM_CUSTOMERS ||--o{ FCT_ORDERS      : "bought by"
+    DIM_DATE      ||--o{ FCT_ORDERS      : "sold on"
+    FCT_ORDERS    ||--o{ FCT_ORDER_ITEMS : "rolls up from"
 
     FCT_ORDER_ITEMS {
         bigint   order_item_id PK
-        bigint   order_id
+        bigint   order_id      FK
         bigint   customer_id   FK
         bigint   product_id    FK
         date     order_date    FK
         int      quantity
         numeric  unit_price
         numeric  line_total
+    }
+    FCT_ORDERS {
+        bigint   order_id               PK
+        bigint   customer_id            FK
+        date     order_date             FK
+        int      line_item_count
+        int      distinct_product_count
+        numeric  order_total
     }
     DIM_CUSTOMERS {
         bigint  customer_id PK
@@ -1394,9 +1422,13 @@ erDiagram
     }
 ```
 
-Every row in `FCT_ORDER_ITEMS` points to one customer, one product, and one date. Those arrows are **foreign keys (FK)**, pointing at each dim's **primary key (PK)**.
+Every fact row points to each dim via a **foreign key (FK)** → the dim's **primary key (PK)**. Notice `fct_orders` connects only to `dim_customers` and `dim_date`: order grain has already summed across products, so there is no `product_id` to point at.
 
-**Grain** is the most important choice. Grain = "what does one row of the fact mean?" Here: one row = one product sold in one order. Smaller grain answers more questions. You can always roll line items up into order totals; you can never split an order total back into products.
+**Grain** is the most important choice you make. Grain = "what does one row of the fact mean?" Here:
+- `fct_order_items`: one row = one product sold in one order (line-item grain).
+- `fct_orders`: one row = one order (order grain).
+
+Smaller grain answers more questions. You can always roll line items up into order totals; you can never split an order total back into products — which is exactly why you keep both.
 
 **What to do:**
 
@@ -1405,40 +1437,44 @@ Every row in `FCT_ORDER_ITEMS` points to one customer, one product, and one date
    ```sql
    {{ config(materialized='table') }}
 
-   with date_spine as (
-       select
-           dateadd(day, seq4(), '2020-01-01'::date) as date_day
-       from table(generator(rowcount => 3653))  -- ~10 years
+   WITH date_spine AS (
+       SELECT
+           DATEADD(DAY, SEQ4(), '2020-01-01'::DATE) AS date_day
+       FROM TABLE(GENERATOR(ROWCOUNT => 3653))  -- ~10 years
    )
 
-   select
+   SELECT
        date_day,
-       extract(year from date_day) as year,
-       extract(quarter from date_day) as quarter,
-       extract(month from date_day) as month_num,
-       to_char(date_day, 'Mon') as month_name,
-       extract(day from date_day) as day_of_month,
-       extract(dow from date_day) as day_of_week_num,
-       to_char(date_day, 'Dy') as day_of_week_name,
-       case when extract(dow from date_day) in (0, 6) then true else false end as is_weekend
-   from date_spine
+       EXTRACT(YEAR FROM date_day) AS year,
+       EXTRACT(QUARTER FROM date_day) AS quarter,
+       EXTRACT(MONTH FROM date_day) AS month_num,
+       TO_CHAR(date_day, 'Mon') AS month_name,
+       EXTRACT(DAY FROM date_day) AS day_of_month,
+       EXTRACT(DOW FROM date_day) AS day_of_week_num,
+       TO_CHAR(date_day, 'Dy') AS day_of_week_name,
+       CASE WHEN EXTRACT(DOW FROM date_day) IN (0, 6) THEN TRUE ELSE FALSE END AS is_weekend
+   FROM date_spine
    ```
 
 2. Brainstorm the rest of the star with Claude Code:
 
    ```
    I want to build the star schema shown in the ERD on top
-   of my dbt staging layer — a fact table for order line
-   items, plus dim tables for customers and products (date
-   is already done). Help me pick the right grain and design
-   each model.
+   of my dbt staging layer. Two fact tables — fct_order_items
+   at line-item grain, and fct_orders at order grain rolled
+   up from the line-item fact (not from raw). Plus dim tables
+   for customers and products (date is already done). Help me
+   pick the grains and design each model.
    ```
 
-3. Review each file. The fact table should have FKs to each dim plus measures (quantity, unit price, line total). Each dim should have a primary key and descriptive attributes. Everything should reference the staging models (not the raw sources directly).
+3. Review each file:
+   - `fct_order_items` should reference the staging models and have FKs to each dim plus the line-level measures.
+   - `fct_orders` should reference `fct_order_items` (via `{{ ref('fct_order_items') }}`), group by `order_id`, and produce order-level measures (total, line-item count, distinct-product count). It should **not** read from staging or raw directly — that's what makes it a *summary* of the atomic fact.
+   - Each dim should have a primary key and descriptive attributes.
 
 **Materializations.** dbt stores results two ways: **views** (saved queries that re-run when called — cheap, always fresh) and **tables** (stored results — fast, but must rebuild to update). Staging defaults to views. Marts use `{{ config(materialized='table') }}` because dashboards hit them over and over.
 
-**Checkpoint:** `fct_order_items`, `dim_customers`, `dim_products`, and `dim_date` exist under `models/marts/`. The fact table is at line-item grain.
+**Checkpoint:** `fct_order_items`, `fct_orders`, `dim_customers`, `dim_products`, and `dim_date` exist under `models/marts/`. `fct_order_items` is at line-item grain; `fct_orders` is the rolled-up order grain, built from `fct_order_items`.
 
 ---
 
@@ -1486,7 +1522,7 @@ Every `dbt test` run re-executes these checks against live data. If drift ever c
    Build the whole dbt project, then run all tests. Show me both outputs.
    ```
 
-   Expected: `dbt run` builds four staging views + four mart tables ("Completed successfully"). `dbt test` reports `PASS` on both tests.
+   Expected: `dbt run` builds four staging views + five mart tables ("Completed successfully"). `dbt test` reports `PASS` on both tests.
 
 2. Verify in Snowsight:
 
@@ -1496,17 +1532,42 @@ Every `dbt test` run re-executes these checks against live data. If drift ever c
 
    SHOW TABLES;
 
-   SELECT COUNT(order_item_id) AS fct_rows FROM fct_order_items;
-   SELECT COUNT(customer_id) AS dim_customer_rows FROM dim_customers;
-   SELECT COUNT(product_id) AS dim_product_rows FROM dim_products;
-   SELECT COUNT(date_day) AS dim_date_rows FROM dim_date;
+   SELECT COUNT(order_item_id) AS fct_order_items_rows FROM fct_order_items;
+   SELECT COUNT(order_id)      AS fct_orders_rows      FROM fct_orders;
+   SELECT COUNT(customer_id)   AS dim_customer_rows    FROM dim_customers;
+   SELECT COUNT(product_id)    AS dim_product_rows     FROM dim_products;
+   SELECT COUNT(date_day)      AS dim_date_rows        FROM dim_date;
    ```
 
-   `fct_order_items` should have roughly the same row count as the raw `order_items` table.
+   `fct_order_items` should have roughly the same row count as raw `order_items`. `fct_orders` should roughly match raw `orders` — and a quick sanity check is that `SUM(order_total)` from `fct_orders` equals `SUM(line_total)` from `fct_order_items`. If they differ, your rollup has a bug.
+
+3. **Ask one analytics question against the star.** Row counts confirm the pipeline ran; an analytical query confirms the pipeline is *useful*. Pick one real question, write the SQL, and run it in Snowsight. For example:
+
+   ```sql
+   -- Which product categories drove the most revenue each month?
+   SELECT
+       d.year,
+       d.month_name,
+       p.category,
+       SUM(f.line_total) AS category_revenue
+   FROM fct_order_items AS f
+   JOIN dim_products   AS p ON f.product_id = p.product_id
+   JOIN dim_date       AS d ON f.order_date = d.date_day
+   GROUP BY
+       d.year,
+       d.month_name,
+       p.category
+   ORDER BY
+       d.year,
+       d.month_name,
+       category_revenue DESC;
+   ```
+
+   Notice how short that query is: one `JOIN` per dim, one `GROUP BY`, one `SUM`. That is the point of the star schema — it turns business questions into almost trivially readable SQL. Try another question of your own: "top customers by lifetime value," "weekend vs. weekday order volume," "average order value by month" — whatever you're curious about.
 
 Under the hood, dbt compiled each `.sql` file into a `CREATE TABLE AS` (or `CREATE VIEW AS`) and ran them in the right order, which it inferred from your `{{ ref() }}` calls.
 
-**Checkpoint:** `dbt run` and `dbt test` both pass. `analytics` schema contains four staging + four mart objects.
+**Checkpoint:** `dbt run` and `dbt test` both pass. `analytics` schema contains four staging + five mart objects. You've written at least one analytics query against the star and gotten a sensible answer back.
 
 ---
 
@@ -1540,7 +1601,7 @@ dbt auto-generates a documentation site for your project. It includes the lineag
 4. **Open the lineage graph.** Click the blue circle in the bottom-right corner of the docs page. The full project DAG opens. You should see:
    - **Green nodes** — the four **sources** (raw Snowflake tables)
    - **Blue nodes with a view icon** — the four **staging models** (views)
-   - **Blue nodes with a table icon** — the four **mart models** (tables)
+   - **Blue nodes with a table icon** — the five **mart models** (tables), including the `fct_order_items → fct_orders` roll-up edge inside the mart layer
    - **Arrows** showing the flow: sources → staging → marts
 
    Click any node to open its detail page. Use the focus controls at top-left to show just the upstream or downstream lineage of a single model — this is how production teams answer "if I change this raw table, what downstream reports break?"
@@ -1564,23 +1625,29 @@ dbt auto-generates a documentation site for your project. It includes the lineag
 1. Ask Claude Code:
 
    ```
-   Update CLAUDE.md to capture this session's dbt setup —
-   no secrets — then commit and push.
+   Update CLAUDE.md: what changed, what we decided, what
+   to do next.
    ```
 
-2. On GitHub, confirm `basket_craft/`, the updated `requirements.txt`, and the updated `CLAUDE.md` all appear. `profiles.yml` should **not** appear (it lives in `~/.dbt/`, outside the repo).
+2. Commit and push:
+
+   ```
+   Commit everything and push.
+   ```
+
+3. On GitHub, confirm `basket_craft/`, the updated `requirements.txt`, and the updated `CLAUDE.md` all appear. `profiles.yml` should **not** appear (it lives in `~/.dbt/`, outside the repo).
+
+**Why this matters — the end-of-session ritual.** Closing every work session with "what changed, what we decided, what to do next" is one of the highest-leverage habits you can build with an AI coding assistant. Three reasons:
+
+- **Future-you starts at full speed.** When you open this repo in two weeks, `CLAUDE.md` tells Claude Code (and you) where the project left off — no archaeology through commits.
+- **Decisions stop evaporating.** The *why* behind a design choice (e.g., "we kept `basket_craft_loader` as a single role instead of splitting into `_loader` and `_transformer`") is usually lost the moment the tab closes. Writing it down makes the reasoning durable.
+- **"What to do next" becomes the next session's starting line.** You don't spend 15 minutes re-orienting; you pick up the thread.
+
+Treat `CLAUDE.md` as the project's running logbook — not a static README. Update it at the end of every session, even small ones.
 
 MP02 is done. Extract from RDS → load to Snowflake → transform with dbt into a star schema, tested and documented. Every tool here is also required for your portfolio project.
 
-**Checkpoint:** Repo has the full dbt project on GitHub. `dbt run` and `dbt test` both pass. Working tree is clean.
-
----
-
-### Homework: Grain Reflection
-
-Before the next class, write a short note to yourself (in a new `notes.md` in your repo, or in a sticky note, or on paper — this one is for your learning, not for a grade). Write down **one business question you could answer with `fct_order_items` that you could not answer with `fct_orders`**.
-
-This is a five-minute exercise. The point is to make sure the grain lesson from Step 25 has landed. If you can articulate a question that needs line-item detail, you have internalized the concept. If you cannot, go back and look at `fct_order_items` again — the answer is hiding in the columns.
+**Checkpoint:** Repo has the full dbt project on GitHub. `dbt run` and `dbt test` both pass. `CLAUDE.md` ends with a brief note on what changed, what was decided, and what comes next. Working tree is clean.
 
 ---
 
@@ -1594,7 +1661,7 @@ Your repository should contain at minimum:
 - Your AWS RDS connection configuration from Session 02 (credentials in `.env`, never committed)
 - The Snowflake loader script from Session 03
 - An updated `requirements.txt` with `snowflake-connector-python`, `dbt-snowflake`, and any other dependencies you added
-- The `basket_craft/` dbt project folder from Session 04 with all four staging models, the four mart models (`fct_order_items`, `dim_customers`, `dim_products`, `dim_date`), `_sources.yml`, and `_schema.yml` with at least one passing test
+- The `basket_craft/` dbt project folder from Session 04 with all four staging models, the five mart models (`fct_order_items`, `fct_orders`, `dim_customers`, `dim_products`, `dim_date`), `_sources.yml`, and `_schema.yml` with at least one passing test
 - An updated `CLAUDE.md` describing the full pipeline (extract, load, transform) and how to run each piece
 - A `.gitignore` that excludes `.env` and any other secrets
 - No credentials of any kind committed anywhere in the history

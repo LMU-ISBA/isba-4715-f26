@@ -272,7 +272,7 @@ The **T** in ELT. Raw tables in. Star schema out.
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box">staging/<br/><small>stg_orders, stg_order_items,<br/>stg_products, stg_customers<br/>(views · rename + cast)</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box dbt-box">marts/<br/><small>fct_order_items<br/>+ dim_customers, dim_products, dim_date<br/>(tables · star schema)</small></div>
+  <div class="flow-box dbt-box">marts/<br/><small>fct_order_items + fct_orders<br/>+ dim_customers, dim_products, dim_date<br/>(tables · star schema)</small></div>
 </div>
 
 Both layers land in the **analytics** schema — folder split, not schema split. Same warehouse, same `.env`, new tool.
@@ -325,7 +325,7 @@ Data engineering and analytics engineering teams at thousands of companies now u
 # The dbt mental model
 
 <div class="flow">
-  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br/><small>SELECT from raw</small></div>
+  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br/><small>SELECT FROM raw</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br/><small>{{ ref('stg_products') }}</small></div>
   <div class="flow-arrow">→</div>
@@ -401,7 +401,13 @@ Ralph Kimball's insight (1996): every analytical question is "what happened — 
   </g>
 </svg>
 
-Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (PK)**. Every BI tool on Earth reads this shape.
+Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (PK)**.
+
+**Why this shape wins:**
+- **Simple joins** — `fact JOIN dim` per filter; no 7-way chains through normalized tables
+- **Fast on columnar warehouses** — narrow facts + denormalized dims is Snowflake's sweet spot
+- **BI-tool native** — Tableau, Power BI, Looker, Streamlit all assume this shape
+- **Maps to how stakeholders ask questions** — "revenue by category by month" = fact + two dims, literally
 
 ---
 
@@ -444,7 +450,7 @@ Pick the smaller grain. You can always roll up. You can never split back down.
 | 22 | Grants + `profiles.yml` | Extend loader role, point dbt at Snowflake |
 | 23 | Declare sources | `_sources.yml` for the four raw tables |
 | 24 | Staging layer | One view per source, rename and cast only |
-| 25 | Marts layer | `fct_order_items` + three `dim_*` tables |
+| 25 | Marts layer | `fct_order_items` + `fct_orders` (rollup) + three `dim_*` tables |
 | 26 | Add a test | `unique` + `not_null` on the fact key |
 | 27 | `dbt run` + `dbt test` | Build and verify |
 | 28 | `dbt docs` | Generate the lineage graph |
