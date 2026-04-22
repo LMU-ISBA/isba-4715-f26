@@ -1154,7 +1154,7 @@ dbt Core runs as a Python package inside your project's virtual environment — 
 Ask Claude Code:
 
 ```
-Let's install dbt with the Snowflake adapter in this project.
+Install dbt with the Snowflake adapter
 ```
 
 **Checkpoint:** `dbt --version` prints a version and lists `dbt-snowflake`. `requirements.txt` is updated.
@@ -1170,28 +1170,43 @@ Let's install dbt with the Snowflake adapter in this project.
 1. Ask Claude Code:
 
    ```
-   Start a new dbt project in this repo, named basket_craft (we'll reuse that name in later steps). It should connect to Snowflake. Skip connection prompts — we'll set those up next.
+   Start a new dbt project named basket_craft. It should
+   connect to Snowflake.
    ```
 
-   After it runs, a `basket_craft/` folder exists with standard dbt sub-folders (`models/`, `tests/`, `macros/`, etc.).
+2. Tour the scaffold. Open the new `basket_craft/` folder in Cursor's file tree (or run `ls basket_craft/` in the terminal). You should see something like:
 
-2. Drop the example models dbt dropped in:
+   ```
+   basket_craft/
+   ├── dbt_project.yml   ← project config (name, paths, defaults)
+   ├── models/           ← your SQL transforms; each file → one table or view
+   │   └── example/      ← dbt's tutorial models (you'll delete these next)
+   ├── tests/            ← custom SQL tests that don't fit the YAML shortcuts
+   ├── macros/           ← reusable SQL/Jinja snippets you can call from models
+   ├── seeds/            ← small CSV files dbt loads into the warehouse
+   ├── snapshots/        ← point-in-time captures of source tables as they change
+   └── analyses/         ← ad-hoc SQL that never gets materialized
+   ```
+
+   The two you'll touch in this tutorial are `models/` (every staging and mart file you write goes there) and the root `dbt_project.yml` (no direct edits, but you'll read it when debugging). The other folders exist so every dbt project in the world has the same predictable shape — teammates can open your project and know exactly where to look.
+
+3. Remove the example models dbt scaffolded:
 
    ```
    Remove the example models dbt created. We'll build our own.
    ```
 
-3. Keep dbt's build artifacts out of git:
+4. Keep dbt's build artifacts out of git:
 
    ```
-   Make sure dbt's build artifact folders never get committed.
+   Keep dbt's build output out of git.
    ```
 
    This catches `target/` (compiled SQL), `logs/` (run logs), and `dbt_packages/` (downloaded packages). All are derived from your source files — committing them adds noise without adding information. Do this before your first `dbt run`; cleaning them out of git history afterward is painful.
 
 **Why this matters:** dbt's folder layout is its API. Every dbt project you ever open — yours last year, a teammate's today — has the same shape. That predictability is a big part of why teams adopt it.
 
-**Checkpoint:** `basket_craft/` exists with `dbt_project.yml`. Example models are gone. `.gitignore` ignores `target/`, `logs/`, and `dbt_packages/`.
+**Checkpoint:** `basket_craft/` exists with `dbt_project.yml`. You've looked at each folder and can say one sentence about what it's for. Example models are gone. `.gitignore` ignores `target/`, `logs/`, and `dbt_packages/`.
 
 ---
 
@@ -1225,7 +1240,10 @@ Two things happen in order. First, extend your Session 03 loader role so it can 
 2. Wire dbt to Snowflake:
 
    ```
-   Help me connect dbt to my Snowflake account. Read the credentials from my existing .env — no hardcoded secrets. Target the analytics schema. Then verify the connection works.
+   Help me connect dbt to my Snowflake account. Read the
+   credentials from my existing .env — no hardcoded secrets.
+   Target the analytics schema. Then verify the connection
+   works.
    ```
 
    dbt stores its connection in a file called `profiles.yml`. It lives outside your repo (in `~/.dbt/`) on purpose — credentials can't be committed. The profile ends up looking like:
@@ -1263,7 +1281,8 @@ A **source** in dbt means "this table exists upstream — I read from it, I didn
 Ask Claude Code:
 
 ```
-Let's tell dbt about my raw Snowflake tables from Session 03 so I can build transformations on top of them.
+Let's tell dbt about my raw Snowflake tables from Session 03
+so I can build transformations on top of them.
 ```
 
 The result is a YAML file under the staging folder that ends up looking roughly like this:
@@ -1295,7 +1314,10 @@ sources:
 Ask Claude Code:
 
 ```
-Help me build a dbt staging layer on top of my raw sources. Staging's rule: rename columns and cast types — nothing else, no joins or filters. Keep identifiers lowercase and unquoted (Session 03 casing rule).
+Help me build a dbt staging layer on top of my raw sources.
+Staging's rule: rename columns and cast types — nothing else,
+no joins or filters. Keep identifiers lowercase and unquoted
+(Session 03 casing rule).
 ```
 
 Review each generated file. If you see a JOIN, WHERE, or aggregation, push back — staging is a discipline, not a suggestion.
@@ -1405,7 +1427,11 @@ Every row in `FCT_ORDER_ITEMS` points to one customer, one product, and one date
 2. Brainstorm the rest of the star with Claude Code:
 
    ```
-   I want to build the star schema shown in the ERD on top of my dbt staging layer — a fact table for order line items, plus dim tables for customers and products (date is already done). Help me pick the right grain and design each model.
+   I want to build the star schema shown in the ERD on top
+   of my dbt staging layer — a fact table for order line
+   items, plus dim tables for customers and products (date
+   is already done). Help me pick the right grain and design
+   each model.
    ```
 
 3. Review each file. The fact table should have FKs to each dim plus measures (quantity, unit price, line total). Each dim should have a primary key and descriptive attributes. Everything should reference the staging models (not the raw sources directly).
@@ -1425,7 +1451,8 @@ dbt tests are YAML, not SQL. You declare an invariant (e.g., "this column is uni
 Ask Claude Code:
 
 ```
-Add a dbt test that catches duplicate or missing primary keys in the fact table.
+Add a dbt test that catches duplicate or missing primary
+keys in the fact table.
 ```
 
 The resulting schema file ends up looking like:
@@ -1483,27 +1510,50 @@ Under the hood, dbt compiled each `.sql` file into a `CREATE TABLE AS` (or `CREA
 
 ---
 
-### Step 28: Generate and View the Lineage Graph
+### Step 28: Generate, Open, and Interpret the dbt Docs
 
-dbt auto-generates a docs site with a clickable lineage graph — every source, staging model, and mart, connected by arrows.
+dbt auto-generates a documentation site for your project. It includes the lineage graph, a page for every model with its description, column list, tests, and the compiled SQL that actually ran in Snowflake.
 
 **What to do:**
 
 1. Ask Claude Code:
 
    ```
-   Generate dbt's docs site and open the lineage graph in my browser.
+   Generate dbt's docs site and open it in my browser.
    ```
 
-2. Click the blue circle in the bottom-right of the docs page. You'll see four green source nodes → four blue staging nodes → four blue mart nodes.
+   This runs two commands: `dbt docs generate` (builds the site from your models) and `dbt docs serve` (serves it locally, usually at `http://localhost:8080`).
 
-3. Screenshot the graph. You'll want it for your portfolio.
+**Tour the docs site.** Work through the items below in order — each one teaches you something different about the project.
 
-4. Stop the server with Ctrl+C when you're done.
+2. **Left sidebar: the model tree.** Expand your project (`basket_craft`) and you'll see `models/staging/` and `models/marts/` folders with every model listed. Click `fct_order_items`. A detail page opens on the right.
 
-Docs generated from code can't drift — they're a byproduct of the SQL you already wrote. Every dbt team uses these as the canonical "what is this table?" reference.
+3. **A model page's layout.** On the `fct_order_items` detail page you should see:
+   - **Description** (if you added one in a schema file) — what this table means and its grain
+   - **Columns** — every column with its data type, plus any description you declared
+   - **Tests** — the `unique` and `not_null` tests you added in Step 26
+   - **Referenced By / Depends On** — which models use this one and which ones it reads from
+   - **Code tabs** — *Source* (the raw `.sql` you wrote, with `{{ ref() }}` macros) and *Compiled* (the actual SQL dbt sent to Snowflake, with `{{ ref() }}` replaced by real table names)
 
-**Checkpoint:** You've seen the lineage graph and screenshotted it.
+   The *Compiled* tab is the single most useful tab when a model breaks. It shows the exact SQL Snowflake ran.
+
+4. **Open the lineage graph.** Click the blue circle in the bottom-right corner of the docs page. The full project DAG opens. You should see:
+   - **Green nodes** — the four **sources** (raw Snowflake tables)
+   - **Blue nodes with a view icon** — the four **staging models** (views)
+   - **Blue nodes with a table icon** — the four **mart models** (tables)
+   - **Arrows** showing the flow: sources → staging → marts
+
+   Click any node to open its detail page. Use the focus controls at top-left to show just the upstream or downstream lineage of a single model — this is how production teams answer "if I change this raw table, what downstream reports break?"
+
+5. **Interpretation exercise.** In the lineage graph, right-click `fct_order_items` and pick "Focus" (or equivalent — the wording depends on dbt version). You should see `fct_order_items` plus its upstream chain: the three `stg_*` models it references, and the four `raw` sources behind those. That view is what you would send a stakeholder who asks "where does this number come from?"
+
+6. **Screenshot the full lineage graph.** You'll want it for your portfolio submission.
+
+7. Stop the docs server with Ctrl+C in the terminal.
+
+**Why this matters:** Docs generated from code can't drift. They're a byproduct of the SQL you already wrote. Every dbt team uses this docs site as the canonical "what is this table, where does it come from, and what tests pass on it?" reference — so being fluent with the navigation is a job skill, not just a class exercise.
+
+**Checkpoint:** You have clicked through at least one model's detail page, viewed its *Compiled* SQL, opened the full lineage graph, and saved a screenshot of the graph.
 
 ---
 
@@ -1514,7 +1564,8 @@ Docs generated from code can't drift — they're a byproduct of the SQL you alre
 1. Ask Claude Code:
 
    ```
-   Update CLAUDE.md to capture this session's dbt setup — no secrets — then commit and push.
+   Update CLAUDE.md to capture this session's dbt setup —
+   no secrets — then commit and push.
    ```
 
 2. On GitHub, confirm `basket_craft/`, the updated `requirements.txt`, and the updated `CLAUDE.md` all appear. `profiles.yml` should **not** appear (it lives in `~/.dbt/`, outside the repo).

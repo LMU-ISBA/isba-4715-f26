@@ -279,81 +279,135 @@ Both layers land in the **analytics** schema — folder split, not schema split.
 
 ---
 
-# dbt is SQL files + YAML
+# What is dbt?
 
 <div class="flow">
-  <div class="flow-box" style="min-width: 280px;">models/<br/><small>.sql files<br/>become tables or views</small></div>
-  <div class="flow-box" style="min-width: 280px;">_sources.yml<br/>_schema.yml<br/><small>declare inputs<br/>declare tests</small></div>
-  <div class="flow-box" style="min-width: 280px;">profiles.yml<br/><small>lives in ~/.dbt/<br/>reads from .env</small></div>
+  <div class="flow-box" style="min-width: 240px;">You write<br/><strong>SELECT</strong> statements<br/><small>one per .sql file</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br/><small>data build tool</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br/><strong>as tables or views</strong><br/><small>in the right order</small></div>
 </div>
 
-- Open-source Python package — no platform to sign up for
-- Every model is version-controlled SQL: if it's not in git, it doesn't exist
-- dbt reads your `{{ ref() }}` calls and figures out the build order
+- Open-source Python package. Lives in your git repo.
+- Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders
+- If it's not in git, it doesn't exist
 
 ---
 
-<!-- _class: dark -->
-
-# Staging and marts are a contract, not a suggestion
-
-<p class="big-idea"><strong>Staging</strong> cleans.<br/><strong>Marts</strong> decide.</p>
-
-Break the contract and six months from now you can't tell if a number is wrong because raw is wrong or because staging silently filtered it out.
-
----
-
-# Staging: rename and cast, nothing else
+# Why teams adopted dbt
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
-  <div>
-    <div style="font-size: 0.9em; font-weight: 700; color: #b04040; text-align: center;">Wrong — logic hidden in cleanup</div>
-    <pre style="font-size: 0.7em; background: #fff4f4; border: 1px solid #b04040; border-radius: 6px; padding: 10px;"><code>-- stg_orders.sql
-select o.order_id,
-       c.customer_name,
-       sum(oi.quantity * oi.unit_price)
-         as order_total
-from {{ source('raw','orders') }} o
-join {{ source('raw','customers') }} c
-  on o.customer_id = c.customer_id
-join {{ source('raw','order_items') }} oi
-  on o.order_id = oi.order_id
-where o.status != 'cancelled'
-group by 1, 2</code></pre>
+  <div style="background: #fff4f4; border: 2px solid #b04040; border-radius: 10px; padding: 18px 22px;">
+    <div style="font-size: 1.05em; font-weight: 700; color: #b04040; text-align: center; margin-bottom: 10px;">Before dbt</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
+      <li>Transforms scattered: stored procs, Python jobs, BI settings</li>
+      <li>No version control for SQL</li>
+      <li>No tests → silent bad data</li>
+      <li>Docs always out of date</li>
+    </ul>
   </div>
-  <div>
-    <div style="font-size: 0.9em; font-weight: 700; color: #2c8a3f; text-align: center;">Right — boring on purpose</div>
-    <pre style="font-size: 0.7em; background: #f0f9f2; border: 1px solid #2c8a3f; border-radius: 6px; padding: 10px;"><code>-- stg_orders.sql
-select
-    order_id,
-    customer_id,
-    order_date::date as order_date,
-    order_status
-from {{ source('raw','orders') }}</code></pre>
+  <div style="background: #f0f9f2; border: 2px solid #2c8a3f; border-radius: 10px; padding: 18px 22px;">
+    <div style="font-size: 1.05em; font-weight: 700; color: #2c8a3f; text-align: center; margin-bottom: 10px;">With dbt</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
+      <li>Every transform is a SQL file in git</li>
+      <li>Code review, diffs, rollback</li>
+      <li>Built-in tests catch drift</li>
+      <li>Lineage graph auto-generated</li>
+    </ul>
   </div>
 </div>
 
-One staging model per source. **No joins, no filters, no aggregations.** When raw changes, you fix it once.
+Data engineering and analytics engineering teams at thousands of companies now use it as the default transformation layer.
 
 ---
 
-# Marts: the star schema
+# The dbt mental model
 
-<div class="star">
-  <div class="flow-box dim-top">dim_date<br/><small>time attributes</small></div>
-  <div class="flow-box dim-left">dim_customers<br/><small>who</small></div>
-  <div class="flow-box fact"><strong>fct_order_items</strong><br/><small>one row per line item<br/>measures + foreign keys</small></div>
-  <div class="flow-box dim-right">dim_products<br/><small>what</small></div>
-  <div class="flow-box dim-bottom">...and any other dim</div>
+<div class="flow">
+  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br/><small>SELECT from raw</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br/><small>{{ ref('stg_products') }}</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 200px;">fct_order_items.sql<br/><small>{{ ref('dim_*') }}</small></div>
 </div>
 
-Fact at the center. Dimensions around it. Tableau, Power BI, Looker, and Streamlit all expect this shape.
+- Every `.sql` in `models/` becomes one **table or view** in Snowflake
+- **`{{ ref('model_name') }}`** is how one model points at another
+- dbt reads all the refs, builds a dependency graph, runs models in the right order — you never write the order yourself
+- `dbt test` checks declared invariants · `dbt docs` renders the graph as clickable lineage
 
 ---
 
 <!-- _class: dark -->
 
-# Grain decides what questions you can answer
+# Dimensional modeling: two kinds of columns
+
+<div class="flow" style="margin-top: 32px;">
+  <div class="flow-box" style="min-width: 320px; padding: 24px;">
+    <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br/>
+    <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br/>
+    <span style="color: #ff7a59; font-weight: 700; margin-top: 12px; display: block;">go in FACT tables</span>
+  </div>
+  <div class="flow-box" style="min-width: 320px; padding: 24px;">
+    <span style="font-size: 1.4em; font-weight: 700;">Context</span><br/>
+    <small style="font-size: 0.95em; margin-top: 8px;">who, what, when, where</small><br/>
+    <span style="color: #7eb8ff; font-weight: 700; margin-top: 12px; display: block;">go in DIMENSION tables</span>
+  </div>
+</div>
+
+Ralph Kimball's insight (1996): every analytical question is "what happened — in what context?"
+
+---
+
+# A star schema connects facts to dims
+
+<svg viewBox="0 0 900 400" style="width: 820px; max-width: 100%; display: block; margin: 20px auto 12px;" role="img" aria-label="Star-schema ERD: fct_order_items at the center connected to dim_date, dim_customers, dim_products, and other dims, each with a one-to-many relationship.">
+  <g stroke="#999" stroke-width="2">
+    <line x1="450" y1="80"  x2="450" y2="160" />
+    <line x1="200" y1="200" x2="345" y2="200" />
+    <line x1="555" y1="200" x2="700" y2="200" />
+    <line x1="450" y1="240" x2="450" y2="320" />
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#666">
+    <text x="440" y="100" text-anchor="end">1</text>
+    <text x="460" y="155">N</text>
+    <text x="215" y="195">1</text>
+    <text x="335" y="195" text-anchor="end">N</text>
+    <text x="685" y="195" text-anchor="end">1</text>
+    <text x="565" y="195">N</text>
+    <text x="440" y="260" text-anchor="end">N</text>
+    <text x="460" y="315">1</text>
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <rect x="370" y="30"  width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="450" y="55"  font-size="15" font-weight="600" fill="#1a1a2e">dim_date</text>
+    <text x="450" y="72"  font-size="11" fill="#555">when</text>
+    <rect x="30"  y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="115" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_customers</text>
+    <text x="115" y="215" font-size="11" fill="#555">who</text>
+    <rect x="700" y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="785" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_products</text>
+    <text x="785" y="215" font-size="11" fill="#555">what</text>
+    <rect x="370" y="320" width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" stroke-dasharray="6,4" />
+    <text x="450" y="346" font-size="14" font-weight="600" fill="#888" font-style="italic">...other dims</text>
+    <text x="450" y="362" font-size="11" fill="#888">as needed</text>
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <rect x="345" y="160" width="210" height="80" rx="10" fill="#fff4ef" stroke="#ff7a59" stroke-width="2.5" />
+    <text x="450" y="188" font-size="17" font-weight="700" fill="#7a2e13">fct_order_items</text>
+    <text x="450" y="208" font-size="11" fill="#7a2e13" font-style="italic">fact</text>
+    <text x="450" y="226" font-size="11" fill="#7a2e13">one row per line item</text>
+  </g>
+</svg>
+
+Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (PK)**. Every BI tool on Earth reads this shape.
+
+---
+
+<!-- _class: dark -->
+
+# Grain = "what does one row of the fact mean?"
 
 <p class="big-idea">"Which products do Basket Craft customers<br/>buy <strong>together</strong>?"</p>
 
@@ -364,31 +418,18 @@ Pick the smaller grain. You can always roll up. You can never split back down.
 
 ---
 
-# One .env, two tools
+# Staging and marts: cleanup, then decide
 
 <div class="flow">
-  <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/python.svg" />Python loader<br/><small>writes to raw<br/>(Session 03)</small></div>
-  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;">.env<br/><small>SNOWFLAKE_ACCOUNT<br/>SNOWFLAKE_USER<br/>SNOWFLAKE_PASSWORD<br/>SNOWFLAKE_ROLE<br/>SNOWFLAKE_WAREHOUSE<br/>SNOWFLAKE_DATABASE</small></div>
-  <div class="flow-box dbt-box" style="min-width: 240px;">dbt Core<br/><small>writes to analytics<br/>(today)</small></div>
+  <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br/><small>rename + cast only<br/>(dbt views)</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br/><small>facts + dims<br/>(dbt tables)</small></div>
 </div>
 
-- `profiles.yml` reads every secret through `{{ env_var(...) }}`
-- `profiles.yml` lives in `~/.dbt/`, outside the repo
-- Same credentials, different schemas — one source of truth
-
----
-
-# Least privilege grows with the project
-
-| Session 03 | Session 04 |
-|---|---|
-| `basket_craft_loader` gets `raw` | Same role gets `analytics` added |
-| `CREATE TABLE` on raw | `CREATE TABLE` + `CREATE VIEW` on analytics |
-| DML on raw tables | DML on analytics tables |
-
-- `ACCOUNTADMIN` stays for **setup only** — never in `.env`
-- Grants grow one schema at a time — never by role escalation
-- Same pattern your portfolio rubric grades on
+- **Staging** pays the cleanup cost once per raw table — no joins, no filters, no aggregations
+- **Marts** are where the business logic and the star schema live
+- Raw data changes → fix one staging file. Business question changes → fix one mart file.
+- Both layers write to the same Snowflake schema; the folder split keeps the two jobs legible in git
 
 ---
 

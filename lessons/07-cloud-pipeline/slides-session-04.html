@@ -1513,19 +1513,21 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="dbt-is-sql-files--yaml">dbt is SQL files + YAML</h1>
+<h1 id="what-is-dbt">What is dbt?</h1>
 <div class="flow">
-  <div class="flow-box" style="min-width: 280px;">models/<br /><small>.sql files<br />become tables or views</small></div>
-  <div class="flow-box" style="min-width: 280px;">_sources.yml<br />_schema.yml<br /><small>declare inputs<br />declare tests</small></div>
-  <div class="flow-box" style="min-width: 280px;">profiles.yml<br /><small>lives in ~/.dbt/<br />reads from .env</small></div>
+  <div class="flow-box" style="min-width: 240px;">You write<br /><strong>SELECT</strong> statements<br /><small>one per .sql file</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br /><small>data build tool</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br /><strong>as tables or views</strong><br /><small>in the right order</small></div>
 </div>
 <ul>
-<li>Open-source Python package — no platform to sign up for</li>
-<li>Every model is version-controlled SQL: if it's not in git, it doesn't exist</li>
-<li>dbt reads your <code>{{ ref() }}</code> calls and figures out the build order</li>
+<li>Open-source Python package. Lives in your git repo.</li>
+<li>Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders</li>
+<li>If it's not in git, it doesn't exist</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -1773,7 +1775,7 @@ section.dark .dbt-box {
 .star .dim-left   { grid-column: 1; grid-row: 2; }
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
-" lang="C" class="dark" data-marpit-pagination="4" style="--paginate:true;--class:dark;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="4" style="--paginate:true;--theme:default;--style:section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -2022,9 +2024,28 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="staging-and-marts-are-a-contract-not-a-suggestion">Staging and marts are a contract, not a suggestion</h1>
-<p class="big-idea"><strong>Staging</strong> cleans.<br /><strong>Marts</strong> decide.</p>
-<p>Break the contract and six months from now you can't tell if a number is wrong because raw is wrong or because staging silently filtered it out.</p>
+<h1 id="why-teams-adopted-dbt">Why teams adopted dbt</h1>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
+  <div style="background: #fff4f4; border: 2px solid #b04040; border-radius: 10px; padding: 18px 22px;">
+    <div style="font-size: 1.05em; font-weight: 700; color: #b04040; text-align: center; margin-bottom: 10px;">Before dbt</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
+      <li>Transforms scattered: stored procs, Python jobs, BI settings</li>
+      <li>No version control for SQL</li>
+      <li>No tests → silent bad data</li>
+      <li>Docs always out of date</li>
+    </ul>
+  </div>
+  <div style="background: #f0f9f2; border: 2px solid #2c8a3f; border-radius: 10px; padding: 18px 22px;">
+    <div style="font-size: 1.05em; font-weight: 700; color: #2c8a3f; text-align: center; margin-bottom: 10px;">With dbt</div>
+    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
+      <li>Every transform is a SQL file in git</li>
+      <li>Code review, diffs, rollback</li>
+      <li>Built-in tests catch drift</li>
+      <li>Lineage graph auto-generated</li>
+    </ul>
+  </div>
+</div>
+<p>Data engineering and analytics engineering teams at thousands of companies now use it as the default transformation layer.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -2523,37 +2544,22 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="staging-rename-and-cast-nothing-else">Staging: rename and cast, nothing else</h1>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
-  <div>
-    <div style="font-size: 0.9em; font-weight: 700; color: #b04040; text-align: center;">Wrong — logic hidden in cleanup</div>
-    <pre style="font-size: 0.7em; background: #fff4f4; border: 1px solid #b04040; border-radius: 6px; padding: 10px;"><code>-- stg_orders.sql
-select o.order_id,
-       c.customer_name,
-       sum(oi.quantity * oi.unit_price)
-         as order_total
-from {{ source('raw','orders') }} o
-join {{ source('raw','customers') }} c
-  on o.customer_id = c.customer_id
-join {{ source('raw','order_items') }} oi
-  on o.order_id = oi.order_id
-where o.status != 'cancelled'
-group by 1, 2</code></pre>
-  </div>
-  <div>
-    <div style="font-size: 0.9em; font-weight: 700; color: #2c8a3f; text-align: center;">Right — boring on purpose</div>
-    <pre style="font-size: 0.7em; background: #f0f9f2; border: 1px solid #2c8a3f; border-radius: 6px; padding: 10px;"><code>-- stg_orders.sql
-select
-    order_id,
-    customer_id,
-    order_date::date as order_date,
-    order_status
-from {{ source('raw','orders') }}</code></pre>
-  </div>
+<h1 id="the-dbt-mental-model">The dbt mental model</h1>
+<div class="flow">
+  <div class="flow-box" style="min-width: 180px;">stg_orders.sql<br /><small>SELECT from raw</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 200px;">dim_products.sql<br /><small>{{ ref('stg_products') }}</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 200px;">fct_order_items.sql<br /><small>{{ ref('dim_*') }}</small></div>
 </div>
-<p>One staging model per source. <strong>No joins, no filters, no aggregations.</strong> When raw changes, you fix it once.</p>
+<ul>
+<li>Every <code>.sql</code> in <code>models/</code> becomes one <strong>table or view</strong> in Snowflake</li>
+<li><strong><code>{{ ref('model_name') }}</code></strong> is how one model points at another</li>
+<li>dbt reads all the refs, builds a dependency graph, runs models in the right order — you never write the order yourself</li>
+<li><code>dbt test</code> checks declared invariants · <code>dbt docs</code> renders the graph as clickable lineage</li>
+</ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="6" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -2801,7 +2807,7 @@ section.dark .dbt-box {
 .star .dim-left   { grid-column: 1; grid-row: 2; }
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
-" lang="C" data-marpit-pagination="6" style="--paginate:true;--theme:default;--style:section {
+" lang="C" class="dark" data-marpit-pagination="6" style="--paginate:true;--class:dark;--theme:default;--style:section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -3050,17 +3056,22 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="marts-the-star-schema">Marts: the star schema</h1>
-<div class="star">
-  <div class="flow-box dim-top">dim_date<br /><small>time attributes</small></div>
-  <div class="flow-box dim-left">dim_customers<br /><small>who</small></div>
-  <div class="flow-box fact"><strong>fct_order_items</strong><br /><small>one row per line item<br />measures + foreign keys</small></div>
-  <div class="flow-box dim-right">dim_products<br /><small>what</small></div>
-  <div class="flow-box dim-bottom">...and any other dim</div>
+<h1 id="dimensional-modeling-two-kinds-of-columns">Dimensional modeling: two kinds of columns</h1>
+<div class="flow" style="margin-top: 32px;">
+  <div class="flow-box" style="min-width: 320px; padding: 24px;">
+    <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br />
+    <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br />
+    <span style="color: #ff7a59; font-weight: 700; margin-top: 12px; display: block;">go in FACT tables</span>
+  </div>
+  <div class="flow-box" style="min-width: 320px; padding: 24px;">
+    <span style="font-size: 1.4em; font-weight: 700;">Context</span><br />
+    <small style="font-size: 0.95em; margin-top: 8px;">who, what, when, where</small><br />
+    <span style="color: #7eb8ff; font-weight: 700; margin-top: 12px; display: block;">go in DIMENSION tables</span>
+  </div>
 </div>
-<p>Fact at the center. Dimensions around it. Tableau, Power BI, Looker, and Streamlit all expect this shape.</p>
+<p>Ralph Kimball's insight (1996): every analytical question is &quot;what happened — in what context?&quot;</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -3308,7 +3319,7 @@ section.dark .dbt-box {
 .star .dim-left   { grid-column: 1; grid-row: 2; }
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
-" lang="C" class="dark" data-marpit-pagination="7" style="--paginate:true;--class:dark;--theme:default;--style:section {
+" lang="C" data-marpit-pagination="7" style="--paginate:true;--theme:default;--style:section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   color: #222;
 }
@@ -3557,522 +3568,551 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="grain-decides-what-questions-you-can-answer">Grain decides what questions you can answer</h1>
+<h1 id="a-star-schema-connects-facts-to-dims">A star schema connects facts to dims</h1>
+<svg viewBox="0 0 900 400" style="width: 820px; max-width: 100%; display: block; margin: 20px auto 12px;" role="img" aria-label="Star-schema ERD: fct_order_items at the center connected to dim_date, dim_customers, dim_products, and other dims, each with a one-to-many relationship.">
+  <g stroke="#999" stroke-width="2">
+    <line x1="450" y1="80"  x2="450" y2="160" />
+    <line x1="200" y1="200" x2="345" y2="200" />
+    <line x1="555" y1="200" x2="700" y2="200" />
+    <line x1="450" y1="240" x2="450" y2="320" />
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#666">
+    <text x="440" y="100" text-anchor="end">1</text>
+    <text x="460" y="155">N</text>
+    <text x="215" y="195">1</text>
+    <text x="335" y="195" text-anchor="end">N</text>
+    <text x="685" y="195" text-anchor="end">1</text>
+    <text x="565" y="195">N</text>
+    <text x="440" y="260" text-anchor="end">N</text>
+    <text x="460" y="315">1</text>
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <rect x="370" y="30"  width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="450" y="55"  font-size="15" font-weight="600" fill="#1a1a2e">dim_date</text>
+    <text x="450" y="72"  font-size="11" fill="#555">when</text>
+    <rect x="30"  y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="115" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_customers</text>
+    <text x="115" y="215" font-size="11" fill="#555">who</text>
+    <rect x="700" y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="785" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_products</text>
+    <text x="785" y="215" font-size="11" fill="#555">what</text>
+    <rect x="370" y="320" width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" stroke-dasharray="6,4" />
+    <text x="450" y="346" font-size="14" font-weight="600" fill="#888" font-style="italic">...other dims</text>
+    <text x="450" y="362" font-size="11" fill="#888">as needed</text>
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <rect x="345" y="160" width="210" height="80" rx="10" fill="#fff4ef" stroke="#ff7a59" stroke-width="2.5" />
+    <text x="450" y="188" font-size="17" font-weight="700" fill="#7a2e13">fct_order_items</text>
+    <text x="450" y="208" font-size="11" fill="#7a2e13" font-style="italic">fact</text>
+    <text x="450" y="226" font-size="11" fill="#7a2e13">one row per line item</text>
+  </g>
+</svg>
+<p>Each fact row has a <strong>foreign key (FK)</strong> pointing at each dim's <strong>primary key (PK)</strong>. Every BI tool on Earth reads this shape.</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-class="dark" data-theme="default" data-style="section {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  color: #222;
+}
+section h1 {
+  color: #111;
+  text-wrap: balance;
+}
+section p,
+section li,
+section td {
+  text-wrap: pretty;
+}
+section strong {
+  color: #1a1a2e;
+}
+section lead h1 {
+  font-size: 2.8em;
+  font-weight: 700;
+}
+section.dark {
+  background-color: #1a1a2e;
+  color: #f0f0f0;
+}
+section.dark h1 {
+  color: #fff;
+}
+section.dark strong {
+  color: #7eb8ff;
+}
+section.dark a {
+  color: #7eb8ff;
+}
+section.dark code {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+section.dark blockquote {
+  color: #ccc;
+  border-left-color: #7eb8ff;
+}
+section.dark table,
+section.dark table th,
+section.dark table td {
+  border-color: rgba(0,0,0,0.15) !important;
+  color: #222 !important;
+}
+section.dark table th {
+  background: #e8eef7 !important;
+  color: #1a1a2e !important;
+}
+section.dark table td {
+  background: #ffffff !important;
+}
+section.dark table tr:nth-child(even) td {
+  background: #f5f7fa !important;
+}
+section.dark table td strong,
+section.dark table th strong {
+  color: #1a1a2e !important;
+}
+section.accent {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+}
+section.accent h1 {
+  color: #fff;
+  font-size: 2.4em;
+}
+section.accent strong {
+  color: #ff7a59;
+}
+section.accent code {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+section.accent blockquote {
+  color: #ccc;
+  border-left-color: #ff7a59;
+}
+section.accent table,
+section.accent table th,
+section.accent table td {
+  border-color: rgba(0,0,0,0.15) !important;
+  color: #222 !important;
+}
+section.accent table th {
+  background: #e8eef7 !important;
+  color: #1a1a2e !important;
+}
+section.accent table td {
+  background: #ffffff !important;
+}
+section.accent table tr:nth-child(even) td {
+  background: #f5f7fa !important;
+}
+.flow {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.flow-box {
+  background: #f0f4ff;
+  border: 2px solid #3a5ba0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  min-width: 140px;
+  text-align: center;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flow-box small {
+  font-weight: 400;
+  font-size: 0.65em;
+  color: #555;
+  margin-top: 4px;
+  letter-spacing: 0;
+}
+.flow-box img {
+  max-height: 36px;
+  max-width: 120px;
+  width: auto;
+  margin-bottom: 8px;
+  object-fit: contain;
+  display: block;
+}
+section.dark .flow-box img {
+  filter: brightness(0) invert(1);
+}
+section.dark .flow-box {
+  background: rgba(255,255,255,0.08);
+  border-color: #7eb8ff;
+  color: #f0f0f0;
+}
+section.dark .flow-box small {
+  color: #b0c4e0;
+}
+section.accent .flow-box {
+  background: rgba(255,255,255,0.08);
+  border-color: #ff7a59;
+  color: #f0f0f0;
+}
+section.accent .flow-box small {
+  color: #ffb199;
+}
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  color: #3a5ba0;
+  font-weight: 700;
+}
+section.dark .flow-arrow {
+  color: #7eb8ff;
+}
+section.accent .flow-arrow {
+  color: #ff7a59;
+}
+.flow-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+section.steps h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.3em;
+}
+section.steps table {
+  font-size: 0.78em;
+  margin-top: 8px;
+}
+section.steps table th,
+section.steps table td {
+  padding: 5px 12px;
+}
+.snowflake-group {
+  border: 2px dashed #29b5e8;
+  border-radius: 12px;
+  padding: 8px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.snowflake-label {
+  font-size: 0.7em;
+  color: #29b5e8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.snowflake-boxes {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+.dbt-box {
+  background: #fff4ef !important;
+  border-color: #ff7a59 !important;
+  color: #7a2e13 !important;
+}
+section.dark .dbt-box {
+  background: rgba(255,122,89,0.12) !important;
+  border-color: #ff7a59 !important;
+  color: #ffd6c7 !important;
+}
+.big-idea {
+  font-size: 1.8em;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+  text-wrap: balance;
+}
+.star {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 14px;
+  width: 680px;
+  margin: 20px auto;
+}
+.star .flow-box {
+  min-width: 0;
+}
+.star .fact {
+  grid-column: 2;
+  grid-row: 2;
+  background: #fff4ef;
+  border-color: #ff7a59;
+  color: #7a2e13;
+  font-size: 1.1em;
+}
+.star .dim-top    { grid-column: 2; grid-row: 1; }
+.star .dim-left   { grid-column: 1; grid-row: 2; }
+.star .dim-right  { grid-column: 3; grid-row: 2; }
+.star .dim-bottom { grid-column: 2; grid-row: 3; }
+" lang="C" class="dark" data-marpit-pagination="8" style="--paginate:true;--class:dark;--theme:default;--style:section {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  color: #222;
+}
+section h1 {
+  color: #111;
+  text-wrap: balance;
+}
+section p,
+section li,
+section td {
+  text-wrap: pretty;
+}
+section strong {
+  color: #1a1a2e;
+}
+section lead h1 {
+  font-size: 2.8em;
+  font-weight: 700;
+}
+section.dark {
+  background-color: #1a1a2e;
+  color: #f0f0f0;
+}
+section.dark h1 {
+  color: #fff;
+}
+section.dark strong {
+  color: #7eb8ff;
+}
+section.dark a {
+  color: #7eb8ff;
+}
+section.dark code {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+section.dark blockquote {
+  color: #ccc;
+  border-left-color: #7eb8ff;
+}
+section.dark table,
+section.dark table th,
+section.dark table td {
+  border-color: rgba(0,0,0,0.15) !important;
+  color: #222 !important;
+}
+section.dark table th {
+  background: #e8eef7 !important;
+  color: #1a1a2e !important;
+}
+section.dark table td {
+  background: #ffffff !important;
+}
+section.dark table tr:nth-child(even) td {
+  background: #f5f7fa !important;
+}
+section.dark table td strong,
+section.dark table th strong {
+  color: #1a1a2e !important;
+}
+section.accent {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+}
+section.accent h1 {
+  color: #fff;
+  font-size: 2.4em;
+}
+section.accent strong {
+  color: #ff7a59;
+}
+section.accent code {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+section.accent blockquote {
+  color: #ccc;
+  border-left-color: #ff7a59;
+}
+section.accent table,
+section.accent table th,
+section.accent table td {
+  border-color: rgba(0,0,0,0.15) !important;
+  color: #222 !important;
+}
+section.accent table th {
+  background: #e8eef7 !important;
+  color: #1a1a2e !important;
+}
+section.accent table td {
+  background: #ffffff !important;
+}
+section.accent table tr:nth-child(even) td {
+  background: #f5f7fa !important;
+}
+.flow {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.flow-box {
+  background: #f0f4ff;
+  border: 2px solid #3a5ba0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  min-width: 140px;
+  text-align: center;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flow-box small {
+  font-weight: 400;
+  font-size: 0.65em;
+  color: #555;
+  margin-top: 4px;
+  letter-spacing: 0;
+}
+.flow-box img {
+  max-height: 36px;
+  max-width: 120px;
+  width: auto;
+  margin-bottom: 8px;
+  object-fit: contain;
+  display: block;
+}
+section.dark .flow-box img {
+  filter: brightness(0) invert(1);
+}
+section.dark .flow-box {
+  background: rgba(255,255,255,0.08);
+  border-color: #7eb8ff;
+  color: #f0f0f0;
+}
+section.dark .flow-box small {
+  color: #b0c4e0;
+}
+section.accent .flow-box {
+  background: rgba(255,255,255,0.08);
+  border-color: #ff7a59;
+  color: #f0f0f0;
+}
+section.accent .flow-box small {
+  color: #ffb199;
+}
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  color: #3a5ba0;
+  font-weight: 700;
+}
+section.dark .flow-arrow {
+  color: #7eb8ff;
+}
+section.accent .flow-arrow {
+  color: #ff7a59;
+}
+.flow-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+section.steps h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.3em;
+}
+section.steps table {
+  font-size: 0.78em;
+  margin-top: 8px;
+}
+section.steps table th,
+section.steps table td {
+  padding: 5px 12px;
+}
+.snowflake-group {
+  border: 2px dashed #29b5e8;
+  border-radius: 12px;
+  padding: 8px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.snowflake-label {
+  font-size: 0.7em;
+  color: #29b5e8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.snowflake-boxes {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+.dbt-box {
+  background: #fff4ef !important;
+  border-color: #ff7a59 !important;
+  color: #7a2e13 !important;
+}
+section.dark .dbt-box {
+  background: rgba(255,122,89,0.12) !important;
+  border-color: #ff7a59 !important;
+  color: #ffd6c7 !important;
+}
+.big-idea {
+  font-size: 1.8em;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 40px;
+  color: #fff;
+  text-wrap: balance;
+}
+.star {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 14px;
+  width: 680px;
+  margin: 20px auto;
+}
+.star .flow-box {
+  min-width: 0;
+}
+.star .fact {
+  grid-column: 2;
+  grid-row: 2;
+  background: #fff4ef;
+  border-color: #ff7a59;
+  color: #7a2e13;
+  font-size: 1.1em;
+}
+.star .dim-top    { grid-column: 2; grid-row: 1; }
+.star .dim-left   { grid-column: 1; grid-row: 2; }
+.star .dim-right  { grid-column: 3; grid-row: 2; }
+.star .dim-bottom { grid-column: 2; grid-row: 3; }
+;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
+<h1 id="grain--what-does-one-row-of-the-fact-mean">Grain = &quot;what does one row of the fact mean?&quot;</h1>
 <p class="big-idea">"Which products do Basket Craft customers<br />buy <strong>together</strong>?"</p>
 <ul>
 <li><strong><code>fct_orders</code></strong> (one row per order) — <img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/274c.svg" data-marp-twemoji=""/> no answer. Per-product detail is already summed away.</li>
 <li><strong><code>fct_order_items</code></strong> (one row per line item) — <img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.2/assets/svg/2705.svg" data-marp-twemoji=""/> answer is right there. Each product sits on its own row.</li>
 </ul>
 <p>Pick the smaller grain. You can always roll up. You can never split back down.</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-paginate="true" data-theme="default" data-style="section {
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  color: #222;
-}
-section h1 {
-  color: #111;
-  text-wrap: balance;
-}
-section p,
-section li,
-section td {
-  text-wrap: pretty;
-}
-section strong {
-  color: #1a1a2e;
-}
-section lead h1 {
-  font-size: 2.8em;
-  font-weight: 700;
-}
-section.dark {
-  background-color: #1a1a2e;
-  color: #f0f0f0;
-}
-section.dark h1 {
-  color: #fff;
-}
-section.dark strong {
-  color: #7eb8ff;
-}
-section.dark a {
-  color: #7eb8ff;
-}
-section.dark code {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-section.dark blockquote {
-  color: #ccc;
-  border-left-color: #7eb8ff;
-}
-section.dark table,
-section.dark table th,
-section.dark table td {
-  border-color: rgba(0,0,0,0.15) !important;
-  color: #222 !important;
-}
-section.dark table th {
-  background: #e8eef7 !important;
-  color: #1a1a2e !important;
-}
-section.dark table td {
-  background: #ffffff !important;
-}
-section.dark table tr:nth-child(even) td {
-  background: #f5f7fa !important;
-}
-section.dark table td strong,
-section.dark table th strong {
-  color: #1a1a2e !important;
-}
-section.accent {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #f0f0f0;
-}
-section.accent h1 {
-  color: #fff;
-  font-size: 2.4em;
-}
-section.accent strong {
-  color: #ff7a59;
-}
-section.accent code {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-section.accent blockquote {
-  color: #ccc;
-  border-left-color: #ff7a59;
-}
-section.accent table,
-section.accent table th,
-section.accent table td {
-  border-color: rgba(0,0,0,0.15) !important;
-  color: #222 !important;
-}
-section.accent table th {
-  background: #e8eef7 !important;
-  color: #1a1a2e !important;
-}
-section.accent table td {
-  background: #ffffff !important;
-}
-section.accent table tr:nth-child(even) td {
-  background: #f5f7fa !important;
-}
-.flow {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 16px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-.flow-box {
-  background: #f0f4ff;
-  border: 2px solid #3a5ba0;
-  border-radius: 10px;
-  padding: 14px 18px;
-  min-width: 140px;
-  text-align: center;
-  font-weight: 600;
-  color: #1a1a2e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.flow-box small {
-  font-weight: 400;
-  font-size: 0.65em;
-  color: #555;
-  margin-top: 4px;
-  letter-spacing: 0;
-}
-.flow-box img {
-  max-height: 36px;
-  max-width: 120px;
-  width: auto;
-  margin-bottom: 8px;
-  object-fit: contain;
-  display: block;
-}
-section.dark .flow-box img {
-  filter: brightness(0) invert(1);
-}
-section.dark .flow-box {
-  background: rgba(255,255,255,0.08);
-  border-color: #7eb8ff;
-  color: #f0f0f0;
-}
-section.dark .flow-box small {
-  color: #b0c4e0;
-}
-section.accent .flow-box {
-  background: rgba(255,255,255,0.08);
-  border-color: #ff7a59;
-  color: #f0f0f0;
-}
-section.accent .flow-box small {
-  color: #ffb199;
-}
-.flow-arrow {
-  display: flex;
-  align-items: center;
-  font-size: 2em;
-  color: #3a5ba0;
-  font-weight: 700;
-}
-section.dark .flow-arrow {
-  color: #7eb8ff;
-}
-section.accent .flow-arrow {
-  color: #ff7a59;
-}
-.flow-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
-section.steps h1 {
-  font-size: 1.5em;
-  margin-bottom: 0.3em;
-}
-section.steps table {
-  font-size: 0.78em;
-  margin-top: 8px;
-}
-section.steps table th,
-section.steps table td {
-  padding: 5px 12px;
-}
-.snowflake-group {
-  border: 2px dashed #29b5e8;
-  border-radius: 12px;
-  padding: 8px 14px 12px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.snowflake-label {
-  font-size: 0.7em;
-  color: #29b5e8;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 8px;
-}
-.snowflake-boxes {
-  display: flex;
-  align-items: stretch;
-  gap: 16px;
-}
-.dbt-box {
-  background: #fff4ef !important;
-  border-color: #ff7a59 !important;
-  color: #7a2e13 !important;
-}
-section.dark .dbt-box {
-  background: rgba(255,122,89,0.12) !important;
-  border-color: #ff7a59 !important;
-  color: #ffd6c7 !important;
-}
-.big-idea {
-  font-size: 1.8em;
-  font-weight: 700;
-  text-align: center;
-  margin-top: 40px;
-  color: #fff;
-  text-wrap: balance;
-}
-.star {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 14px;
-  width: 680px;
-  margin: 20px auto;
-}
-.star .flow-box {
-  min-width: 0;
-}
-.star .fact {
-  grid-column: 2;
-  grid-row: 2;
-  background: #fff4ef;
-  border-color: #ff7a59;
-  color: #7a2e13;
-  font-size: 1.1em;
-}
-.star .dim-top    { grid-column: 2; grid-row: 1; }
-.star .dim-left   { grid-column: 1; grid-row: 2; }
-.star .dim-right  { grid-column: 3; grid-row: 2; }
-.star .dim-bottom { grid-column: 2; grid-row: 3; }
-" lang="C" data-marpit-pagination="8" style="--paginate:true;--theme:default;--style:section {
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  color: #222;
-}
-section h1 {
-  color: #111;
-  text-wrap: balance;
-}
-section p,
-section li,
-section td {
-  text-wrap: pretty;
-}
-section strong {
-  color: #1a1a2e;
-}
-section lead h1 {
-  font-size: 2.8em;
-  font-weight: 700;
-}
-section.dark {
-  background-color: #1a1a2e;
-  color: #f0f0f0;
-}
-section.dark h1 {
-  color: #fff;
-}
-section.dark strong {
-  color: #7eb8ff;
-}
-section.dark a {
-  color: #7eb8ff;
-}
-section.dark code {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-section.dark blockquote {
-  color: #ccc;
-  border-left-color: #7eb8ff;
-}
-section.dark table,
-section.dark table th,
-section.dark table td {
-  border-color: rgba(0,0,0,0.15) !important;
-  color: #222 !important;
-}
-section.dark table th {
-  background: #e8eef7 !important;
-  color: #1a1a2e !important;
-}
-section.dark table td {
-  background: #ffffff !important;
-}
-section.dark table tr:nth-child(even) td {
-  background: #f5f7fa !important;
-}
-section.dark table td strong,
-section.dark table th strong {
-  color: #1a1a2e !important;
-}
-section.accent {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #f0f0f0;
-}
-section.accent h1 {
-  color: #fff;
-  font-size: 2.4em;
-}
-section.accent strong {
-  color: #ff7a59;
-}
-section.accent code {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-section.accent blockquote {
-  color: #ccc;
-  border-left-color: #ff7a59;
-}
-section.accent table,
-section.accent table th,
-section.accent table td {
-  border-color: rgba(0,0,0,0.15) !important;
-  color: #222 !important;
-}
-section.accent table th {
-  background: #e8eef7 !important;
-  color: #1a1a2e !important;
-}
-section.accent table td {
-  background: #ffffff !important;
-}
-section.accent table tr:nth-child(even) td {
-  background: #f5f7fa !important;
-}
-.flow {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 16px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-}
-.flow-box {
-  background: #f0f4ff;
-  border: 2px solid #3a5ba0;
-  border-radius: 10px;
-  padding: 14px 18px;
-  min-width: 140px;
-  text-align: center;
-  font-weight: 600;
-  color: #1a1a2e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.flow-box small {
-  font-weight: 400;
-  font-size: 0.65em;
-  color: #555;
-  margin-top: 4px;
-  letter-spacing: 0;
-}
-.flow-box img {
-  max-height: 36px;
-  max-width: 120px;
-  width: auto;
-  margin-bottom: 8px;
-  object-fit: contain;
-  display: block;
-}
-section.dark .flow-box img {
-  filter: brightness(0) invert(1);
-}
-section.dark .flow-box {
-  background: rgba(255,255,255,0.08);
-  border-color: #7eb8ff;
-  color: #f0f0f0;
-}
-section.dark .flow-box small {
-  color: #b0c4e0;
-}
-section.accent .flow-box {
-  background: rgba(255,255,255,0.08);
-  border-color: #ff7a59;
-  color: #f0f0f0;
-}
-section.accent .flow-box small {
-  color: #ffb199;
-}
-.flow-arrow {
-  display: flex;
-  align-items: center;
-  font-size: 2em;
-  color: #3a5ba0;
-  font-weight: 700;
-}
-section.dark .flow-arrow {
-  color: #7eb8ff;
-}
-section.accent .flow-arrow {
-  color: #ff7a59;
-}
-.flow-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-}
-section.steps h1 {
-  font-size: 1.5em;
-  margin-bottom: 0.3em;
-}
-section.steps table {
-  font-size: 0.78em;
-  margin-top: 8px;
-}
-section.steps table th,
-section.steps table td {
-  padding: 5px 12px;
-}
-.snowflake-group {
-  border: 2px dashed #29b5e8;
-  border-radius: 12px;
-  padding: 8px 14px 12px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.snowflake-label {
-  font-size: 0.7em;
-  color: #29b5e8;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 8px;
-}
-.snowflake-boxes {
-  display: flex;
-  align-items: stretch;
-  gap: 16px;
-}
-.dbt-box {
-  background: #fff4ef !important;
-  border-color: #ff7a59 !important;
-  color: #7a2e13 !important;
-}
-section.dark .dbt-box {
-  background: rgba(255,122,89,0.12) !important;
-  border-color: #ff7a59 !important;
-  color: #ffd6c7 !important;
-}
-.big-idea {
-  font-size: 1.8em;
-  font-weight: 700;
-  text-align: center;
-  margin-top: 40px;
-  color: #fff;
-  text-wrap: balance;
-}
-.star {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 14px;
-  width: 680px;
-  margin: 20px auto;
-}
-.star .flow-box {
-  min-width: 0;
-}
-.star .fact {
-  grid-column: 2;
-  grid-row: 2;
-  background: #fff4ef;
-  border-color: #ff7a59;
-  color: #7a2e13;
-  font-size: 1.1em;
-}
-.star .dim-top    { grid-column: 2; grid-row: 1; }
-.star .dim-left   { grid-column: 1; grid-row: 2; }
-.star .dim-right  { grid-column: 3; grid-row: 2; }
-.star .dim-bottom { grid-column: 2; grid-row: 3; }
-;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="one-env-two-tools">One .env, two tools</h1>
-<div class="flow">
-  <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/python.svg" />Python loader<br /><small>writes to raw<br />(Session 03)</small></div>
-  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;">.env<br /><small>SNOWFLAKE_ACCOUNT<br />SNOWFLAKE_USER<br />SNOWFLAKE_PASSWORD<br />SNOWFLAKE_ROLE<br />SNOWFLAKE_WAREHOUSE<br />SNOWFLAKE_DATABASE</small></div>
-  <div class="flow-box dbt-box" style="min-width: 240px;">dbt Core<br /><small>writes to analytics<br />(today)</small></div>
-</div>
-<ul>
-<li><code>profiles.yml</code> reads every secret through <code>{{ env_var(...) }}</code></li>
-<li><code>profiles.yml</code> lives in <code>~/.dbt/</code>, outside the repo</li>
-<li>Same credentials, different schemas — one source of truth</li>
-</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -4571,33 +4611,17 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="least-privilege-grows-with-the-project">Least privilege grows with the project</h1>
-<table>
-<thead>
-<tr>
-<th>Session 03</th>
-<th>Session 04</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>basket_craft_loader</code> gets <code>raw</code></td>
-<td>Same role gets <code>analytics</code> added</td>
-</tr>
-<tr>
-<td><code>CREATE TABLE</code> on raw</td>
-<td><code>CREATE TABLE</code> + <code>CREATE VIEW</code> on analytics</td>
-</tr>
-<tr>
-<td>DML on raw tables</td>
-<td>DML on analytics tables</td>
-</tr>
-</tbody>
-</table>
+<h1 id="staging-and-marts-cleanup-then-decide">Staging and marts: cleanup, then decide</h1>
+<div class="flow">
+  <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br /><small>rename + cast only<br />(dbt views)</small></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br /><small>facts + dims<br />(dbt tables)</small></div>
+</div>
 <ul>
-<li><code>ACCOUNTADMIN</code> stays for <strong>setup only</strong> — never in <code>.env</code></li>
-<li>Grants grow one schema at a time — never by role escalation</li>
-<li>Same pattern your portfolio rubric grades on</li>
+<li><strong>Staging</strong> pays the cleanup cost once per raw table — no joins, no filters, no aggregations</li>
+<li><strong>Marts</strong> are where the business logic and the star schema live</li>
+<li>Raw data changes → fix one staging file. Business question changes → fix one mart file.</li>
+<li>Both layers write to the same Snowflake schema; the folder split keeps the two jobs legible in git</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="steps" data-theme="default" data-style="section {
