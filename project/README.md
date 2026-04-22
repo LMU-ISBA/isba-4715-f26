@@ -118,7 +118,7 @@ You'll also need your Snowflake trial account created by this milestone (trial a
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 4 | Source 1 (API) extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials. Runs successfully on your machine. |
-| 5 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Python script, loads to Snowflake raw schema. Runs successfully on your machine. |
+| 5 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Python script that calls the Firecrawl API, loads to Snowflake raw schema. You can also load scrape results via the Firecrawl MCP server in Claude Code (in addition to or instead of the script). Runs successfully on your machine. |
 
 ## Milestone 02: Transform, Present & Polish (65 pts) - Due May 4 at 9:55 AM
 
