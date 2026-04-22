@@ -286,14 +286,18 @@ Both layers land in the **analytics** schema — folder split, not schema split.
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br/><small>data build tool</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br/><strong>as tables or views</strong><br/><small>in the right order</small></div>
+  <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br/><strong>as tables or views</strong><br/><small>in the right order</small></div>
 </div>
 
-**Think of dbt as a kitchen.** Raw data is groceries, models are recipes, your star schema is the plated meal.
+<div class="flow" style="margin-top: 4px;">
+  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Groceries</strong><br/><small>raw data</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 180px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Recipes</strong><br/><small>models</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plated meal</strong><br/><small>star schema</small></div>
+</div>
 
-- Open-source Python package. Lives in your git repo.
-- Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders.
-- If it's not in git, it doesn't exist.
+<p style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
 
 ---
 
@@ -422,11 +426,13 @@ Pick the smaller grain. You can always roll up. You can never split back down.
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br/><small>facts + dims<br/>(dbt tables)</small></div>
 </div>
 
-**Back to the kitchen.** Staging is mise en place: wash and chop the groceries once. Marts are where you plate the dish for the customer.
+<div class="flow" style="margin-top: 4px;">
+  <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Mise en place</strong><br/><small>wash + chop the groceries</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plating</strong><br/><small>serve the dish</small></div>
+</div>
 
-- **Staging**: rename and cast. No joins, no filters, no aggregations.
-- **Marts**: where the business logic and the star schema live.
-- Raw changes → fix one staging file. Business question changes → fix one mart file.
+<p style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
 
 ---
 

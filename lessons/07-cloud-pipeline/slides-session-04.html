@@ -1519,14 +1519,16 @@ section.dark .dbt-box {
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 180px;"><strong>dbt</strong><br /><small>data build tool</small></div>
   <div class="flow-arrow">→</div>
-  <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br /><strong>as tables or views</strong><br /><small>in the right order</small></div>
+  <div class="flow-box" style="min-width: 240px;"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br /><strong>as tables or views</strong><br /><small>in the right order</small></div>
 </div>
-<p><strong>Think of dbt as a kitchen.</strong> Raw data is groceries, models are recipes, your star schema is the plated meal.</p>
-<ul>
-<li>Open-source Python package. Lives in your git repo.</li>
-<li>Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders.</li>
-<li>If it's not in git, it doesn't exist.</li>
-</ul>
+<div class="flow" style="margin-top: 4px;">
+  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Groceries</strong><br /><small>raw data</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 180px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Recipes</strong><br /><small>models</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 240px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plated meal</strong><br /><small>star schema</small></div>
+</div>
+<p style="text-align: center; margin-top: 8px; color: #555;">Same shape, two languages.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -4637,12 +4639,12 @@ section.dark .dbt-box {
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br /><small>facts + dims<br />(dbt tables)</small></div>
 </div>
-<p><strong>Back to the kitchen.</strong> Staging is mise en place: wash and chop the groceries once. Marts are where you plate the dish for the customer.</p>
-<ul>
-<li><strong>Staging</strong>: rename and cast. No joins, no filters, no aggregations.</li>
-<li><strong>Marts</strong>: where the business logic and the star schema live.</li>
-<li>Raw changes → fix one staging file. Business question changes → fix one mart file.</li>
-</ul>
+<div class="flow" style="margin-top: 4px;">
+  <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Mise en place</strong><br /><small>wash + chop the groceries</small></div>
+  <div class="flow-arrow" style="color: #d4a017;">→</div>
+  <div class="flow-box" style="min-width: 260px; background: #fffbe8; border-color: #d4a017; color: #5a4410;"><strong>Plating</strong><br /><small>serve the dish</small></div>
+</div>
+<p style="text-align: center; margin-top: 8px; color: #555;">Raw changes → fix staging. Business-question changes → fix marts.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="steps" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
