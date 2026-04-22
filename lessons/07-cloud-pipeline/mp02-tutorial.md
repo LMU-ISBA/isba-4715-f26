@@ -1117,6 +1117,14 @@ Today you turn raw Snowflake tables into a **star schema**, the shape that BI to
 
 **Before this session:** Complete Session 03. Your `basket_craft.raw` schema must contain the loaded Basket Craft tables.
 
+### Concept primer (slides)
+
+Before you open the tutorial, skim the Session 04 slide deck (about five minutes):
+
+**[Session 04 slides](https://lmu-isba.github.io/isba-4715-f26/lessons/07-cloud-pipeline/slides-session-04.html)**
+
+The slides cover what dbt is, why data teams adopted it, how `{{ ref() }}` builds a DAG, what facts and dimensions are, the star schema shape, why grain matters, and the staging-then-marts two-layer pattern. Reading them first makes Step 20 onward a lot less abstract.
+
 **Today's pipeline.** In Session 03, the pipeline diagram showed `staging` and `mart` as dashed arrows. Today they become solid. dbt reads from `raw`, builds a staging layer (clean column names and types only), then builds a mart layer (the star schema). Both layers write to a new `analytics` schema.
 
 ```mermaid
