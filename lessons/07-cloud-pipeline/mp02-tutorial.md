@@ -1370,9 +1370,50 @@ You will build **two fact tables** (the measurements) and three **dimension tabl
 - `fct_order_items` — **atomic** fact at line-item grain. One row per product sold in one order.
 - `fct_orders` — **summary** fact at order grain, rolled up from `fct_order_items`. One row per order.
 
-Atomic-plus-summary is the pattern that traditional data warehouses have used for decades, and dbt makes it clean: the summary reads the atomic via `{{ ref('fct_order_items') }}` (never from raw), so there is one source of truth and the two fact tables can never disagree.
+To make the shape click, look at this in two steps.
 
-**Here is what you are building:**
+**Version 1 — the canonical star schema.** Here is the atomic fact surrounded by its dims, the classic textbook star. One fact in the middle, three dims around it, every arrow is a 1-to-many relationship:
+
+```mermaid
+erDiagram
+    DIM_CUSTOMERS ||--o{ FCT_ORDER_ITEMS : "bought by"
+    DIM_PRODUCTS  ||--o{ FCT_ORDER_ITEMS : "contains"
+    DIM_DATE      ||--o{ FCT_ORDER_ITEMS : "sold on"
+
+    FCT_ORDER_ITEMS {
+        bigint   order_item_id PK
+        bigint   order_id
+        bigint   customer_id   FK
+        bigint   product_id    FK
+        date     order_date    FK
+        int      quantity
+        numeric  unit_price
+        numeric  line_total
+    }
+    DIM_CUSTOMERS {
+        bigint  customer_id PK
+        string  customer_name
+        string  email
+        date    signup_date
+    }
+    DIM_PRODUCTS {
+        bigint  product_id PK
+        string  product_name
+        string  category
+        numeric price
+    }
+    DIM_DATE {
+        date   date_day PK
+        int    year
+        int    quarter
+        string month_name
+        bool   is_weekend
+    }
+```
+
+Every fact row points to each dim via a **foreign key (FK)** → the dim's **primary key (PK)**. This shape alone can already answer almost every analytical question you'd ask about Basket Craft orders.
+
+**Version 2 — the complete model, with a summary fact.** Traditional data warehouses have always kept summary tables alongside atomic facts for fast dashboards. dbt makes this clean: the summary reads the atomic via `{{ ref('fct_order_items') }}` — never from raw — so there is one source of truth and the two facts can never disagree.
 
 ```mermaid
 erDiagram
@@ -1422,7 +1463,10 @@ erDiagram
     }
 ```
 
-Every fact row points to each dim via a **foreign key (FK)** → the dim's **primary key (PK)**. Notice `fct_orders` connects only to `dim_customers` and `dim_date`: order grain has already summed across products, so there is no `product_id` to point at.
+Two things to notice in Version 2:
+
+1. **`fct_orders` connects to `dim_customers` and `dim_date` only** — order grain has summed across products, so there is no `product_id` to point at.
+2. **The `FCT_ORDERS ||--o{ FCT_ORDER_ITEMS` edge** shows the summary is *derived from* the atomic, not independently built from raw. That lineage is the rule that keeps the two facts consistent — and it's exactly what `{{ ref('fct_order_items') }}` enforces inside `fct_orders.sql`.
 
 **Grain** is the most important choice you make. Grain = "what does one row of the fact mean?" Here:
 - `fct_order_items`: one row = one product sold in one order (line-item grain).
