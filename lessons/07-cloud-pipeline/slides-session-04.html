@@ -1521,10 +1521,11 @@ section.dark .dbt-box {
   <div class="flow-arrow">→</div>
   <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br /><strong>as tables or views</strong><br /><small>in the right order</small></div>
 </div>
+<p><strong>Think of dbt as a kitchen.</strong> Raw data is groceries, models are recipes, your star schema is the plated meal.</p>
 <ul>
 <li>Open-source Python package. Lives in your git repo.</li>
-<li>Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders</li>
-<li>If it's not in git, it doesn't exist</li>
+<li>Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders.</li>
+<li>If it's not in git, it doesn't exist.</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-paginate="true" data-theme="default" data-style="section {
@@ -2024,28 +2025,39 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="why-teams-adopted-dbt">Why teams adopted dbt</h1>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
-  <div style="background: #fff4f4; border: 2px solid #b04040; border-radius: 10px; padding: 18px 22px;">
-    <div style="font-size: 1.05em; font-weight: 700; color: #b04040; text-align: center; margin-bottom: 10px;">Before dbt</div>
-    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
-      <li>Transforms scattered: stored procs, Python jobs, BI settings</li>
-      <li>No version control for SQL</li>
-      <li>No tests → silent bad data</li>
-      <li>Docs always out of date</li>
-    </ul>
-  </div>
-  <div style="background: #f0f9f2; border: 2px solid #2c8a3f; border-radius: 10px; padding: 18px 22px;">
-    <div style="font-size: 1.05em; font-weight: 700; color: #2c8a3f; text-align: center; margin-bottom: 10px;">With dbt</div>
-    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
-      <li>Every transform is a SQL file in git</li>
-      <li>Code review, diffs, rollback</li>
-      <li>Built-in tests catch drift</li>
-      <li>Lineage graph auto-generated</li>
-    </ul>
-  </div>
-</div>
-<p>Data engineering and analytics engineering teams at thousands of companies now use it as the default transformation layer.</p>
+<h1 id="dbt-in-four-words">dbt in four words</h1>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>What it means</th>
+<th>Kitchen analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model</strong></td>
+<td>A <code>.sql</code> file with a <code>SELECT</code></td>
+<td>A recipe</td>
+</tr>
+<tr>
+<td><strong><code>ref()</code></strong></td>
+<td>How one model references another</td>
+<td>&quot;Use the sauce from step 2&quot;</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>A raw table you don't own</td>
+<td>Groceries from the store</td>
+</tr>
+<tr>
+<td><strong>Materialization</strong></td>
+<td>How dbt stores the result (view or table)</td>
+<td>Plating style</td>
+</tr>
+</tbody>
+</table>
+<p>Everything dbt does is built out of these four ideas. Data engineering and analytics engineering teams at thousands of companies now use dbt as the default transformation layer.</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="5" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -3057,7 +3069,8 @@ section.dark .dbt-box {
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
 <h1 id="dimensional-modeling-two-kinds-of-columns">Dimensional modeling: two kinds of columns</h1>
-<div class="flow" style="margin-top: 32px;">
+<p style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
+<div class="flow" style="margin-top: 16px;">
   <div class="flow-box" style="min-width: 320px; padding: 24px;">
     <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br />
     <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br />
@@ -3069,7 +3082,7 @@ section.dark .dbt-box {
     <span style="color: #7eb8ff; font-weight: 700; margin-top: 12px; display: block;">go in DIMENSION tables</span>
   </div>
 </div>
-<p>Ralph Kimball's insight (1996): every analytical question is &quot;what happened — in what context?&quot;</p>
+<p>Ralph Kimball's insight (1996): every analytical question is &quot;what happened, in what context?&quot;</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-paginate="true" data-theme="default" data-style="section {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
@@ -4618,17 +4631,17 @@ section.dark .dbt-box {
 .star .dim-right  { grid-column: 3; grid-row: 2; }
 .star .dim-bottom { grid-column: 2; grid-row: 3; }
 ;" data-marpit-pagination-total="11" data-transition-back="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-transition="{&quot;name&quot;:&quot;fade&quot;,&quot;builtinFallback&quot;:true}" data-size="16:9">
-<h1 id="staging-and-marts-cleanup-then-decide">Staging and marts: cleanup, then decide</h1>
+<h1 id="staging-and-marts-prep-then-plate">Staging and marts: prep, then plate</h1>
 <div class="flow">
   <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br /><small>rename + cast only<br />(dbt views)</small></div>
   <div class="flow-arrow">→</div>
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br /><small>facts + dims<br />(dbt tables)</small></div>
 </div>
+<p><strong>Back to the kitchen.</strong> Staging is mise en place: wash and chop the groceries once. Marts are where you plate the dish for the customer.</p>
 <ul>
-<li><strong>Staging</strong> pays the cleanup cost once per raw table — no joins, no filters, no aggregations</li>
-<li><strong>Marts</strong> are where the business logic and the star schema live</li>
-<li>Raw data changes → fix one staging file. Business question changes → fix one mart file.</li>
-<li>Both layers write to the same Snowflake schema; the folder split keeps the two jobs legible in git</li>
+<li><strong>Staging</strong>: rename and cast. No joins, no filters, no aggregations.</li>
+<li><strong>Marts</strong>: where the business logic and the star schema live.</li>
+<li>Raw changes → fix one staging file. Business question changes → fix one mart file.</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-class="steps" data-theme="default" data-style="section {

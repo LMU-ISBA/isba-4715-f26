@@ -289,36 +289,24 @@ Both layers land in the **analytics** schema — folder split, not schema split.
   <div class="flow-box"><img src="slide-images/logos/snowflake.svg" />Snowflake runs them<br/><strong>as tables or views</strong><br/><small>in the right order</small></div>
 </div>
 
+**Think of dbt as a kitchen.** Raw data is groceries, models are recipes, your star schema is the plated meal.
+
 - Open-source Python package. Lives in your git repo.
-- Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders
-- If it's not in git, it doesn't exist
+- Replaces stored procedures, hand-rolled Python transforms, and SQL scripts strewn across folders.
+- If it's not in git, it doesn't exist.
 
 ---
 
-# Why teams adopted dbt
+# dbt in four words
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;">
-  <div style="background: #fff4f4; border: 2px solid #b04040; border-radius: 10px; padding: 18px 22px;">
-    <div style="font-size: 1.05em; font-weight: 700; color: #b04040; text-align: center; margin-bottom: 10px;">Before dbt</div>
-    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
-      <li>Transforms scattered: stored procs, Python jobs, BI settings</li>
-      <li>No version control for SQL</li>
-      <li>No tests → silent bad data</li>
-      <li>Docs always out of date</li>
-    </ul>
-  </div>
-  <div style="background: #f0f9f2; border: 2px solid #2c8a3f; border-radius: 10px; padding: 18px 22px;">
-    <div style="font-size: 1.05em; font-weight: 700; color: #2c8a3f; text-align: center; margin-bottom: 10px;">With dbt</div>
-    <ul style="margin: 0; padding-left: 20px; font-size: 0.9em;">
-      <li>Every transform is a SQL file in git</li>
-      <li>Code review, diffs, rollback</li>
-      <li>Built-in tests catch drift</li>
-      <li>Lineage graph auto-generated</li>
-    </ul>
-  </div>
-</div>
+| Word | What it means | Kitchen analogy |
+|------|---------------|-----------------|
+| **Model** | A `.sql` file with a `SELECT` | A recipe |
+| **`ref()`** | How one model references another | "Use the sauce from step 2" |
+| **Source** | A raw table you don't own | Groceries from the store |
+| **Materialization** | How dbt stores the result (view or table) | Plating style |
 
-Data engineering and analytics engineering teams at thousands of companies now use it as the default transformation layer.
+Everything dbt does is built out of these four ideas. Data engineering and analytics engineering teams at thousands of companies now use dbt as the default transformation layer.
 
 ---
 
@@ -343,7 +331,9 @@ Data engineering and analytics engineering teams at thousands of companies now u
 
 # Dimensional modeling: two kinds of columns
 
-<div class="flow" style="margin-top: 32px;">
+<p style="text-align: center; margin-top: 12px; font-size: 1.15em;">Like a police report: the <strong>incident</strong> is the fact. The <strong>reference cards</strong> about everyone involved are the dimensions.</p>
+
+<div class="flow" style="margin-top: 16px;">
   <div class="flow-box" style="min-width: 320px; padding: 24px;">
     <span style="font-size: 1.4em; font-weight: 700;">Measurements</span><br/>
     <small style="font-size: 0.95em; margin-top: 8px;">quantity, revenue, price, count</small><br/>
@@ -356,7 +346,7 @@ Data engineering and analytics engineering teams at thousands of companies now u
   </div>
 </div>
 
-Ralph Kimball's insight (1996): every analytical question is "what happened — in what context?"
+Ralph Kimball's insight (1996): every analytical question is "what happened, in what context?"
 
 ---
 
@@ -424,7 +414,7 @@ Pick the smaller grain. You can always roll up. You can never split back down.
 
 ---
 
-# Staging and marts: cleanup, then decide
+# Staging and marts: prep, then plate
 
 <div class="flow">
   <div class="flow-box" style="min-width: 260px;"><strong>staging/</strong><br/><small>rename + cast only<br/>(dbt views)</small></div>
@@ -432,10 +422,11 @@ Pick the smaller grain. You can always roll up. You can never split back down.
   <div class="flow-box dbt-box" style="min-width: 260px;"><strong>marts/</strong><br/><small>facts + dims<br/>(dbt tables)</small></div>
 </div>
 
-- **Staging** pays the cleanup cost once per raw table — no joins, no filters, no aggregations
-- **Marts** are where the business logic and the star schema live
-- Raw data changes → fix one staging file. Business question changes → fix one mart file.
-- Both layers write to the same Snowflake schema; the folder split keeps the two jobs legible in git
+**Back to the kitchen.** Staging is mise en place: wash and chop the groceries once. Marts are where you plate the dish for the customer.
+
+- **Staging**: rename and cast. No joins, no filters, no aggregations.
+- **Marts**: where the business logic and the star schema live.
+- Raw changes → fix one staging file. Business question changes → fix one mart file.
 
 ---
 
