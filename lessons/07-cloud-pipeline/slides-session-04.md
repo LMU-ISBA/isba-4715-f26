@@ -362,52 +362,52 @@ Ralph Kimball's insight (1996): every analytical question is "what happened — 
 
 # A star schema connects facts to dims
 
-<svg viewBox="0 0 900 400" style="width: 820px; max-width: 100%; display: block; margin: 20px auto 12px;" role="img" aria-label="Star-schema ERD: fct_order_items at the center connected to dim_date, dim_customers, dim_products, and other dims, each with a one-to-many relationship.">
+<svg viewBox="0 0 900 290" style="width: 680px; max-width: 100%; display: block; margin: 8px auto 6px;" role="img" aria-label="Star-schema ERD: fct_order_items at the center connected to dim_date, dim_customers, dim_products, and other dims, each with a one-to-many relationship.">
   <g stroke="#999" stroke-width="2">
-    <line x1="450" y1="80"  x2="450" y2="160" />
-    <line x1="200" y1="200" x2="345" y2="200" />
-    <line x1="555" y1="200" x2="700" y2="200" />
-    <line x1="450" y1="240" x2="450" y2="320" />
+    <line x1="450" y1="48"  x2="450" y2="115" />
+    <line x1="200" y1="145" x2="345" y2="145" />
+    <line x1="555" y1="145" x2="700" y2="145" />
+    <line x1="450" y1="175" x2="450" y2="240" />
   </g>
-  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="700" fill="#666">
-    <text x="440" y="100" text-anchor="end">1</text>
-    <text x="460" y="155">N</text>
-    <text x="215" y="195">1</text>
-    <text x="335" y="195" text-anchor="end">N</text>
-    <text x="685" y="195" text-anchor="end">1</text>
-    <text x="565" y="195">N</text>
-    <text x="440" y="260" text-anchor="end">N</text>
-    <text x="460" y="315">1</text>
-  </g>
-  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
-    <rect x="370" y="30"  width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
-    <text x="450" y="55"  font-size="15" font-weight="600" fill="#1a1a2e">dim_date</text>
-    <text x="450" y="72"  font-size="11" fill="#555">when</text>
-    <rect x="30"  y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
-    <text x="115" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_customers</text>
-    <text x="115" y="215" font-size="11" fill="#555">who</text>
-    <rect x="700" y="170" width="170" height="60" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
-    <text x="785" y="198" font-size="15" font-weight="600" fill="#1a1a2e">dim_products</text>
-    <text x="785" y="215" font-size="11" fill="#555">what</text>
-    <rect x="370" y="320" width="160" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" stroke-dasharray="6,4" />
-    <text x="450" y="346" font-size="14" font-weight="600" fill="#888" font-style="italic">...other dims</text>
-    <text x="450" y="362" font-size="11" fill="#888">as needed</text>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#666">
+    <text x="440" y="62" text-anchor="end">1</text>
+    <text x="460" y="110">N</text>
+    <text x="215" y="140">1</text>
+    <text x="335" y="140" text-anchor="end">N</text>
+    <text x="685" y="140" text-anchor="end">1</text>
+    <text x="565" y="140">N</text>
+    <text x="440" y="195" text-anchor="end">N</text>
+    <text x="460" y="235">1</text>
   </g>
   <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
-    <rect x="345" y="160" width="210" height="80" rx="10" fill="#fff4ef" stroke="#ff7a59" stroke-width="2.5" />
-    <text x="450" y="188" font-size="17" font-weight="700" fill="#7a2e13">fct_order_items</text>
-    <text x="450" y="208" font-size="11" fill="#7a2e13" font-style="italic">fact</text>
-    <text x="450" y="226" font-size="11" fill="#7a2e13">one row per line item</text>
+    <rect x="370" y="10"  width="160" height="38" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="450" y="28"  font-size="14" font-weight="600" fill="#1a1a2e">dim_date</text>
+    <text x="450" y="42"  font-size="10" fill="#555">when</text>
+    <rect x="30"  y="120" width="170" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="115" y="140" font-size="14" font-weight="600" fill="#1a1a2e">dim_customers</text>
+    <text x="115" y="156" font-size="10" fill="#555">who</text>
+    <rect x="700" y="120" width="170" height="50" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" />
+    <text x="785" y="140" font-size="14" font-weight="600" fill="#1a1a2e">dim_products</text>
+    <text x="785" y="156" font-size="10" fill="#555">what</text>
+    <rect x="370" y="240" width="160" height="38" rx="10" fill="#f0f4ff" stroke="#3a5ba0" stroke-width="2" stroke-dasharray="6,4" />
+    <text x="450" y="258" font-size="13" font-weight="600" fill="#888" font-style="italic">...other dims</text>
+    <text x="450" y="272" font-size="10" fill="#888">as needed</text>
+  </g>
+  <g font-family="Inter, 'Helvetica Neue', Arial, sans-serif" text-anchor="middle">
+    <rect x="345" y="115" width="210" height="60" rx="10" fill="#fff4ef" stroke="#ff7a59" stroke-width="2.5" />
+    <text x="450" y="135" font-size="16" font-weight="700" fill="#7a2e13">fct_order_items</text>
+    <text x="450" y="152" font-size="10" fill="#7a2e13" font-style="italic">fact</text>
+    <text x="450" y="167" font-size="10" fill="#7a2e13">one row per line item</text>
   </g>
 </svg>
 
 Each fact row has a **foreign key (FK)** pointing at each dim's **primary key (PK)**.
 
 **Why this shape wins:**
-- **Simple joins** — `fact JOIN dim` per filter; no 7-way chains through normalized tables
-- **Fast on columnar warehouses** — narrow facts + denormalized dims is Snowflake's sweet spot
-- **BI-tool native** — Tableau, Power BI, Looker, Streamlit all assume this shape
-- **Maps to how stakeholders ask questions** — "revenue by category by month" = fact + two dims, literally
+- **Simple joins** — one `fact JOIN dim` per filter, not 7-way chains
+- **Fast on columnar warehouses** — Snowflake's sweet spot
+- **BI-tool native** — Tableau, Power BI, Looker, Streamlit all expect this
+- **Maps to how questions are asked** — "revenue by X by Y" = fact + two dims
 
 ---
 
