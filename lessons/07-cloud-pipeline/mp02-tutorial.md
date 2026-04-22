@@ -1488,11 +1488,7 @@ Smaller grain answers more questions. You can always roll line items up into ord
 
 **Phase 2: Build the models.** Once you and Claude have agreed on the design, it's time to implement it.
 
-1. Start with the date dimension. A **date dimension** (`dim_date`) is a table with one row per calendar day and a column for every way analysts might want to slice time (year, quarter, month name, day of week, `is_weekend`, fiscal period, holiday flags, and so on). Three reasons every serious warehouse has one:
-
-   - **Consistency.** Every query in your project uses the same definition of "weekend" or "this quarter" instead of re-deriving it with `EXTRACT(MONTH FROM ...)` inline. You change the rule in one place and the whole project follows.
-   - **Gap coverage.** Your fact table only has rows for days that actually had activity. `dim_date` has every day. Joining the two means a "zero orders on Christmas" row shows up instead of silently dropping off the chart.
-   - **Speed.** Date math runs once, at build time, not every time a dashboard re-renders.
+1. Start with the date dimension. A **date dimension** (`dim_date`) is a table with one row per calendar day and a column for every way analysts might want to slice time: year, quarter, month name, day of week, `is_weekend`, fiscal period, holiday flags, and so on. Three reasons every serious warehouse has one. First, **consistency**: every query in the project shares the same definition of "weekend" or "this quarter" instead of re-deriving it inline, so you change the rule in one place and the whole project follows. Second, **gap coverage**: your fact table only has rows for days that actually had activity, but `dim_date` has every day, so "zero orders on Christmas" shows up instead of silently dropping off the chart. Third, **speed**: date math runs once at build time, not every time a dashboard re-renders.
 
    Ask Claude Code:
 
@@ -1560,7 +1556,7 @@ Every `dbt test` run re-executes these checks against live data. If drift ever c
 1. Ask Claude Code:
 
    ```
-   Build the whole dbt project, then run all tests. Show me both outputs.
+   Build the whole dbt project, then run all tests.
    ```
 
    Expected: `dbt run` builds four staging views + five mart tables ("Completed successfully"). `dbt test` reports `PASS` on both tests.
@@ -1582,29 +1578,7 @@ Every `dbt test` run re-executes these checks against live data. If drift ever c
 
    `fct_order_items` should have roughly the same row count as raw `order_items`. `fct_orders` should roughly match raw `orders`. A quick sanity check is that `SUM(order_total)` from `fct_orders` equals `SUM(line_total)` from `fct_order_items`. If they differ, your rollup has a bug.
 
-3. **Ask one analytics question against the star.** Row counts confirm the pipeline ran; an analytical query confirms the pipeline is *useful*. Pick one real question, write the SQL, and run it in Snowsight. For example:
-
-   ```sql
-   -- Which product categories drove the most revenue each month?
-   SELECT
-       d.year,
-       d.month_name,
-       p.category,
-       SUM(f.line_total) AS category_revenue
-   FROM fct_order_items AS f
-   JOIN dim_products   AS p ON f.product_id = p.product_id
-   JOIN dim_date       AS d ON f.order_date = d.date_day
-   GROUP BY
-       d.year,
-       d.month_name,
-       p.category
-   ORDER BY
-       d.year,
-       d.month_name,
-       category_revenue DESC;
-   ```
-
-   Notice how short that query is: one `JOIN` per dim, one `GROUP BY`, one `SUM`. That is the point of the star schema. It turns business questions into almost trivially readable SQL. Try another question of your own: "top customers by lifetime value," "weekend vs. weekday order volume," or "average order value by month," whatever you're curious about.
+3. **Ask one analytics question against the star.** Row counts confirm the pipeline ran; an analytical query confirms the pipeline is *useful*. Pick one of Maya's questions from Step 25 (or one of your own) and write the SQL to answer it in Snowsight. Questions like "which products drove the most revenue this month," "top customers by lifetime value," "weekend vs. weekday order volume," or "average order value by month" all reduce to one `JOIN` per dim, one `GROUP BY`, and one `SUM` or `COUNT`. That's the point of the star schema: it turns business questions into almost trivially readable SQL.
 
 Under the hood, dbt compiled each `.sql` file into a `CREATE TABLE AS` (or `CREATE VIEW AS`) and ran them in the right order, which it inferred from your `{{ ref() }}` calls.
 
