@@ -474,7 +474,7 @@ Time to put your weather pipeline (from Lesson 08) on autopilot. You'll use the 
    Let Claude Code drive the conversation from there. You'll surface requirements you wouldn't have thought of unprompted: run cadence, what to do on failure, what counts as a successful run, manual vs. scheduled triggers, where credentials live.
 
    **One thing the brainstorm should flag:** in Lesson 08 you hardcoded the API key in `weather.py` as a Python string. That won't work in GitHub Actions. The runner is a public CI environment, and the workflow needs to read the key from a secret rather than from a literal string in the source. Refactoring `weather.py` to use `os.getenv("WEATHER_API_KEY")` will be part of the plan.
-3. When the brainstorm settles, hand its output to the **writing-plans** skill. The plan should cover:
+3. When the brainstorm settles, the Superpowers chain transitions into **writing-plans**. Follow Claude Code's prompts as the plan takes shape. Expect the resulting plan to cover:
    - Refactoring `weather.py` to read the API key from an environment variable
    - Creating the workflow file (typically `.github/workflows/weather-pipeline.yml`)
    - Adding the API key as a GitHub Actions secret
@@ -535,7 +535,7 @@ For repetition's sake, you'll automate the scrape pipeline in your `chipotle-scr
    ```
 
    Notice the prompt has to stand on its own. This Claude Code session has no memory of Steps 08 and 09. You should hear about `permissions: contents: write` and a commit/push step at the end.
-3. Hand the brainstorm to **writing-plans**. Get the plan.
+3. When the brainstorm settles, the chain transitions into **writing-plans**. Follow Claude Code's prompts as the plan takes shape.
 4. Follow the plan. Add the `FIRECRAWL_API_KEY` secret to the `chipotle-scrape-pipeline` repo's Settings → Secrets and variables → Actions. Commit the workflow file. Push to GitHub.
 5. Run it manually from the Actions tab. Verify (a) the workflow finishes green, and (b) new markdown files appear in `knowledge/raw/` on your `main` branch.
 6. Once manual works, activate the schedule.
@@ -582,7 +582,7 @@ You've got 15+ scraped sources in `knowledge/raw/`. Time to turn them into somet
 
    Let the skill drive the design conversation from there.
 4. The brainstorm should help you decide: what does someone in this role need to know to be effective? What hiring-manager questions should the wiki prepare you for? Which patterns from the sources should shape the dashboard questions you investigate? Which 3+ wiki pages cover all that without bloating?
-5. When the design settles, hand the brainstorm to **writing-plans**. You'll get a plan that names each wiki page, the role-relevant questions it answers, and how it gets generated.
+5. When the design settles, the chain transitions into **writing-plans**, which produces a plan naming each wiki page, the role-relevant questions it answers, and how it gets generated. Follow Claude Code's prompts as the plan takes shape.
 
 **Why this matters:** Most students treat the knowledge base as a checklist deliverable: 15 sources, 3 wiki pages, done. The students who get A-range work treat it as project fuel and interview prep. The wiki shapes what their dashboard analyzes and what they can speak to confidently in their final interview. Same content, different intent. The brainstorm is what locks in the intent.
 
@@ -594,17 +594,9 @@ Now you implement what the plan from Step 11 describes. Each wiki page is one ta
 
 **What to do:**
 
-1. Open your plan from Step 11 in the Claude Code session.
-2. Trigger the **executing-plans** skill against it. Paste this into Claude Code:
-
-   ```
-   Execute the wiki plan we just wrote. Walk through each page with
-   review checkpoints so I can push back before moving on.
-   ```
-
-   It'll work through each wiki page in turn, generating content from the sources your plan specifies.
-3. At each checkpoint, review what it produced. Spot-check the citations against the actual source files in `knowledge/raw/`. Push back on anything that reads like summary instead of synthesis. Insist on source citations for every non-obvious claim.
-4. Refine and continue until all wiki pages on the plan are written to `knowledge/wiki/`.
+1. Stay in the same Claude Code session where you completed the plan in Step 11. After **writing-plans** finishes, the Superpowers chain transitions into **executing-plans**, which walks through each wiki page in turn with review checkpoints. Just follow Claude Code's prompts back to you. You don't need to paste anything new.
+2. At each checkpoint, review what it produced. Spot-check the citations against the actual source files in `knowledge/raw/`. Push back on anything that reads like summary instead of synthesis. Insist on source citations for every non-obvious claim.
+3. Refine and continue until all wiki pages on the plan are written to `knowledge/wiki/`.
 
 **Why this matters:** This is where synthesis vs. summary becomes visible. A summary page reads like a table of contents: "this source says X, that source says Y." A synthesis page reads like an analyst's brief: "across these sources, the pattern is Z, and where they disagree, here's why." The executing-plans skill's checkpoint structure gives you natural moments to push back on summary-shaped output, which Claude Code defaults to without resistance.
 
