@@ -635,9 +635,11 @@ Wiki pages alone aren't a queryable knowledge base. You need two more things: an
 3. Test the schema. Open a clean Claude Code session (or use `/clear`), then paste this into Claude Code:
 
    ```
-   What does my knowledge base say about [a domain question a hiring
-   manager might ask]?
+   What does my knowledge base say about the company's main growth
+   drivers and biggest operational challenges?
    ```
+
+   This question generalizes to any company in any industry. Swap it for something more specific if your domain calls for it.
 
    Watch what files it opens. If it follows index → wiki → raw, the schema works. If it ignores `index.md` and grabs random files from `knowledge/raw/`, refine the wording.
 
