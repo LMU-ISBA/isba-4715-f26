@@ -473,8 +473,23 @@ Time to put your API loader on autopilot. Instead of writing the workflow file b
 
    Let Claude Code drive the conversation from there. You'll surface requirements you wouldn't have thought of unprompted: run cadence, what to do on failure, what counts as a successful run, manual vs. scheduled triggers, where credentials live.
 3. When the brainstorm settles, hand its output to the **writing-plans** skill. You'll get a spec and an implementation plan that names the workflow file, its triggers, its steps, and the secrets it needs.
-4. Follow the plan. Add the secrets it lists to your repo (Settings → Secrets and variables → Actions). Commit the workflow file. Push to GitHub.
-5. On GitHub → Actions tab → run the workflow manually. Verify rows land in Snowflake.
+4. Have Claude Code write the workflow file based on the plan, typically at `.github/workflows/api-pipeline.yml`.
+5. Add the secrets your loader needs to your repo. **The rule: only copy variables your loader script actually reads.** Don't bulk-copy your `.env`.
+
+   To identify which secrets to add:
+   - Open the loader script the workflow will run. Find every `os.getenv("...")` call. Those names are exactly the secrets you need.
+   - **Skip any `.env` variable whose value contains `localhost`.** GitHub Actions runners are fresh VMs with no local services running. A workflow trying to connect to `localhost` will fail with a confusing connection error.
+
+   Then in GitHub:
+   - Go to your repo → **Settings** → **Secrets and variables** → **Actions**.
+   - Click **New repository secret**.
+   - For each variable from your script, paste the variable name into **Name** (must match exactly) and the value from `.env` into **Secret**. Click **Add secret**. Repeat for each.
+
+   For an API → Snowflake pipeline, the typical set:
+   - **Snowflake (7 secrets):** `SNOWFLAKE_ACCOUNT`, `SNOWFLAKE_USER`, `SNOWFLAKE_PASSWORD`, `SNOWFLAKE_ROLE`, `SNOWFLAKE_WAREHOUSE`, `SNOWFLAKE_DATABASE`, `SNOWFLAKE_SCHEMA`
+   - **API key (1 secret):** the variable name your loader reads (e.g., `WEATHER_API_KEY`)
+6. Commit the workflow file and push to GitHub.
+7. On GitHub → Actions tab → run the workflow manually. Verify rows land in Snowflake.
 
 **Why this matters:** This is the same flow you'd use in your first analytics engineering job. Brainstorm requirements before specifying behavior, specify before planning, plan before writing code. The output of "I want to automate my pipeline" is rarely the workflow file you'd write on first instinct. The skills slow you down just enough to surface the right questions.
 
@@ -489,8 +504,7 @@ Your workflow runs on manual trigger. Time to make it run without you. The caden
 1. Open your implementation plan from Step 08. Did it specify a schedule cadence? If yes, you have your answer. If no, paste this into Claude Code:
 
    ```
-   What schedule cadence makes sense for this pipeline? Walk me through
-   the trade-offs (data freshness, API rate limits, Snowflake credits).
+   What schedule cadence makes sense for this pipeline?
    ```
 
    Settle on a cadence before moving on.
@@ -512,9 +526,7 @@ For repetition's sake, you'll automate the scrape pipeline in a different repo (
 
    ```
    I want to put my Firecrawl scrape pipeline on a schedule using GitHub
-   Actions. Help me design the workflow, then flag what's different
-   about a workflow that commits files back to the repo vs. one that
-   writes to a database.
+   Actions. Help me design the workflow.
    ```
 
    Notice the prompt has to stand on its own. This Claude Code session has no memory of Steps 08 and 09. You should hear about `permissions: contents: write` and a commit/push step at the end.
@@ -541,11 +553,15 @@ You've got 15+ scraped sources in `knowledge/raw/`. Time to turn them into somet
 1. Ask Claude Code to explore your scraped sources. Paste this into Claude Code:
 
    ```
-   Read everything in knowledge/raw/ and tell me what's there: what
+   Read everything in @knowledge/raw/ and tell me what's there: what
    each source covers, where they overlap, where they conflict, and
    what's notably missing for someone applying to the role in
-   docs/job-posting.pdf.
+   @RELATIVE-PATH-TO-JOB-POSTING
    ```
+
+   Replace `@RELATIVE-PATH-TO-JOB-POSTING` with the path to your job-posting PDF in your portfolio repo (e.g., `@docs/job-posting.pdf`). The `@` prefix tells Claude Code to read the referenced files as context, not just see them as strings.
+
+   **No job posting yet?** Use the [in-class demo posting](https://to.indeed.com/aay4mbm8ygdp) (Manager, Workforce Management - Volume & Labor at Chipotle). Open the link, then `Cmd+P` / `Ctrl+P` → **Save as PDF**, and drop the file into your portfolio repo's `docs/` folder.
 
    You wouldn't get this from a 2-minute skim, but Claude Code can do it in seconds.
 2. Pull up `docs/job-posting.pdf` so it's referenceable in the conversation.
@@ -616,7 +632,7 @@ Wiki pages alone aren't a queryable knowledge base. You need two more things: an
    The schema should cover these three operations:
    - **Ingest:** when a new source lands in `knowledge/raw/`, read it, summarize it into the relevant wiki page(s), update `index.md`, commit with a meaningful message.
    - **Query:** when asked about [your domain or role], read `index.md` first, follow cross-references into `knowledge/wiki/`, drill into `knowledge/raw/` only when direct evidence or quotes are needed.
-   - **Lint:** periodically check the wiki for contradictions across pages, stale claims, orphan pages, and missing cross-references.
+   - **Lint:** "linting" in software means automated quality checks on code, like catching unused variables or style violations. Wiki linting borrows the same idea: periodically scan the wiki for quality issues that drift as the corpus grows. For a wiki, that means checking for contradictions across pages, stale claims, orphan pages (wiki pages no other page links to), and missing cross-references.
 
    Make sure a fresh Claude Code session (with no prior context) would follow it.
 3. Test the schema. Open a clean Claude Code session (or use `/clear`), then paste this into Claude Code:
