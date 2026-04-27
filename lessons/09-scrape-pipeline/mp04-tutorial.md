@@ -455,49 +455,54 @@ You have two Cursor windows open (one per repo). Run each step in its respective
 
 ## Part 05: Automate the Pipelines (Session 02)
 
-> Session 02 builds on what's in your portfolio repo from Milestone 01: an API loader writing to Snowflake raw, and a scrape pipeline writing to `knowledge/raw/`. Most of Session 02 happens in your portfolio repo, with one detour back to your `chipotle-scrape-pipeline` repo in Step 10 for the repetition rep that locks the brainstorm-and-plan pattern in.
+> Session 02 teaches automation and wiki synthesis using your existing demo repos from earlier lessons, then asks you to apply the same patterns to your portfolio repo for Milestone 02. Steps 08–09 automate the weather pipeline in your `weather-api-pipeline` repo (from Lesson 08). Step 10 repeats the pattern for the scrape pipeline in your `chipotle-scrape-pipeline` repo (from Session 01). Steps 11–14 build the knowledge base wiki in your portfolio repo using the sources you scraped for Milestone 01.
 
 ### Step 08: Prompt Claude Code to Build Your API Pipeline Workflow
 
-Time to put your API loader on autopilot. Instead of writing the workflow file by hand, you'll use the Superpowers skills to design it first, then implement what the design produces.
+Time to put your weather pipeline (from Lesson 08) on autopilot. You'll use the Superpowers skills to design the workflow first, then implement what the design produces.
 
 **What to do:**
 
-1. In your portfolio repo, open Cursor and start a Claude Code session.
+1. **Open a new Cursor window** (**File > New Window**). Open your `weather-api-pipeline` repo there. Start a fresh Claude Code session in the terminal.
 2. Trigger the **brainstorming** skill. Paste this into Claude Code:
 
    ```
-   I want to put my API loader on a schedule using GitHub Actions.
+   I want to put my weather pipeline on a schedule using GitHub Actions.
    Help me design the workflow.
    ```
 
    Let Claude Code drive the conversation from there. You'll surface requirements you wouldn't have thought of unprompted: run cadence, what to do on failure, what counts as a successful run, manual vs. scheduled triggers, where credentials live.
-3. When the brainstorm settles, hand its output to the **writing-plans** skill. You'll get a spec and an implementation plan that names the workflow file, its triggers, its steps, and the secrets it needs.
-4. Have Claude Code write the workflow file based on the plan, typically at `.github/workflows/api-pipeline.yml`.
-5. Add the secrets your loader needs to your repo. **The rule: only copy variables your loader script actually reads.** Don't bulk-copy your `.env`.
+
+   **One thing the brainstorm should flag:** in Lesson 08 you hardcoded the API key in `weather.py` as a Python string. That won't work in GitHub Actions. The runner is a public CI environment, and the workflow needs to read the key from a secret rather than from a literal string in the source. Refactoring `weather.py` to use `os.getenv("WEATHER_API_KEY")` will be part of the plan.
+3. When the brainstorm settles, hand its output to the **writing-plans** skill. The plan should cover:
+   - Refactoring `weather.py` to read the API key from an environment variable
+   - Creating the workflow file (typically `.github/workflows/weather-pipeline.yml`)
+   - Adding the API key as a GitHub Actions secret
+4. Have Claude Code execute the plan: refactor `weather.py`, write the workflow file.
+5. Add the secret your script now reads to your repo. **The rule: only copy variables your script actually reads.** Don't bulk-copy from anywhere.
 
    To identify which secrets to add:
-   - Open the loader script the workflow will run. Find every `os.getenv("...")` call. Those names are exactly the secrets you need.
-   - **Skip any `.env` variable whose value contains `localhost`.** GitHub Actions runners are fresh VMs with no local services running. A workflow trying to connect to `localhost` will fail with a confusing connection error.
+   - Open the script the workflow runs. Find every `os.getenv("...")` call. Those names are exactly the secrets you need.
+   - **Skip any variable whose value contains `localhost`.** GitHub Actions runners are fresh VMs with no local services running. A workflow trying to connect to `localhost` will fail with a confusing connection error.
 
    Then in GitHub:
    - Go to your repo → **Settings** → **Secrets and variables** → **Actions**.
    - Click **New repository secret**.
-   - For each variable from your script, paste the variable name into **Name** (must match exactly) and the value from `.env` into **Secret**. Click **Add secret**. Repeat for each.
+   - For each variable from your script, paste the variable name into **Name** (must match exactly) and the value into **Secret**. Click **Add secret**.
 
-   For an API → Snowflake pipeline, the typical set:
-   - **Snowflake (7 secrets):** `SNOWFLAKE_ACCOUNT`, `SNOWFLAKE_USER`, `SNOWFLAKE_PASSWORD`, `SNOWFLAKE_ROLE`, `SNOWFLAKE_WAREHOUSE`, `SNOWFLAKE_DATABASE`, `SNOWFLAKE_SCHEMA`
-   - **API key (1 secret):** the variable name your loader reads (e.g., `WEATHER_API_KEY`)
-6. Commit the workflow file and push to GitHub.
-7. On GitHub → Actions tab → run the workflow manually. Verify rows land in Snowflake.
+   For `weather.py`, this is just one secret: `WEATHER_API_KEY` (the variable name your refactor introduced).
 
-**Why this matters:** This is the same flow you'd use in your first analytics engineering job. Brainstorm requirements before specifying behavior, specify before planning, plan before writing code. The output of "I want to automate my pipeline" is rarely the workflow file you'd write on first instinct. The skills slow you down just enough to surface the right questions.
+   For your portfolio's API → Snowflake loader (your M02 follow-up), expect more. Typically 7 Snowflake secrets (`SNOWFLAKE_ACCOUNT`, `SNOWFLAKE_USER`, `SNOWFLAKE_PASSWORD`, `SNOWFLAKE_ROLE`, `SNOWFLAKE_WAREHOUSE`, `SNOWFLAKE_DATABASE`, `SNOWFLAKE_SCHEMA`) plus the API key.
+6. Commit the refactored script and the workflow file, then push to GitHub.
+7. On GitHub → Actions tab → run the workflow manually. Verify the run finishes green and the run logs show the expected number of rows collected.
 
-**Checkpoint:** A workflow file that runs successfully on manual trigger from the GitHub Actions tab, plus the brainstorm and plan committed somewhere in your repo (your call where: `docs/`, `plans/`, or wherever you decide makes sense).
+**Why this matters:** This is the same flow you'd use in your first analytics engineering job. Brainstorm requirements before specifying behavior, specify before planning, plan before writing code. The hardcoded-key refactor is exactly the kind of issue the brainstorm should catch *before* you write a single line of YAML. Caught after, you'd have committed a broken workflow and confused yourself debugging it.
+
+**Checkpoint:** Your `weather-api-pipeline` workflow runs successfully on manual trigger from the GitHub Actions tab. `weather.py` no longer has the API key hardcoded, it now reads from `os.getenv("WEATHER_API_KEY")`. The brainstorm and plan are committed somewhere in your repo (your call where: `docs/`, `plans/`, or wherever you decide makes sense).
 
 ### Step 09: Activate the Schedule
 
-Your workflow runs on manual trigger. Time to make it run without you. The cadence decision matters more than it looks: it affects Snowflake credit usage, API rate limits, and how fresh your dashboard data is.
+Your workflow runs on manual trigger. Time to make it run without you. The cadence decision matters more than it looks: it affects API rate limits, compute cost, and how fresh your data is.
 
 **What to do:**
 
@@ -517,7 +522,7 @@ Your workflow runs on manual trigger. Time to make it run without you. The caden
 
 ### Step 10: Automate the Scrape Pipeline
 
-For repetition's sake, you'll automate the scrape pipeline in a different repo (`chipotle-scrape-pipeline` from Session 01) with a fresh Claude Code session. Same pattern as Step 08, but the new session doesn't know what you did for the API workflow, so the prompt has to stand on its own. One difference worth surfacing: the scrape workflow writes new markdown files back to the repo, which the API workflow didn't.
+For repetition's sake, you'll automate the scrape pipeline in your `chipotle-scrape-pipeline` repo (from Session 01) with another fresh Claude Code session. Same pattern as Step 08, but the new session doesn't know what you did for the weather workflow, so the prompt has to stand on its own.
 
 **What to do:**
 
@@ -536,13 +541,15 @@ For repetition's sake, you'll automate the scrape pipeline in a different repo (
 6. Once manual works, activate the schedule.
 7. **For Milestone 02:** apply this same pattern to your portfolio repo's scrape pipeline. You can do this in remaining class time, in office hours, or async during the week. The M02 rubric requires both your API and scrape pipelines automated in your portfolio repo.
 
-**Why this matters:** Running the brainstorm-and-plan loop a second time in a fresh Claude Code session is the rep that locks the pattern in. The first time (Step 08), Claude Code had the context of your portfolio repo and your prior conversation. This time, the agent has nothing, and you have to give it just enough to design well. That's the skill that transfers to every new project: knowing what minimum context to provide an empty session.
+**Why this matters:** Running the brainstorm-and-plan loop a second time in a fresh Claude Code session is the rep that locks the pattern in. The first time (Step 08), Claude Code had the context of your `weather-api-pipeline` repo and your prior conversation. This time, the agent has nothing, and you have to give it just enough to design well. That's the skill that transfers to every new project: knowing what minimum context to provide an empty session.
 
-**Checkpoint:** Both your portfolio repo's API workflow (from Steps 08–09) and your `chipotle-scrape-pipeline` repo's scrape workflow (from this step) show green on Actions and have schedules attached. The chipotle repo's `knowledge/raw/` has new files from the scrape workflow's run.
+**Checkpoint:** Both your `weather-api-pipeline` workflow (from Steps 08–09) and your `chipotle-scrape-pipeline` workflow (from this step) show green on Actions and have schedules attached. The chipotle repo's `knowledge/raw/` has new files from the scrape workflow's run.
 
 ---
 
 ## Part 06: Build the Knowledge Base Wiki
+
+> Part 06 happens in your **portfolio repo**, where the scraped sources from Milestone 01 already live in `knowledge/raw/`. Switch back to the Cursor window with your portfolio repo open, or open a new window for it if you don't have one.
 
 ### Step 11: Design Your Wiki with Superpowers
 
@@ -695,25 +702,32 @@ A wiki you build once and never touch is a snapshot. A wiki you maintain is an a
 
 LE09 spans both class sessions and produces deliverables in two repos. Submit your `chipotle-scrape-pipeline` repo URL on Brightspace; your portfolio repo work counts toward Milestones 01 and 02.
 
-### Session 01 deliverable: `chipotle-scrape-pipeline` repo
+### `chipotle-scrape-pipeline` repo (Session 01 + Session 02 Step 10)
 
 Your `chipotle-scrape-pipeline` repo should contain:
-- `scrape_pipeline.py` — your Firecrawl pipeline
+- `scrape_pipeline.py` — your Firecrawl pipeline (Session 01)
 - `knowledge/raw/` — at least 5 `NN-slug.md` files from the Python pipeline (Step 02) AND at least 1 `leadership-NN-slug.md` file from the MCP prompt (Step 04). Both naming patterns are expected.
 - `requirements.txt` — Python dependencies
 - `.gitignore` — Python gitignore (must exclude `.env`)
+- `.github/workflows/scrape-pipeline.yml` — automated workflow added in Session 02 Step 10 (manual + scheduled triggers)
 
 Your `chipotle-scrape-pipeline` repo must NOT contain:
 - `.env` — must be gitignored, no keys in git history
 
-### Session 02 deliverables: portfolio project repo
+### `weather-api-pipeline` repo (updated in Session 02 Step 08)
 
-Session 02 work lives in your portfolio repo. The artifacts contribute to Milestone 01 (due Apr 27 9:55 AM) and Milestone 02 (due May 4):
+Your existing `weather-api-pipeline` repo from Lesson 08 picks up two updates:
+- `weather.py` — refactored in Session 02 Step 08 to read the API key from `os.getenv("WEATHER_API_KEY")` instead of hardcoding it
+- `.github/workflows/weather-pipeline.yml` — automated workflow added in Session 02 Step 08 (manual + scheduled triggers)
 
-- `.github/workflows/api-pipeline.yml` and `.github/workflows/scrape-pipeline.yml`, both with manual + scheduled triggers
-- `knowledge/wiki/` with at least 3 wiki pages aligned with your job posting and role
-- `knowledge/index.md` (categorical catalog with cross-references)
-- `CLAUDE.md` "Knowledge base schema" section covering ingest, query, and lint
-- The plans your brainstorms produced, committed somewhere in the repo (e.g., `docs/plans/`)
+### Portfolio project repo (Session 02 wiki work + M02 follow-up)
 
-You built two automated pipelines and a queryable knowledge base, and you practiced the brainstorm → plan → execute loop twice.
+Session 02 wiki work in your portfolio repo contributes to Milestone 02 (due May 4):
+- `knowledge/wiki/` with at least 3 wiki pages aligned with your job posting and role (Steps 11–12)
+- `knowledge/index.md` — categorical catalog with cross-references (Step 13)
+- `CLAUDE.md` "Knowledge base schema" section covering ingest, query, and lint (Step 13)
+- The plans your brainstorms produced, committed somewhere in the repo (Steps 11 onward)
+
+**For Milestone 02:** apply the GitHub Actions patterns from Steps 08–10 to your portfolio repo's API loader and scrape pipeline. The M02 rubric requires both pipelines automated in your portfolio repo with manual + scheduled triggers.
+
+You built two automated pipelines, refactored hardcoded credentials into proper secrets handling, and produced a queryable knowledge base. You also practiced the brainstorm → plan → execute loop twice in fresh Claude Code sessions.
