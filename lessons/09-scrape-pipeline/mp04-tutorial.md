@@ -557,32 +557,31 @@ You've got 15+ scraped sources in `knowledge/raw/`. Time to turn them into somet
 
 **What to do:**
 
+Before you start, **make sure your job-posting PDF is saved at `docs/job-posting.pdf`** in your portfolio repo. The prompts below reference it via `@docs/job-posting.pdf`, so the path needs to match.
+
+**No job posting yet?** Use the [in-class demo posting](https://to.indeed.com/aay4mbm8ygdp) (Manager, Workforce Management - Volume & Labor at Chipotle). Open the link, then `Cmd+P` / `Ctrl+P` → **Save as PDF**, and save it to your portfolio repo as `docs/job-posting.pdf`.
+
 1. Ask Claude Code to explore your scraped sources. Paste this into Claude Code:
 
    ```
    Read everything in @knowledge/raw/ and tell me what's there: what
    each source covers, where they overlap, where they conflict, and
    what's notably missing for someone applying to the role in
-   @RELATIVE-PATH-TO-JOB-POSTING
+   @docs/job-posting.pdf
    ```
 
-   Replace `@RELATIVE-PATH-TO-JOB-POSTING` with the path to your job-posting PDF in your portfolio repo (e.g., `@docs/job-posting.pdf`). The `@` prefix tells Claude Code to read the referenced files as context, not just see them as strings.
-
-   **No job posting yet?** Use the [in-class demo posting](https://to.indeed.com/aay4mbm8ygdp) (Manager, Workforce Management - Volume & Labor at Chipotle). Open the link, then `Cmd+P` / `Ctrl+P` → **Save as PDF**, and drop the file into your portfolio repo's `docs/` folder.
-
-   You wouldn't get this from a 2-minute skim, but Claude Code can do it in seconds.
-2. Pull up `docs/job-posting.pdf` so it's referenceable in the conversation.
-3. Trigger the **brainstorming** skill. Paste this into Claude Code:
+   The `@` prefix tells Claude Code to read the referenced files as context, not just see them as strings. You wouldn't get this from a 2-minute skim, but Claude Code can do it in seconds.
+2. Trigger the **brainstorming** skill. Paste this into Claude Code:
 
    ```
    Help me design a knowledge base wiki built from these sources, scoped
-   to the role in docs/job-posting.pdf. The wiki should help me talk
+   to the role in @docs/job-posting.pdf. The wiki should help me talk
    about the role intelligently and inform the analytics-related questions.
    ```
 
    Let the skill drive the design conversation from there.
-4. The brainstorm should help you decide: what does someone in this role need to know to be effective? What hiring-manager questions should the wiki prepare you for? Which patterns from the sources should shape the dashboard questions you investigate? Which 3+ wiki pages cover all that without bloating?
-5. When the design settles, the chain transitions into **writing-plans**, which produces a plan naming each wiki page, the role-relevant questions it answers, and how it gets generated. Follow Claude Code's prompts as the plan takes shape.
+3. The brainstorm should help you decide: what does someone in this role need to know to be effective? What hiring-manager questions should the wiki prepare you for? Which patterns from the sources should shape the dashboard questions you investigate? Which 3+ wiki pages cover all that without bloating?
+4. When the design settles, the chain transitions into **writing-plans**, which produces a plan naming each wiki page, the role-relevant questions it answers, and how it gets generated. Follow Claude Code's prompts as the plan takes shape.
 
 **Why this matters:** Most students treat the knowledge base as a checklist deliverable: 15 sources, 3 wiki pages, done. The students who get A-range work treat it as project fuel and interview prep. The wiki shapes what their dashboard analyzes and what they can speak to confidently in their final interview. Same content, different intent. The brainstorm is what locks in the intent.
 
