@@ -577,8 +577,7 @@ You've got 15+ scraped sources in `knowledge/raw/`. Time to turn them into somet
    ```
    Help me design a knowledge base wiki built from these sources, scoped
    to the role in docs/job-posting.pdf. The wiki should help me talk
-   about the role intelligently and inform the analytical questions
-   my dashboard will investigate.
+   about the role intelligently and inform the analytics-related questions.
    ```
 
    Let the skill drive the design conversation from there.
