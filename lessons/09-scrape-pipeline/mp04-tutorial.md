@@ -1,8 +1,15 @@
 # Mini-Project 04: Scrape Pipeline Tutorial
 
-This is the written companion to Lesson 09. The class opens with a 20-minute concepts block (see the slides, not this file) — the rest is hands-on. Use this if you fall behind, or to work through it on your own.
+This is the written companion to Lesson 09. The lesson runs across two class sessions:
+
+- **Session 01 (Wed Apr 22):** Concepts intro (20-min slides) + Firecrawl pipeline + MCP upgrade + project source. Steps 00–07.
+- **Session 02 (Mon Apr 27):** Automate the API and scrape pipelines with GitHub Actions, then synthesize a knowledge base wiki from your scraped sources. Steps 08–14.
+
+Use this if you fall behind, or to work through it on your own.
 
 ## Table of Contents
+
+### Session 01: Scrape Pipeline (Wed Apr 22)
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
@@ -14,6 +21,18 @@ This is the written companion to Lesson 09. The class opens with a 20-minute con
 | 05 | [Find sources for your portfolio project](#step-05-find-sources-for-your-portfolio-project) | Open your project repo in a new Cursor window |
 | 06 | [Scrape at least one source into your project](#step-06-scrape-at-least-one-source-into-your-project) | Apply the pattern to your own domain |
 | 07 | [Commit and push](#step-07-commit-and-push) | Push both repos to GitHub |
+
+### Session 02: Automate and Synthesize (Mon Apr 27)
+
+| Step | Topic | What You Will Do |
+|------|-------|-----------------|
+| 08 | [Build your API pipeline workflow](#step-08-prompt-claude-code-to-build-your-api-pipeline-workflow) | Brainstorm + plan + implement the API automation |
+| 09 | [Activate the schedule](#step-09-activate-the-schedule) | Add cron, verify on GitHub |
+| 10 | [Automate the scrape pipeline](#step-10-automate-the-scrape-pipeline) | Repeat the pattern with commit-back permissions |
+| 11 | [Design your wiki with Superpowers](#step-11-design-your-wiki-with-superpowers) | Brainstorm wiki structure, write a plan |
+| 12 | [Generate the wiki pages](#step-12-generate-the-wiki-pages-with-executing-plans) | Use executing-plans to create wiki pages |
+| 13 | [Make the wiki queryable](#step-13-make-the-wiki-queryable) | index.md + CLAUDE.md schema |
+| 14 | [Use the wiki iteratively](#step-14-use-the-wiki-iteratively) | Demo ingest, lint, query→promote |
 
 ---
 
@@ -434,9 +453,131 @@ You have two Cursor windows open (one per repo). Run each step in its respective
 
 ---
 
+## Part 05: Automate the Pipelines (Session 02)
+
+> Session 02 builds on what's in your portfolio repo from Milestone 01: an API loader writing to Snowflake raw, and a scrape pipeline writing to `knowledge/raw/`. From here on, you work only in your portfolio repo. The `chipotle-scrape-pipeline` repo from Session 01 is finished and submitted.
+
+### Step 08: Prompt Claude Code to Build Your API Pipeline Workflow
+
+Time to put your API loader on autopilot. Instead of writing the workflow file by hand, you'll use the Superpowers skills to design it first, then implement what the design produces.
+
+**What to do:**
+
+1. In your portfolio repo, open Cursor and start a Claude Code session.
+2. Trigger the **brainstorming** skill. Describe what you want to automate, in your own words. Let Claude Code drive the conversation. You'll surface requirements you wouldn't have thought of unprompted: run cadence, what to do on failure, what counts as a successful run, manual vs. scheduled triggers, where credentials live.
+3. When the brainstorm settles, hand its output to the **writing-plans** skill. You'll get a spec and an implementation plan that names the workflow file, its triggers, its steps, and the secrets it needs.
+4. Follow the plan. Add the secrets it lists to your repo (Settings → Secrets and variables → Actions). Commit the workflow file. Push to GitHub.
+5. On GitHub → Actions tab → run the workflow manually. Verify rows land in Snowflake.
+
+**Why this matters:** This is the same flow you'd use in your first analytics engineering job. Brainstorm requirements before specifying behavior, specify before planning, plan before writing code. The output of "I want to automate my pipeline" is rarely the workflow file you'd write on first instinct. The skills slow you down just enough to surface the right questions.
+
+**Checkpoint:** A workflow file that runs successfully on manual trigger from the GitHub Actions tab, plus the brainstorm and plan committed somewhere in your repo (your call where: `docs/`, `plans/`, or wherever you decide makes sense).
+
+### Step 09: Activate the Schedule
+
+Your workflow runs on manual trigger. Time to make it run without you. The cadence decision matters more than it looks: it affects Snowflake credit usage, API rate limits, and how fresh your dashboard data is.
+
+**What to do:**
+
+1. Open your implementation plan from Step 08. Did it specify a schedule cadence? If yes, you have your answer. If no, ask Claude Code to brainstorm cadence trade-offs: how stale is too stale, what's your API's rate limit, what's your Snowflake credit budget. Settle on a cadence.
+2. Update the workflow YAML to add the `schedule:` trigger alongside `workflow_dispatch`. Push.
+3. Verify on GitHub: Actions tab → your workflow → the page should mention "This workflow has a schedule."
+
+**Why this matters:** Cron is a promise to run later. Manual is run now. You always want manual first so you can see the green check before trusting the schedule. Now that manual works, you can wire the cron with confidence.
+
+**Checkpoint:** Your workflow file has a `schedule:` block, GitHub shows the schedule on the workflow page, and you've recorded *why* you picked this cadence (in the plan, in a commit message, or both).
+
+### Step 10: Automate the Scrape Pipeline
+
+You did this once for the API loader. Do it again for your scrape pipeline, but faster, because you know the pattern. The shape is the same: brainstorm → plan → build → run manually → schedule. The one difference worth surfacing: the scrape workflow writes new markdown files back to the repo, which the API workflow didn't.
+
+**What to do:**
+
+1. In your Claude Code session, brainstorm the automation for your scrape pipeline. The shape will look familiar from Step 08, but ask Claude Code specifically: *what's different about a workflow that writes files back to the repo vs. one that writes to Snowflake?* You should hear about `permissions: contents: write` and a commit/push step at the end.
+2. Hand the brainstorm to writing-plans. Get the plan.
+3. Implement: write the workflow file (probably `.github/workflows/scrape-pipeline.yml`), add any new secrets the plan calls out (likely `FIRECRAWL_API_KEY` if not already there), commit, push.
+4. Run it manually from the Actions tab. Verify (a) the workflow finishes green, and (b) new markdown files appear in `knowledge/raw/` on your `main` branch.
+5. Once manual works, activate the schedule.
+
+**Why this matters:** Pipelines write to different destinations. Some land rows in a warehouse, others commit files back to the repo. The brainstorm/plan workflow naturally surfaces this kind of difference when you describe what the pipeline does in plain English. By doing it twice in one session, you'll see the same shape transfer with one targeted change.
+
+**Checkpoint:** Both workflows show green on Actions and have schedules attached. Your `knowledge/raw/` folder has new files from the scrape workflow's run.
+
+---
+
+## Part 06: Build the Knowledge Base Wiki
+
+### Step 11: Design Your Wiki with Superpowers
+
+You've got 15+ scraped sources in `knowledge/raw/`. Time to turn them into something useful, not just a folder of files. The wiki helps you build out the project and understand the role your project is based on. It feeds two things: the analytical decisions in your dashboard (what to investigate, why), and your readiness to talk about the role in a real interview.
+
+**What to do:**
+
+1. In your Claude Code session, ask Claude Code to read everything in `knowledge/raw/` and report back: what's actually in there, what each source covers, where sources overlap, where they conflict, and what's notably missing given your role. You wouldn't get this from a 2-minute skim, but Claude Code can do it in seconds.
+2. Pull up `docs/job-posting.pdf` so it's referenceable in the conversation.
+3. Trigger the **brainstorming** skill, with Claude Code's exploration of the sources and the job posting both as context. Tell it what you want: a wiki that (a) deepens your domain understanding so you can talk about the role intelligently, and (b) feeds insights back into the project's analytical decisions. Let the skill drive the design conversation.
+4. The brainstorm should help you decide: what does someone in this role need to know to be effective? What hiring-manager questions should the wiki prepare you for? Which patterns from the sources should shape the dashboard questions you investigate? Which 3+ wiki pages cover all that without bloating?
+5. When the design settles, hand the brainstorm to **writing-plans**. You'll get a plan that names each wiki page, the role-relevant questions it answers, and how it gets generated.
+
+**Why this matters:** Most students treat the knowledge base as a checklist deliverable: 15 sources, 3 wiki pages, done. The students who get A-range work treat it as project fuel and interview prep. The wiki shapes what their dashboard analyzes and what they can speak to confidently in their final interview. Same content, different intent. The brainstorm is what locks in the intent.
+
+**Checkpoint:** A plan committed to your repo that names your wiki pages, the role-focused questions each one answers, the hiring-manager questions this wiki would help you handle, and your sourcing convention. No wiki content yet.
+
+### Step 12: Generate the Wiki Pages with executing-plans
+
+Now you implement what the plan from Step 11 describes. Each wiki page is one task on the plan, and the **executing-plans** skill is built to walk through plans like this with review checkpoints.
+
+**What to do:**
+
+1. Open your plan from Step 11 in the Claude Code session.
+2. Trigger the **executing-plans** skill against the plan. It'll work through each wiki page in turn, generating content from the sources your plan specifies.
+3. At each checkpoint, review what it produced. Spot-check the citations against the actual source files in `knowledge/raw/`. Push back on anything that reads like summary instead of synthesis. Insist on source citations for every non-obvious claim.
+4. Refine and continue until all wiki pages on the plan are written to `knowledge/wiki/`.
+
+**Why this matters:** This is where synthesis vs. summary becomes visible. A summary page reads like a table of contents: "this source says X, that source says Y." A synthesis page reads like an analyst's brief: "across these sources, the pattern is Z, and where they disagree, here's why." The executing-plans skill's checkpoint structure gives you natural moments to push back on summary-shaped output, which Claude Code defaults to without resistance.
+
+**Checkpoint:** All wiki pages from your plan are committed to `knowledge/wiki/`. Each has source citations you've spot-checked. Reading any one page should give you a real answer to a domain question, not a list of source summaries.
+
+### Step 13: Make the Wiki Queryable
+
+Wiki pages alone aren't a queryable knowledge base. You need two more things: an index Claude Code reads first to know what's available, and a schema in `CLAUDE.md` that documents how Claude Code (and any future LLM you point at this repo) should ingest, query, and maintain the wiki.
+
+**What to do:**
+
+1. Generate `knowledge/index.md`. Ask Claude Code to write a one-line summary of each wiki page in `knowledge/wiki/`, organized by category (e.g., "Domain knowledge," "Role-specific," "Synthesis"), with cross-references where wiki pages link to each other. The index is what Claude Code reads first when you ask a domain question. It should help the agent decide which wiki page to open without scanning everything.
+2. Add a "Knowledge base schema" section to your repo's `CLAUDE.md`. The schema documents three operations the agent should follow when working with the wiki:
+   - **Ingest:** when a new source lands in `knowledge/raw/`, read it, summarize it into the relevant wiki page(s), update `index.md`, commit with a meaningful message.
+   - **Query:** when asked about [your domain or role], read `index.md` first, follow cross-references into `knowledge/wiki/`, drill into `knowledge/raw/` only when direct evidence or quotes are needed.
+   - **Lint:** periodically check the wiki for contradictions across pages, stale claims, orphan pages, and missing cross-references.
+
+   Word the schema however fits your domain, but make sure a fresh Claude Code session (with no prior context) would follow it.
+3. Test the schema. Open a clean Claude Code session (or use `/clear`), then ask a domain question, something a hiring manager might ask. Watch what files it opens. If it follows index → wiki → raw, the schema works. If it ignores `index.md` and grabs random files from `knowledge/raw/`, refine the wording.
+
+**Why this matters:** This step turns a folder of files into a *system*. The wiki is a persistent, compounding artifact: every new source you ingest makes it richer, and periodic lint keeps it consistent over time. The bookkeeping (summaries, cross-references, schema enforcement) is what the agent owns forever. Your job stays curation: pick the sources, ask the questions, review what comes back. Skip the schema and you're back to scanning raw files every time you have a question.
+
+**Checkpoint:** `knowledge/index.md` exists, organized by category, with cross-references between wiki pages. `CLAUDE.md` has a "Knowledge base schema" section covering ingest, query, and lint. A clean Claude Code session, asked a domain question, follows the index → wiki → raw navigation order and produces a useful answer.
+
+### Step 14: Use the Wiki Iteratively
+
+A wiki you build once and never touch is a snapshot. A wiki you maintain is an asset. This step is three quick demos of the wiki in motion: ingest, lint, query-promote. Each one is a habit you'll repeat over the next 8 days as you polish your portfolio for M02.
+
+**What to do:**
+
+1. **Ingest (~3 min).** Find one new source for your domain (use the Firecrawl MCP server in Claude Code for speed, or scrape one URL via your script). Add it to `knowledge/raw/`. Ask Claude Code to follow the **Ingest** operation from your CLAUDE.md schema: summarize the new source into relevant wiki pages, update `index.md`, commit. Watch the wiki update in real time.
+2. **Lint (~3 min).** Ask Claude Code to follow the **Lint** operation: read the entire wiki and report contradictions across pages, stale claims, orphan pages, missing cross-references. Pick one finding and fix it. Commit.
+3. **Query → promote (~3 min).** Ask Claude Code a hard domain question that doesn't have a clean answer in the existing wiki. Once it produces a synthesis from the raw sources, ask it to promote the answer into a new wiki page (or expand an existing one). Update `index.md`. Commit.
+
+**Why this matters:** This is the rubric requirement for "evidence of iterative use, visible in commit history" (M02 #11), but the deeper point is that the wiki only earns its place in your portfolio if it's *alive*. A static wiki is checkbox work. A wiki that grows over the next 8 days, with commits showing meaningful edits and fixes, is what differentiates A-range work from B-range. The three operations from Step 13's schema are not theoretical. They're the moves you'll repeat dozens of times before May 4.
+
+**Checkpoint:** Three new commits, each demonstrating a different schema operation. `knowledge/wiki/` shows clear evidence of iterative editing. Plan to repeat at least one of these operations every other day until M02 submission.
+
+---
+
 ## Submission
 
-Push your finished `chipotle-scrape-pipeline` repository to GitHub and submit the repo URL as your Lesson Exercises 09.
+LE09 spans both class sessions and produces deliverables in two repos. Submit your `chipotle-scrape-pipeline` repo URL on Brightspace; your portfolio repo work counts toward Milestones 01 and 02.
+
+### Session 01 deliverable: `chipotle-scrape-pipeline` repo
 
 Your `chipotle-scrape-pipeline` repo should contain:
 - `scrape_pipeline.py` — your Firecrawl pipeline
@@ -447,6 +588,14 @@ Your `chipotle-scrape-pipeline` repo should contain:
 Your `chipotle-scrape-pipeline` repo must NOT contain:
 - `.env` — must be gitignored, no keys in git history
 
-**Optional but encouraged:** at least one new markdown file in your portfolio project repo's `knowledge/raw/`. This does not affect your Lesson 09 grade, but it is concrete progress toward Milestone 02's 15-source requirement.
+### Session 02 deliverables: portfolio project repo
 
-You built a full scraping pipeline and seeded your portfolio knowledge base with real content.
+Session 02 work lives in your portfolio repo. The artifacts contribute to Milestone 01 (due Apr 27 9:55 AM) and Milestone 02 (due May 4):
+
+- `.github/workflows/api-pipeline.yml` and `.github/workflows/scrape-pipeline.yml`, both with manual + scheduled triggers
+- `knowledge/wiki/` with at least 3 wiki pages aligned with your job posting and role
+- `knowledge/index.md` (categorical catalog with cross-references)
+- `CLAUDE.md` "Knowledge base schema" section covering ingest, query, and lint
+- The plans your brainstorms produced, committed somewhere in the repo (e.g., `docs/plans/`)
+
+You built two automated pipelines and a queryable knowledge base, and you practiced the brainstorm → plan → execute loop twice.

@@ -11,7 +11,7 @@ You find a real job posting for a role you'd actually apply to, then build an en
 | Milestone | Due | What's Due |
 |---|---|---|
 | Proposal | Apr 13 at 9:55 AM | Job posting PDF, one-paragraph reflection, GitHub repo link |
-| Milestone 01: Extract & Load | Apr 27 at 9:55 AM | API source + web scrape source loaded to Snowflake raw, Snowflake account |
+| Milestone 01: Extract & Load | Apr 27 at 9:55 AM | API source loaded to Snowflake raw, web scrape source loaded to `knowledge/raw/`, Snowflake account |
 | Milestone 02: Transform, Present & Polish | May 4 at 9:55 AM | dbt models, Streamlit dashboard, knowledge base, slides, README, ERD, GitHub Actions pipelines, pipeline diagram |
 | Final Submission | May 11 | Updated resume committed to repo |
 | Final Interview | May 11 | Whiteboard walkthrough, project demo |
@@ -20,7 +20,7 @@ Your public GitHub repo is your submission. Submit the repo URL to Brightspace b
 
 ## What You're Building
 
-You'll build a pipeline that moves data from two sources into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard, all automated via GitHub Actions. You'll also scrape domain content and use Claude Code to build a knowledge base of synthesized insights.
+You'll build a structured pipeline that moves API data into Snowflake, transforms it through raw, staging, and mart layers using dbt, and surfaces it through a Streamlit dashboard, all automated via GitHub Actions. In parallel, you'll scrape domain content into your repo and use Claude Code to build a knowledge base of synthesized insights.
 
 ```mermaid
 flowchart TB
@@ -111,14 +111,14 @@ You're not limited to the example format. Brainstorm alternatives with Claude Co
 
 ## Milestone 01: Extract & Load (20 pts) - Due Apr 27 at 9:55 AM
 
-Load both data sources into Snowflake raw. That's it: write the two extraction scripts, land the rows in Snowflake, and commit your code. No orchestration, no transformation, no dashboard yet. Submit your repo URL to Brightspace.
+Load your API source into Snowflake raw and your web scrape source into `knowledge/raw/`. That's it: write the two extraction scripts, land the data in its destination, and commit your code. No orchestration, no transformation, no dashboard yet. Submit your repo URL to Brightspace.
 
 You'll also need your Snowflake trial account created by this milestone (trial account in AWS US East 1, credentials stored securely via environment variables and never committed to the repo). If you haven't set it up yet, do it in Week 1 of Milestone 01.
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
 | 4 | Source 1 (API) extraction + load to Snowflake raw | 10 | Python script, loads to Snowflake raw schema, env vars for credentials. Runs successfully on your machine. |
-| 5 | Source 2 (web scrape/docs) extraction + load to Snowflake raw | 10 | Different source type from source 1. Python script that calls the Firecrawl API, loads to Snowflake raw schema. You can also load scrape results via the Firecrawl MCP server in Claude Code (in addition to or instead of the script). Runs successfully on your machine. |
+| 5 | Source 2 (web scrape/docs) extraction + load to `knowledge/raw/` | 10 | Different source type from source 1. Python script that calls the Firecrawl API and writes scraped markdown into `knowledge/raw/`. You can also load scrape results via the Firecrawl MCP server in Claude Code (in addition to or instead of the script). Runs successfully on your machine. |
 
 ## Milestone 02: Transform, Present & Polish (65 pts) - Due May 4 at 9:55 AM
 

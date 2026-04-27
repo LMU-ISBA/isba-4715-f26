@@ -16,12 +16,13 @@ Hands-on SQL lessons using two case studies: **Campus Bites** (a campus food del
 
 End-to-end data engineering projects built with Claude Code. Each mini-project is instructor-led in class with a take-home tutorial as a safety net.
 
-| Mini-Project | Sessions | Topic | Source | Destination |
+| Lesson | Sessions | Topic | Source | Destination |
 |-------------|----------|-------|--------|-------------|
 | [MP01: 06-local-pipeline](06-local-pipeline/) | 2 | Local Data Pipeline | CSV | Docker PostgreSQL |
-| [MP02: 07-cloud-pipeline](07-cloud-pipeline/) | 3 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
-| MP03: 08-api-pipeline (coming soon) | 3 | API Pipeline | Public API | Snowflake + Streamlit |
-| MP04: 09-ai-chatbot (coming soon) | 3 | AI Application | Web Scrape | Vector DB + RAG Chatbot |
+| [MP02: 07-cloud-pipeline](07-cloud-pipeline/) | 4 | Cloud Pipeline | AWS RDS | Snowflake + dbt |
+| [MP03: 08-api-pipeline](08-api-pipeline/) | 1 | API Data Collection | Public API | CSV (portfolio repo extends to Snowflake raw) |
+| [MP04: 09-scrape-pipeline](09-scrape-pipeline/) | 2 | Scrape Pipeline + GitHub Actions + Knowledge Base Wiki | Web Scrape | knowledge/raw/ + knowledge/wiki/ |
+| Lesson 10: 10-streamlit-dashboard *(Wed Apr 29)* | 1 | Streamlit Dashboard | Snowflake mart | Streamlit Community Cloud |
 
 ## The Campus Bites Story (Lessons 01-02)
 
@@ -86,12 +87,13 @@ Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: 
 
 ### Second Half: Data Engineering + AI
 
-| MP | Concepts |
-|----|----------|
+| Lesson | Concepts |
+|--------|----------|
 | MP01 | Cursor, Claude Code, Docker, PostgreSQL, git, psql, AI prompting |
-| MP02 | AWS RDS, AWS CLI, Snowflake, dbt (staging + marts), dimensional modeling |
-| MP03 | API extraction, GitHub Actions, Streamlit, deployment |
-| MP04 | Web scraping, vector databases, embeddings, RAG, LangChain, Claude API |
+| MP02 | Superpowers brainstorming, AWS RDS, AWS CLI, Snowflake, dbt (staging + marts), dimensional modeling |
+| MP03 | REST APIs, JSON parsing, `requests` + pandas, `.env` secrets pattern |
+| MP04 | Web scraping (Firecrawl + MCP), GitHub Actions (`workflow_dispatch` + `schedule`), Superpowers loop (brainstorming → writing-plans → executing-plans), CLAUDE.md schema (ingest / query / lint), iterative wiki maintenance |
+| Lesson 10 | Streamlit (descriptive + diagnostic views, deployment to Community Cloud), whiteboard pipeline diagrams |
 
 ## The Analytics Framework
 
