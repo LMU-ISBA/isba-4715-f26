@@ -611,7 +611,7 @@ Wiki pages alone aren't a queryable knowledge base. You need two more things: an
 
    ```
    Write knowledge/index.md as a categorical catalog of every wiki page.
-   Group by category (Domain knowledge, Role-specific, Synthesis, or
+   Group by category (overview, key entities or themes, synthesis, or
    whatever fits), one-line summary per page, with cross-references where
    wiki pages link to each other.
    ```
