@@ -673,7 +673,7 @@ A wiki you build once and never touch is a snapshot. A wiki you maintain is an a
    doesn't have a clean answer in the existing wiki]?
    ```
 
-   Once it produces a synthesis from the raw sources, paste this into Claude Code:
+   Once it produces a synthesis from the raw sources, **consider saving the answer as part of the wiki.** Promoting good answers into wiki pages means Claude Code doesn't have to re-derive them from raw sources next time you (or a hiring manager) asks the same question. If the answer is worth keeping, paste this into Claude Code:
 
    ```
    Promote that answer into a new wiki page (or expand an existing one).
