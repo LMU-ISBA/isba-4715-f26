@@ -1125,7 +1125,7 @@ Before you open the tutorial, skim the Session 04 slide deck (about five minutes
 
 The slides cover what dbt is, why data teams adopted it, how `{{ ref() }}` builds a DAG, what facts and dimensions are, the star schema shape, why grain matters, and the staging-then-marts two-layer pattern. Reading them first makes Step 20 onward a lot less abstract.
 
-**Today's pipeline.** In Session 03, the pipeline diagram showed `staging` and `mart` as dashed arrows. Today they become solid. dbt reads from `raw`, builds a staging layer (clean column names and types only), then builds a mart layer (the star schema). Both layers write to a new `analytics` schema.
+**Today's pipeline.** In Session 03, the pipeline diagram showed `staging` and `mart` as dashed arrows. Today they become solid. dbt reads from `raw`, builds a **staging** layer (the cleanup layer: clean column names and types only, no business logic) and then a **marts** layer (where business logic and the star schema live, the layer your dashboards query). Both layers write to a new `analytics` schema.
 
 ```mermaid
 flowchart LR
@@ -1137,8 +1137,8 @@ flowchart LR
             RAW["raw schema<br/>orders, order_items,<br/>products, customers<br/>(Session 03)"]
             subgraph ANALYTICS["analytics schema (today)"]
                 direction TB
-                STG["staging/<br/>stg_orders, stg_order_items,<br/>stg_products, stg_customers<br/>(views, rename and cast)"]
-                MART["marts/<br/>fct_order_items + fct_orders<br/>+ dim_customers, dim_products, dim_date<br/>(tables, star schema)"]
+                STG["staging/ — cleanup layer<br/>stg_orders, stg_order_items,<br/>stg_products, stg_customers<br/>(views · rename and cast only)"]
+                MART["marts/ — business-logic layer<br/>fct_order_items + fct_orders<br/>+ dim_customers, dim_products, dim_date<br/>(tables · star schema for dashboards)"]
                 STG ==>|"{{ ref }}"| MART
             end
             RAW ==>|"{{ source }}"| STG
@@ -1361,6 +1361,8 @@ When raw data changes, you fix it in one place. Business logic lives in marts (n
 ---
 
 ### Step 25: Build the Star Schema
+
+**Marts = where business logic and the star schema live.** Joins are allowed here. Aggregations are allowed here. Marts answer the questions your stakeholders actually ask. They materialize as tables (not views) because dashboards hit them over and over and rebuilding the same query on every page load gets expensive fast. If staging was the prep cook (wash and chop), marts are the chef (compose the dish).
 
 **Real dimensional modeling starts with a stakeholder conversation, not a diagram.** Before you write any SQL, you need to know who is asking for the data and what they want to find out. Jumping straight to "here's the fact table" skips the most important analytics engineering skill: turning a business question into a grain, a set of measures, and a set of dimensions.
 
