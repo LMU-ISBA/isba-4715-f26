@@ -1,6 +1,6 @@
 # Lesson 10: Streamlit Dashboard Tutorial
 
-In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–07. Take-home by May 6: your portfolio pipeline diagram (Step 08).
+In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–06. Take-home by May 6: your portfolio pipeline diagram (Step 07).
 
 **Before class:** confirm your MP02 Snowflake account is still active and you can query the basket_craft `analytics` schema. Throughout this tutorial you ask Claude Code to do things — it handles the venv, the installs, `git`, `streamlit run` — you describe what you want and the agent runs it.
 
@@ -14,28 +14,27 @@ In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard again
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 00 | [Create repo and start Claude Code](#step-00-create-repo-and-start-claude-code) | Repo, environment, sign up for Streamlit Community Cloud |
-| 01 | [Configure Snowflake secrets](#step-01-configure-snowflake-secrets) | Set up where the app reads your credentials |
-| 02 | [Connect to Snowflake](#step-02-connect-to-snowflake) | Prove the connection works |
-| 03 | [Descriptive: KPI scorecards](#step-03-descriptive-kpi-scorecards) | Headline metrics with month-over-month change |
-| 04 | [Descriptive: Revenue trend](#step-04-descriptive-revenue-trend) | Trend over time with a date filter |
-| 05 | [Diagnostic: Top products by revenue](#step-05-diagnostic-top-products-by-revenue) | Which products are driving the numbers |
-| 06 | [Diagnostic and Act: Bundle finder](#step-06-diagnostic-and-act-bundle-finder) | Pick a product, see what's bought with it |
-| 07 | [Deploy to Streamlit Community Cloud](#step-07-deploy-to-streamlit-community-cloud) | Public URL |
+| 00 | [Set up the project](#step-00-set-up-the-project) | Repo, `.env` with Snowflake credentials, sign up for Streamlit Community Cloud |
+| 01 | [Connect to Snowflake](#step-01-connect-to-snowflake) | Ask Claude Code to build the dashboard; verify the connection works |
+| 02 | [Descriptive: KPI scorecards](#step-02-descriptive-kpi-scorecards) | Headline metrics with month-over-month change |
+| 03 | [Descriptive: Revenue trend](#step-03-descriptive-revenue-trend) | Trend over time with a date filter |
+| 04 | [Diagnostic: Top products by revenue](#step-04-diagnostic-top-products-by-revenue) | Which products are driving the numbers |
+| 05 | [Diagnostic and Act: Bundle finder](#step-05-diagnostic-and-act-bundle-finder) | Pick a product, see what's bought with it |
+| 06 | [Deploy to Streamlit Community Cloud](#step-06-deploy-to-streamlit-community-cloud) | Public URL |
 
 ### Take-home (Apr 29 → May 6)
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 08 | [Whiteboard your pipeline](#step-08-whiteboard-your-pipeline) | M02 #9 portfolio pipeline diagram |
+| 07 | [Whiteboard your pipeline](#step-07-whiteboard-your-pipeline) | M02 #9 portfolio pipeline diagram |
 
 ---
 
 ## Part 01: Setup
 
-### Step 00: Create Repo and Start Claude Code
+### Step 00: Set Up the Project
 
-Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, start Claude Code.
+Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, drop your Snowflake credentials in `.env`, sign up for Streamlit Cloud. No Claude Code yet — that comes in Step 01.
 
 **What to do:**
 
@@ -57,89 +56,69 @@ Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, sta
    └── basket-craft-dashboard/   <-- LE10
    ```
 
-3. Open a terminal in Cursor and start Claude Code:
+3. **Sign up for Streamlit Community Cloud** at [streamlit.io/cloud](https://streamlit.io/cloud) using GitHub OAuth. Free tier is fine — unlimited public apps. We deploy here in Step 06.
+
+4. **Create a `.env` file** at the repo root with your Snowflake credentials. These are the same seven values from your MP02 `.env`. Open `~/isba-4715/basket-craft-pipeline/.env` for reference, or recreate from your MP02 setup:
+
+   ```
+   SNOWFLAKE_ACCOUNT=xy12345-abc6789
+   SNOWFLAKE_USER=your_user
+   SNOWFLAKE_PASSWORD=your_password
+   SNOWFLAKE_ROLE=LOADER
+   SNOWFLAKE_WAREHOUSE=BASKET_CRAFT_WH
+   SNOWFLAKE_DATABASE=BASKET_CRAFT
+   SNOWFLAKE_SCHEMA=ANALYTICS
+   ```
+
+   The Python `.gitignore` template you picked already excludes `.env`, so this file won't be committed. Verify with the file explorer in Cursor — `.env` should appear greyed out.
+
+**Account format gotcha.** Your account identifier must use hyphens (`xy12345-abc6789`), not underscores. Same form your MP02 loader needed.
+
+**Looking ahead.** Snowflake is rolling out mandatory MFA for password users in phases through August 2026. Password auth still works for the rest of the semester. After August, migrate to key-pair auth for any production use.
+
+**Checkpoint:** Repo cloned, `.env` populated with all seven Snowflake values, signed in to Streamlit Community Cloud.
+
+---
+
+### Step 01: Connect to Snowflake
+
+Now you start Claude Code and ask it to build the dashboard. The credentials in `.env` mean the agent has everything it needs to wire up the connection without asking.
+
+**What to do:**
+
+1. Open a terminal in Cursor and start Claude Code:
 
    ```bash
    claude
    ```
 
-4. Jump in. Paste this:
+2. Paste this:
 
    ```
-   Help me build a Streamlit dashboard against my Snowflake data warehouse.
+   Help me build a Streamlit dashboard against my Snowflake data warehouse. My credentials are in .env.
    ```
 
-   That's the entire kickoff. Claude Code will set up the venv, install Streamlit and the Snowflake packages, pin `requirements.txt`, and start asking what you want to build. While it works, **sign up for Streamlit Community Cloud** at [streamlit.io/cloud](https://streamlit.io/cloud) using GitHub OAuth. Free tier is fine — unlimited public apps.
+   That's the entire kickoff. Claude Code sets up the venv, installs Streamlit and the Snowflake packages, pins `requirements.txt`, writes the initial app file with a smoke-test query, and uses your `.env` values to connect.
 
-5. Lock down your secrets before any commit. Paste:
-
-   ```
-   Make sure my Snowflake credentials won't accidentally get committed to GitHub.
-   ```
-
-**Heads-up.** Streamlit's Snowflake helper does not yet support Python 3.12 or 3.13. If your machine is on a newer Python, Claude Code will install Python 3.11 with pyenv as part of the setup.
-
-**Checkpoint:** Repo cloned, environment ready (Claude Code confirms it can run Python and has the right packages installed), signed in to Streamlit Community Cloud.
-
----
-
-### Step 01: Configure Snowflake Secrets
-
-The same Snowflake credentials from MP02 now live in a Streamlit-flavored secrets file.
-
-**What to do:**
-
-1. Paste this:
-
-   ```
-   Help me set up where Streamlit reads my Snowflake credentials. Use the same seven values from MP02 (account, user, password, role, warehouse, database, schema). I'll fill in the values.
-   ```
-
-2. Fill in the values from your MP02 `.env`. The keys map 1-to-1 with what your MP02 Python loader used.
-
-3. Confirm nothing sensitive is staged:
-
-   ```
-   Check git status and stop me if my Snowflake credentials are anywhere in the output.
-   ```
-
-**Account format gotcha.** Your account identifier must use hyphens (`xy12345-abc6789`), not underscores. Same form your MP02 loader needed.
-
-**Looking ahead.** Snowflake is rolling out mandatory MFA for password users in phases through August 2026. Password auth from Streamlit Cloud still works for the rest of the semester. After August, migrate to key-pair auth for any production use.
-
-**Checkpoint:** Credentials file populated with all seven values, gitignored, not staged.
-
----
-
-### Step 02: Connect to Snowflake
-
-Prove the connection works before adding any charts.
-
-**What to do:**
-
-1. Paste this:
-
-   ```
-   Make a Streamlit app that connects to my Snowflake mart and shows a row count from my product dimension as a smoke test. Cache the query so reruns are fast.
-   ```
-
-2. Ask Claude Code to run it:
+3. When it's done, ask it to run the dashboard:
 
    ```
    Run the dashboard.
    ```
 
-   Claude Code will print a local URL in the terminal output. Click it to open the dashboard. You'll see one number — your product-dimension row count.
+   Claude Code will print a local URL in the terminal output. Click it to open the dashboard. You should see one number — a row count from one of your dimension tables (Claude Code picks; the smoke test just proves the connection works).
 
-3. Click **Rerun** in the Streamlit menu (top-right of the page). The first run took 2–5 seconds (Snowflake round-trip); the rerun is instant. That's caching.
+4. Click **Rerun** in the Streamlit menu (top-right of the page). The first run took 2–5 seconds (Snowflake round-trip); the rerun is instant. That's caching kicking in.
 
 **Why caching matters.** Every Streamlit interaction (slider, button, dropdown) re-runs your script top to bottom. Without caching, every interaction re-queries Snowflake. With caching, results are reused until inputs change. For a dashboard with four charts plus a filter, caching is the difference between snappy and sluggish.
 
-**Troubleshooting.** If the app errors instead of showing the row count:
-- Connection error → check the secrets file, account format must use hyphens
-- Object doesn't exist → wrong database/schema/role, or the product-dim table name Claude Code guessed doesn't match yours. Tell Claude Code your actual table name.
+**Heads-up on Python version.** `snowflake-snowpark-python` doesn't yet support Python 3.12 or 3.13. If your machine is on a newer Python, Claude Code will install Python 3.11 with pyenv as part of the setup.
 
-**Checkpoint:** the local Streamlit URL shows your row count; rerun is instant.
+**Troubleshooting.** If the app errors instead of showing a row count:
+- Connection error → check `.env`, account format must use hyphens, no quotes around values
+- Object doesn't exist → wrong database/schema/role in `.env`, or the table name Claude Code guessed doesn't match yours. Tell Claude Code your actual table name.
+
+**Checkpoint:** the local Streamlit URL shows a row count; rerun is instant.
 
 ---
 
@@ -155,42 +134,41 @@ Maya, the Head of Merchandising at Basket Craft, is your stakeholder. The dbt ma
 The dashboard answers her first two questions directly. KPIs and trend chart give her the headline; the product bar chart shows what's selling; the bundle finder surfaces co-purchase patterns she can use to design bundles.
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│ Basket Craft — Merchandising Dashboard                           │
-├──────────────┬───────────────────────────────────────────────────┤
-│              │ ┌─────────┬─────────┬─────────┬─────────┐         │
-│  Date range  │ │ Revenue │ Orders  │  AOV    │  Items  │ Step 03 │
-│              │ │ $2.1M ▲ │ 35K  ▲  │ $60  ▲  │ Sold ▲  │         │
-│  ┌────────┐  │ └─────────┴─────────┴─────────┴─────────┘         │
-│  │ start  │  │                                                   │
-│  │ end    │  │ Revenue Trend                              Step 04│
-│  └────────┘  │     ╱╲    ╱╲╱╲                                    │
-│              │    ╱  ╲  ╱    ╲      ╱╲                           │
-│              │   ╱    ╲╱      ╲    ╱  ╲                          │
-│              │  ╱                ╲╱    ╲                         │
-│              │  Jan      Apr      Jul      Oct                   │
-│              │                                                   │
-│              │ Top Products by Revenue                    Step 05│
-│              │ █████████  Gourmet Cheese Basket                  │
-│              │ ███████    Chocolate Lovers Box                   │
-│              │ █████      Spa Day Hamper                         │
-│              │ ████       Wine & Cheese Trio                     │
-│              │ ███        Fruit Tower                            │
-│              │                                                   │
-│              │ Bundle Finder: Bought With…               Step 06 │
-│              │ Pick a product: ▾  Gourmet Cheese Basket          │
-│              │ ┌─────────────────────────┬──────────────┐        │
-│              │ │ Also bought              │ # of orders │        │
-│              │ │ Wine & Cheese Trio       │ 412         │ ⬇ CSV  │
-│              │ │ Crackers Variety Pack    │ 287         │        │
-│              │ │ Olive Tasting Set        │ 165         │        │
-│              │ └─────────────────────────┴──────────────┘        │
-└──────────────┴───────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│ Basket Craft — Merchandising Dashboard                               │
+├──────────────┬───────────────────────────────────────────────────────┤
+│              │ ┌──────────┬──────────┬──────────┬──────────┐         │
+│  Date range  │ │ Revenue  │  Orders  │   AOV    │  Items   │ Step 02 │
+│              │ │ $129K ▼2%│ 2,064 ▼2%│ $62  ▼1% │ 2,701 ▼5%│         │
+│  ┌────────┐  │ └──────────┴──────────┴──────────┴──────────┘         │
+│  │ start  │  │                                                       │
+│  │ end    │  │ Revenue Trend                                  Step 03│
+│  └────────┘  │     ╱╲    ╱╲╱╲                                        │
+│              │    ╱  ╲  ╱    ╲      ╱╲                               │
+│              │   ╱    ╲╱      ╲    ╱  ╲                              │
+│              │  ╱                ╲╱    ╲                             │
+│              │  2024              2025          2026                 │
+│              │                                                       │
+│              │ Top Products by Revenue                        Step 04│
+│              │ ████████████████  The Original Gift Basket            │
+│              │ █████             The Valentine's Gift Basket         │
+│              │ ███               The Birthday Gift Basket            │
+│              │ ██                The Holiday Gift Basket             │
+│              │                                                       │
+│              │ Bundle Finder: Bought With…                    Step 05│
+│              │ Pick a product: ▾  The Original Gift Basket           │
+│              │ ┌────────────────────────────┬──────────────┐         │
+│              │ │ Also bought                │ # of orders  │         │
+│              │ │ The Holiday Gift Basket    │ 3,142        │ ⬇ CSV   │
+│              │ │ The Birthday Gift Basket   │ 2,036        │         │
+│              │ │ The Valentine's Gift Basket│ 944          │         │
+│              │ └────────────────────────────┴──────────────┘         │
+└──────────────┴───────────────────────────────────────────────────────┘
 ```
 
 **Reading top to bottom:** what's happening overall (KPIs) → how revenue moved over time (trend) → which products are driving it (top products) → which products go together (bundle finder). Descriptive at top, diagnostic in the middle, actionable at the bottom. The bundle finder is downloadable CSV; that's what Maya hands to a buyer to design promotions.
 
-### Step 03: Descriptive — KPI Scorecards
+### Step 02: Descriptive — KPI Scorecards
 
 KPIs answer "where are we now?" in thirty seconds — the headline numbers a Head of Merchandising scans before drilling into the rest.
 
@@ -212,7 +190,7 @@ KPIs answer "where are we now?" in thirty seconds — the headline numbers a Hea
 
 ---
 
-### Step 04: Descriptive — Revenue Trend
+### Step 03: Descriptive — Revenue Trend
 
 The KPIs answered "where are we now?" The trend chart answers "how did we get here?"
 
@@ -234,29 +212,29 @@ The KPIs answered "where are we now?" The trend chart answers "how did we get he
 
 ---
 
-### Step 05: Diagnostic — Top Products by Revenue
+### Step 04: Diagnostic — Top Products by Revenue
 
-Steps 03 and 04 showed *what's happening*. Step 05 starts answering *which products are driving it* — Maya's first MP02 question.
+Steps 02 and 03 showed *what's happening*. Step 04 starts answering *which products are driving it* — Maya's first MP02 question.
 
 **What to do:**
 
 1. Paste this:
 
    ```
-   Add a bar chart to my dashboard showing the top 10 products by revenue. Have it respect the date filter from the sidebar.
+   Add a bar chart to my dashboard showing the top products by revenue. Have it respect the date filter from the sidebar.
    ```
 
-2. Ask Claude Code to rerun. You should see a bar chart with ten product names along one axis and revenue along the other, sorted from highest to lowest.
+2. Ask Claude Code to rerun. You should see a bar chart with product names along one axis and revenue along the other, sorted from highest to lowest.
 
-3. Change the sidebar date range to a single quarter or year. The chart re-renders to show the top 10 *for that window*. The set of products usually shifts — that's the diagnostic story. A revenue dip in Step 04 might come from one product falling off, or from broader softening across the catalog. The bar chart shows which.
+3. Change the sidebar date range to a single quarter or year. The chart re-renders for that window. The relative ranking can shift meaningfully — that's the diagnostic story. A revenue dip in Step 03 might come from one product falling off; the bar chart shows which.
 
-**Why top 10 and not all products?** If your catalog has more than a couple dozen products, all-products bars become unreadable. Top 10 is the standard starting cut for a merchandising review. If Maya wants the long tail, the dashboard would need a "show all" toggle — flag that as a future iteration.
+**About "top products."** Basket Craft's catalog has only four products, so "top products" effectively means all four sorted. If you applied this dashboard to a portfolio mart with hundreds of SKUs, you'd want to limit to the top 10 or 20 to keep the chart readable. Tell Claude Code the cut-off if your catalog is large.
 
 **Checkpoint:** Bar chart of top 10 products by revenue renders below the line chart, sorted descending, the date filter changes the bars.
 
 ---
 
-### Step 06: Diagnostic and Act — Bundle Finder
+### Step 05: Diagnostic and Act — Bundle Finder
 
 Maya's second MP02 question: "Which products get bought together most often? Should we create bundles?" The bundle finder answers it directly. Pick a product, see what shows up in the same orders.
 
@@ -282,7 +260,7 @@ Maya's second MP02 question: "Which products get bought together most often? Sho
 
 ## Part 03: Ship It
 
-### Step 07: Deploy to Streamlit Community Cloud
+### Step 06: Deploy to Streamlit Community Cloud
 
 The dashboard runs locally. Now you push it to a public URL.
 
@@ -291,12 +269,30 @@ The dashboard runs locally. Now you push it to a public URL.
 1. Lock in your package versions and push to GitHub. Paste this:
 
    ```
-   Lock in my package versions, then commit and push my dashboard to GitHub. Stop me if my Snowflake credentials are about to be committed.
+   Lock in my package versions, then commit and push my dashboard to GitHub. Stop me if .env is about to be committed.
    ```
 
 2. Open [streamlit.io/cloud](https://streamlit.io/cloud) → **New app** → select your `basket-craft-dashboard` repo, branch `main`. Streamlit Cloud will detect the main app file automatically.
 
-3. Click **Advanced settings** and paste the entire contents of your local Streamlit secrets file into the **Secrets** box (including the `[connections.snowflake]` header). The local file stays gitignored; the cloud-side text box stores the same values in Streamlit's encrypted backend.
+3. Click **Advanced settings**. The Secrets box wants TOML format — same seven values from your `.env`, but with quotes and an `=` with spaces. Paste:
+
+   ```
+   SNOWFLAKE_ACCOUNT = "xy12345-abc6789"
+   SNOWFLAKE_USER = "your_user"
+   SNOWFLAKE_PASSWORD = "your_password"
+   SNOWFLAKE_ROLE = "LOADER"
+   SNOWFLAKE_WAREHOUSE = "BASKET_CRAFT_WH"
+   SNOWFLAKE_DATABASE = "BASKET_CRAFT"
+   SNOWFLAKE_SCHEMA = "ANALYTICS"
+   ```
+
+   Or ask Claude Code to convert your `.env` for you:
+
+   ```
+   Convert my .env values to the TOML format Streamlit Cloud's Secrets box expects.
+   ```
+
+   Your local `.env` stays gitignored; the Cloud-side text box stores the same values in Streamlit's encrypted backend.
 
 4. Click **Deploy**. The first build takes 60–90 seconds. Watch the log; failures show up there.
 
@@ -311,7 +307,6 @@ The dashboard runs locally. Now you push it to a public URL.
 | Symptom | Fix |
 |---|---|
 | `ModuleNotFoundError` on build | Missing or mispinned package in `requirements.txt` |
-| `Could not find connection` | `[connections.snowflake]` header missing in Cloud Secrets |
 | Snowflake auth error | Account format (hyphens, not underscores), wrong password, or wrong role |
 | Object doesn't exist | Wrong database, schema, or role in Cloud Secrets |
 | Build hangs > 3 min on first deploy | Normal; click "Manage app" to watch the live log |
@@ -324,7 +319,7 @@ The dashboard runs locally. Now you push it to a public URL.
 
 > Switch to your portfolio repo. This Step is the M02 #9 pipeline diagram, which lives in your portfolio README.
 
-### Step 08: Whiteboard Your Pipeline
+### Step 07: Whiteboard Your Pipeline
 
 The diagram you draw here is the M02 #9 pipeline diagram for your portfolio project. The "whiteboard" framing means: draw it as if from memory, in front of an interviewer. Your final interview on May 11 includes a whiteboard walkthrough — this is your practice.
 
@@ -358,17 +353,17 @@ The diagram you draw here is the M02 #9 pipeline diagram for your portfolio proj
 
 Submit your `basket-craft-dashboard` repo URL and your Streamlit Cloud URL on Brightspace.
 
-### `basket-craft-dashboard` repo (in-class, Steps 00–07)
+### `basket-craft-dashboard` repo (in-class, Steps 00–06)
 
 Should contain:
 - The Streamlit app with all four dashboard sections
 - `requirements.txt` with pinned package versions
-- `.gitignore` excluding the secrets file
+- `.gitignore` excluding `.env`
 - `README.md` with the live Streamlit Cloud URL pinned at the top
 
 Must NOT contain:
-- The Streamlit secrets file — must be gitignored, no Snowflake credentials in git history. If you accidentally committed it, rotate the Snowflake password immediately and scrub history.
+- `.env` — must be gitignored, no Snowflake credentials in git history. If you accidentally committed it, rotate the Snowflake password immediately and scrub history.
 
-### Portfolio project repo (Step 08)
+### Portfolio project repo (Step 07)
 
-Step 08's pipeline diagram lives in your portfolio repo `README.md`. It satisfies the M02 #9 deliverable (due Mon May 4), so you're already submitting your portfolio repo URL for M02 — no separate Brightspace submission for Step 08.
+Step 07's pipeline diagram lives in your portfolio repo `README.md`. It satisfies the M02 #9 deliverable (due Mon May 4), so you're already submitting your portfolio repo URL for M02 — no separate Brightspace submission for Step 07.
