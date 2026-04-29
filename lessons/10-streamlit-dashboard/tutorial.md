@@ -2,11 +2,11 @@
 
 In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–06. Goal: leave class with a public Streamlit Community Cloud URL.
 
-**Before class:** confirm your MP02 Snowflake account is still active and you can query the basket_craft `analytics` schema. Throughout this tutorial you ask Claude Code to do things — it handles the venv, the installs, `git`, `streamlit run` — you describe what you want and the agent runs it.
+**Before class:** confirm your MP02 Snowflake account is still active and you can query the basket_craft `analytics` schema. Throughout this tutorial you ask Claude Code to do things. It handles the venv, the installs, `git`, `streamlit run`. You describe what you want; the agent runs it.
 
 ## What is Streamlit?
 
-[Streamlit](https://streamlit.io) is an open-source Python framework that turns a Python script into an interactive web app — no JavaScript, no separate front end, no templates. You write Python; Streamlit handles the HTML, widgets, and rendering. For data dashboards on top of a warehouse, it's the fastest path from a SQL query to something a stakeholder can click. Today you'll end up with a public URL anyone can visit, hosted on Streamlit Community Cloud (free tier), backed by your basket_craft mart in Snowflake.
+[Streamlit](https://streamlit.io) is an open-source Python framework that turns a Python script into an interactive web app. No JavaScript, no separate front end, no templates. You write Python; Streamlit handles the HTML, widgets, and rendering. For data dashboards on top of a warehouse, it's the fastest path from a SQL query to something a stakeholder can click. Today you'll end up with a public URL anyone can visit, hosted on Streamlit Community Cloud (free tier), backed by your basket_craft mart in Snowflake.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard again
 
 ### Step 00: Set Up the Project
 
-Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, drop your Snowflake credentials in `.env`, sign up for Streamlit Cloud. No Claude Code yet — that comes in Step 01.
+Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, drop your Snowflake credentials in `.env`, sign up for Streamlit Cloud. No Claude Code yet. That comes in Step 01.
 
 **What to do:**
 
@@ -48,11 +48,11 @@ Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, dro
    └── basket-craft-dashboard/   <-- LE10
    ```
 
-3. **Sign up for Streamlit Community Cloud** at [streamlit.io/cloud](https://streamlit.io/cloud) using GitHub OAuth. Free tier is fine — unlimited public apps. We deploy here in Step 06.
+3. **Sign up for Streamlit Community Cloud** at [streamlit.io/cloud](https://streamlit.io/cloud) using GitHub OAuth. Free tier is fine; unlimited public apps. We deploy here in Step 06.
 
 4. Copy and paste your Snowflake credentials from the `.env` file in your `basket-craft-pipeline` repo (MP02). Save them as `.env` at the root of this repo.
 
-   The Python `.gitignore` template you picked already excludes `.env`, so this file won't be committed. Verify with the file explorer in Cursor — `.env` should appear greyed out.
+   The Python `.gitignore` template you picked already excludes `.env`, so this file won't be committed. Verify with the file explorer in Cursor. `.env` should appear greyed out.
 
 **Account format gotcha.** Your account identifier must use hyphens (`xy12345-abc6789`), not underscores. Same form your MP02 loader needed.
 
@@ -64,7 +64,7 @@ Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, dro
 
 ### Step 01: Connect to Snowflake
 
-Two narrow prompts: one that sets up an empty dashboard, one that adds the Snowflake connection. Splitting it like this keeps each prompt focused enough that the agent doesn't try to brainstorm a full design — there's nothing open-ended to brainstorm about.
+Two narrow prompts: one to set up an empty dashboard, one to add the Snowflake connection. Each prompt is focused enough that the agent doesn't have a full design to brainstorm about.
 
 **What to do:**
 
@@ -77,18 +77,21 @@ Two narrow prompts: one that sets up an empty dashboard, one that adds the Snowf
 2. Set up an empty dashboard. Paste:
 
    ```
-   Set up an empty Streamlit dashboard. Get my Python environment ready, create a minimal app file with just a title, and run it.
+   Set up an empty Streamlit dashboard. Get my Python environment
+   ready, create a minimal app file with just a title, and run it.
    ```
 
-   Claude Code installs packages, creates the app file, and prints a local URL. Click it — you should see a mostly empty Streamlit page with just a title. That's the proof that setup works.
+   Claude Code installs packages, creates the app file, and prints a local URL. Click it. You should see a mostly empty Streamlit page with just a title. That's the proof that setup works.
 
 3. Add the Snowflake connection. Paste:
 
    ```
-   Connect this dashboard to my Snowflake data warehouse using the credentials in .env. Add a smoke-test query that shows a row count from one of my dimension tables. Cache the query.
+   Connect this dashboard to my Snowflake data warehouse using the
+   credentials in .env. Add a smoke-test query that shows a row count
+   from one of my dimension tables. Cache the query.
    ```
 
-   Claude Code reads `.env`, wires up the connection, and adds a cached smoke-test query. Rerun the dashboard — you should see a single number, a row count from one of your dimensions.
+   Claude Code reads `.env`, wires up the connection, and adds a cached smoke-test query. Rerun the dashboard. You should see a single number, a row count from one of your dimensions.
 
 4. Click **Rerun** in the Streamlit menu (top-right of the page). The first run took 2–5 seconds (Snowflake round-trip); the rerun is instant. That's caching kicking in.
 
@@ -160,21 +163,23 @@ The dashboard answers her first two questions directly. KPIs and trend chart giv
 
 ### Step 02: Descriptive — KPI Scorecards
 
-KPIs answer "where are we now?" in thirty seconds — the headline numbers a Head of Merchandising scans before drilling into the rest.
+KPIs answer "where are we now?" in thirty seconds. They're the headline numbers a Head of Merchandising scans before drilling into the rest.
 
 **What to do:**
 
 1. Paste this:
 
    ```
-   Add headline metrics to my dashboard: total revenue, total orders, average order value, and total items sold. Each should show how it changed versus the prior month.
+   Add headline metrics to my dashboard: total revenue, total orders,
+   average order value, and total items sold. Each should show how
+   it changed versus the prior month.
    ```
 
 2. Ask Claude Code to rerun the dashboard. You should see four metric cards across the top, each with a number and a green or red delta percentage.
 
 3. **If you hit errors,** the most common cause is column-name mismatch. MP02 had each student name their own mart. When Claude Code's first attempt errors, paste the error back and tell it the actual column or table name. Or have it run `dbt docs serve` against your MP02 project to see your canonical names.
 
-**Why these four?** Revenue, orders, AOV, and items sold are the volume-and-value pair Maya scans first. Items Sold is line-item level (`fct_order_items`), distinct from order count — a customer who orders once with five items contributes one order but five items. Both numbers matter to a merchandising lead.
+**Why these four?** Revenue, orders, AOV, and items sold are the volume-and-value pair Maya scans first. Items Sold is line-item level (`fct_order_items`), distinct from order count. A customer who orders once with five items contributes one order but five items. Both numbers matter to a merchandising lead.
 
 **Checkpoint:** Four metric cards visible with current values and MoM deltas.
 
@@ -189,14 +194,15 @@ The KPIs answered "where are we now?" The trend chart answers "how did we get he
 1. Paste this:
 
    ```
-   Add a revenue trend over time to my dashboard, and let me filter the chart by date range.
+   Add a revenue trend over time to my dashboard, and let me filter
+   the chart by date range.
    ```
 
 2. Ask Claude Code to rerun. You should see a date filter in the sidebar and a line chart that responds when you change the dates.
 
-3. Try it. Drag the start date forward by six months — the line chart updates. Drag it back. The KPIs above don't change; that's intentional.
+3. Try it. Drag the start date forward by six months. The line chart updates. Drag it back. The KPIs above don't change; that's intentional.
 
-**Why the date filter doesn't affect the KPIs.** KPIs answer "current state" (always the latest two months). The trend chart is for *exploring* time windows. Stable KPIs at the top, explorable charts below them, is a real production pattern.
+**Why the date filter doesn't affect the KPIs.** KPIs answer "current state" (always the latest two months). The trend chart is for *exploring* time windows. Stable KPIs at the top with explorable charts below them is a real production pattern.
 
 **Checkpoint:** Sidebar date filter visible, line chart responds, KPIs unchanged.
 
@@ -204,23 +210,24 @@ The KPIs answered "where are we now?" The trend chart answers "how did we get he
 
 ### Step 04: Diagnostic — Top Products by Revenue
 
-Steps 02 and 03 showed *what's happening*. Step 04 starts answering *which products are driving it* — Maya's first MP02 question.
+Steps 02 and 03 showed *what's happening*. Step 04 starts answering *which products are driving it*, Maya's first MP02 question.
 
 **What to do:**
 
 1. Paste this:
 
    ```
-   Add a bar chart to my dashboard showing the top products by revenue. Have it respect the date filter from the sidebar.
+   Add a bar chart to my dashboard showing the top products by
+   revenue. Have it respect the date filter from the sidebar.
    ```
 
 2. Ask Claude Code to rerun. You should see a bar chart with product names along one axis and revenue along the other, sorted from highest to lowest.
 
-3. Change the sidebar date range to a single quarter or year. The chart re-renders for that window. The relative ranking can shift meaningfully — that's the diagnostic story. A revenue dip in Step 03 might come from one product falling off; the bar chart shows which.
+3. Change the sidebar date range to a single quarter or year. The chart re-renders for that window. The relative ranking can shift meaningfully. That's the diagnostic story: a revenue dip in Step 03 might come from one product falling off, and the bar chart shows which.
 
 **About "top products."** Basket Craft's catalog has only four products, so "top products" effectively means all four sorted. If you applied this dashboard to a portfolio mart with hundreds of SKUs, you'd want to limit to the top 10 or 20 to keep the chart readable. Tell Claude Code the cut-off if your catalog is large.
 
-**Checkpoint:** Bar chart of top 10 products by revenue renders below the line chart, sorted descending, the date filter changes the bars.
+**Checkpoint:** Bar chart of top products by revenue renders below the line chart, sorted descending, and the date filter changes the bars.
 
 ---
 
@@ -233,16 +240,19 @@ Maya's second MP02 question: "Which products get bought together most often? Sho
 1. Paste this:
 
    ```
-   Add a bundle finder to my dashboard. Let me pick any product, and show me the products that get bought together with it most often, ranked by how many orders contained both. Make the result downloadable.
+   Add a bundle finder to my dashboard. Let me pick any product, and
+   show me the products that get bought together with it most often,
+   ranked by how many orders contained both. Make the result
+   downloadable.
    ```
 
 2. Ask Claude Code to rerun. You should see a product dropdown, a table showing other products that appear in the same orders, and a way to download the list.
 
-3. Try the act flow. Pick a product from the dropdown — the table re-renders showing what's bought with it. Hover over the table, click the download icon (top-right), and you get a CSV. That CSV is what Maya hands to a buyer to design a bundle promotion.
+3. Try the act flow. Pick a product from the dropdown. The table re-renders showing what's bought with it. Hover over the table, click the download icon (top-right), and you get a CSV. That CSV is what Maya hands to a buyer to design a bundle promotion.
 
 **The query underneath.** A product co-purchase view is a self-join: same fact table appears twice in the FROM, once for "the product I picked" and once for "everything else in the same order." Claude Code writes the self-join; you describe the question. If it errors on column names, paste the error back and tell it the right ones.
 
-**Why a table instead of a chart?** Bundles are about specific product pairings, not a rank-ordered visual. Maya wants to see the names — "Gourmet Cheese Basket sells with Wine & Cheese Trio 412 times" is the actionable insight. A bar chart of co-purchase counts hides the names.
+**Why a table instead of a chart?** Bundles are about specific product pairings, not a rank-ordered visual. Maya wants to see the names. "The Original Gift Basket sells with The Holiday Gift Basket 3,142 times" is the actionable insight. A bar chart of co-purchase counts hides the names.
 
 **Checkpoint:** Product dropdown changes the table, ranked by co-occurrence count, CSV download works.
 
@@ -259,12 +269,13 @@ The dashboard runs locally. Now you push it to a public URL.
 1. Lock in your package versions and push to GitHub. Paste this:
 
    ```
-   Lock in my package versions, then commit and push my dashboard to GitHub. Stop me if .env is about to be committed.
+   Lock in my package versions, then commit and push my dashboard
+   to GitHub. Stop me if .env is about to be committed.
    ```
 
 2. Open [streamlit.io/cloud](https://streamlit.io/cloud) → **New app** → select your `basket-craft-dashboard` repo, branch `main`. Streamlit Cloud will detect the main app file automatically.
 
-3. Click **Advanced settings**. The Secrets box wants TOML format — same seven values from your `.env`, but with quotes and an `=` with spaces. Paste:
+3. Click **Advanced settings**. The Secrets box wants TOML format. Same seven values from your `.env`, with quotes and `=` spaces. Paste:
 
    ```
    SNOWFLAKE_ACCOUNT = "xy12345-abc6789"
@@ -279,7 +290,8 @@ The dashboard runs locally. Now you push it to a public URL.
    Or ask Claude Code to convert your `.env` for you:
 
    ```
-   Convert my .env values to the TOML format Streamlit Cloud's Secrets box expects.
+   Convert my .env values to the TOML format Streamlit Cloud's
+   Secrets box expects.
    ```
 
    Your local `.env` stays gitignored; the Cloud-side text box stores the same values in Streamlit's encrypted backend.
@@ -289,7 +301,8 @@ The dashboard runs locally. Now you push it to a public URL.
 5. Once live, test every interactive element: date filter, product dropdown, CSV download. Then ask Claude Code to pin the URL to your README:
 
    ```
-   Add my live Streamlit Cloud URL to the top of README.md, then commit and push.
+   Add my live Streamlit Cloud URL to the top of README.md, then
+   commit and push.
    ```
 
 **Common failures:**
