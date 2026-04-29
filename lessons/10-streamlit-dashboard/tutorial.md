@@ -64,7 +64,7 @@ Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, dro
 
 ### Step 01: Connect to Snowflake
 
-Now you start Claude Code and ask it to build the dashboard. The credentials in `.env` mean the agent has everything it needs to wire up the connection without asking.
+Two narrow prompts: one that sets up an empty dashboard, one that adds the Snowflake connection. Splitting it like this keeps each prompt focused enough that the agent doesn't try to brainstorm a full design — there's nothing open-ended to brainstorm about.
 
 **What to do:**
 
@@ -74,23 +74,31 @@ Now you start Claude Code and ask it to build the dashboard. The credentials in 
    claude
    ```
 
-2. Paste this:
+2. Set up an empty dashboard. Paste:
 
    ```
-   Help me build a Streamlit dashboard against my Snowflake data warehouse. My credentials are in .env.
+   Set up an empty Streamlit dashboard. Get my Python environment ready (Python 3.11 venv, Streamlit installed, requirements.txt pinned), create a minimal app file with just a title, and run it.
    ```
 
-   That's the entire kickoff. Claude Code sets up the venv, installs Streamlit and the Snowflake packages, pins `requirements.txt`, writes the initial app file with a smoke-test query, and uses your `.env` values to connect.
+   Claude Code installs packages, creates the app file, and prints a local URL. Click it — you should see a mostly empty Streamlit page with just a title. That's the proof that setup works.
 
-3. When it's done, ask it to run the dashboard:
+3. Add the Snowflake connection. Paste:
 
    ```
-   Run the dashboard.
+   Connect this dashboard to my Snowflake data warehouse using the credentials in .env. Add a smoke-test query that shows a row count from one of my dimension tables. Cache the query.
    ```
 
-   Claude Code will print a local URL in the terminal output. Click it to open the dashboard. You should see one number — a row count from one of your dimension tables (Claude Code picks; the smoke test just proves the connection works).
+   Claude Code reads `.env`, wires up the connection, and adds a cached smoke-test query. Rerun the dashboard — you should see a single number, a row count from one of your dimensions.
 
 4. Click **Rerun** in the Streamlit menu (top-right of the page). The first run took 2–5 seconds (Snowflake round-trip); the rerun is instant. That's caching kicking in.
+
+**If the brainstorming skill kicks in anyway.** Superpowers' brainstorming skill triggers on open-ended prompts ("help me design...", "what should we build..."). The two prompts above are narrow enough that it usually stays out of the way. If it kicks in regardless and starts asking design questions, you have three options, in order of preference:
+
+- **Press Esc** to interrupt Claude Code mid-response, then paste a more specific prompt.
+- **Tell it to skip:** *"Skip the brainstorm. Just do exactly what I asked."*
+- **Cancel and re-prompt:** Ctrl+C in the terminal cancels the current request; you can paste a tighter version.
+
+Reserve brainstorming for moments you genuinely need to clarify (a missing column name, an unfamiliar dimension), not as the default for every prompt. We'll use it deliberately later in the semester for design-and-build work where the design isn't already specified.
 
 **Why caching matters.** Every Streamlit interaction (slider, button, dropdown) re-runs your script top to bottom. Without caching, every interaction re-queries Snowflake. With caching, results are reused until inputs change. For a dashboard with four charts plus a filter, caching is the difference between snappy and sluggish.
 
