@@ -271,9 +271,11 @@ The dashboard runs locally. Now you push it to a public URL.
    commit and push to GitHub
    ```
 
-2. Open [streamlit.io/cloud](https://streamlit.io/cloud) → **New app** → select your `basket-craft-dashboard` repo, branch `main`. Streamlit Cloud will detect the main app file automatically.
+2. In your locally running Streamlit app, click the **Deploy** button in the top-right corner of the page.
 
-3. Click **Advanced settings**. The Secrets box wants [TOML format](https://toml.io). Same seven values from your `.env`, with quotes and `=` spaces. Paste:
+3. A modal appears titled "Deploy this app using…". Click **Deploy now** under the **Streamlit Community Cloud** card (the leftmost option, "For community, always free"). Streamlit detects your local app's repo and pre-fills the form.
+
+4. Click **Advanced settings**. The Secrets box wants [TOML format](https://toml.io). Same seven values from your `.env`, with quotes and `=` spaces. Paste:
 
    ```
    SNOWFLAKE_ACCOUNT = "xy12345-abc6789"
@@ -294,9 +296,9 @@ The dashboard runs locally. Now you push it to a public URL.
 
    Your local `.env` stays gitignored; the Cloud-side text box stores the same values in Streamlit's encrypted backend.
 
-4. Click **Deploy**. The first build takes 60–90 seconds. Watch the log; failures show up there.
+5. Click **Deploy**. The first build takes 60–90 seconds. Watch the log; failures show up there.
 
-5. Once live, test every interactive element: date filter, product dropdown, CSV download. Then ask Claude Code to pin the URL to your README:
+6. Once live, test every interactive element: date filter, product dropdown, CSV download. Then ask Claude Code to pin the URL to your README:
 
    ```
    Add my live Streamlit Cloud URL to the top of README.md, then
