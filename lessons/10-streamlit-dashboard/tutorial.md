@@ -265,11 +265,10 @@ The dashboard runs locally. Now you push it to a public URL.
 
 **What to do:**
 
-1. Lock in your package versions and push to GitHub. Paste this:
+1. Push to GitHub. Paste this:
 
    ```
-   Lock in my package versions, then commit and push my dashboard
-   to GitHub. Stop me if .env is about to be committed.
+   commit and push to GitHub
    ```
 
 2. Open [streamlit.io/cloud](https://streamlit.io/cloud) → **New app** → select your `basket-craft-dashboard` repo, branch `main`. Streamlit Cloud will detect the main app file automatically.
