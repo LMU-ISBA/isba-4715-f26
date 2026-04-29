@@ -77,7 +77,7 @@ Two narrow prompts: one that sets up an empty dashboard, one that adds the Snowf
 2. Set up an empty dashboard. Paste:
 
    ```
-   Set up an empty Streamlit dashboard. Get my Python environment ready (Python 3.11 venv, Streamlit installed, requirements.txt pinned), create a minimal app file with just a title, and run it.
+   Set up an empty Streamlit dashboard. Get my Python environment ready, create a minimal app file with just a title, and run it.
    ```
 
    Claude Code installs packages, creates the app file, and prints a local URL. Click it — you should see a mostly empty Streamlit page with just a title. That's the proof that setup works.
