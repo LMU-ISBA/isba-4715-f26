@@ -161,6 +161,8 @@ The dashboard answers her first two questions directly. KPIs and trend chart giv
 
 **Reading top to bottom:** what's happening overall (KPIs) → how revenue moved over time (trend) → which products are driving it (top products) → which products go together (bundle finder). Descriptive at top, diagnostic in the middle, actionable at the bottom. The bundle finder is downloadable CSV; that's what Maya hands to a buyer to design promotions.
 
+**You own the numbers.** Claude Code generates SQL that looks right but isn't always right. Wrong joins, mis-applied filters, off-by-one date boundaries — every one of these produces *a* number, just not the right one. Before trusting any chart, sanity-check the result with a quick SQL query directly in Snowsight: pull the same total a different way and confirm the dashboard agrees. If the numbers disagree, paste the discrepancy back to Claude Code and have it explain. The dashboard is your work, not the agent's. A bad number Maya makes a decision on is a bad merchandising call with your name on it.
+
 ### Step 02: Descriptive — KPI Scorecards
 
 KPIs answer "where are we now?" in thirty seconds. They're the headline numbers a Head of Merchandising scans before drilling into the rest.
