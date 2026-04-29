@@ -242,8 +242,7 @@ Maya's second MP02 question: "Which products get bought together most often? Sho
    ```
    Add a bundle finder to my dashboard. Let me pick any product, and
    show me the products that get bought together with it most often,
-   ranked by how many orders contained both. Make the result
-   downloadable.
+   ranked by how many orders contained both.
    ```
 
 2. Ask Claude Code to rerun. You should see a product dropdown, a table showing other products that appear in the same orders, and a way to download the list.
