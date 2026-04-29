@@ -298,11 +298,11 @@ The dashboard runs locally. Now you push it to a public URL.
 
 5. Click **Deploy**. The first build takes 60–90 seconds. Watch the log; failures show up there.
 
-6. Once live, test every interactive element: date filter, product dropdown, CSV download. Then ask Claude Code to pin the URL to your README:
+6. Once live, test every interactive element: date filter, product dropdown, CSV download. Then ask Claude Code to write a README that pins the URL at the top:
 
    ```
-   Add my live Streamlit Cloud URL to the top of README.md, then
-   commit and push.
+   Create a README.md with my live Streamlit Cloud URL at the top.
+   Commit and push.
    ```
 
 **Common failures:**
