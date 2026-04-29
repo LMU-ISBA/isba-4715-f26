@@ -218,7 +218,7 @@ Steps 02 and 03 showed *what's happening*. Step 04 starts answering *which produ
 
    ```
    Add a bar chart to my dashboard showing the top products by
-   revenue. Have it respect the date filter from the sidebar.
+   revenue. Have it respect the date filter.
    ```
 
 2. Ask Claude Code to rerun. You should see a bar chart with product names along one axis and revenue along the other, sorted from highest to lowest.
