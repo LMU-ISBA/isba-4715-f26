@@ -98,7 +98,7 @@ Two narrow prompts: one that sets up an empty dashboard, one that adds the Snowf
 - **Tell it to skip:** *"Skip the brainstorm. Just do exactly what I asked."*
 - **Cancel and re-prompt:** Ctrl+C in the terminal cancels the current request; you can paste a tighter version.
 
-Reserve brainstorming for moments you genuinely need to clarify (a missing column name, an unfamiliar dimension), not as the default for every prompt. We'll use it deliberately later in the semester for design-and-build work where the design isn't already specified.
+Reserve brainstorming for moments you genuinely need to clarify (a missing column name, an unfamiliar dimension), not as the default for every prompt.
 
 **Why caching matters.** Every Streamlit interaction (slider, button, dropdown) re-runs your script top to bottom. Without caching, every interaction re-queries Snowflake. With caching, results are reused until inputs change. For a dashboard with four charts plus a filter, caching is the difference between snappy and sluggish.
 
