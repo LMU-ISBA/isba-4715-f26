@@ -1,6 +1,6 @@
 # Lesson 10: Streamlit Dashboard Tutorial
 
-In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–06. Take-home by May 6: your portfolio pipeline diagram (Step 07).
+In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–06. Goal: leave class with a public Streamlit Community Cloud URL.
 
 **Before class:** confirm your MP02 Snowflake account is still active and you can query the basket_craft `analytics` schema. Throughout this tutorial you ask Claude Code to do things — it handles the venv, the installs, `git`, `streamlit run` — you describe what you want and the agent runs it.
 
@@ -9,8 +9,6 @@ In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard again
 [Streamlit](https://streamlit.io) is an open-source Python framework that turns a Python script into an interactive web app — no JavaScript, no separate front end, no templates. You write Python; Streamlit handles the HTML, widgets, and rendering. For data dashboards on top of a warehouse, it's the fastest path from a SQL query to something a stakeholder can click. Today you'll end up with a public URL anyone can visit, hosted on Streamlit Community Cloud (free tier), backed by your basket_craft mart in Snowflake.
 
 ## Table of Contents
-
-### In-class (Wed Apr 29)
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
@@ -21,12 +19,6 @@ In-class today (Wed Apr 29): build and deploy a public Streamlit dashboard again
 | 04 | [Diagnostic: Top products by revenue](#step-04-diagnostic-top-products-by-revenue) | Which products are driving the numbers |
 | 05 | [Diagnostic and Act: Bundle finder](#step-05-diagnostic-and-act-bundle-finder) | Pick a product, see what's bought with it |
 | 06 | [Deploy to Streamlit Community Cloud](#step-06-deploy-to-streamlit-community-cloud) | Public URL |
-
-### Take-home (Apr 29 → May 6)
-
-| Step | Topic | What You Will Do |
-|------|-------|-----------------|
-| 07 | [Whiteboard your pipeline](#step-07-whiteboard-your-pipeline) | M02 #9 portfolio pipeline diagram |
 
 ---
 
@@ -58,17 +50,7 @@ Same opening move as MP02 through MP04. New repo on GitHub, clone in Cursor, dro
 
 3. **Sign up for Streamlit Community Cloud** at [streamlit.io/cloud](https://streamlit.io/cloud) using GitHub OAuth. Free tier is fine — unlimited public apps. We deploy here in Step 06.
 
-4. **Create a `.env` file** at the repo root with your Snowflake credentials. These are the same seven values from your MP02 `.env`. Open `~/isba-4715/basket-craft-pipeline/.env` for reference, or recreate from your MP02 setup:
-
-   ```
-   SNOWFLAKE_ACCOUNT=xy12345-abc6789
-   SNOWFLAKE_USER=your_user
-   SNOWFLAKE_PASSWORD=your_password
-   SNOWFLAKE_ROLE=LOADER
-   SNOWFLAKE_WAREHOUSE=BASKET_CRAFT_WH
-   SNOWFLAKE_DATABASE=BASKET_CRAFT
-   SNOWFLAKE_SCHEMA=ANALYTICS
-   ```
+4. Copy and paste your Snowflake credentials from the `.env` file in your `basket-craft-pipeline` repo (MP02). Save them as `.env` at the root of this repo.
 
    The Python `.gitignore` template you picked already excludes `.env`, so this file won't be committed. Verify with the file explorer in Cursor — `.env` should appear greyed out.
 
@@ -315,55 +297,15 @@ The dashboard runs locally. Now you push it to a public URL.
 
 ---
 
-## Part 04: Whiteboard Your Pipeline
-
-> Switch to your portfolio repo. This Step is the M02 #9 pipeline diagram, which lives in your portfolio README.
-
-### Step 07: Whiteboard Your Pipeline
-
-The diagram you draw here is the M02 #9 pipeline diagram for your portfolio project. The "whiteboard" framing means: draw it as if from memory, in front of an interviewer. Your final interview on May 11 includes a whiteboard walkthrough — this is your practice.
-
-**What to do:**
-
-1. Pick a format: Mermaid (lives in your README), draw.io, Excalidraw, or hand-drawn photo. Any open format works for the rubric.
-
-2. Draw both data paths your portfolio repo supports:
-
-   - **Structured path:** API source → GitHub Actions → Snowflake raw → dbt staging → dbt mart → Streamlit dashboard
-   - **Knowledge base path:** Web scrape → GitHub Actions → `knowledge/raw/` → Claude Code → `knowledge/wiki/`
-
-3. Label every tool. No unnamed boxes. "Cloud database" is not a label; "Snowflake" is.
-
-4. Embed the diagram in your portfolio `README.md`.
-
-5. Pair with a classmate. Walk each other through your pipeline out loud, no notes. Then read each other's diagrams cold and identify what's missing. The questions a classmate asks are the ones a hiring manager will ask.
-
-**What makes a good pipeline diagram:**
-
-- Single page or single screen scroll
-- Every layer labeled with the tool that produced it
-- Arrows, not lines (data flow direction unambiguous)
-- No mystery boxes; if a non-engineer can't tell what something is, label it more specifically
-
-**Checkpoint:** Pipeline diagram in your portfolio README, every layer labeled with a specific tool, at least one classmate has reviewed it.
-
----
-
 ## Submission
 
 Submit your `basket-craft-dashboard` repo URL and your Streamlit Cloud URL on Brightspace.
 
-### `basket-craft-dashboard` repo (in-class, Steps 00–06)
-
-Should contain:
+Your `basket-craft-dashboard` repo should contain:
 - The Streamlit app with all four dashboard sections
 - `requirements.txt` with pinned package versions
 - `.gitignore` excluding `.env`
 - `README.md` with the live Streamlit Cloud URL pinned at the top
 
-Must NOT contain:
+It must NOT contain:
 - `.env` — must be gitignored, no Snowflake credentials in git history. If you accidentally committed it, rotate the Snowflake password immediately and scrub history.
-
-### Portfolio project repo (Step 07)
-
-Step 07's pipeline diagram lives in your portfolio repo `README.md`. It satisfies the M02 #9 deliverable (due Mon May 4), so you're already submitting your portfolio repo URL for M02 — no separate Brightspace submission for Step 07.
