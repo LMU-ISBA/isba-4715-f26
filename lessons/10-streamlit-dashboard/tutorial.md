@@ -5,6 +5,47 @@ This is the written companion to Lesson 10. The lesson runs in one class session
 - **In-class (Wed Apr 29):** Build and deploy a Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–07. Goal: leave class with a public Streamlit Community Cloud URL.
 - **Take-home (Apr 29 → May 6):** Extend the same dashboard for Maya (Head of Merchandising, the stakeholder you designed the mart for in MP02). Then produce your portfolio pipeline diagram. Steps 08–10.
 
+## What you'll build in class
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│ Basket Craft — Sales Dashboard                                   │
+├──────────────┬───────────────────────────────────────────────────┤
+│              │ ┌─────────┬─────────┬─────────┬─────────┐         │
+│  Date range  │ │ Revenue │ Orders  │  AOV    │Customers│ Step 03 │
+│              │ │ $2.1M ▲ │ 35K  ▲  │ $60  ▲  │ 28K  ▼  │         │
+│  ┌────────┐  │ └─────────┴─────────┴─────────┴─────────┘         │
+│  │ start  │  │                                                   │
+│  │ end    │  │ Revenue Trend                              Step 04│
+│  └────────┘  │     ╱╲    ╱╲╱╲                                    │
+│              │    ╱  ╲  ╱    ╲      ╱╲                           │
+│              │   ╱    ╲╱      ╲    ╱  ╲                          │
+│              │  ╱                ╲╱    ╲                         │
+│              │  Jan      Apr      Jul      Oct                   │
+│              │                                                   │
+│              │ Revenue by RFM Segment                     Step 05│
+│              │ █████████  Champions                              │
+│              │ █████      Promising                              │
+│              │ ████       Loyal                                  │
+│              │ ███        At Risk                                │
+│              │ ██         Lost                                   │
+│              │                                                   │
+│              │ Customer Drill-Down                        Step 06│
+│              │ Segment: ▾  Champions                             │
+│              │ ┌────────────┬─────────────┬───┬───┬───┐          │
+│              │ │ Name       │ Email       │ R │ F │ M │ ⬇ CSV    │
+│              │ │ Smith, J.  │ js@ex.com   │ 1 │ 1 │ 1 │          │
+│              │ │ Lee, K.    │ kl@ex.com   │ 1 │ 1 │ 2 │          │
+│              │ └────────────┴─────────────┴───┴───┴───┘          │
+└──────────────┴───────────────────────────────────────────────────┘
+   sidebar                   main page (top to bottom)
+   (Step 04)
+```
+
+**Reading top to bottom:** what's happening (KPIs) → how we got here (trend) → which segments explain it (composition) → who to act on (drill-down). The descriptive-then-diagnostic split is the M02 #7 rubric. The customer table at the bottom is downloadable CSV — that's the Act step from DC ACT.
+
+In Steps 08–09 (take-home) you'll keep the same shell and swap the analytical lens for Maya's merchandising questions. Same data, different stakeholder.
+
 **Before class.** Confirm your MP02 Snowflake account is still active and your basket_craft star schema is still in the `analytics` schema. Log into Snowsight the night before and run a quick `SELECT` on your customer dimension to verify.
 
 **If you run short.** Step 02 (working Snowflake connection) is non-negotiable in class. The chart Steps and the deploy Step can finish at home; the tutorial is written to be self-paceable.
