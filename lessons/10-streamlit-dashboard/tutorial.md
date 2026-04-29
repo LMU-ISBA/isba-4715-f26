@@ -177,8 +177,6 @@ KPIs answer "where are we now?" in thirty seconds. They're the headline numbers 
 
 2. Ask Claude Code to rerun the dashboard. You should see four metric cards across the top, each with a number and a green or red delta percentage.
 
-3. **If you hit errors,** the most common cause is column-name mismatch. MP02 had each student name their own mart. When Claude Code's first attempt errors, paste the error back and tell it the actual column or table name. Or have it run `dbt docs serve` against your MP02 project to see your canonical names.
-
 **Why these four?** Revenue, orders, AOV, and items sold are the volume-and-value pair Maya scans first. Items Sold is line-item level (`fct_order_items`), distinct from order count. A customer who orders once with five items contributes one order but five items. Both numbers matter to a merchandising lead.
 
 **Checkpoint:** Four metric cards visible with current values and MoM deltas.
