@@ -273,7 +273,7 @@ The dashboard runs locally. Now you push it to a public URL.
 
 2. Open [streamlit.io/cloud](https://streamlit.io/cloud) → **New app** → select your `basket-craft-dashboard` repo, branch `main`. Streamlit Cloud will detect the main app file automatically.
 
-3. Click **Advanced settings**. The Secrets box wants TOML format. Same seven values from your `.env`, with quotes and `=` spaces. Paste:
+3. Click **Advanced settings**. The Secrets box wants [TOML format](https://toml.io). Same seven values from your `.env`, with quotes and `=` spaces. Paste:
 
    ```
    SNOWFLAKE_ACCOUNT = "xy12345-abc6789"
