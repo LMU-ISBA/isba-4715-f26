@@ -3,7 +3,7 @@
 This is the written companion to Lesson 10. The lesson runs in one class session plus two take-home Parts that feed into Milestone 02:
 
 - **In-class (Wed Apr 29):** Build and deploy a Streamlit dashboard against your basket_craft Snowflake mart. Steps 00–07. Goal: leave class with a public Streamlit Community Cloud URL.
-- **Take-home (Apr 29 → May 6):** Apply the pattern to your portfolio repo, then produce your pipeline diagram. Steps 08–10.
+- **Take-home (Apr 29 → May 6):** Extend the same dashboard for Maya (Head of Merchandising, the stakeholder you designed the mart for in MP02). Then produce your portfolio pipeline diagram. Steps 08–10.
 
 **Before class.** Confirm your MP02 Snowflake account is still active and your basket_craft star schema is still in the `analytics` schema. Log into Snowsight the night before and run a quick `SELECT` on your customer dimension to verify.
 
@@ -30,9 +30,9 @@ This is the written companion to Lesson 10. The lesson runs in one class session
 
 | Step | Topic | What You Will Do |
 |------|-------|-----------------|
-| 08 | [Design your portfolio dashboard](#step-08-design-your-portfolio-dashboard) | Brainstorm with Superpowers |
-| 09 | [Build and deploy your portfolio dashboard](#step-09-build-and-deploy-your-portfolio-dashboard) | Satisfy M02 #7 minimums |
-| 10 | [Whiteboard the pipeline](#step-10-whiteboard-the-pipeline) | M02 #9 pipeline diagram |
+| 08 | [Design Maya's dashboard](#step-08-design-mayas-dashboard) | Brainstorm a merchandising dashboard with Superpowers |
+| 09 | [Build and deploy Maya's dashboard](#step-09-build-and-deploy-mayas-dashboard) | Extend the in-class app, redeploy |
+| 10 | [Whiteboard your pipeline](#step-10-whiteboard-your-pipeline) | M02 #9 portfolio pipeline diagram |
 
 ---
 
@@ -274,85 +274,79 @@ The dashboard runs locally. Now you push it to a public URL.
 
 ---
 
-## Part 04: Replicate the Pattern in Your Portfolio Repo
+## Part 04: Build Maya's Dashboard
 
-> Switch to your portfolio repo (open it in a new Cursor window if you don't already have one).
+> Stay in the same `basket-craft-dashboard` repo. The take-home extends the in-class work for a different stakeholder.
 >
-> **What changed since class:** in-class, we picked the chart types for you. In Part 04, you pick yours. The question your stakeholder is actually asking should drive what charts you build, not the other way around.
+> **What changed since class:** the in-class dashboard targeted a marketing-style stakeholder — KPIs, customer segments, the kind of view a CMO or growth lead would want. Maya, the Head of Merchandising you designed the dbt mart for in MP02 Step 25, has different questions. Same data, different stakeholder, different chart choices. That switch is the design moment.
 
-### Step 08: Design Your Portfolio Dashboard
+### Step 08: Design Maya's Dashboard
 
-You just built a dashboard from a recipe. Now you design one from a question. Same Superpowers chain you used in Lesson 09 Session 02 for your knowledge-base wiki.
+In MP02 Step 25, the dbt mart you built was designed around Maya's questions:
+
+- Which products drove the most revenue each month last quarter?
+- Which products get bought together most often? Should we create bundles?
+- Which products have the highest refund rates? Are we pricing or describing anything wrong?
+- Do new customers buy different products than customers who've been with us for a while?
+
+The mart was built to answer those. Now you build the dashboard.
 
 **What to do:**
 
-Make sure `docs/job-posting.pdf` is in your portfolio repo before you start.
-
-1. Open Claude Code in your portfolio repo and trigger the brainstorming skill:
+1. In Claude Code, trigger the brainstorming skill:
 
    ```
-   I want to build a Streamlit dashboard against my Snowflake mart. The dashboard should answer the analytics-related questions implied by the role in @docs/job-posting.pdf. Help me design it.
+   I want to extend my basket-craft-dashboard for Maya, the Head of Merchandising at Basket Craft. In MP02 we designed the dbt mart around her questions about product revenue, product bundles, refund rates, and new vs. returning buying patterns. Help me design a dashboard that answers her questions.
    ```
 
 2. Let the chain drive. A good brainstorm should help you decide:
 
-   - The headline question your stakeholder is asking
-   - 3–4 KPIs that fit that question
-   - One descriptive view (what's happening over time)
-   - One diagnostic view (why)
-   - What the user can *do* with the dashboard (the Act step)
+   - Which 3–4 KPIs fit Maya's job (likely product- and revenue-mix focused, not customer-count focused)
+   - A descriptive view of product performance over time
+   - A diagnostic view explaining the descriptive trend (product mix shifts? refund spikes? cohort buying differences?)
+   - What Maya can *do* with the dashboard (export a list of high-refund products to investigate? flag products to bundle?)
 
-3. When the brainstorm settles, the chain transitions into `writing-plans`. Follow the prompts. Commit the resulting plan to your repo (`docs/dashboard-plan.md` is a reasonable home).
+3. When the brainstorm settles, the chain transitions into `writing-plans`. Follow the prompts. Commit the resulting plan to your repo (`docs/maya-dashboard-plan.md` is a reasonable home).
 
 **Common scope traps to avoid:**
 
+- **Treating Maya like a marketing stakeholder.** She's not asking about RFM segments or customer churn — she's asking about product performance. Different questions, different charts.
 - **Kitchen-sink dashboard.** Eight charts, five filters. Three to four well-chosen sections beat eight scattered ones.
-- **Descriptive-only.** All trend charts, no diagnostic cut. Fails the M02 #7 rubric and leaves the obvious "why" question unanswered.
 - **"I'll figure out the diagnostic later."** Decide the diagnostic cut *during* the brainstorm. It's the part students underspecify.
 
-**Checkpoint:** Plan committed to your portfolio repo, names each chart and the question it answers, addresses the M02 #7 minimums.
+**Checkpoint:** Plan committed naming each chart, the Maya question it answers, and the data it pulls from.
 
 ---
 
-### Step 09: Build and Deploy Your Portfolio Dashboard
+### Step 09: Build and Deploy Maya's Dashboard
 
-Execute the plan from Step 08 against your own mart.
+Execute the plan from Step 08. Same Streamlit patterns from in-class; new charts focused on Maya's questions.
 
 **What to do:**
 
 1. Stay in the same Claude Code session. After `writing-plans`, the chain transitions into `executing-plans`. Follow the prompts.
 
-2. At the start, ask Claude Code to set up your portfolio repo for Streamlit:
-
-   ```
-   Set up this portfolio repo to build a Streamlit dashboard against my Snowflake mart. Use the same secrets pattern from the basket_craft demo. Make sure my Snowflake credentials won't be committed.
-   ```
+2. Decide whether you're replacing the in-class marketing dashboard or adding Maya's view alongside it. The simplest path: add a stakeholder selector at the top (`Marketing` / `Maya`) that switches what the page shows. Either way is fine for the take-home.
 
 3. At each `executing-plans` checkpoint, spot-check two things:
-   - Does the chart match what your mart actually contains? (Column-name mismatches are the most common bug.)
-   - Does the chart answer the question the plan said it would? (Easy to drift during implementation.)
+   - Does the chart match what your mart actually contains? (Column-name mismatches are the most common bug. `dim_products` and `fct_order_items` come into play more here than they did in-class.)
+   - Does the chart answer Maya's question, or did it drift toward a marketing-style cut during implementation?
 
-4. Deploy to Streamlit Community Cloud using the Step 07 flow. Add the live URL to your portfolio README.
+4. Push to GitHub. Streamlit Cloud auto-redeploys on every push, so your existing public URL now serves Maya's dashboard.
 
-**M02 #7 minimums to satisfy:**
+**Iterative use evidence.** Like the wiki rubric in Lesson 09, your dashboard's quality benefits from visible iteration. A dashboard pushed once and never touched looks like an afterthought. Five commits over a week (adding a chart, fixing a column, refining a segment) looks like real work. Plan to revisit at least once between class and the May 6 deadline.
 
-- [ ] Connected to Snowflake mart tables
-- [ ] At least one descriptive analytics view
-- [ ] At least one diagnostic analytics view
-- [ ] At least one interactive element
-- [ ] Deployed to Streamlit Community Cloud with public URL
-
-**Iterative use evidence.** Like the wiki rubric in Lesson 09, your dashboard's quality benefits from visible iteration. A dashboard pushed once and never touched looks like an afterthought. Five commits over a week (adding a chart, fixing a column, refining a segment) looks like real work. Plan to revisit at least once between class and the M02 deadline.
-
-**Checkpoint:** Portfolio dashboard URL is live, README links to it, all five M02 #7 minimums satisfied, commit history shows iterative refinement.
+**Checkpoint:** Same Streamlit Cloud URL now serves Maya's dashboard (or both), README documents what the dashboard answers, commit history shows iterative refinement.
 
 ---
 
-## Part 05: Whiteboard the Pipeline
+## Part 05: Whiteboard Your Pipeline
 
-### Step 10: Whiteboard the Pipeline
+> Switch to your portfolio repo. This Step is the M02 #9 pipeline diagram, which lives in your portfolio README.
 
-The diagram you draw here is the M02 #9 pipeline diagram. The "whiteboard" framing means: draw it as if from memory, in front of an interviewer. Your final interview on May 11 includes a whiteboard walkthrough — this is your practice.
+### Step 10: Whiteboard Your Pipeline
+
+The diagram you draw here is the M02 #9 pipeline diagram for your portfolio project. The "whiteboard" framing means: draw it as if from memory, in front of an interviewer. Your final interview on May 11 includes a whiteboard walkthrough — this is your practice.
 
 **What to do:**
 
@@ -382,24 +376,20 @@ The diagram you draw here is the M02 #9 pipeline diagram. The "whiteboard" frami
 
 ## Submission
 
-LE10 produces deliverables in two repos. Submit your `basket-craft-dashboard` repo URL and your Streamlit Cloud URL on Brightspace. Portfolio repo work counts toward Milestone 02 (May 4) and Final Submission (May 11), not toward LE10 directly.
+LE10 produces deliverables in two repos. Submit your `basket-craft-dashboard` repo URL and your Streamlit Cloud URL on Brightspace.
 
-### `basket-craft-dashboard` repo (in-class, Steps 00–07)
+### `basket-craft-dashboard` repo (in-class Steps 00–07 plus take-home Steps 08–09)
 
 Should contain:
-- The Streamlit app with all four dashboard sections
+- The Streamlit app with both the in-class marketing dashboard and Maya's merchandising dashboard
 - `requirements.txt` with pinned package versions
 - `.gitignore` excluding the secrets file
 - `README.md` with the live Streamlit Cloud URL pinned at the top
+- `docs/maya-dashboard-plan.md` — the brainstorm-and-plan output from Step 08
 
 Must NOT contain:
 - The Streamlit secrets file — must be gitignored, no Snowflake credentials in git history. If you accidentally committed it, rotate the Snowflake password immediately and scrub history.
 
-### Portfolio project repo (take-home, Steps 08–10)
+### Portfolio project repo (Step 10)
 
-Take-home work feeds Milestone 02 (due Mon May 4):
-- Streamlit dashboard against your portfolio mart, deployed to Community Cloud (M02 #7)
-- Pipeline diagram in your `README.md` (M02 #9)
-- Plan from Step 08 committed somewhere in the repo (e.g., `docs/dashboard-plan.md`)
-
-You're already submitting your portfolio repo URL for M02 on May 4; no separate Brightspace submission for the take-home portion of LE10.
+Step 10's pipeline diagram lives in your portfolio repo `README.md`. It satisfies the M02 #9 deliverable (due Mon May 4), so you're already submitting your portfolio repo URL for M02 — no separate Brightspace submission for Step 10.
