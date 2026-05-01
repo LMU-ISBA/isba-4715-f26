@@ -378,3 +378,15 @@ git push
 Show the instructor the commit hash on your way out.
 
 **Checkpoint:** The commit is pushed and visible on GitHub.
+
+---
+
+## After class: What to do between May 5 and your interview slot
+
+The interview itself is on Mon May 11, Tue May 12, or Wed May 13. The days between class and your slot are when you turn this rehearsal into something you can actually deliver. Five things, in this order:
+
+1. **Read the full study guide.** If you only skimmed it before class, read it cover to cover this week.
+2. **Practice on humans, not just AI.** Walk a roommate, parent, or friend through your project at least once. The parent test is your bar — if a non-technical person who loves you can follow your walkthrough end-to-end, the interviewer will too. AI rehearsal (Practice Prompt 05.d) is the fallback when no human is available, not the headline.
+3. **Run Practice Prompt 05.d (full mock interview) against Claude Code at least once.** The score it gives you is information — use it to update your cheat sheet.
+4. **Refine `docs/interview-prep-notes.md`.** Drop anything you discovered you can't defend. Add anything you can. Commit each refinement.
+5. **Commit `docs/resume.pdf` before your interview slot.** The deadline is May 11; don't leave it until the morning of.
