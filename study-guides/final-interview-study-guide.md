@@ -65,38 +65,35 @@ The single source of truth for both questions is the job posting at `docs/job-po
 
 ### TMAY
 
-TMAY is 60 seconds, anchored to the role in `docs/job-posting.pdf`. This is not a generic intro — every sentence should connect who you are to why you fit that specific role. Draft it against your portfolio JD, then practice it until you can deliver it without notes.
-
-Your TMAY should hit five targets:
+60 seconds, anchored to `docs/job-posting.pdf`. Hit five targets:
 
 - **Education** — degree, major, relevant coursework
-- **Extracurricular or side project showing initiative** — something that signals you build things on your own
-- **Relevant work or internship** — direct experience that maps to the JD's expectations
+- **Extracurricular or side project showing initiative** — signals you build things on your own
+- **Relevant work or internship** — experience that maps to the JD's expectations
 - **One personal tidbit** — a human detail that makes you memorable
-- **Segue into the project** — a one-sentence bridge that lands naturally on your portfolio project ("…which is exactly what led me to build…")
+- **Segue into the project** — one-sentence bridge into your portfolio project
 
 ### Project
 
-The project section is 14 minutes and 85 points. You lead. Cover the following eight elements in roughly this order:
+14 minutes, 85 points. You lead. Cover eight elements in order:
 
-1. **Elevator pitch** — one sentence: who you're helping, what problem you're solving, how you're solving it
+1. **Elevator pitch** — one sentence: who you're helping, what problem, how you're solving it
 2. **Connection to your portfolio JD** — why this project, why this role, what skills overlap
-3. **Pipeline whiteboard walk** — draw and narrate both pipelines: API → Snowflake → dbt staging → mart, plus scrape → `knowledge/raw/` → wiki. Label tools. Label schema and table names. Both pipelines must be covered.
+3. **Pipeline whiteboard walk** — draw and narrate both pipelines: API → Snowflake → dbt staging → mart, plus scrape → `knowledge/raw/` → wiki. Label tools, schema, and table names.
 4. **Technical deep dive** — four sub-segments:
-   - **Data ingestion and automation:** API extraction script, web scrape via Firecrawl, GitHub Actions schedule + manual triggers, secrets handling
-   - **Modeling and warehouse setup:** AWS RDS (if used), Snowflake raw → dbt staging → mart, star schema (fact + dimension tables), one dbt test
-   - **Knowledge base demo (required):** Run Claude Code live against `knowledge/wiki/`. Ask a question whose answer is only in `knowledge/raw/`. Defend the answer's source citation. Not demonstrating it costs points within the 85.
-   - **Streamlit dashboard sketch (optional):** At your discretion, sketch the dashboard's panes on the whiteboard — descriptive view, diagnostic view, interactive element. No live demo is expected.
-5. **Insights** — 1–2 specific insights from the dashboard with the stakeholder business decisions they inform
+   - **Data ingestion and automation:** API + Firecrawl scrape, GitHub Actions schedule + manual trigger, secrets handling
+   - **Modeling and warehouse setup:** Snowflake raw → dbt staging → mart, star schema, one dbt test
+   - **Knowledge base demo (required):** Run Claude Code live against `knowledge/wiki/`. Query something only in `knowledge/raw/`. Defend the source citation. Skipping it costs points.
+   - **Streamlit dashboard sketch (optional):** Sketch panes on the whiteboard — descriptive, diagnostic, interactive. No live demo expected.
+5. **Insights** — 1–2 specific insights and the business decisions they inform
 6. **One significant challenge** and how you overcame it
 7. **One future improvement** and why it matters
 8. **One lesson learned** that transfers to future projects
 
-Follow-up questions can land anywhere across the 14 minutes. See the next subsection for common patterns.
-
 ### Follow-ups + Wrap
 
-The final four minutes shift from your narration to the instructor probing the edges. Common patterns: "why did you choose X over Y?" presses you to defend a technical decision; scale hypotheticals ("if data volume grew 100×, what breaks?") test whether you understand the limits of your architecture; prioritization logic ("which milestone slipped first when time got tight?") surfaces honest project management judgment. Answer directly — hedge less, defend more. The wrap closes with confirmation that `docs/resume.pdf` is committed to your portfolio repo by May 11.
+- **Common follow-up patterns:** "why X over Y?" (defend a technical decision); scale hypothetical ("what breaks at 100× volume?"); prioritization logic ("what slipped first when time got tight?")
+- **Wrap:** Closes with confirmation that `docs/resume.pdf` is committed to your portfolio repo by May 11.
 
 ## §05 Practice Prompts (rehearse with Claude Code)
 
