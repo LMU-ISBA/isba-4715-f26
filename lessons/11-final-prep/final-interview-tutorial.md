@@ -223,3 +223,55 @@ What you missed today is what you'll forget on your interview day unless you put
 3. The list goes into your cheat sheet in Part 07.
 
 **Checkpoint:** You have a written list of gaps to close before your interview.
+
+---
+
+## Part 05: Pair whiteboard walkthrough (20 min)
+
+Twenty minutes. Paired. This is the closest analog to the project section in your interview. Every student walks their pipeline at the whiteboard at least once with a peer asking follow-ups.
+
+### Step 01: Pair up (or stay paired with Part 03 partner)
+
+Same partner as Part 03 is fine; rotating to someone with a different stack works too — both teach you something.
+
+**What to do:**
+
+Same partner as Part 03 is fine, or rotate to someone with a different stack — both work.
+
+**Checkpoint:** You have a partner and you each know whose project is whose.
+
+---
+
+### Step 02: Round 01 — Partner A walks, Partner B asks follow-ups (~10 min)
+
+Narrating to a peer surfaces the parts you can't explain; those parts go on the cheat sheet.
+
+**What to do:**
+
+1. Partner A goes to the whiteboard (or a paper sheet that fits both pipelines).
+2. Partner A narrates their pipeline end-to-end: structured path, then knowledge path. ~8 minutes.
+3. Partner B opens study guide 05.c. Asks at least three follow-ups during the walkthrough. Examples:
+   - "Why dbt for staging instead of writing the SQL directly into the mart?"
+   - "If your GitHub Actions schedule fails at 2am, how do you find out?"
+   - "Show me the wiki page that answers your portfolio JD's most important question."
+4. ~2 min feedback at the end. Partner B names one thing that was crisp and one thing that was vague.
+
+**Checkpoint:** Partner A has walked the pipeline end-to-end with at least three follow-ups answered.
+
+---
+
+### Step 03: Round 02 — Swap
+
+Same protocol, different direction.
+
+**What to do:**
+
+Partner B walks, Partner A follows up. Same protocol.
+
+**Checkpoint:** Both partners have walked their pipeline at the whiteboard at least once.
+
+---
+
+### No-partner fallback
+
+If the room has odd numbers and no one is free, run Practice Prompt 05.b in Claude Code. Walk to the whiteboard physically and narrate to the empty room while Claude Code interrupts with follow-ups in the chat. This is genuinely the second-best option — Claude Code can ask role-tied questions but it can't watch your hand draw the wrong arrow direction or notice when your eye contact drops. Practice with a roommate or family member tonight: walk them through the diagram, ask if anything was unclear. The parent test is your bar — a non-technical person who loves you should be able to follow it end-to-end.
