@@ -279,7 +279,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - `lessons/06-local-pipeline/` through `lessons/10-streamlit-dashboard/` — every tutorial
 - Lesson slides — every L06–L10 slide deck where present
 - `project/README.md` — the rubric you're being graded against
-- `frameworks.md` — DC ACT, RFM, takeaway titles
+- `lessons/05-data-storytelling/README.md` — DC ACT, RFM, takeaway titles
 
 **Your own work:**
 - Your portfolio repo `README.md` and `CLAUDE.md`
@@ -289,4 +289,4 @@ Note: this example is intentionally generic. Your actual list will look differen
 
 **External:**
 - O'Reilly Learning (LMU library has a free subscription) — search "data engineering interview"
-- Karpathy's wiki gist (linked from `project/README.md`)
+- [Karpathy's LLM wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the inspiration for your `knowledge/wiki/` pattern
