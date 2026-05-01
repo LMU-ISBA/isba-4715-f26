@@ -10,7 +10,7 @@
 
 ## §01 Premise
 
-The Data Engineer Interview simulates the final stage of a real hiring process: you walk into the room, go to the whiteboard, and defend your portfolio project against a role you've been targeting all semester. This is not a quiz — it is a conversation about work you actually built, evaluated against the job description you will find in §03. The goal is the same as any technical interview: show that you understand what you built, why you built it that way, and what it means for the business.
+You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in §03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
 
 ## §02 Rubric
 
@@ -39,7 +39,7 @@ The instructor leading you through your own repo is dialogue, not a hint. A hint
 
 ## §03 Your Job Description
 
-The single source of truth for both questions is the job posting at `docs/job-posting.pdf` in your portfolio repo — the role you've been targeting all semester. Both TMAY and the project deep-dive are anchored to this JD: TMAY tailors who you are to this role; the project section tailors what you built to this role. If you've pivoted to a different target role since selecting your portfolio JD, swap `docs/job-posting.pdf` to the new posting and re-run the Practice Prompts in §05 against the updated file before May 11.
+There is one job description in the room: the posting at `docs/job-posting.pdf` in your portfolio repo, the role you've been targeting all semester. TMAY tailors who you are to that role. The project section tailors what you built to that role. If you've pivoted to a different role since picking your portfolio JD, swap the file and re-run the Practice Prompts in §05 against the new posting before May 11.
 
 ## §04 Structure and Questions
 
@@ -241,9 +241,9 @@ Review my resume against the JD and give me:
 
 In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend on May 11. The contract: "if it's not on this list, I'm not claiming I built it."
 
-This isn't a checklist for the instructor. It's a pre-commitment to yourself. The AI policy in `project/README.md` is direct: "If you can't explain it, you don't get credit for it." The cheat sheet is how you make that concrete before the interview rather than discovering it under pressure during one.
+This isn't a checklist for the instructor. It's a pre-commitment to yourself. The AI policy in `project/README.md` is direct: "If you can't explain it, you don't get credit for it." The cheat sheet is how you make that concrete before the interview, not in the middle of one.
 
-**Format — save this as `docs/interview-prep-notes.md`:**
+Save the file as `docs/interview-prep-notes.md`. Use this format:
 
 ```markdown
 # What I'm prepared to defend in the final interview
@@ -286,7 +286,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Rehearse without notes.** If you can't deliver TMAY without reading, you can't deliver it under pressure.
 - **Draft short follow-up answers.** Use the §05.c component drill prompt across each layer; save the answers to scratch notes.
 - **Focus on weak spots.** The cheat sheet (§06) surfaces what you can't defend; spend study time there, not on the parts you already know.
-- **Big-picture-to-detail.** Always lead with the elevator pitch and the pipeline shape before diving into a specific file or query.
+- **Lead with the big picture.** Always open with the elevator pitch and the pipeline shape before diving into a specific file or query.
 - **Strategize with Claude Code.** Use Practice Prompt §05.d (full mock) at least once before May 11. The score the prompt gives you is information.
 
 ## §09 Interview Tips
