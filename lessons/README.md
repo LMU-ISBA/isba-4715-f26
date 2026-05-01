@@ -23,6 +23,7 @@ End-to-end data engineering projects built with Claude Code. Each mini-project i
 | [MP03: 08-api-pipeline](08-api-pipeline/) | 1 | API Data Collection | Public API | CSV (portfolio repo extends to Snowflake raw) |
 | [MP04: 09-scrape-pipeline](09-scrape-pipeline/) | 2 | Scrape Pipeline + GitHub Actions + Knowledge Base Wiki | Web Scrape | knowledge/raw/ + knowledge/wiki/ |
 | Lesson 10: 10-streamlit-dashboard *(Wed Apr 29)* | 1 | Streamlit Dashboard | Snowflake mart | Streamlit Community Cloud |
+| Lesson 11: 11-final-prep *(Mon May 4)* | 1 | Final Prep (interview rehearsal + pipeline whiteboard) | — | — |
 
 ## The Campus Bites Story (Lessons 01-02)
 
@@ -94,6 +95,7 @@ Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: 
 | MP03 | REST APIs, JSON parsing, `requests` + pandas, `.env` secrets pattern |
 | MP04 | Web scraping (Firecrawl + MCP), GitHub Actions (`workflow_dispatch` + `schedule`), Superpowers loop (brainstorming → writing-plans → executing-plans), CLAUDE.md schema (ingest / query / lint), iterative wiki maintenance |
 | Lesson 10 | Streamlit (descriptive + diagnostic views, deployment to Community Cloud), whiteboard pipeline diagrams |
+| Lesson 11 | TMAY rehearsal, whiteboard recall, full mock interview against own portfolio JD, KB demo verification, defensibility contract pattern, polished pipeline diagram (Mermaid/draw.io/Excalidraw) |
 
 ## The Analytics Framework
 
