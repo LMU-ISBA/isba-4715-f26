@@ -128,3 +128,64 @@ You'll deliver this out loud in Part 03; keep it open.
 2. Keep it open for Part 03.
 
 **Checkpoint:** The TMAY is saved and reachable in 5 seconds.
+
+---
+
+## Part 03: Pair TMAY rehearsal (15 min)
+
+Fifteen minutes. Paired. Goal: every student delivers TMAY out loud at least twice. This part is non-negotiable — if the room is running tight, we cut Part 04 first.
+
+### Step 01: Pair up
+
+Even random pairing beats sitting alone. You need a human ear to catch the things Claude Code can't: eye contact, pace, whether you sound like you mean it.
+
+**What to do:**
+
+1. Find a partner. Roll-of-the-dice random is fine; matched stack is fine; just don't sit with no one.
+2. If the room has odd numbers and you don't have a partner, follow the **no-partner fallback** at the bottom of this Part.
+
+**Checkpoint:** You're sitting with a partner.
+
+---
+
+### Step 02: Round 01 — Partner A delivers, Partner B times and gives feedback
+
+The trap with peer feedback is that everyone says "great job." Forcing exactly one piece of feedback prevents that — it makes your partner identify the single highest-leverage thing instead of softening the critique into noise.
+
+**What to do:**
+
+1. Partner B starts a 60-second timer.
+2. Partner A delivers TMAY out loud. Phone in pocket; no reading from the laptop.
+3. Partner B notes: did it hit education + initiative + relevant work + human + segue? Was it ≤60 seconds? Did it land on stack words from Partner A's portfolio JD?
+4. Partner B gives **one** piece of feedback (the highest-leverage thing). Not five.
+
+**Checkpoint:** Partner A has heard exactly one piece of feedback.
+
+---
+
+### Step 03: Round 01 — Swap
+
+Same protocol, different direction.
+
+**What to do:** Partner B delivers, Partner A times and gives one piece of feedback. Same rules.
+
+**Checkpoint:** Both partners have delivered TMAY out loud once.
+
+---
+
+### Step 04: Round 02 — Both partners refine and deliver again
+
+The first delivery is the warm-up; the second is the rep. Skipping Round 02 leaves you with one delivery — not enough to internalize the adjustment your partner gave you.
+
+**What to do:**
+
+1. 90 seconds: take your one piece of feedback. Adjust your TMAY.
+2. Repeat Steps 02–03 with the refined version.
+
+**Checkpoint:** Both partners have delivered TMAY out loud twice.
+
+---
+
+### No-partner fallback
+
+If you don't have a partner, run Practice Prompt 05.a in Claude Code three times instead. Each iteration counts as one rep. The cost is no human ear; the value is tighter feedback because Claude Code is harsher.
