@@ -181,7 +181,7 @@ Run the full structure in sequence:
 
 4. Close with three follow-up questions — one on prioritization logic, one on
    an alternative approach I considered and rejected, one on what breaks first
-   at 10× data volume.
+   at 100× data volume.
 
 5. After I answer all three, score me using the A/B/C/D/F descriptor rubric:
    A = ready to hire, B = strong with minor gaps, C = adequate but uneven,
@@ -266,7 +266,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - `lessons/06-local-pipeline/` through `lessons/10-streamlit-dashboard/` — every tutorial
 - Lesson slides — every L06–L10 slide deck where present
 - `project/README.md` — the rubric you're being graded against
-- `lessons/05-data-storytelling/README.md` — DC ACT, RFM, takeaway titles
+- `lessons/05-data-storytelling/README.md` — DC ACT framework, takeaway titles
 
 **Your own work:**
 - Your portfolio repo `README.md` and `CLAUDE.md`
@@ -295,11 +295,11 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Talk about what you know first.** If asked something open-ended, lead with the part you can defend cleanly. The interviewer will follow your lead.
 - **Structure your response.** STAR (Situation → Task → Action → Result) works well for behavioral follow-ups. For technical follow-ups, lead with the answer, then the reasoning.
 - **Keep answers concise.** A 30-second answer beats a 90-second one nine times out of ten. If the interviewer wants more, they'll ask.
+- **Ask one clarifying question if a follow-up is ambiguous.** Better than answering a question that wasn't asked. The interviewer would rather repeat than score a misread answer.
 
 ## §10 Last Tips
 
 - **Sleep.** Don't pull an all-nighter on May 10.
 - **Breathe.** A slow exhale before TMAY resets your voice.
-- **Ask for clarification when you need it.** The interviewer would rather repeat the question than score a misread answer.
 - **Carpe diem.** You built a real pipeline this semester. This is your moment to talk about it.
 
