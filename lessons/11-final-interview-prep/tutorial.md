@@ -68,3 +68,63 @@ Both questions in the interview are anchored to the role you've been targeting a
 3. If you've pivoted to a different target role since selecting your portfolio JD, swap the file before continuing.
 
 **Checkpoint:** Your portfolio JD is open on your laptop. You can name the role title in one sentence.
+
+---
+
+## Part 02: Solo TMAY draft (10 min)
+
+Ten minutes. Solo work with Claude Code. Goal: a 60-second TMAY tailored to your portfolio JD, drafted and saved.
+
+### Step 01: Open Claude Code in your portfolio repo
+
+Before pasting any prompts, having your resume content reachable in the session means Claude Code can give you feedback anchored to your actual background, not a generic one.
+
+**What to do:**
+
+1. Open Cursor with your portfolio repo.
+2. Start a Claude Code session (or open an existing one).
+3. Make sure your resume content is reachable — either as `@docs/resume.pdf` or pasted into a scratch file (`docs/scratch/resume.md`).
+
+**Checkpoint:** Claude Code is open and you can `@`-reference at least one file from the repo.
+
+---
+
+### Step 02: Run Practice Prompt 05.a
+
+The prompt encodes the assessment criteria; iterating against it is the closest thing to iterating against the rubric.
+
+**What to do:**
+
+1. Open `study-guides/final-interview-study-guide.md` to section 05.a (TMAY rehearsal).
+2. Copy the prompt verbatim.
+3. Paste into Claude Code. Adjust the file refs if your resume is in a different format.
+4. Let Claude Code interview you. Type your TMAY into the chat.
+
+**Checkpoint:** Claude Code has scored your first attempt against the five TMAY targets and the JD's stack words.
+
+---
+
+### Step 03: Iterate at least twice
+
+A first draft is rarely a 60-second answer; iteration is the practice.
+
+**What to do:**
+
+1. Take Claude Code's feedback. Rewrite your TMAY.
+2. Deliver again. Score again. Adjust.
+3. Stop when the score lands on all five targets, the answer is ≤60 seconds, and you've landed on at least two stack words from your JD.
+
+**Checkpoint:** Your TMAY hits all five targets in one delivery, and lands on at least two stack words from your JD.
+
+---
+
+### Step 04: Save the draft
+
+You'll deliver this out loud in Part 03; keep it open.
+
+**What to do:**
+
+1. Save the final TMAY to `docs/scratch/tmay.md` (or any scratch path you'll remember).
+2. Keep it open for Part 03.
+
+**Checkpoint:** The TMAY is saved and reachable in 5 seconds.
