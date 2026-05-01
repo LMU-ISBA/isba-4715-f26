@@ -290,3 +290,14 @@ Note: this example is intentionally generic. Your actual list will look differen
 **External:**
 - O'Reilly Learning (LMU library has a free subscription) — search "data engineering interview"
 - [Karpathy's LLM wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the inspiration for your `knowledge/wiki/` pattern
+
+## §08 Study Tips
+
+- **Form a study group.** 2–3 people. Practice TMAY against each other; rotate interviewer/candidate roles.
+- **Practice your elevator pitch out loud, not in your head.** Record yourself once.
+- **Whiteboard from memory.** Close the laptop. Draw the pipeline. Compare to the L10 diagram afterward. Repeat until you can do it without consulting.
+- **Rehearse without notes.** If you can't deliver TMAY without reading, you can't deliver it under pressure.
+- **Draft short follow-up answers.** Use the §05.c component drill prompt across each layer; save the answers to scratch notes.
+- **Focus on weak spots.** The cheat sheet (§06) surfaces what you can't defend; spend study time there, not on the parts you already know.
+- **Big-picture-to-detail.** Always lead with the elevator pitch and the pipeline shape before diving into a specific file or query.
+- **Strategize with Claude Code.** Use Practice Prompt §05.d (full mock) at least once before May 11. The score the prompt gives you is information.
