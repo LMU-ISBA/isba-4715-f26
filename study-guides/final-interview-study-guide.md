@@ -272,3 +272,21 @@ This isn't a checklist for the instructor. It's a pre-commitment to yourself. Th
 Note: this example is intentionally generic. Your actual list will look different — use your real file paths and one-sentence descriptions.
 
 - Commit `docs/interview-prep-notes.md` before leaving class on May 4. If you add components after class, commit again. The git history is the participation evidence.
+
+## §07 Study Material
+
+**Course materials:**
+- `lessons/06-local-pipeline/` through `lessons/10-streamlit-dashboard/` — every tutorial
+- Lesson slides — every L06–L10 slide deck where present
+- `project/README.md` — the rubric you're being graded against
+- `frameworks.md` — DC ACT, RFM, takeaway titles
+
+**Your own work:**
+- Your portfolio repo `README.md` and `CLAUDE.md`
+- Your `knowledge/wiki/` files
+- Your dbt models (`models/staging/`, `models/marts/`)
+- Your Streamlit dashboard (the deployed URL — for your own reference; you'll sketch it on the whiteboard, not demo live)
+
+**External:**
+- O'Reilly Learning (LMU library has a free subscription) — search "data engineering interview"
+- Karpathy's wiki gist (linked from `project/README.md`)
