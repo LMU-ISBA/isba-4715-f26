@@ -49,3 +49,7 @@ The instructor leading you through your own repo is dialogue, not a hint. A hint
 - **One free hint** across the entire project section (not per sub-segment)
 - Each additional hint after the first: **−3 pts within the project's 85**
 - **AI ownership:** if you cannot distinguish what you wrote from what AI scaffolded, the relevant component scores at most 50% of its weight
+
+## §03 Your Job Description
+
+The single source of truth for both questions is the job posting at `docs/job-posting.pdf` in your portfolio repo — the role you've been targeting all semester. Both TMAY and the project deep-dive are anchored to this JD: TMAY tailors who you are to this role; the project section tailors what you built to this role. If you've pivoted to a different target role since selecting your portfolio JD, swap `docs/job-posting.pdf` to the new posting and re-run the Practice Prompts in §05 against the updated file before May 11.
