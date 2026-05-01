@@ -12,6 +12,8 @@
 
 You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in 03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
 
+**What an analytics engineer is.** Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. The signature stack is SQL + dbt + a cloud warehouse like Snowflake — exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end.
+
 ## 02 Rubric
 
 The project is the assessment; TMAY is a quick on-ramp that gets you into the room.

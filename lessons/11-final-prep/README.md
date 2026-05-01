@@ -11,6 +11,10 @@
 
 This is the last class meeting before the final interview. The interview itself is in-person in Hilton 114 (the instructor's office), in a 20-minute Calendly slot you book for Mon May 11, Tue May 12, or Wed May 13. Today is the rehearsal: pair with a classmate, run a full mock interview against your own portfolio repo and job posting, draft your pipeline diagram, and leave with a written cheat sheet of what you can and cannot claim in the interview. Between May 5 and May 10, solo practice rounds and a final wiki verification are your prep. The final interview closes the second-half data engineering pivot that started with MP01 and ran through Lessons 06–10. May 4 is designed so that when you walk into Hilton 114 later that week, it feels like a continuation, not a cliff.
 
+## What is an analytics engineer?
+
+Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. The signature stack is SQL + dbt + a cloud warehouse like Snowflake — exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end.
+
 ## Two tutorials in this lesson
 
 Both tutorials run on May 4 in class. They are separate files because the work is separate: one rehearses the verbal walkthrough, the other produces the diagram artifact. You'll move between them within the 100-minute class as needed.
