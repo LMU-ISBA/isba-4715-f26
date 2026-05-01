@@ -309,3 +309,11 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Structure your response.** STAR (Situation → Task → Action → Result) works well for behavioral follow-ups. For technical follow-ups, lead with the answer, then the reasoning.
 - **Keep answers concise.** A 30-second answer beats a 90-second one nine times out of ten. If the interviewer wants more, they'll ask.
 - **Ask one clarifying question if you're unsure what's being asked.** Better than answering a question that wasn't asked.
+
+## §10 Last Tips
+
+- **Sleep.** Don't pull an all-nighter on May 10.
+- **Breathe.** A slow exhale before TMAY resets your voice.
+- **Ask for clarification when you need it.** The interviewer would rather repeat the question than score a misread answer.
+- **Carpe diem.** You built a real pipeline this semester. This is your moment to talk about it.
+
