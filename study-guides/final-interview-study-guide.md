@@ -84,7 +84,9 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 
 ## 05 Practice Prompts (rehearse with Claude Code)
 
-These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
+**Practice with humans first; AI is the fallback.** The best rehearsal partners are the ones who have to listen to you — a classmate, a friend, a roommate, a parent, a sibling. Claude Code is what you reach for when you don't have a human handy, not because it's better. The parent test is your quality bar: can a non-technical person who loves you follow your project walkthrough end-to-end? If they get lost, you've over-jargoned, and the interviewer will too. Aim to clear the parent test before May 11.
+
+These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD when no human is available. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
 
 Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved as a different format (`.md`, `.txt`), update the path before pasting.
 
@@ -280,7 +282,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 
 ## 08 Study Tips
 
-- **Form a study group.** 2–3 people. Practice TMAY against each other; rotate interviewer/candidate roles.
+- **Practice on humans, not just classmates.** Form a study group of 2–3 people, then keep going: a roommate, a parent, a friend in a different major. The best test is whether a non-technical person who loves you can follow your project walkthrough — the parent test. If they get lost, the interviewer will too. AI rehearsal is the fallback when no human is available, not the headline.
 - **Practice your elevator pitch out loud, not in your head.** Record yourself once.
 - **Whiteboard from memory.** Close the laptop. Draw the pipeline. Compare to the L10 diagram afterward. Repeat until you can do it without consulting.
 - **Rehearse without notes.** If you can't deliver TMAY without reading, you can't deliver it under pressure.

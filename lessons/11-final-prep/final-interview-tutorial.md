@@ -2,7 +2,7 @@
 
 This is the in-class clinic for the final interview. We'll spend the next 100 minutes rehearsing the two questions you'll be asked in your interview — "Tell me about yourself" and "Tell me about your project" — using paired practice, the whiteboard, and Claude Code as a rehearsal partner. Both questions are anchored to your portfolio JD (`docs/job-posting.pdf`), the role you've been targeting all semester. The interview itself is in your booked Calendly slot on Mon May 11, Tue May 12, or Wed May 13. You'll leave today with a TMAY you've delivered out loud, a pipeline you've walked through with a peer, a verified knowledge base wiki, and a committed cheat sheet that contracts what you're prepared to defend.
 
-If you're absent, follow this tutorial solo against Claude Code. Every paired part has a no-partner fallback.
+If you're absent, follow this tutorial solo against Claude Code. Every paired part has a no-partner fallback. **Between now and your interview slot, the best rehearsal is with humans — a roommate, a parent, a friend in another major. Aim to clear the parent test: a non-technical person who loves you can follow your project walkthrough end-to-end. AI rehearsal is the fallback when no human is around, not the headline.**
 
 > **Pacing note for the instructor:** The 100-minute budget has zero buffer. If we run long earlier, cut Part 04 (solo whiteboard recall) first — drop it from 10 min to 5 min. Parts 03 (pair TMAY), 05 (pair whiteboard), and 07 (KB live-fire + commit) are non-negotiable. Part 06 can spill into Part 07's KB live-fire by ≤5 min, but the commit step always happens before students leave.
 
@@ -188,4 +188,4 @@ The first delivery is the warm-up; the second is the rep. Skipping Round 02 leav
 
 ### No-partner fallback
 
-If you don't have a partner, run Practice Prompt 05.a in Claude Code three times instead. Each iteration counts as one rep. The cost is no human ear; the value is tighter feedback because Claude Code is harsher.
+If the room has odd numbers and no one is free, run Practice Prompt 05.a in Claude Code three times. Each iteration counts as one rep. This is genuinely the second-best option — Claude Code can score the words but not the eye contact, the pace, or whether you sound like you mean it. Find a roommate, parent, or friend tonight and run TMAY by them too.
