@@ -1,7 +1,7 @@
 # Lesson 11: Final Prep
 
 **Class meeting:** Mon, May 4, 2026 | 9:55–11:35 (100 min) | Hilton 115
-**Final interview:** Hilton 114 (instructor's office), 20-min Calendly slots across finals week
+**Final interview:** Hilton 114 (instructor's office), 20-min Calendly slot on Mon May 11, Tue May 12, or Wed May 13
 **Companion deliverables:**
 - `study-guides/final-interview-study-guide.md` — read before May 4
 - `docs/interview-prep-notes.md` — committed in your portfolio repo by end of class
@@ -9,14 +9,14 @@
 
 ## The Scenario
 
-This is the last class meeting before the final interview. The interview itself is in-person in Hilton 114 — the instructor's office — in 20-minute slots you book via Calendly across finals week. Today is the rehearsal: you will pair with a classmate, run a full mock interview against your own portfolio repo and job posting, and leave with a written cheat sheet of what you can and cannot claim on May 11. Between May 5 and May 10, solo practice rounds and a final wiki verification are your preparation. The final interview closes the second-half data engineering pivot that started with MP01 and ran through Lessons 06–10. May 4 is designed so that when you walk into Hilton 114 later that week, it feels like a continuation, not a cliff.
+This is the last class meeting before the final interview. The interview itself is in-person in Hilton 114 — the instructor's office — in a 20-minute Calendly slot you book on Mon May 11, Tue May 12, or Wed May 13. Today is the rehearsal: you will pair with a classmate, run a full mock interview against your own portfolio repo and job posting, draw your pipeline diagram as a polished artifact, and leave with a written cheat sheet of what you can and cannot claim in the interview. Between May 5 and May 10, solo practice rounds and a final wiki verification are your preparation. The final interview closes the second-half data engineering pivot that started with MP01 and ran through Lessons 06–10. May 4 is designed so that when you walk into Hilton 114 later that week, it feels like a continuation, not a cliff.
 
 ## Two tutorials in this lesson
 
-This lesson directory has two independent tutorials. Run them at different times.
+Both tutorials run on May 4 in class. They are independent files because the work they describe is independent — one rehearses the verbal walkthrough, the other produces the polished diagram artifact — but you'll move between them within the 100-minute class as needed.
 
-- **[Final interview tutorial](final-interview-tutorial.md)** — the in-class clinic for May 4. TMAY rehearsal, paired whiteboard walkthrough, full mock interview, knowledge base live-fire, and committing your defensibility cheat sheet. 100 minutes, runs during class.
-- **[Pipeline whiteboard tutorial](pipeline-whiteboard-tutorial.md)** — drawing your portfolio pipeline diagram as a Milestone 02 deliverable and as rehearsal for the whiteboard walkthrough on May 11. Self-paced; do this before or after May 4, ideally before so the in-class whiteboard practice rests on a polished version you already have.
+- **[Final interview tutorial](final-interview-tutorial.md)** — the in-class clinic for the verbal interview rehearsal: TMAY drafting and out-loud delivery, paired whiteboard walkthrough, full mock interview, knowledge base live-fire, and committing your defensibility cheat sheet.
+- **[Pipeline whiteboard tutorial](pipeline-whiteboard-tutorial.md)** — producing your portfolio pipeline diagram as a Milestone 02 deliverable. Pick a format (Mermaid, draw.io, Excalidraw, or hand-drawn photo), label every layer with the actual tool, embed it in your portfolio repo's `README.md`. The diagram is what you walk through in the May 11/12/13 interview.
 
 ## Learning Objectives
 
@@ -27,7 +27,7 @@ By the end of this lesson, you will be able to:
 - Produce a polished pipeline diagram (Mermaid, draw.io, Excalidraw, or hand-drawn) committed to your portfolio repo's `README.md`
 - Run a full 20-minute mock interview with a peer using your own portfolio repo and JD
 - Verify your knowledge base wiki is queryable end-to-end via Claude Code, and fix anything that is not
-- Commit a defensibility cheat sheet (`docs/interview-prep-notes.md`) that contracts what you can and cannot claim on May 11
+- Commit a defensibility cheat sheet (`docs/interview-prep-notes.md`) that contracts what you can and cannot claim in the interview
 
 ## What You Will Leave With
 
@@ -42,10 +42,10 @@ By the end of this lesson, you will be able to:
 - Your portfolio job posting open at `docs/job-posting.pdf` — this is the only JD in the room
 - A working knowledge base wiki (or come ready to debug it in Part 07)
 - The study guide read at least once: `study-guides/final-interview-study-guide.md`
-- A pipeline diagram already drafted via the [pipeline whiteboard tutorial](pipeline-whiteboard-tutorial.md), so the in-class paired whiteboard practice rests on something you've already worked through once
 
 ## Get Started
 
-For May 4 class: open the [final interview tutorial](final-interview-tutorial.md) at the start of class.
+Open both tutorials at the start of class on May 4. Move between them as the 100 minutes unfold — the interview tutorial drives the verbal rehearsal flow; the pipeline whiteboard tutorial drives the diagram artifact.
 
-For pipeline diagram prep: open the [pipeline whiteboard tutorial](pipeline-whiteboard-tutorial.md) anytime — ideally before May 4.
+- [Final interview tutorial](final-interview-tutorial.md)
+- [Pipeline whiteboard tutorial](pipeline-whiteboard-tutorial.md)

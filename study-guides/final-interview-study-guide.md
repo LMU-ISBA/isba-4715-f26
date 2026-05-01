@@ -3,7 +3,7 @@
 **Course:** ISBA 4715 — Developing Business Applications Using SQL
 **Assessment:** Data Engineer Interview (25% of course grade, 100 points)
 **Format:** In-person, Hilton 114 (instructor's office), 20-minute Calendly slot
-**Window:** Finals week 2026 (Calendly link distributed in class)
+**Window:** Mon May 11, Tue May 12, or Wed May 13 (Calendly link distributed in class)
 **Companion deliverable:** `docs/resume.pdf` due May 11
 
 ---
@@ -239,7 +239,7 @@ Review my resume against the JD and give me:
 
 ## 06 Cheat sheet as contract
 
-In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend on May 11. The contract: "if it's not on this list, I'm not claiming I built it."
+In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend in your interview. The contract: "if it's not on this list, I'm not claiming I built it."
 
 This isn't a checklist for the instructor. It's a pre-commitment to yourself. The AI policy in `project/README.md` is direct: "If you can't explain it, you don't get credit for it." The cheat sheet is how you make that concrete before the interview, not in the middle of one.
 

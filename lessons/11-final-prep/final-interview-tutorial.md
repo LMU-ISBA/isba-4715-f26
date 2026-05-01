@@ -1,6 +1,6 @@
 # Lesson 11: Final Interview Prep Tutorial
 
-This is the in-class clinic for the final interview. We'll spend the next 100 minutes rehearsing the two questions you'll be asked on May 11 — "Tell me about yourself" and "Tell me about your project" — using paired practice, the whiteboard, and Claude Code as a rehearsal partner. Both questions are anchored to your portfolio JD (`docs/job-posting.pdf`), the role you've been targeting all semester. You'll leave with a TMAY you've delivered out loud, a pipeline you've walked through with a peer, a verified knowledge base wiki, and a committed cheat sheet that contracts what you're prepared to defend.
+This is the in-class clinic for the final interview. We'll spend the next 100 minutes rehearsing the two questions you'll be asked in your interview — "Tell me about yourself" and "Tell me about your project" — using paired practice, the whiteboard, and Claude Code as a rehearsal partner. Both questions are anchored to your portfolio JD (`docs/job-posting.pdf`), the role you've been targeting all semester. The interview itself is in your booked Calendly slot on Mon May 11, Tue May 12, or Wed May 13. You'll leave today with a TMAY you've delivered out loud, a pipeline you've walked through with a peer, a verified knowledge base wiki, and a committed cheat sheet that contracts what you're prepared to defend.
 
 If you're absent, follow this tutorial solo against Claude Code. Every paired part has a no-partner fallback.
 
@@ -30,11 +30,11 @@ Five minutes. Instructor-led. Goal: every student in the room knows the format, 
 
 ### Step 01: Review the format
 
-The interview has three segments in fixed order: TMAY, project deep-dive, follow-ups and wrap. Knowing the shape lets you rehearse the timing instead of spending mental energy guessing it on May 11.
+The interview has three segments in fixed order: TMAY, project deep-dive, follow-ups and wrap. Knowing the shape lets you rehearse the timing instead of spending mental energy guessing it on your interview day.
 
 **What to do:**
 
-1. Confirm: the interview is in person, Hilton 114, 20 minutes per student, scheduled across finals week via Calendly.
+1. Confirm: the interview is in person, Hilton 114, 20 minutes per student, scheduled via Calendly on Mon May 11, Tue May 12, or Wed May 13.
 2. Confirm: TMAY is 60 seconds (15 pts), the project deep-dive is 14 minutes (85 pts), follow-ups and wrap is 4 minutes.
 3. Confirm: you'll be at the whiteboard for the project section.
 

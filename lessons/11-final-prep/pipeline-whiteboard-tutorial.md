@@ -1,8 +1,8 @@
 # Lesson 11: Pipeline Whiteboard Tutorial
 
-This lesson is interview prep. Your final interview on Sun May 11 includes a whiteboard walkthrough where you draw your portfolio pipeline from memory and explain it to the interviewer. Today is the practice run.
+This lesson is interview prep. Your final interview is in finals week — pick a slot for Mon May 11, Tue May 12, or Wed May 13 via Calendly — and it includes a whiteboard walkthrough where you draw your portfolio pipeline from memory and explain it to the interviewer. Today's class on May 4 is the practice run.
 
-The diagram you produce also lives in your portfolio repo's `README.md` as the Milestone 02 #9 deliverable. If you already shipped M02 on May 4 with a placeholder, this is the chance to upgrade it. If your M02 diagram already looks great, treat today as rehearsal — the act of drawing it from memory is what makes the May 11 walkthrough easy.
+The diagram you produce also lives in your portfolio repo's `README.md` as the Milestone 02 #9 deliverable. If you already shipped M02 with a placeholder, this is the chance to upgrade it. If your M02 diagram already looks great, treat today as rehearsal — the act of drawing it from memory is what makes the interview-week walkthrough easy.
 
 There is nothing to submit on Brightspace for Lesson 11. The diagram lives in your portfolio repo; you walk through it during your final interview.
 
@@ -43,4 +43,4 @@ The polished version (Mermaid, draw.io, Excalidraw) is the artifact. The from-me
 
 Your pipeline diagram is in your portfolio repo's `README.md`. Every layer is labeled with a specific tool. The data flow direction is unambiguous. At least one classmate has reviewed it and confirmed they could understand the pipeline without you explaining it.
 
-The May 11 final interview will start with you walking the interviewer through this diagram. If you can do that without notes, you're ready.
+Your final interview (May 11, 12, or 13) will start with you walking the interviewer through this diagram. If you can do that without notes, you're ready.
