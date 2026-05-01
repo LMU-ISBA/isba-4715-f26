@@ -301,3 +301,11 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Focus on weak spots.** The cheat sheet (§06) surfaces what you can't defend; spend study time there, not on the parts you already know.
 - **Big-picture-to-detail.** Always lead with the elevator pitch and the pipeline shape before diving into a specific file or query.
 - **Strategize with Claude Code.** Use Practice Prompt §05.d (full mock) at least once before May 11. The score the prompt gives you is information.
+
+## §09 Interview Tips
+
+- **Take your time.** Silence while you think reads as confidence, not weakness.
+- **Talk about what you know first.** If asked something open-ended, lead with the part you can defend cleanly. The interviewer will follow your lead.
+- **Structure your response.** STAR (Situation → Task → Action → Result) works well for behavioral follow-ups. For technical follow-ups, lead with the answer, then the reasoning.
+- **Keep answers concise.** A 30-second answer beats a 90-second one nine times out of ten. If the interviewer wants more, they'll ask.
+- **Ask one clarifying question if you're unsure what's being asked.** Better than answering a question that wasn't asked.
