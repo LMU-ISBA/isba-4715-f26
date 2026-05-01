@@ -1,7 +1,7 @@
 # Final Interview Study Guide
 
 **Course:** ISBA 4715 — Developing Business Applications Using SQL
-**Assessment:** Data Engineer Interview (25% of course grade, 100 points)
+**Assessment:** Analytics Engineer Interview (25% of course grade, 100 points)
 **Format:** In-person, Hilton 114 (instructor's office), 20-minute Calendly slot
 **Window:** Mon May 11, Tue May 12, or Wed May 13 (Calendly link distributed in class)
 **Companion deliverable:** `docs/resume.pdf` due May 11
@@ -146,7 +146,7 @@ Find the files in this repo related to <COMPONENT>.
 "GitHub Actions schedule," "dbt staging model," "Firecrawl scrape script,"
 "Snowflake raw table schema," or "knowledge base wiki structure.")
 
-Ask me five questions a senior data engineer would ask about that component:
+Ask me five questions a senior analytics engineer would ask about that component:
 1. What does it do?
 2. Why did I choose this approach over an obvious alternative?
 3. What's a realistic failure mode?
@@ -166,7 +166,7 @@ Use this when: you want to run the complete 20-minute interview structure before
 ```text
 Load @docs/job-posting.pdf, @README.md, @knowledge/wiki/, and @CLAUDE.md.
 
-You are a hiring manager conducting a 20-minute data engineer interview.
+You are a hiring manager conducting a 20-minute analytics engineer interview.
 Run the full structure in sequence:
 
 1. Open with "Tell me about yourself." After I answer, score my TMAY on the
