@@ -249,3 +249,26 @@ Review my resume against the JD and give me:
 3. Three stack words or phrases from the JD that should appear at least once
    in my resume but currently don't.
 ```
+
+## §06 Cheat sheet as contract
+
+In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend on May 11. The contract: "if it's not on this list, I'm not claiming I built it."
+
+This isn't a checklist for the instructor. It's a pre-commitment to yourself. The AI policy in `project/README.md` is direct: "If you can't explain it, you don't get credit for it." The cheat sheet is how you make that concrete before the interview rather than discovering it under pressure during one.
+
+**Format — save this as `docs/interview-prep-notes.md`:**
+
+```markdown
+# What I'm prepared to defend in the final interview
+
+- API extraction: `pipelines/extract_orders.py` — pulls daily orders from the e-commerce API into `data/raw/orders/`
+- Snowflake raw → dbt staging: `models/staging/stg_orders.sql` — cleans column types, adds row hash
+- Mart: `models/marts/fct_daily_revenue.sql` — fact table joined to `dim_date` and `dim_product`
+- GitHub Actions schedule: `.github/workflows/daily-extract.yml` — runs daily at 06:00 UTC, writes to Snowflake
+- Knowledge base wiki: `knowledge/wiki/competitive-landscape.md` — 4 wiki pages built from `knowledge/raw/` scrapes
+- Streamlit dashboard: `app/dashboard.py` — descriptive view (revenue trend) + diagnostic view (segment drilldown)
+```
+
+Note: this example is intentionally generic. Your actual list will look different — use your real file paths and one-sentence descriptions.
+
+- Commit `docs/interview-prep-notes.md` before leaving class on May 4. If you add components after class, commit again. The git history is the participation evidence.
