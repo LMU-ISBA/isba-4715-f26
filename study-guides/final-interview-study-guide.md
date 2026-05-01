@@ -8,11 +8,11 @@
 
 ---
 
-## §01 Premise
+## 01 Premise
 
-You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in §03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
+You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in 03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
 
-## §02 Rubric
+## 02 Rubric
 
 The project is the assessment; TMAY is a quick on-ramp that gets you into the room.
 
@@ -37,11 +37,11 @@ The instructor leading you through your own repo is dialogue, not a hint. A hint
 - Each additional hint after the first: **−3 pts within the project's 85**
 - **AI ownership:** if you cannot distinguish what you wrote from what AI scaffolded, the relevant component scores at most 50% of its weight
 
-## §03 Your Job Description
+## 03 Your Job Description
 
-There is one job description in the room: the posting at `docs/job-posting.pdf` in your portfolio repo, the role you've been targeting all semester. TMAY tailors who you are to that role. The project section tailors what you built to that role. If you've pivoted to a different role since picking your portfolio JD, swap the file and re-run the Practice Prompts in §05 against the new posting before May 11.
+There is one job description in the room: the posting at `docs/job-posting.pdf` in your portfolio repo, the role you've been targeting all semester. TMAY tailors who you are to that role. The project section tailors what you built to that role. If you've pivoted to a different role since picking your portfolio JD, swap the file and re-run the Practice Prompts in 05 against the new posting before May 11.
 
-## §04 Structure and Questions
+## 04 Structure and Questions
 
 | Phase | Time | What happens |
 |---|---|---|
@@ -82,7 +82,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 - **Common follow-up patterns:** "why X over Y?" (defend a technical decision); scale hypothetical ("what breaks at 100× volume?"); prioritization logic ("what slipped first when time got tight?")
 - **Wrap:** Closes with confirmation that `docs/resume.pdf` is committed to your portfolio repo by May 11.
 
-## §05 Practice Prompts (rehearse with Claude Code)
+## 05 Practice Prompts (rehearse with Claude Code)
 
 These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
 
@@ -90,7 +90,7 @@ Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved a
 
 ---
 
-### §05.a — TMAY rehearsal
+### 05.a — TMAY rehearsal
 
 Use this when: you need to draft or tighten your 60-second intro before you practice it out loud.
 
@@ -111,7 +111,7 @@ Give me one specific sentence to cut or rewrite, then ask me to try again.
 
 ---
 
-### §05.b — Whiteboard pipeline rehearsal
+### 05.b — Whiteboard pipeline rehearsal
 
 Use this when: you want to practice narrating your pipeline with realistic follow-up interruptions, before you're standing at the whiteboard in Hilton 114.
 
@@ -134,7 +134,7 @@ Start by saying "Go ahead — walk me through your pipeline from the beginning."
 
 ---
 
-### §05.c — Component drill on any pipeline layer
+### 05.c — Component drill on any pipeline layer
 
 Use this when: you want to pressure-test your understanding of one specific piece of the repo before the interview.
 
@@ -157,7 +157,7 @@ be verified — or flag if my answer doesn't match what's actually in the repo.
 
 ---
 
-### §05.d — Full mock interview (the take-home rehearsal)
+### 05.d — Full mock interview (the take-home rehearsal)
 
 Use this when: you want to run the complete 20-minute interview structure before your Calendly slot. Run this at least once between May 5 and May 10.
 
@@ -193,7 +193,7 @@ Start now with TMAY.
 
 ---
 
-### §05.e — Knowledge base demo dry run
+### 05.e — Knowledge base demo dry run
 
 Use this when: you want to verify that your wiki is queryable end-to-end before the interview — ideally by May 4 so any issues surface while help is still available.
 
@@ -219,7 +219,7 @@ Note: if this prompt fails on May 4, that's why class Part 07 exists — bring i
 
 ---
 
-### §05.f — Resume polish
+### 05.f — Resume polish
 
 Use this when: you want targeted edits before committing `docs/resume.pdf` by May 11.
 
@@ -237,7 +237,7 @@ Review my resume against the JD and give me:
    in my resume but currently don't.
 ```
 
-## §06 Cheat sheet as contract
+## 06 Cheat sheet as contract
 
 In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend on May 11. The contract: "if it's not on this list, I'm not claiming I built it."
 
@@ -260,7 +260,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 
 - Commit `docs/interview-prep-notes.md` before leaving class on May 4. If you add components after class, commit again. The git history is the participation evidence.
 
-## §07 Study Material
+## 07 Study Material
 
 **Course materials:**
 - `lessons/06-local-pipeline/` through `lessons/10-streamlit-dashboard/` — every tutorial
@@ -278,18 +278,18 @@ Note: this example is intentionally generic. Your actual list will look differen
 - O'Reilly Learning (LMU library has a free subscription) — search "data engineering interview"
 - [Karpathy's LLM wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the inspiration for your `knowledge/wiki/` pattern
 
-## §08 Study Tips
+## 08 Study Tips
 
 - **Form a study group.** 2–3 people. Practice TMAY against each other; rotate interviewer/candidate roles.
 - **Practice your elevator pitch out loud, not in your head.** Record yourself once.
 - **Whiteboard from memory.** Close the laptop. Draw the pipeline. Compare to the L10 diagram afterward. Repeat until you can do it without consulting.
 - **Rehearse without notes.** If you can't deliver TMAY without reading, you can't deliver it under pressure.
-- **Draft short follow-up answers.** Use the §05.c component drill prompt across each layer; save the answers to scratch notes.
-- **Focus on weak spots.** The cheat sheet (§06) surfaces what you can't defend; spend study time there, not on the parts you already know.
+- **Draft short follow-up answers.** Use the 05.c component drill prompt across each layer; save the answers to scratch notes.
+- **Focus on weak spots.** The cheat sheet (06) surfaces what you can't defend; spend study time there, not on the parts you already know.
 - **Lead with the big picture.** Always open with the elevator pitch and the pipeline shape before diving into a specific file or query.
-- **Strategize with Claude Code.** Use Practice Prompt §05.d (full mock) at least once before May 11. The score the prompt gives you is information.
+- **Strategize with Claude Code.** Use Practice Prompt 05.d (full mock) at least once before May 11. The score the prompt gives you is information.
 
-## §09 Interview Tips
+## 09 Interview Tips
 
 - **Take your time.** Silence while you think reads as confidence, not weakness.
 - **Talk about what you know first.** If asked something open-ended, lead with the part you can defend cleanly. The interviewer will follow your lead.
@@ -297,7 +297,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Keep answers concise.** A 30-second answer beats a 90-second one nine times out of ten. If the interviewer wants more, they'll ask.
 - **Ask one clarifying question if a follow-up is ambiguous.** Better than answering a question that wasn't asked. The interviewer would rather repeat than score a misread answer.
 
-## §10 Last Tips
+## 10 Last Tips
 
 - **Sleep.** Don't pull an all-nighter on May 10.
 - **Breathe.** A slow exhale before TMAY resets your voice.
