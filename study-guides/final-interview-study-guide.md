@@ -82,10 +82,11 @@ The project section is 14 minutes and 85 points. You lead. Cover the following e
 1. **Elevator pitch** — one sentence: who you're helping, what problem you're solving, how you're solving it
 2. **Connection to your portfolio JD** — why this project, why this role, what skills overlap
 3. **Pipeline whiteboard walk** — draw and narrate both pipelines: API → Snowflake → dbt staging → mart, plus scrape → `knowledge/raw/` → wiki. Label tools. Label schema and table names. Both pipelines must be covered.
-4. **Technical deep dive** — three sub-segments:
+4. **Technical deep dive** — four sub-segments:
    - **Data ingestion and automation:** API extraction script, web scrape via Firecrawl, GitHub Actions schedule + manual triggers, secrets handling
    - **Modeling and warehouse setup:** AWS RDS (if used), Snowflake raw → dbt staging → mart, star schema (fact + dimension tables), one dbt test
-   - **Knowledge base demo (required):** Run Claude Code live against `knowledge/wiki/`. Ask a question whose answer is only in `knowledge/raw/`. Defend the answer's source citation. The KB demo is required — not demonstrating it costs points within the 85. Optionally, sketch the Streamlit dashboard's panes on the whiteboard (descriptive view, diagnostic view, interactive element) — at your discretion; no live demo is expected.
+   - **Knowledge base demo (required):** Run Claude Code live against `knowledge/wiki/`. Ask a question whose answer is only in `knowledge/raw/`. Defend the answer's source citation. Not demonstrating it costs points within the 85.
+   - **Streamlit dashboard sketch (optional):** At your discretion, sketch the dashboard's panes on the whiteboard — descriptive view, diagnostic view, interactive element. No live demo is expected.
 5. **Insights** — 1–2 specific insights from the dashboard with the stakeholder business decisions they inform
 6. **One significant challenge** and how you overcame it
 7. **One future improvement** and why it matters
