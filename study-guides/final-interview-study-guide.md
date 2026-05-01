@@ -11,13 +11,16 @@
 <!-- SECTION INDEX (delete before publishing)
 01 Premise
 02 Rubric
-03 Standard Job Description
+03 Your Job Description
 04 Structure and Questions
-05 Two job descriptions, two purposes
-06 Practice Prompts (rehearse with Claude Code)
-07 Cheat sheet as contract
-08 Study Material
-09 Study Tips
-10 Interview Tips
-11 Last Tips
+05 Practice Prompts (rehearse with Claude Code)
+06 Cheat sheet as contract
+07 Study Material
+08 Study Tips
+09 Interview Tips
+10 Last Tips
 -->
+
+## §01 Premise
+
+The Data Engineer Interview simulates the final stage of a real hiring process: you walk into the room, go to the whiteboard, and defend your portfolio project against a role you've been targeting all semester. This is not a quiz — it is a conversation about work you actually built, evaluated against the job description you will find in §03. The goal is the same as any technical interview: show that you understand what you built, why you built it that way, and what it means for the business.
