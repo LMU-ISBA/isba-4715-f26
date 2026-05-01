@@ -134,6 +134,7 @@ Use this when: you want to practice narrating your pipeline with realistic follo
 ```text
 Load @README.md, @knowledge/wiki/, and @docs/job-posting.pdf.
 Also load @dbt/ or @models/ if either directory exists in this repo.
+(If neither directory exists in your repo — e.g., your dbt models live somewhere else like @transform/ or @analytics/ — replace this line with the actual path before pasting, or remove it.)
 
 You are a technical interviewer. I'm going to narrate my pipeline as if I'm at
 the whiteboard. After each segment I describe — API → Snowflake, dbt staging →
