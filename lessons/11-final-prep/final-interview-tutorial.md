@@ -275,3 +275,54 @@ Partner B walks, Partner A follows up. Same protocol.
 ### No-partner fallback
 
 If the room has odd numbers and no one is free, run Practice Prompt 05.b in Claude Code. Walk to the whiteboard physically and narrate to the empty room while Claude Code interrupts with follow-ups in the chat. This is genuinely the second-best option — Claude Code can ask role-tied questions but it can't watch your hand draw the wrong arrow direction or notice when your eye contact drops. Practice with a roommate or family member tonight: walk them through the diagram, ask if anything was unclear. The parent test is your bar — a non-technical person who loves you should be able to follow it end-to-end.
+
+---
+
+## Part 06: Pair full mock (25 min)
+
+Twenty-five minutes. Paired. The largest single part of the class. Goal: each student goes through the full 20-minute interview structure at least once, with TMAY + project + KB demo + follow-ups, against their own portfolio JD.
+
+### Step 01: Set up the hot seat
+
+The interviewer needs to read the candidate's JD before the first question. Five minutes of file-prep saves the next twenty.
+
+**What to do:**
+
+1. Pick who goes first.
+2. Hot-seated student: open your portfolio repo in Cursor, open Claude Code, open `docs/job-posting.pdf`, open study guide 05.d if you want a reference list of follow-ups.
+3. Interviewer: open the hot-seated student's `docs/job-posting.pdf` and read it. You're now the interviewer for *their* role.
+
+**Checkpoint:** Hot-seated student has the right files open. Interviewer has read the portfolio JD.
+
+---
+
+### Step 02: Round 01 — Partner A hot seat (~12 min: 10 min interview + 2 min feedback)
+
+This is the closest possible rehearsal of the actual interview. The KB demo step in particular is the part students underestimate — it's the differentiator that closes the second-half pivot.
+
+**What to do:**
+
+1. Interviewer asks "Tell me about yourself" (against Partner A's portfolio JD, 60 seconds).
+2. Interviewer transitions: "Now tell me about your project — let's go to the whiteboard."
+3. Partner A walks the pipeline. Interviewer probes with at least 3 follow-ups using prompts from study guide 05.c.
+4. **KB demo step:** Interviewer asks Partner A: "Ask your wiki a question whose answer is only in `knowledge/raw/`. Defend the answer." Partner A runs Claude Code against `knowledge/wiki/` live and verifies the citation.
+5. Partner A may optionally sketch the Streamlit dashboard's panes on the whiteboard if the interviewer probes with "tell me about your dashboard" — the dashboard is sketched, not lived-demoed.
+6. ~2 min feedback. Interviewer names: one A-grade moment, one B-or-below moment.
+
+**Checkpoint:** Partner A has run TMAY + project + KB demo + 3 follow-ups in roughly 10 minutes.
+
+---
+
+### Step 03: Round 02 — Swap (~12 min)
+
+Same protocol, different direction.
+
+**What to do:** Partner B is the hot seat. Same protocol.
+
+**Checkpoint:** Both partners have run the full mock.
+
+---
+
+### No-partner fallback
+
+If you don't have a partner, run Practice Prompt 05.d (full mock interview) against Claude Code. The prompt loads `@docs/job-posting.pdf` + your repo + your wiki and runs the full structure in one paste. The output includes a descriptor-rubric score with one sentence of justification per phase. This is a real workout, but it's still the fallback — Claude Code can score the words but not the eye contact, the breath before TMAY, or the moment of hesitation that tells a real interviewer you're guessing. Run the full mock with a roommate, parent, or friend at least once between May 5 and your interview slot. The parent test holds: if a non-technical person who loves you can't follow your project walkthrough, you've over-jargoned and the interviewer will notice too.
