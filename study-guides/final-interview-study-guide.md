@@ -97,3 +97,157 @@ Follow-up questions can land anywhere across the 14 minutes. See the next subsec
 ### Follow-ups + Wrap
 
 The final four minutes shift from your narration to the instructor probing the edges. Common patterns: "why did you choose X over Y?" presses you to defend a technical decision; scale hypotheticals ("if data volume grew 100×, what breaks?") test whether you understand the limits of your architecture; prioritization logic ("which milestone slipped first when time got tight?") surfaces honest project management judgment. Answer directly — hedge less, defend more. The wrap closes with confirmation that `docs/resume.pdf` is committed to your portfolio repo by May 11.
+
+## §05 Practice Prompts (rehearse with Claude Code)
+
+These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
+
+Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved as a different format (`.md`, `.txt`), update the path before pasting.
+
+---
+
+### §05.a — TMAY rehearsal
+
+Use this when: you need to draft or tighten your 60-second intro before you practice it out loud.
+
+```text
+Load @docs/job-posting.pdf and @docs/resume.pdf (or @docs/scratch/resume.md if you're
+working from a draft). You are a hiring manager interviewing me for the role in the JD.
+
+Start the interview now: ask me "Tell me about yourself."
+
+After I type my response, score me on three things:
+1. Did it hit all five targets — education, extracurricular/initiative, relevant work or
+   internship, one personal tidbit (human connection), and a segue into my project?
+2. Is it 60 seconds or under when spoken aloud at a natural pace?
+3. Does it use at least two stack words or phrases that appear in the JD?
+
+Give me one specific sentence to cut or rewrite, then ask me to try again.
+```
+
+---
+
+### §05.b — Whiteboard pipeline rehearsal
+
+Use this when: you want to practice narrating your pipeline with realistic follow-up interruptions, before you're standing at the whiteboard in Hilton 114.
+
+```text
+Load @README.md, @knowledge/wiki/, and @docs/job-posting.pdf.
+Also load @dbt/ or @models/ if either directory exists in this repo.
+
+You are a technical interviewer. I'm going to narrate my pipeline as if I'm at
+the whiteboard. After each segment I describe — API → Snowflake, dbt staging →
+mart, scrape → wiki — interrupt me with one realistic follow-up question tied to
+a responsibility or skill listed in the JD.
+
+After I finish the full walkthrough, give me three questions you'd expect a real
+interviewer to ask for this specific role, based on what's in the JD and what
+gaps you noticed in my narration.
+
+Start by saying "Go ahead — walk me through your pipeline from the beginning."
+```
+
+---
+
+### §05.c — Component drill on any pipeline layer
+
+Use this when: you want to pressure-test your understanding of one specific piece of the repo before the interview.
+
+```text
+Find the files in this repo related to <COMPONENT>.
+(Replace <COMPONENT> with the piece you want to drill — for example:
+"GitHub Actions schedule," "dbt staging model," "Firecrawl scrape script,"
+"Snowflake raw table schema," or "knowledge base wiki structure.")
+
+Ask me five questions a senior data engineer would ask about that component:
+1. What does it do?
+2. Why did I choose this approach over an obvious alternative?
+3. What's a realistic failure mode?
+4. What would I change with more time?
+5. What does the output flow into downstream?
+
+After each answer, point to the specific file or section where my answer can
+be verified — or flag if my answer doesn't match what's actually in the repo.
+```
+
+---
+
+### §05.d — Full mock interview (the take-home rehearsal)
+
+Use this when: you want to run the complete 20-minute interview structure before your Calendly slot. Run this at least once between May 5 and May 10.
+
+```text
+Load @docs/job-posting.pdf, @README.md, @knowledge/wiki/, and @CLAUDE.md.
+
+You are a hiring manager conducting a 20-minute data engineer interview.
+Run the full structure in sequence:
+
+1. Open with "Tell me about yourself." After I answer, score my TMAY on the
+   five targets (education, initiative, relevant work, personal tidbit, segue)
+   and tell me one thing to improve before moving on.
+
+2. Transition to "Tell me about your project." Anchor your follow-up questions
+   to the responsibilities and skills listed in the JD. Probe my pipeline with
+   at least three follow-up questions during the 14-minute project section.
+
+3. Ask me to demo the knowledge base: give me a question whose answer should
+   only appear in knowledge/raw/ (not just the wiki summary). I'll run Claude
+   Code against the wiki and report back what it returns.
+
+4. Close with three follow-up questions — one on prioritization logic, one on
+   an alternative approach I considered and rejected, one on what breaks first
+   at 10× data volume.
+
+5. After I answer all three, score me using the A/B/C/D/F descriptor rubric:
+   A = ready to hire, B = strong with minor gaps, C = adequate but uneven,
+   D/F = substantial gaps. Give one sentence of justification for each phase
+   (TMAY, pipeline walkthrough, KB demo, follow-ups).
+
+Start now with TMAY.
+```
+
+---
+
+### §05.e — Knowledge base demo dry run
+
+Use this when: you want to verify that your wiki is queryable end-to-end before the interview — ideally by May 4 so any issues surface while help is still available.
+
+```text
+Load @knowledge/wiki/ and @knowledge/raw/.
+
+Run a five-step diagnostic on my knowledge base:
+
+1. List every file in knowledge/wiki/ and every file in knowledge/raw/.
+2. Identify three facts that appear in knowledge/raw/ source files but are not
+   yet reflected in any knowledge/wiki/ page.
+3. Pick one of those facts and query the wiki for it as if you were the
+   interviewer asking a live question. Report exactly what the wiki returns
+   and whether the answer cites a knowledge/raw/ source.
+4. If the wiki can't answer the question, identify what's missing — is it a
+   gap in the wiki page, a missing schema entry in CLAUDE.md, or a raw source
+   that was never ingested?
+5. Output a 5-line troubleshooting checklist I can run on the morning of my
+   interview to confirm the KB is ready.
+```
+
+Note: if this prompt fails on May 4, that's why class Part 07 exists — bring it to the live-fire session.
+
+---
+
+### §05.f — Resume polish
+
+Use this when: you want targeted edits before committing `docs/resume.pdf` by May 11.
+
+```text
+Load @docs/job-posting.pdf and @docs/resume.pdf
+(or @docs/scratch/resume.md if you're working from a draft).
+
+Review my resume against the JD and give me:
+1. Three specific edits — quote the exact phrase in my current resume and the
+   replacement wording. Focus on bullets that undersell a relevant skill or
+   use vague language where the JD is specific.
+2. One bullet to add, with proposed wording, that surfaces work my resume
+   currently understates relative to the JD's requirements.
+3. Three stack words or phrases from the JD that should appear at least once
+   in my resume but currently don't.
+```
