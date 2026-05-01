@@ -326,3 +326,55 @@ Same protocol, different direction.
 ### No-partner fallback
 
 If you don't have a partner, run Practice Prompt 05.d (full mock interview) against Claude Code. The prompt loads `@docs/job-posting.pdf` + your repo + your wiki and runs the full structure in one paste. The output includes a descriptor-rubric score with one sentence of justification per phase. This is a real workout, but it's still the fallback — Claude Code can score the words but not the eye contact, the breath before TMAY, or the moment of hesitation that tells a real interviewer you're guessing. Run the full mock with a roommate, parent, or friend at least once between May 5 and your interview slot. The parent test holds: if a non-technical person who loves you can't follow your project walkthrough, you've over-jargoned and the interviewer will notice too.
+
+---
+
+## Part 07: KB live-fire and cheat sheet contract (15 min)
+
+Fifteen minutes. Solo with Claude Code. Two halves: verify the wiki works, then commit your defensibility contract. The commit is the participation evidence — required to leave class.
+
+### Step 01: KB live-fire (8 min)
+
+Your interview day is not the day to discover that your wiki query path is broken. Fix it in this room while the instructor is present.
+
+**What to do:**
+
+1. Run Practice Prompt 05.e (KB demo dry run) against your repo. The prompt is the most reliable way to surface broken pieces of the wiki end-to-end.
+2. Specifically: ask your wiki a question whose answer only exists in `knowledge/raw/` (a scraped source you haven't yet promoted to `knowledge/wiki/`). The wiki should answer correctly and cite the raw source.
+3. If the answer is wrong, missing, or doesn't cite a source: fix it now. Update `knowledge/wiki/`, update your `CLAUDE.md` knowledge base schema, or re-run the wiki synthesis prompt from L09 Session 02.
+4. Stop when one query lands cleanly with a citation.
+
+**Checkpoint:** Your wiki answers one query correctly and cites a `knowledge/raw/` source.
+
+---
+
+### Step 02: Draft `docs/interview-prep-notes.md` (5 min)
+
+The list forces you to declare in writing what you can defend. Anything you can't write down clearly today is a red flag for your interview.
+
+**What to do:**
+
+1. Open (or create) `docs/interview-prep-notes.md` in your portfolio repo.
+2. Use the format from study guide 06: one bullet per component you're prepared to defend, in the form `<component>: <path> — <one-line description of what it does>`.
+3. Aim for 6–10 bullets covering: API extraction, Snowflake raw, dbt staging, dbt mart, GitHub Actions workflow, knowledge base wiki, Streamlit dashboard. Add anything else you'll demo or sketch.
+4. The contract: if it's not on this list, you're not claiming you built it in your interview. Be honest.
+
+**Checkpoint:** The file exists with at least 6 bullets, each pointing to a real path in your repo.
+
+---
+
+### Step 03: Commit and push (2 min)
+
+The commit is the participation evidence; the push is what makes it visible to the instructor. No commit, no participation credit.
+
+**What to do:**
+
+```bash
+git add docs/interview-prep-notes.md
+git commit -m "docs: interview prep cheat sheet"
+git push
+```
+
+Show the instructor the commit hash on your way out.
+
+**Checkpoint:** The commit is pushed and visible on GitHub.
