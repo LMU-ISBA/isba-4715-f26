@@ -189,3 +189,37 @@ The first delivery is the warm-up; the second is the rep. Skipping Round 02 leav
 ### No-partner fallback
 
 If the room has odd numbers and no one is free, run Practice Prompt 05.a in Claude Code three times. Each iteration counts as one rep. This is genuinely the second-best option — Claude Code can score the words but not the eye contact, the pace, or whether you sound like you mean it. Find a roommate, parent, or friend tonight and run TMAY by them too.
+
+---
+
+## Part 04: Solo whiteboard recall (10 min)
+
+Ten minutes. Solo. Laptops closed for the first 7 minutes. Goal: see what's actually in your head when you can't look anything up. If pacing slips earlier in class, this part gets cut to 5 minutes before any other part is cut.
+
+### Step 01: Draw your pipeline from memory (7 min)
+
+On your interview day, the whiteboard is the test. If a piece is missing in your head when you're sitting alone in a quiet room, it's missing in the interview too.
+
+**What to do:**
+
+1. Close your laptop.
+2. On paper or a free whiteboard, draw both pipelines:
+   - **Structured path:** API extraction → Snowflake raw → dbt staging → mart → Streamlit dashboard
+   - **Knowledge path:** Web scrape → `knowledge/raw/` → wiki synthesis → queryable via Claude Code
+3. Label every box with its tool (Python, Snowflake, dbt, Firecrawl, GitHub Actions, Streamlit) and at least one specific name from your repo (table name, model name, workflow filename).
+
+**Checkpoint:** Both pipelines drawn end-to-end with tools and at least one specific name per box.
+
+---
+
+### Step 02: Compare to the L10 diagram (3 min)
+
+What you missed today is what you'll forget on your interview day unless you put it on the contract.
+
+**What to do:**
+
+1. Open `lessons/10-streamlit-dashboard/tutorial.md` (or the L10 diagram you saved during that lesson).
+2. List on the side of your drawing: any box, arrow, or label you missed.
+3. The list goes into your cheat sheet in Part 07.
+
+**Checkpoint:** You have a written list of gaps to close before your interview.
