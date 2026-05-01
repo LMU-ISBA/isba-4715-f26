@@ -21,3 +21,50 @@ Read the [Final Interview Study Guide](../../study-guides/final-interview-study-
 | [Part 05](#part-05-pair-whiteboard-walkthrough-20-min) | Pair whiteboard walkthrough | Walk your pipeline at the whiteboard with a peer asking follow-ups |
 | [Part 06](#part-06-pair-full-mock-25-min) | Pair full mock | 10-minute hot seat each: TMAY + project + KB demo + follow-ups |
 | [Part 07](#part-07-kb-live-fire-and-cheat-sheet-contract-15-min) | KB live-fire and cheat sheet contract | Verify wiki end-to-end; commit `docs/interview-prep-notes.md` |
+
+---
+
+## Part 01: Frame the interview (5 min)
+
+Five minutes. Instructor-led. Goal: every student in the room knows the format, the rubric, and which JD drives the conversation before we start practicing.
+
+### Step 01: Review the format
+
+The interview has three segments in fixed order: TMAY, project deep-dive, follow-ups and wrap. Knowing the shape lets you rehearse the timing instead of spending mental energy guessing it on May 11.
+
+**What to do:**
+
+1. Confirm: the interview is in person, Hilton 114, 20 minutes per student, scheduled across finals week via Calendly.
+2. Confirm: TMAY is 60 seconds (15 pts), the project deep-dive is 14 minutes (85 pts), follow-ups and wrap is 4 minutes.
+3. Confirm: you'll be at the whiteboard for the project section.
+
+**Checkpoint:** You can repeat the structure (TMAY → project → follow-ups) and the timing without looking.
+
+---
+
+### Step 02: Read the rubric
+
+The rubric is published and we're reading it in class now. Rubrics that stay hidden until grading lead to surprise; this one won't.
+
+**What to do:**
+
+1. Open the study guide section 02. Read the descriptor table (A/B/C/D/F).
+2. Note the 15/85 point split.
+3. Note the hint-penalty rule: **one free hint total across the project section; each additional hint −3 pts within the 85**.
+4. Note the AI ownership rule: any component you can't distinguish from AI scaffolding scores at most 50% of its weight.
+
+**Checkpoint:** You can name the hint rule and the AI ownership rule without looking.
+
+---
+
+### Step 03: Open your portfolio JD
+
+Both questions in the interview are anchored to the role you've been targeting all semester — the JD you placed in your portfolio repo. Real interviewers don't share a generic JD across candidates; they read the role you applied to and ask you about that role. We're rehearsing that exact dynamic.
+
+**What to do:**
+
+1. Open `docs/job-posting.pdf` in your portfolio repo. This is the only JD in the room.
+2. Both questions are anchored to this JD: TMAY tailors who you are to this role; the project section tailors what you built to this role.
+3. If you've pivoted to a different target role since selecting your portfolio JD, swap the file before continuing.
+
+**Checkpoint:** Your portfolio JD is open on your laptop. You can name the role title in one sentence.
