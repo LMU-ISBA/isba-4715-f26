@@ -4,7 +4,8 @@
 **Assessment:** Analytics Engineer Interview (25% of course grade, 100 points)
 **Format:** In-person, Hilton 114 (instructor's office), 20-minute Calendly slot
 **Window:** Mon May 11, Tue May 12, or Wed May 13 — [book your slot at calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview)
-**Resume:** `docs/resume.pdf` due May 11 — graded in the project rubric as deliverable #15 (5 pts), not in the interview score. See `project/README.md`.
+**Recording:** Pre-interview practice run due 11:59pm the day before your Calendly slot, worth 10 pts of the 100-pt interview (see section 07).
+**Resume:** `docs/resume.pdf` due May 11. Graded in the project rubric as deliverable #15 (5 pts), not in the interview score. See `project/README.md`.
 
 ---
 
@@ -12,16 +13,17 @@
 
 You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in 03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
 
-**What an analytics engineer is.** Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. In practice, analytics engineers also do analysis on top of those models — turning the numbers into business decisions — which is why your portfolio includes both a dbt mart and a Streamlit dashboard with insights. The signature stack is SQL + dbt + a cloud warehouse like Snowflake — exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end and can defend the insights it produces.
+**What an analytics engineer is.** Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. In practice, analytics engineers also do analysis on top of those models, turning the numbers into business decisions. That's why your portfolio includes both a dbt mart and a Streamlit dashboard with insights. The signature stack is SQL + dbt plus a cloud warehouse like Snowflake, exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end and can defend the insights it produces.
 
 ## 02 Rubric
 
-The project is the assessment; "Tell me about yourself" is a quick on-ramp that gets you into the room.
+The project is the assessment; "Tell me about yourself" is a quick on-ramp that gets you into the room. A pre-interview recording (section 07) counts toward the same 100.
 
 | Section | Points | What's assessed |
 |---|---|---|
-| "Tell me about yourself" | 15 | Tailored to the portfolio JD: education, initiative, relevant experience, human connection, segue into project. Concise (≤1 minute), confident, structured. |
-| Project | 85 | Pipeline accuracy and completeness, technical defensibility, KB demo works, insights are specific and actionable, story arc is clean (beginning → middle → end), challenge/improvement/lesson all addressed. |
+| Pre-interview recording | 10 | Submitted on time, both questions present in the right length range, whiteboard visible. Pass/fail (see section 07). |
+| "Tell me about yourself" (live) | 10 | Tailored to the portfolio JD: education, initiative, relevant experience, human connection, segue into project. Concise (≤1 minute), confident, structured. |
+| Project (live) | 80 | Pipeline accuracy and completeness, technical defensibility, KB demo works, insights are specific and actionable, story arc is clean (beginning → middle → end), challenge/improvement/lesson all addressed. |
 | **Total** | **100** | |
 
 | Grade | Criteria |
@@ -36,7 +38,7 @@ The project is the assessment; "Tell me about yourself" is a quick on-ramp that 
 The instructor leading you through your own repo is dialogue, not a hint. A hint is when the instructor supplies the answer to a defensibility question.
 
 - **One free hint** across the entire project section (not per sub-segment)
-- Each additional hint after the first: **−3 pts within the project's 85**
+- Each additional hint after the first: **−3 pts within the project's 80**
 - **AI ownership:** if you cannot distinguish what you wrote from what AI scaffolded, the relevant component scores at most 50% of its weight
 
 ## 03 Your Job Description
@@ -48,8 +50,8 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 | Phase | Time | What happens |
 |---|---|---|
 | **Setup** | 0:00–1:00 | Arrive at Hilton 114. Lay laptop on the desk, open your portfolio repo in Cursor with a Claude Code session ready, open `docs/job-posting.pdf`. This is the only JD in the room. |
-| **"Tell me about yourself"** (15 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
-| **Project** (85 pts) | 2:00–16:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
+| **"Tell me about yourself"** (10 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
+| **Project** (80 pts) | 2:00–16:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
 | **Follow-ups + Wrap** | 16:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
 
 ### "Tell me about yourself"
@@ -92,8 +94,6 @@ These prompts turn Claude Code into a rehearsal partner against your actual repo
 
 Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved as a different format (`.md`, `.txt`), update the path before pasting.
 
-Note: some prompts also reference `@docs/scratch/resume.md` as a draft path. Use it if you haven't yet exported your final resume PDF. The canonical artifact for grading is `docs/resume.pdf` (project deliverable #15).
-
 ---
 
 ### 05.a — "Tell me about yourself" content draft
@@ -101,8 +101,7 @@ Note: some prompts also reference `@docs/scratch/resume.md` as a draft path. Use
 Use this when: you're staring at a blank scratch file and need help generating content for each of the five "Tell me about yourself" components. This produces an initial draft you can refine with 05.b.
 
 ```text
-Load @docs/job-posting.pdf and @docs/resume.pdf (or @docs/scratch/resume.md if you're
-working from a draft).
+Load @docs/job-posting.pdf and @docs/resume.pdf.
 
 I'm drafting a 60-second "Tell me about yourself" for the role in the JD. Ask me one
 focused question for each of the five components below, one at a time, waiting for my
@@ -139,8 +138,7 @@ Start with the education question.
 Use this when: you have a draft of your 60-second intro (from 05.a or your own scratch) and want to score it against the five "Tell me about yourself" targets and tighten it before practicing out loud.
 
 ```text
-Load @docs/job-posting.pdf and @docs/resume.pdf (or @docs/scratch/resume.md if you're
-working from a draft). You are a hiring manager interviewing me for the role in the JD.
+Load @docs/job-posting.pdf and @docs/resume.pdf. You are a hiring manager interviewing me for the role in the JD.
 
 Start the interview now: ask me "Tell me about yourself."
 
@@ -268,8 +266,7 @@ Note: if this prompt fails on May 4, that's why class Part 07 exists — bring i
 Use this when: you want targeted edits before committing `docs/resume.pdf` by May 11.
 
 ```text
-Load @docs/job-posting.pdf and @docs/resume.pdf
-(or @docs/scratch/resume.md if you're working from a draft).
+Load @docs/job-posting.pdf and @docs/resume.pdf.
 
 Review my resume against the JD and give me:
 1. Three specific edits — quote the exact phrase in my current resume and the
@@ -304,7 +301,32 @@ Note: this example is intentionally generic. Your actual list will look differen
 
 - Commit `docs/interview-prep-notes.md` before leaving class on May 4. If you add components after class, commit again. The git history is the participation evidence.
 
-## 07 Study Material
+## 07 Pre-interview recording (10 pts)
+
+A recorded practice run of both interview questions, submitted before your Calendly slot. Recording is the prep. Hearing yourself back is the closest thing to hearing what the interviewer hears, and it surfaces timing slips and filler words you can't catch any other way.
+
+**What to record:**
+
+- "Tell me about yourself" — about 60 seconds
+- "Tell me about your project" — about 8–14 minutes, walking through your pipeline at a whiteboard
+
+**Format:**
+
+- Zoom cloud recording (LMU institutional account)
+- You don't have to show your face, but the whiteboard must be visible
+- A piece of paper counts as a whiteboard. A real whiteboard is recommended. The library study rooms have them.
+
+**Due:** 11:59pm the day before your Calendly slot. Submit the Zoom share link in the Brightspace assignment.
+
+**Grading:** Pass/fail. 10 pts if all three criteria below are met by the deadline; 0 pts if not.
+
+- Recording exists at the submitted link and plays
+- Both questions present, roughly within length bands ("Tell me about yourself" 45–90 sec; "Tell me about your project" ≥6 min walking through your pipeline)
+- Whiteboard visible
+
+The recording is reviewed only by the instructor.
+
+## 08 Study Material
 
 **Course materials:**
 - `lessons/06-local-pipeline/` through `lessons/10-streamlit-dashboard/` — every tutorial
@@ -322,7 +344,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - O'Reilly Learning (LMU library has a free subscription) — search "data engineering interview"
 - [Karpathy's LLM wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — the inspiration for your `knowledge/wiki/` pattern
 
-## 08 Study Tips
+## 09 Study Tips
 
 - **Practice on humans, not just classmates.** Form a study group of 2–3 people, then keep going: a roommate, a parent, a friend in a different major. The best test is whether a non-technical person who loves you can follow your project walkthrough — the parent test. If they get lost, the interviewer will too. AI rehearsal is the fallback when no human is available, not the headline.
 - **Practice your elevator pitch out loud, not in your head.** Record yourself once.
@@ -333,7 +355,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Lead with the big picture.** Always open with the elevator pitch and the pipeline shape before diving into a specific file or query.
 - **Strategize with Claude Code.** Use Practice Prompt 05.e (full mock) at least once before May 11. The score the prompt gives you is information.
 
-## 09 Interview Tips
+## 10 Interview Tips
 
 - **Take your time.** Silence while you think reads as confidence, not weakness.
 - **Talk about what you know first.** If asked something open-ended, lead with the part you can defend cleanly. The interviewer will follow your lead.
@@ -341,7 +363,7 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Keep answers concise.** A 30-second answer beats a 90-second one nine times out of ten. If the interviewer wants more, they'll ask.
 - **Ask one clarifying question if a follow-up is ambiguous.** Better than answering a question that wasn't asked. The interviewer would rather repeat than score a misread answer.
 
-## 10 Last Tips
+## 11 Last Tips
 
 - **Sleep.** Don't pull an all-nighter on May 10.
 - **Breathe.** A slow exhale before "Tell me about yourself" resets your voice.

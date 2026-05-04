@@ -43,7 +43,8 @@ All prompts live in the [study guide](../../study-guides/final-interview-study-g
 3. Run Practice Prompt 05.e (full mock interview) against Claude Code at least once.
 4. Refine `docs/interview-prep-notes.md`. Drop anything you can't defend; add anything you can.
 5. Refine your pipeline diagram if needed — see the [pipeline diagram reference](pipeline-whiteboard-tutorial.md).
-6. Commit `docs/resume.pdf` before your interview slot. Deadline is May 11.
+6. **Record and submit your practice run.** Zoom cloud recording of both interview questions, submitted in Brightspace by 11:59pm the day before your Calendly slot. Worth 10 pts of the interview score (see study guide section 07).
+7. Commit `docs/resume.pdf` before your interview slot. Deadline is May 11.
 
 ## No partner today?
 
