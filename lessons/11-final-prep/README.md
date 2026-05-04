@@ -18,7 +18,6 @@ Analytics engineering is the role that owns the transformation layer between raw
 ## Files in this lesson
 
 - **[Final interview tutorial](final-interview-tutorial.md)** — your high-level guide to the 100-minute class flow on May 4: 8 parts, what to do at each, what to commit by end of class. Open this in class.
-- **[Pipeline diagram reference](pipeline-whiteboard-tutorial.md)** — your pipeline diagram already shipped as Milestone 02 #9. This reference covers how to pull it up during today's whiteboard parts and the criteria to hit if you refine it between May 5 and your interview slot.
 
 ## Learning Objectives
 
@@ -47,7 +46,6 @@ By the end of this lesson, you will be able to:
 
 ## Get Started
 
-Open the final interview tutorial at the start of class on May 4 — it drives the 100-minute flow. Keep the pipeline diagram reference handy alongside it; you'll consult it during Parts 04 and 05 and again when refining the diagram between class and your interview slot.
+Open the final interview tutorial at the start of class on May 4 — it drives the 100-minute flow.
 
 - [Final interview tutorial](final-interview-tutorial.md)
-- [Pipeline diagram reference](pipeline-whiteboard-tutorial.md)

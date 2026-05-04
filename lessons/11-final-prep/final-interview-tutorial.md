@@ -42,7 +42,12 @@ Many students keep a `docs/interview-prep-notes.md` in their portfolio repo to t
 2. **Practice on humans, not just AI.** Walk a roommate, parent, or friend through your project. The parent test is your bar — a non-technical person who cares about you should be able to follow your walkthrough end-to-end.
 3. Run Practice Prompt 05.e (full mock interview) against Claude Code at least once.
 4. **(Optional) Refine `docs/interview-prep-notes.md`** if you started one in class. Drop anything you can't defend; add anything you can. Study guide section 06 has the format.
-5. Refine your pipeline diagram if needed — see the [pipeline diagram reference](pipeline-whiteboard-tutorial.md).
+5. Refine your pipeline diagram if needed. Aim for:
+   - **Single page or single screen scroll.** A diagram that requires panning has too much detail.
+   - **Every layer labeled with the tool that produced it.** Not "extract layer" but `extract.py`. Not "scheduling" but GitHub Actions on cron.
+   - **Data flow direction unambiguous.** Use arrows, not lines.
+   - **No mystery boxes.** If a non-engineer can't tell what something is from the label, label it more specifically.
+   - **Both data paths drawn.** Structured (API → GitHub Actions → Snowflake → dbt → Streamlit) and knowledge base (web scrape → GitHub Actions → `knowledge/raw/` → Claude Code → `knowledge/wiki/`).
 6. **Record and submit your practice run.** Zoom cloud recording of both interview questions, submitted in Brightspace by 11:59pm the day before your Calendly slot. Worth 10 pts of the interview score (see study guide section 07).
 7. Commit `docs/resume.pdf` before your interview slot. Deadline is May 11.
 
