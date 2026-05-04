@@ -1,46 +1,36 @@
-# Lesson 11: Pipeline Whiteboard Tutorial
+# Lesson 11: Pipeline Diagram Reference
 
-This lesson is interview prep. Your final interview is in finals week — pick a slot for Mon May 11, Tue May 12, or Wed May 13 via Calendly — and it includes a whiteboard walkthrough where you draw your portfolio pipeline from memory and explain it to the interviewer. Today's class on May 4 is the practice run.
+Your portfolio pipeline diagram is already in your repo — it shipped as the Milestone 02 #9 deliverable before today's class. This file is a reference, not an in-class build. Today on May 4 you'll pull the diagram up during the whiteboard parts of the [final interview tutorial](final-interview-tutorial.md) and use it as the source of truth for your rehearsal. Between May 5 and your interview slot on Mon May 11, Tue May 12, or Wed May 13, you're welcome to refine it.
 
-The diagram you produce also lives in your portfolio repo's `README.md` as the Milestone 02 #9 deliverable. If you already shipped M02 with a placeholder, this is the chance to upgrade it. If your M02 diagram already looks great, treat today as rehearsal — the act of drawing it from memory is what makes the interview-week walkthrough easy.
+## How to use your diagram in class
 
-There is nothing to submit on Brightspace for Lesson 11. The diagram lives in your portfolio repo; you walk through it during your final interview.
+The final interview tutorial has two whiteboard parts:
 
-## Why "whiteboard" framing
+- **Part 04: Solo whiteboard recall** — laptops closed, draw your pipeline from memory, then pull up your M02 diagram and list what you missed. The list goes on your cheat sheet.
+- **Part 05: Pair whiteboard walkthrough** — narrate your pipeline at the whiteboard while a peer asks follow-ups. Your M02 diagram is open on your laptop as a backstop, but the walkthrough itself is from memory.
+
+Pull up the diagram before Part 04 so it's ready when you need it. If your portfolio repo's `README.md` has the diagram embedded inline (Mermaid) or as a linked image, that's where you'll grab it.
+
+## Why "whiteboard" framing matters
 
 A polished diagram in your README is one thing. Drawing the same diagram from scratch in front of an interviewer is harder. Anything you can't recall isn't load-bearing in your understanding of the pipeline, which means it probably shouldn't be in the diagram either. The discipline of "draw it from memory" forces simplification.
 
-The polished version (Mermaid, draw.io, Excalidraw) is the artifact. The from-memory version is the rehearsal.
+The polished version (Mermaid, draw.io, Excalidraw, or hand-drawn photo) is the artifact. The from-memory version is the rehearsal.
 
-## What to do
+## Refining your diagram before your interview
 
-1. Pick a format. Any of these work for the M02 rubric:
+You're welcome to update the diagram after class — most students will. The whiteboard rehearsal in Parts 04 and 05 will surface gaps: arrows pointing the wrong way, a tool name you forgot, a layer that's vaguer in the diagram than in your head. Fixing those is fair game right up to your interview slot.
 
-   - **Mermaid** (lives in your README, version-controlled, no separate file)
-   - **draw.io** (free, more visual control, export PNG to your repo)
-   - **Excalidraw** (hand-drawn aesthetic, also free, also exportable)
-   - **Hand-drawn photo** (literal whiteboard or paper, photographed, committed as JPG)
-
-2. Draw both data paths your portfolio repo supports:
-
-   - **Structured path:** API source → GitHub Actions → Snowflake raw → dbt staging → dbt mart → Streamlit dashboard
-   - **Knowledge base path:** Web scrape → GitHub Actions → `knowledge/raw/` → Claude Code → `knowledge/wiki/`
-
-3. Label every tool. No unnamed boxes. "Cloud database" is not a label; "Snowflake" is. "Code" is not a label; "Python + `requests`" is. The labels are the test of whether you actually built it or just copy-pasted a generic architecture diagram.
-
-4. Embed the diagram in your portfolio repo's `README.md`. For Mermaid, paste it inline as a fenced code block with the language tag `mermaid`. For draw.io / Excalidraw / hand-drawn, save the export as `docs/pipeline-diagram.png` (or `.svg`) and reference it in the README with `![Pipeline diagram](docs/pipeline-diagram.png)`.
-
-5. Pair with a classmate. Walk each other through your own pipeline out loud, no notes. Then read each other's diagrams cold and identify what's unclear or missing. The questions a classmate asks are the questions a hiring manager will ask.
-
-## What makes a good pipeline diagram
+If you're doing a refinement pass, these are the criteria to hit:
 
 - **Single page or single screen scroll.** A diagram that requires panning has too much detail. Simplify — pick the most important layer to keep, fold the rest into a single label.
 - **Every layer labeled with the tool that produced it.** Not "extract layer" but `extract.py` (Python). Not "scheduling" but GitHub Actions on cron.
 - **Data flow direction unambiguous.** Use arrows, not lines. The reader should never have to guess which direction the data moves.
 - **No mystery boxes.** If a non-engineer can't tell what something is from the label, label it more specifically.
+- **Both data paths drawn.** Structured path (API → GitHub Actions → Snowflake → dbt → Streamlit) and knowledge base path (web scrape → GitHub Actions → `knowledge/raw/` → Claude Code → `knowledge/wiki/`).
+
+Commit each refinement to your portfolio repo. The diagram in `main` on the day of your interview is the one you walk through.
 
 ## Checkpoint
 
-Your pipeline diagram is in your portfolio repo's `README.md`. Every layer is labeled with a specific tool. The data flow direction is unambiguous. At least one classmate has reviewed it and confirmed they could understand the pipeline without you explaining it.
-
-Your final interview (May 11, 12, or 13) will start with you walking the interviewer through this diagram. If you can do that without notes, you're ready.
+Your pipeline diagram is open on your laptop and ready to reference during Parts 04 and 05 of the final interview tutorial. On your interview day, the diagram in `main` is what you walk through.

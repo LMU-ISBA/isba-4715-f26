@@ -3,7 +3,7 @@
 **Course:** ISBA 4715 — Developing Business Applications Using SQL
 **Assessment:** Analytics Engineer Interview (25% of course grade, 100 points)
 **Format:** In-person, Hilton 114 (instructor's office), 20-minute Calendly slot
-**Window:** Mon May 11, Tue May 12, or Wed May 13 (Calendly link distributed in class)
+**Window:** Mon May 11, Tue May 12, or Wed May 13 — [book your slot at calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview)
 **Companion deliverable:** `docs/resume.pdf` due May 11
 
 ---
@@ -12,15 +12,15 @@
 
 You come into Hilton 114, go to the whiteboard, and defend your portfolio project against the role you've been targeting all semester. This is not a quiz. It is a conversation about work you actually built, judged against the job description in 03. The interviewer wants to know what you built, why you made the choices you made, and what the data tells the business.
 
-**What an analytics engineer is.** Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. The signature stack is SQL + dbt + a cloud warehouse like Snowflake — exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end.
+**What an analytics engineer is.** Analytics engineering is the role that owns the transformation layer between raw ingested data and the analyst-ready models that dashboards and queries depend on. In practice, analytics engineers also do analysis on top of those models — turning the numbers into business decisions — which is why your portfolio includes both a dbt mart and a Streamlit dashboard with insights. The signature stack is SQL + dbt + a cloud warehouse like Snowflake — exactly what you built in MP01 through MP04. Your portfolio project is an analytics engineering portfolio whether your JD calls the role "analytics engineer," "data engineer," or "data analyst": what matters is that you own the transformation layer end-to-end and can defend the insights it produces.
 
 ## 02 Rubric
 
-The project is the assessment; TMAY is a quick on-ramp that gets you into the room.
+The project is the assessment; "Tell me about yourself" is a quick on-ramp that gets you into the room.
 
 | Section | Points | What's assessed |
 |---|---|---|
-| TMAY | 15 | Tailored to the portfolio JD: education, initiative, relevant experience, human connection, segue into project. Concise (≤1 minute), confident, structured. |
+| "Tell me about yourself" | 15 | Tailored to the portfolio JD: education, initiative, relevant experience, human connection, segue into project. Concise (≤1 minute), confident, structured. |
 | Project | 85 | Pipeline accuracy and completeness, technical defensibility, KB demo works, insights are specific and actionable, story arc is clean (beginning → middle → end), challenge/improvement/lesson all addressed. |
 | **Total** | **100** | |
 
@@ -41,18 +41,18 @@ The instructor leading you through your own repo is dialogue, not a hint. A hint
 
 ## 03 Your Job Description
 
-There is one job description in the room: the posting at `docs/job-posting.pdf` in your portfolio repo, the role you've been targeting all semester. TMAY tailors who you are to that role. The project section tailors what you built to that role. If you've pivoted to a different role since picking your portfolio JD, swap the file and re-run the Practice Prompts in 05 against the new posting before May 11.
+There is one job description in the room: the posting at `docs/job-posting.pdf` in your portfolio repo, the role you've been targeting all semester. "Tell me about yourself" tailors who you are to that role. The project section tailors what you built to that role. If you've pivoted to a different role since picking your portfolio JD, swap the file and re-run the Practice Prompts in 05 against the new posting before May 11.
 
 ## 04 Structure and Questions
 
 | Phase | Time | What happens |
 |---|---|---|
 | **Setup** | 0:00–1:00 | Arrive at Hilton 114. Lay laptop on the desk, open repo in Cursor with Claude Code session ready, open `docs/job-posting.pdf`. This is the only JD in the room. |
-| **TMAY** (15 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
+| **"Tell me about yourself"** (15 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
 | **Project** (85 pts) | 2:00–16:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
 | **Follow-ups + Wrap** | 16:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
 
-### TMAY
+### "Tell me about yourself"
 
 60 seconds, anchored to `docs/job-posting.pdf`. Hit five targets:
 
@@ -94,9 +94,47 @@ Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved a
 
 ---
 
-### 05.a — TMAY rehearsal
+### 05.a — "Tell me about yourself" content draft
 
-Use this when: you need to draft or tighten your 60-second intro before you practice it out loud.
+Use this when: you're staring at a blank scratch file and need help generating content for each of the five "Tell me about yourself" components. This produces an initial draft you can refine with 05.b.
+
+```text
+Load @docs/job-posting.pdf and @docs/resume.pdf (or @docs/scratch/resume.md if you're
+working from a draft).
+
+I'm drafting a 60-second "Tell me about yourself" for the role in the JD. Ask me one
+focused question for each of the five components below, one at a time, waiting for my
+answer before moving to the next:
+
+1. Education — what's the most relevant thing about your degree, major, or coursework
+   for this specific role?
+2. Initiative — what extracurricular activity or side project shows you build things
+   on your own, without being told to?
+3. Relevant work — what internship, job, or volunteer experience maps to the JD's
+   responsibilities?
+4. Personal tidbit — what's one human detail about you (a hobby, where you grew up,
+   something you're learning) that would make a hiring manager remember you?
+5. Segue — what's a one-sentence bridge from your background into your portfolio
+   project?
+
+Tailor each question to the JD. If I say "I'm stuck," "I don't know," or "I don't
+have one," give me three concrete example angles drawn from what's in my resume and
+the JD (or, if neither helps, common student backgrounds like CS major, business
+analytics minor, club leadership, retail/hospitality work, family small business)
+before re-asking the question.
+
+After I've answered all five, stitch my answers into a 60-second "Tell me about
+yourself" draft. The output is an initial draft I'll refine with 05.b — don't polish
+yet, just get the content on paper.
+
+Start with the education question.
+```
+
+---
+
+### 05.b — "Tell me about yourself" rehearsal
+
+Use this when: you have a draft of your 60-second intro (from 05.a or your own scratch) and want to score it against the five "Tell me about yourself" targets and tighten it before practicing out loud.
 
 ```text
 Load @docs/job-posting.pdf and @docs/resume.pdf (or @docs/scratch/resume.md if you're
@@ -115,7 +153,7 @@ Give me one specific sentence to cut or rewrite, then ask me to try again.
 
 ---
 
-### 05.b — Whiteboard pipeline rehearsal
+### 05.c — Whiteboard pipeline rehearsal
 
 Use this when: you want to practice narrating your pipeline with realistic follow-up interruptions, before you're standing at the whiteboard in Hilton 114.
 
@@ -138,7 +176,7 @@ Start by saying "Go ahead — walk me through your pipeline from the beginning."
 
 ---
 
-### 05.c — Component drill on any pipeline layer
+### 05.d — Component drill on any pipeline layer
 
 Use this when: you want to pressure-test your understanding of one specific piece of the repo before the interview.
 
@@ -161,7 +199,7 @@ be verified — or flag if my answer doesn't match what's actually in the repo.
 
 ---
 
-### 05.d — Full mock interview (the take-home rehearsal)
+### 05.e — Full mock interview (the take-home rehearsal)
 
 Use this when: you want to run the complete 20-minute interview structure before your Calendly slot. Run this at least once between May 5 and May 10.
 
@@ -171,7 +209,7 @@ Load @docs/job-posting.pdf, @README.md, @knowledge/wiki/, and @CLAUDE.md.
 You are a hiring manager conducting a 20-minute analytics engineer interview.
 Run the full structure in sequence:
 
-1. Open with "Tell me about yourself." After I answer, score my TMAY on the
+1. Open with "Tell me about yourself." After I answer, score my "Tell me about yourself" on the
    five targets (education, initiative, relevant work, personal tidbit, segue)
    and tell me one thing to improve before moving on.
 
@@ -190,14 +228,14 @@ Run the full structure in sequence:
 5. After I answer all three, score me using the A/B/C/D/F descriptor rubric:
    A = ready to hire, B = strong with minor gaps, C = adequate but uneven,
    D/F = substantial gaps. Give one sentence of justification for each phase
-   (TMAY, pipeline walkthrough, KB demo, follow-ups).
+   ("Tell me about yourself", pipeline walkthrough, KB demo, follow-ups).
 
-Start now with TMAY.
+Start now with "Tell me about yourself".
 ```
 
 ---
 
-### 05.e — Knowledge base demo dry run
+### 05.f — Knowledge base demo dry run
 
 Use this when: you want to verify that your wiki is queryable end-to-end before the interview — ideally by May 4 so any issues surface while help is still available.
 
@@ -223,7 +261,7 @@ Note: if this prompt fails on May 4, that's why class Part 07 exists — bring i
 
 ---
 
-### 05.f — Resume polish
+### 05.g — Resume polish
 
 Use this when: you want targeted edits before committing `docs/resume.pdf` by May 11.
 
@@ -287,11 +325,11 @@ Note: this example is intentionally generic. Your actual list will look differen
 - **Practice on humans, not just classmates.** Form a study group of 2–3 people, then keep going: a roommate, a parent, a friend in a different major. The best test is whether a non-technical person who loves you can follow your project walkthrough — the parent test. If they get lost, the interviewer will too. AI rehearsal is the fallback when no human is available, not the headline.
 - **Practice your elevator pitch out loud, not in your head.** Record yourself once.
 - **Whiteboard from memory.** Close the laptop. Draw the pipeline. Compare to the L10 diagram afterward. Repeat until you can do it without consulting.
-- **Rehearse without notes.** If you can't deliver TMAY without reading, you can't deliver it under pressure.
-- **Draft short follow-up answers.** Use the 05.c component drill prompt across each layer; save the answers to scratch notes.
+- **Rehearse without notes.** If you can't deliver "Tell me about yourself" without reading, you can't deliver it under pressure.
+- **Draft short follow-up answers.** Use the 05.d component drill prompt across each layer; save the answers to scratch notes.
 - **Focus on weak spots.** The cheat sheet (06) surfaces what you can't defend; spend study time there, not on the parts you already know.
 - **Lead with the big picture.** Always open with the elevator pitch and the pipeline shape before diving into a specific file or query.
-- **Strategize with Claude Code.** Use Practice Prompt 05.d (full mock) at least once before May 11. The score the prompt gives you is information.
+- **Strategize with Claude Code.** Use Practice Prompt 05.e (full mock) at least once before May 11. The score the prompt gives you is information.
 
 ## 09 Interview Tips
 
@@ -304,6 +342,6 @@ Note: this example is intentionally generic. Your actual list will look differen
 ## 10 Last Tips
 
 - **Sleep.** Don't pull an all-nighter on May 10.
-- **Breathe.** A slow exhale before TMAY resets your voice.
+- **Breathe.** A slow exhale before "Tell me about yourself" resets your voice.
 - **Carpe diem.** You built a real pipeline this semester. This is your moment to talk about it.
 
