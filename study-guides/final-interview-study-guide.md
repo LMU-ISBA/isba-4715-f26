@@ -49,10 +49,9 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 
 | Phase | Time | What happens |
 |---|---|---|
-| **Setup** | 0:00–1:00 | Arrive at Hilton 114. Lay laptop on the desk, open your portfolio repo in Cursor with a Claude Code session ready, open `docs/job-posting.pdf`. This is the only JD in the room. |
-| **"Tell me about yourself"** (10 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
-| **Project** (80 pts) | 2:00–16:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
-| **Follow-ups + Wrap** | 16:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
+| **"Tell me about yourself"** (10 pts) | 0:00–1:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
+| **Project** (80 pts) | 1:00–15:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
+| **Follow-ups + Wrap** | 15:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
 
 ### "Tell me about yourself"
 
@@ -66,7 +65,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 
 ### Project
 
-14 minutes, 85 points. You lead. Cover eight elements in order:
+14 minutes, 80 points. You lead. Cover eight elements in order:
 
 1. **Elevator pitch** — one sentence: who you're helping, what problem, how you're solving it
 2. **Connection to your portfolio JD** — why this project, why this role, what skills overlap
