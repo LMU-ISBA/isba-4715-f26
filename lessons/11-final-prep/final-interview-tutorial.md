@@ -50,7 +50,3 @@ Many students keep a `docs/interview-prep-notes.md` in their portfolio repo to t
    - **Both data paths drawn.** Structured (API → GitHub Actions → Snowflake → dbt → Streamlit) and knowledge base (web scrape → GitHub Actions → `knowledge/raw/` → Claude Code → `knowledge/wiki/`).
 6. **Record and submit your practice run.** Zoom cloud recording of both interview questions, submitted in Brightspace by 11:59pm the day before your Calendly slot. Worth 10 pts of the interview score (see study guide section 07).
 7. Commit `docs/resume.pdf` before your interview slot. Deadline is May 11.
-
-## No partner today?
-
-Every paired part (03, 05, 06) has a Claude Code fallback. Use Practice Prompts 05.b ("Tell me about yourself" rehearsal), 05.c (whiteboard), and 05.e (full mock). Ask the instructor in the moment if you're unsure which one to run.
