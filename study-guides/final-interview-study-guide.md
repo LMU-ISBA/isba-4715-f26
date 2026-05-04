@@ -316,6 +316,8 @@ A recorded practice run of both interview questions, submitted before your Calen
 - You don't have to show your face, but the whiteboard must be visible
 - A piece of paper counts as a whiteboard. A real whiteboard is recommended. The library study rooms have them.
 
+**Delivery:** record from memory, not from notes. An honest attempt is the point — perfection isn't expected. Stumbles, pauses, and forgotten details are all fine; they tell you what to refine before the live interview.
+
 **Due:** 11:59pm the day before your Calendly slot. Submit the Zoom share link in the Brightspace assignment.
 
 **Grading:** Pass/fail. 10 pts if all three criteria below are met by the deadline; 0 pts if not.
