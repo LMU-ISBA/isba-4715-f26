@@ -3,7 +3,7 @@
 **Class meeting:** Mon, May 4, 2026 | 9:55–11:35 (100 min) | Hilton 115
 **Final interview:** Hilton 114 (instructor's office), 20-min Calendly slot on Mon May 11, Tue May 12, or Wed May 13 — [book at calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview)
 **Companion deliverables:**
-- `study-guides/final-interview-study-guide.md` — read before May 4
+- `study-guides/final-interview-study-guide.md`
 - Pre-interview recording — Zoom cloud link submitted in Brightspace by 11:59pm the day before your Calendly slot (10 pts; see study guide section 07)
 - `docs/resume.pdf` — committed in your portfolio repo by May 11
 
@@ -42,7 +42,6 @@ By the end of this lesson, you will be able to:
 - Your portfolio job posting open at `docs/job-posting.pdf` — this is the only JD in the room
 - Your M02 pipeline diagram in your portfolio repo's `README.md` — you'll reference it during Parts 04 and 05
 - A working knowledge base wiki (or come ready to debug it in Part 07)
-- The study guide read at least once: `study-guides/final-interview-study-guide.md`
 
 ## Get Started
 
