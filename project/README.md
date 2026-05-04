@@ -142,7 +142,7 @@ Your final submission is an updated resume, committed to your repo as `docs/resu
 
 | # | Deliverable | Pts | Details |
 |---|---|---|---|
-| 15 | Updated resume (PDF) | 5 | Saved as `docs/resume.pdf`. Must include (1) skills you learned in this class, (2) a Projects section featuring this capstone with 2-3 bullets on what you built and why it matters, (3) tailoring to the original job posting you proposed. Use Claude Code to draft and refine your resume language. |
+| 15 | Updated resume (PDF) | 5 | Saved as `docs/resume.pdf`. Must include (1) skills you learned in this class, (2) a Projects section featuring this portfolio project with 2-3 bullets on what you built and why it matters, (3) tailoring to the original job posting you proposed. Use Claude Code to draft and refine your resume language. |
 
 **Total: 100 points (30% of course grade)**
 
