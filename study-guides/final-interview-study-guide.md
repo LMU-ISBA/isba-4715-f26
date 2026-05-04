@@ -94,7 +94,7 @@ The last 5 minutes is feedback time. The instructor walks through how you did an
 
 These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD when no human is available. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context. They only work if the file exists at the path shown.
 
-**Tip:** use speech-to-text for these rehearsals. Typing turns practice into a writing exercise, but the interviewer in Hilton 114 will be listening, not reading. Try [Wispr Flow](https://wisprflow.ai/) (or your OS's built-in dictation) to dictate your responses. The closer rehearsal is to actually speaking, the better the feedback.
+**Tip:** use speech-to-text for these rehearsals. Typing turns practice into a writing exercise, but the interviewer in Hilton 114 will be listening, not reading. Try [Wispr Flow (student pricing)](https://wisprflow.ai/students) or your OS's built-in dictation to dictate your responses. The closer rehearsal is to actually speaking, the better the feedback.
 
 Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved as a different format (`.md`, `.txt`), update the path before pasting.
 
