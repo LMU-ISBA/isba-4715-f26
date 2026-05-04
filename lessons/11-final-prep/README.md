@@ -4,7 +4,6 @@
 **Final interview:** Hilton 114 (instructor's office), 20-min Calendly slot on Mon May 11, Tue May 12, or Wed May 13 — [book at calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview)
 **Companion deliverables:**
 - `study-guides/final-interview-study-guide.md` — read before May 4
-- `docs/interview-prep-notes.md` — committed in your portfolio repo by end of class
 - Pre-interview recording — Zoom cloud link submitted in Brightspace by 11:59pm the day before your Calendly slot (10 pts; see study guide section 07)
 - `docs/resume.pdf` — committed in your portfolio repo by May 11
 
@@ -30,14 +29,13 @@ By the end of this lesson, you will be able to:
 - Use your existing M02 pipeline diagram as the reference during whiteboard rehearsal, and identify what to refine before your interview slot
 - Run a full 20-minute mock interview with a peer using your own portfolio repo and JD
 - Verify your knowledge base wiki is queryable end-to-end via Claude Code, and fix anything that is not
-- Commit a defensibility cheat sheet (`docs/interview-prep-notes.md`) that contracts what you can and cannot claim in the interview
+- (Optional) Draft a defensibility cheat sheet (`docs/interview-prep-notes.md`) that contracts what you can and cannot claim in the interview
 
 ## What You Will Leave With
 
 - A "Tell me about yourself" answer you have delivered out loud at least twice
 - A pipeline whiteboard you have narrated to a peer at least once
 - A list of refinements to make to your M02 pipeline diagram before your interview
-- A `docs/interview-prep-notes.md` committed to your portfolio repo
 
 ## Bring to Class
 

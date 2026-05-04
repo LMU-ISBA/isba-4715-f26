@@ -278,9 +278,9 @@ Review my resume against the JD and give me:
    in my resume but currently don't.
 ```
 
-## 06 Cheat sheet as contract
+## 06 Cheat sheet (recommended)
 
-In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. Before you leave class on May 4, create `docs/interview-prep-notes.md` in your portfolio repo — a bulleted list where each line is one pipeline component you are prepared to defend in your interview. The contract: "if it's not on this list, I'm not claiming I built it."
+In L09 Session 02, you used `CLAUDE.md` as a contract: a single file in your repo that told the agent exactly what the knowledge base schema looked like and held it accountable to that shape. The same pattern applies here. If you want a cheat sheet, create `docs/interview-prep-notes.md` in your portfolio repo: a bulleted list where each line is one pipeline component you're prepared to defend in your interview. The contract is with yourself: "if it's not on this list, I'm not claiming I built it."
 
 This isn't a checklist for the instructor. It's a pre-commitment to yourself. The AI policy in `project/README.md` is direct: "If you can't explain it, you don't get credit for it." The cheat sheet is how you make that concrete before the interview, not in the middle of one.
 
@@ -297,9 +297,7 @@ Save the file as `docs/interview-prep-notes.md`. Use this format:
 - Streamlit dashboard: `app/dashboard.py` — descriptive view (revenue trend) + diagnostic view (segment drilldown)
 ```
 
-Note: this example is intentionally generic. Your actual list will look different — use your real file paths and one-sentence descriptions.
-
-- Commit `docs/interview-prep-notes.md` before leaving class on May 4. If you add components after class, commit again. The git history is the participation evidence.
+Note: this example is intentionally generic. Your actual list will look different — use your real file paths and one-sentence descriptions. Refine it as you practice between May 5 and your slot. Not required, not graded.
 
 ## 07 Pre-interview recording (10 pts)
 
