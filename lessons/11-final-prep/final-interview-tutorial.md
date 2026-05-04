@@ -17,7 +17,7 @@ In-class clinic for your final interview on Mon May 11, Tue May 12, or Wed May 1
 | 04 | Solo whiteboard recall (5 min) | Laptop closed, draw both pipelines from memory; compare to your M02 diagram |
 | 05 | Pair whiteboard walkthrough (20 min) | Walk your pipeline at the whiteboard; partner asks at least 3 follow-ups using Practice Prompt 05.d |
 | 06 | Pair full mock (20 min) | 7-minute hot seat each: "Tell me about yourself" + project + follow-ups (one of which probes the knowledge base) using Practice Prompt 05.e |
-| 07 | KB live-fire and self-directed close (15 min) | Run Practice Prompt 05.f against your wiki and fix what's broken (8 min); use the remaining time however helps your prep |
+| 07 | Self-directed close (15 min) | Use the time however helps your prep — note-taking, diagram refinement, wiki verification, instructor questions |
 | 08 | Volunteer demos and closeout (10 min) | Two students walk their pipeline in front of the class; instructor names patterns to imitate |
 
 ## Practice prompts (paste into Claude Code)
@@ -29,7 +29,7 @@ All prompts live in the [study guide](../../study-guides/final-interview-study-g
 - **05.c** Whiteboard walkthrough — fallback if no partner in Part 05
 - **05.d** Project follow-ups — Part 05
 - **05.e** Full mock interview — Part 06 (and your post-class fallback)
-- **05.f** KB readiness check — Part 07
+- **05.f** KB readiness check — run before your interview slot
 - **05.g** Defensibility cheat sheet — Part 07
 
 ## Note-taking (optional)
