@@ -51,7 +51,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 |---|---|---|
 | **"Tell me about yourself"** (10 pts) | 0:00–1:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
 | **Project** (80 pts) | 1:00–15:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
-| **Debrief + feedback** | 15:00–20:00 | Instructor walks through how you did. Closing feedback. Resume confirmation. |
+| **Debrief + feedback** | 15:00–20:00 | Instructor walks through how you did. Closing feedback. |
 
 ### "Tell me about yourself"
 
@@ -84,7 +84,7 @@ Cover eight elements in order:
 
 ### Debrief + feedback
 
-The last 5 minutes is feedback time. The instructor walks through how you did, gives closing feedback, and confirms `docs/resume.pdf` is committed to your portfolio repo by May 11.
+The last 5 minutes is feedback time. The instructor walks through how you did and gives closing feedback.
 
 ## 05 Practice Prompts (rehearse with Claude Code)
 
