@@ -4,7 +4,7 @@
 **Assessment:** Analytics Engineer Interview (25% of course grade, 100 points)
 **Format:** In-person, Hilton 114 (instructor's office), 20-minute Calendly slot
 **Window:** Mon May 11, Tue May 12, or Wed May 13 — [book your slot at calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview)
-**Companion deliverable:** `docs/resume.pdf` due May 11
+**Resume:** `docs/resume.pdf` due May 11 — graded in the project rubric as deliverable #15 (5 pts), not in the interview score. See `project/README.md`.
 
 ---
 
@@ -47,7 +47,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 
 | Phase | Time | What happens |
 |---|---|---|
-| **Setup** | 0:00–1:00 | Arrive at Hilton 114. Lay laptop on the desk, open repo in Cursor with Claude Code session ready, open `docs/job-posting.pdf`. This is the only JD in the room. |
+| **Setup** | 0:00–1:00 | Arrive at Hilton 114. Lay laptop on the desk, open your portfolio repo in Cursor with a Claude Code session ready, open `docs/job-posting.pdf`. This is the only JD in the room. |
 | **"Tell me about yourself"** (15 pts) | 1:00–2:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
 | **Project** (85 pts) | 2:00–16:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
 | **Follow-ups + Wrap** | 16:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
@@ -91,6 +91,8 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD when no human is available. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
 
 Note: the prompts below reference `@docs/job-posting.pdf`. If your JD is saved as a different format (`.md`, `.txt`), update the path before pasting.
+
+Note: some prompts also reference `@docs/scratch/resume.md` as a draft path. Use it if you haven't yet exported your final resume PDF. The canonical artifact for grading is `docs/resume.pdf` (project deliverable #15).
 
 ---
 

@@ -40,7 +40,7 @@ By the end of this lesson, you will be able to:
 
 ## Bring to Class
 
-- Laptop with portfolio repo cloned and Claude Code installed
+- Laptop with your portfolio repo cloned locally and opened in Claude Code (Cursor) before class starts — Part 02 begins immediately with a Claude Code prompt
 - Your portfolio job posting open at `docs/job-posting.pdf` — this is the only JD in the room
 - Your M02 pipeline diagram in your portfolio repo's `README.md` — you'll reference it during Parts 04 and 05
 - A working knowledge base wiki (or come ready to debug it in Part 07)
