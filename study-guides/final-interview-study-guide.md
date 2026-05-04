@@ -63,6 +63,8 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 - **One personal tidbit** — a human detail that makes you memorable
 - **Segue into the project** — one-sentence bridge into your portfolio project
 
+**Stack words and phrases:** the technical terms in your JD. These include tool names (e.g., dbt, Snowflake, GitHub Actions), patterns (star schema, ETL, data modeling), and skills (SQL, Python, BI dashboards). Hiring managers scan answers for these because they're how the JD signals "we work with this." Landing two or three stack words in your "Tell me about yourself" tells the interviewer: I read the posting, and the work I built maps to your stack.
+
 ### Project
 
 14 minutes, 80 points. You lead. The instructor asks questions and takes notes while you explain. Keep narrating and answer probes as they come up; don't pause and wait. Common patterns: "why X over Y?" (defend a technical decision), scale hypothetical ("what breaks at 100× volume?"), prioritization ("what slipped first when time got tight?").
