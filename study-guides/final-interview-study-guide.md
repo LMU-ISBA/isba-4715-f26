@@ -23,7 +23,7 @@ The project is the assessment; "Tell me about yourself" is a quick on-ramp that 
 |---|---|---|
 | Pre-interview recording | 10 | Submitted on time, both questions present in the right length range, whiteboard visible. Pass/fail (see section 07). |
 | "Tell me about yourself" (live) | 10 | Tailored to the portfolio JD: education, initiative, relevant experience, human connection, segue into project. Concise (≤1 minute), confident, structured. |
-| Project (live) | 80 | Pipeline accuracy and completeness, technical defensibility, KB demo works, insights are specific and actionable, story arc is clean (beginning → middle → end), challenge/improvement/lesson all addressed. |
+| Project (live) | 80 | Pipeline accuracy and completeness, technical defensibility, knowledge base is defensible when asked, insights are specific and actionable, story arc is clean (beginning → middle → end), challenge/improvement/lesson all addressed. |
 | **Total** | **100** | |
 
 | Grade | Criteria |
@@ -50,7 +50,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 | Phase | Time | What happens |
 |---|---|---|
 | **"Tell me about yourself"** (10 pts) | 0:00–1:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
-| **Project** (80 pts) | 1:00–15:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
+| **Project** (80 pts) | 1:00–15:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Tell the full story. Be ready when the instructor asks about the knowledge base. |
 | **Debrief + feedback** | 15:00–20:00 | Instructor walks through how you did. Closing feedback. |
 
 ### "Tell me about yourself"
@@ -77,7 +77,7 @@ Cover eight elements in order:
 4. **Technical deep dive** — four sub-segments:
    - **Data ingestion and automation:** API + Firecrawl scrape, GitHub Actions schedule + manual trigger, secrets handling
    - **Modeling and warehouse setup:** Snowflake raw → dbt staging → mart, star schema, one dbt test
-   - **Knowledge base demo (required):** Run Claude Code live against `knowledge/wiki/`. Query something only in `knowledge/raw/`. Defend the source citation. Skipping it costs points.
+   - **Knowledge base (verbal):** Don't demo live — narrate it. What's in `knowledge/raw/` (the scraped sources) versus `knowledge/wiki/` (the agent-built summary). One example of a question whose answer routes through the wiki and cites a specific raw file. The instructor will ask about the KB during the project narration; be ready to walk through the layers without opening a terminal.
    - **Streamlit dashboard sketch (optional):** Sketch panes on the whiteboard — descriptive, diagnostic, interactive. No live demo expected.
 5. **Insights** — 1–2 specific insights and the business decisions they inform
 6. **One significant challenge** and how you overcame it
@@ -218,28 +218,28 @@ Run the full structure in sequence:
 2. Transition to "Tell me about your project." Anchor your follow-up questions
    to the responsibilities and skills listed in the JD. Probe my pipeline with
    at least three follow-up questions during the 14-minute project section.
+   One of those probes must ask about my knowledge base — what's in
+   knowledge/raw/ versus knowledge/wiki/, and how I'd cite a raw source if you
+   asked me a question that routed through the wiki. I won't run a live demo;
+   judge me on how clearly I narrate the layers.
 
-3. Ask me to demo the knowledge base: give me a question whose answer should
-   only appear in knowledge/raw/ (not just the wiki summary). I'll run Claude
-   Code against the wiki and report back what it returns.
-
-4. Close with three follow-up questions — one on prioritization logic, one on
+3. Close with three follow-up questions — one on prioritization logic, one on
    an alternative approach I considered and rejected, one on what breaks first
    at 100× data volume.
 
-5. After I answer all three, score me using the A/B/C/D/F descriptor rubric:
+4. After I answer all three, score me using the A/B/C/D/F descriptor rubric:
    A = ready to hire, B = strong with minor gaps, C = adequate but uneven,
    D/F = substantial gaps. Give one sentence of justification for each phase
-   ("Tell me about yourself", pipeline walkthrough, KB demo, follow-ups).
+   ("Tell me about yourself", pipeline walkthrough, follow-ups).
 
 Start now with "Tell me about yourself".
 ```
 
 ---
 
-### 05.f — Knowledge base demo dry run
+### 05.f — Knowledge base readiness check
 
-Use this when: you want to verify that your wiki is queryable end-to-end before the interview, ideally by May 4 so any issues surface while help is still available.
+Use this when: you want to verify your wiki is coherent enough to defend verbally before the interview, ideally by May 4 so any issues surface while help is still available. You won't run a live demo in the interview, but the instructor will ask about the KB — and you can only answer accurately if the wiki actually works.
 
 ```text
 Load @knowledge/wiki/ and @knowledge/raw/.
@@ -367,7 +367,7 @@ The recording is reviewed only by the instructor.
 
 ## 11 Last Tips
 
-- **Sleep.** Don't pull an all-nighter on May 10.
+- **Sleep.** Don't pull an all-nighter the day before your interview.
 - **Breathe.** A slow exhale before "Tell me about yourself" resets your voice.
 - **Carpe diem.** You built a real pipeline this semester. This is your moment to talk about it.
 
