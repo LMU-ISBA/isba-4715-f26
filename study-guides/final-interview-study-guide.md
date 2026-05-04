@@ -51,7 +51,7 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 |---|---|---|
 | **"Tell me about yourself"** (10 pts) | 0:00–1:00 | "Tell me about yourself." 60 seconds tailored to your portfolio JD. |
 | **Project** (80 pts) | 1:00–15:00 | "Tell me about your project." Go to the whiteboard. Draw and narrate the pipeline. Embed the KB demo. Tell the full story. |
-| **Follow-ups + Wrap** | 15:00–20:00 | Instructor probes prioritization logic, alternative approaches, hypothetical scenarios. Closing feedback. Resume confirmation. |
+| **Debrief + feedback** | 15:00–20:00 | Instructor walks through how you did. Closing feedback. Resume confirmation. |
 
 ### "Tell me about yourself"
 
@@ -65,7 +65,9 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 
 ### Project
 
-14 minutes, 80 points. You lead. Cover eight elements in order:
+14 minutes, 80 points. You lead. The instructor asks questions and takes notes while you explain. Keep narrating and answer probes as they come up; don't pause and wait. Common patterns: "why X over Y?" (defend a technical decision), scale hypothetical ("what breaks at 100× volume?"), prioritization ("what slipped first when time got tight?").
+
+Cover eight elements in order:
 
 1. **Elevator pitch** — one sentence: who you're helping, what problem, how you're solving it
 2. **Connection to your portfolio JD** — why this project, why this role, what skills overlap
@@ -80,10 +82,9 @@ There is one job description in the room: the posting at `docs/job-posting.pdf` 
 7. **One future improvement** and why it matters
 8. **One lesson learned** that transfers to future projects
 
-### Follow-ups + Wrap
+### Debrief + feedback
 
-- **Common follow-up patterns:** "why X over Y?" (defend a technical decision); scale hypothetical ("what breaks at 100× volume?"); prioritization logic ("what slipped first when time got tight?")
-- **Wrap:** Closes with confirmation that `docs/resume.pdf` is committed to your portfolio repo by May 11.
+The last 5 minutes is feedback time. The instructor walks through how you did, gives closing feedback, and confirms `docs/resume.pdf` is committed to your portfolio repo by May 11.
 
 ## 05 Practice Prompts (rehearse with Claude Code)
 
