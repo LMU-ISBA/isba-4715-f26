@@ -173,7 +173,7 @@ After I finish the full walkthrough, give me three questions you'd expect a real
 interviewer to ask for this specific role, based on what's in the JD and what
 gaps you noticed in my narration.
 
-Start by saying "Go ahead — walk me through your pipeline from the beginning."
+Start by saying "Tell me about your project."
 ```
 
 ---
