@@ -165,9 +165,7 @@ Use this when: you want to practice narrating your pipeline with realistic follo
 Load @README.md, @knowledge/wiki/, and @docs/job-posting.pdf.
 
 You are a technical interviewer. I'm going to narrate my pipeline as if I'm at
-the whiteboard. After each segment I describe — API → Snowflake, dbt staging →
-mart, scrape → wiki — interrupt me with one realistic follow-up question tied to
-a responsibility or skill listed in the JD.
+the whiteboard.
 
 After I finish the full walkthrough, give me three questions you'd expect a real
 interviewer to ask for this specific role, based on what's in the JD and what
