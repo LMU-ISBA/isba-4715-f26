@@ -159,7 +159,7 @@ Give me one specific sentence to cut or rewrite, then ask me to try again.
 
 ### 05.c — Whiteboard pipeline rehearsal
 
-Use this when: you want to practice narrating your pipeline with realistic follow-up interruptions, before you're standing at the whiteboard in Hilton 114.
+Use this when: you want to practice narrating your pipeline end-to-end and getting three role-tied follow-ups at the end, before you're standing at the whiteboard in Hilton 114.
 
 ```text
 Load @README.md, @knowledge/wiki/, and @docs/job-posting.pdf.
