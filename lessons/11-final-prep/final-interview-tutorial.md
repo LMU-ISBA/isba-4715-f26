@@ -3,7 +3,7 @@
 In-class clinic for your final interview on Mon May 11, Tue May 12, or Wed May 13. We rehearse the two questions you'll be asked: "Tell me about yourself" and "Tell me about your project."
 
 - **Schedule:** book your 20-min interview slot at [calendly.com/greg-lontok/sql-final-interview](https://calendly.com/greg-lontok/sql-final-interview) (Mon May 11, Tue May 12, or Wed May 13)
-- **Walk in with:** your portfolio repo open in Claude Code (Cursor), `docs/job-posting.pdf` open, and your M02 pipeline diagram pulled up. Full list in the [README](README.md).
+- **Walk in with:** your portfolio repo open in Claude Code (Cursor), `docs/job-posting.pdf` open, and your M02 pipeline diagram pulled up.
 - **Read first:** the [final interview study guide](../../study-guides/final-interview-study-guide.md). Practice prompts live in section 05.
 - **Walk out with:** a "Tell me about yourself" delivered out loud and a pipeline narrated to a peer.
 
