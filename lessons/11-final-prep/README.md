@@ -9,7 +9,11 @@
 
 ## The Scenario
 
-This is the last class meeting before the final interview. The interview itself is in-person in Hilton 114 (the instructor's office), in a 20-minute Calendly slot you book for Mon May 11, Tue May 12, or Wed May 13. Today is the rehearsal: pair with a classmate, run a full mock interview against your own portfolio repo and job posting, walk through your existing pipeline diagram at the whiteboard, and leave with a written cheat sheet of what you can and cannot claim in the interview. Your pipeline diagram already shipped as Milestone 02 #9. Today we reference it rather than build it. Between May 5 and May 10, solo practice rounds, a final wiki verification, and any diagram refinements are your prep. The final interview closes the second-half data engineering pivot that started with MP01 and ran through Lessons 06–10. May 4 is designed so that when you walk into Hilton 114 later that week, it feels like a continuation, not a cliff.
+This is the last class meeting before the final interview. The interview itself is in-person in Hilton 114 (the instructor's office), in a 20-minute Calendly slot you book for Mon May 11, Tue May 12, or Wed May 13.
+
+Today is the rehearsal. You'll pair with a classmate, run a full mock interview against your own portfolio repo and job posting, walk through your existing pipeline diagram at the whiteboard, and leave with notes on what you can and can't claim in the interview. Your pipeline diagram already shipped as Milestone 02 #9, so today we reference it rather than build it.
+
+Between May 5 and May 10, the prep is on you: solo practice rounds, a final wiki verification, and any diagram refinements you noticed during class. The final interview closes the second-half data engineering pivot that started with MP01 and ran through Lessons 06–10. May 4 is designed so that when you walk into Hilton 114 later that week, it feels like a continuation, not a cliff.
 
 ## What is an analytics engineer?
 
