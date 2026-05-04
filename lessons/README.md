@@ -27,7 +27,7 @@ End-to-end data engineering projects built with Claude Code. Each mini-project i
 
 ## The Campus Bites Story (Lessons 01-02)
 
-Campus Bites is a food delivery service for college students. You'll use SQL to analyze real business problems:
+Campus Bites is a food delivery service for college students. You'll use SQL to analyze business problems:
 
 ### Lesson 01: Problem Analysis
 The CEO says orders dropped 20% in October. Your mission: find out what happened and recommend a fix.
@@ -52,9 +52,9 @@ Cheryl (E-commerce Manager) needs to understand visitor behavior. Your mission: 
 2. Follow the [setup guide](01-introduction/setup-guide.md)
 3. Start with [Lesson 01](01-introduction/)
 
-**Second half (Mini-Projects 06+):**
+**Second half (Lessons 06-11):**
 1. Install Cursor, Claude Code, and Docker (covered in class)
-2. Start with [Mini-Project 01](06-local-pipeline/)
+2. Start with [Lesson 06](06-local-pipeline/)
 
 ## File Structure
 

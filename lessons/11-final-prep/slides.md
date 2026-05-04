@@ -234,10 +234,10 @@ Both matter. Today we work on both.
 # Pick a format
 
 <div class="icon-grid">
-  <div class="icon-item"><div class="icon-circle">📝</div><div><strong>Mermaid</strong> — lives inline in your README, version-controlled</div></div>
-  <div class="icon-item"><div class="icon-circle">🎨</div><div><strong>draw.io</strong> — more visual control, export PNG</div></div>
-  <div class="icon-item"><div class="icon-circle">✏️</div><div><strong>Excalidraw</strong> — hand-drawn aesthetic, also free</div></div>
-  <div class="icon-item"><div class="icon-circle">📷</div><div><strong>Hand-drawn photo</strong> — literal whiteboard or paper, photographed</div></div>
+  <div class="icon-item"><div class="icon-circle">📝</div><div><strong>Mermaid</strong>: lives inline in your README, version-controlled</div></div>
+  <div class="icon-item"><div class="icon-circle">🎨</div><div><strong>draw.io</strong>: more visual control, export PNG</div></div>
+  <div class="icon-item"><div class="icon-circle">✏️</div><div><strong>Excalidraw</strong>: hand-drawn aesthetic, also free</div></div>
+  <div class="icon-item"><div class="icon-circle">📷</div><div><strong>Hand-drawn photo</strong>: literal whiteboard or paper, photographed</div></div>
 </div>
 
 All four satisfy the M02 rubric. Pick the one that matches how you think.
@@ -290,7 +290,7 @@ Six labeled boxes. Each one is a tool you actually used.
   <div class="flow-box">📚 knowledge/wiki/<small>indexed notes</small></div>
 </div>
 
-Five labeled boxes. Notice GitHub Actions appears in both paths — same orchestrator, different destinations.
+Five labeled boxes. Notice GitHub Actions appears in both paths. Same orchestrator, different destinations.
 
 ---
 
@@ -306,17 +306,17 @@ Five labeled boxes. Notice GitHub Actions appears in both paths — same orchest
 | "Extract layer" | **`extract.py`** |
 | "Some AI thing" | **Claude Code** |
 
-The labels are the test of whether you actually built it — or copy-pasted a generic architecture diagram.
+The labels are the test of whether you actually built it, or copy-pasted a generic architecture diagram.
 
 ---
 
 # What makes a good diagram
 
 <div class="icon-grid">
-  <div class="icon-item"><div class="icon-circle">📄</div><div><strong>Single page</strong> — if it requires panning, simplify</div></div>
+  <div class="icon-item"><div class="icon-circle">📄</div><div><strong>Single page</strong>: if it requires panning, simplify</div></div>
   <div class="icon-item"><div class="icon-circle">🏷️</div><div><strong>Every layer named</strong> with the actual tool</div></div>
-  <div class="icon-item"><div class="icon-circle">➡️</div><div><strong>Arrows, not lines</strong> — direction must be unambiguous</div></div>
-  <div class="icon-item"><div class="icon-circle">👀</div><div><strong>Readable cold</strong> — non-engineer should grasp it without you</div></div>
+  <div class="icon-item"><div class="icon-circle">➡️</div><div><strong>Arrows, not lines</strong>: direction must be unambiguous</div></div>
+  <div class="icon-item"><div class="icon-circle">👀</div><div><strong>Readable cold</strong>: a non-engineer should grasp it without you in the room</div></div>
 </div>
 
 A diagram a stranger can read is a diagram an interviewer will respect.
@@ -343,7 +343,7 @@ A diagram a stranger can read is a diagram an interviewer will respect.
 - Data flow direction is unambiguous
 - A classmate read it cold and understood the pipeline without you explaining
 
-If you can walk through it without notes, you're ready for May 11–13.
+If you can walk through it without notes, you're ready for May 11, 12, or 13.
 
 ---
 
