@@ -39,7 +39,7 @@ Many students keep a `docs/interview-prep-notes.md` in their portfolio repo to t
 ## After class: between May 5 and your interview slot
 
 1. Read the full study guide cover to cover.
-2. **Practice on humans, not just AI.** Walk a roommate, parent, or friend through your project. The parent test is your bar — a non-technical person who loves you should be able to follow your walkthrough end-to-end.
+2. **Practice on humans, not just AI.** Walk a roommate, parent, or friend through your project. The parent test is your bar — a non-technical person who cares about you should be able to follow your walkthrough end-to-end.
 3. Run Practice Prompt 05.e (full mock interview) against Claude Code at least once.
 4. **(Optional) Refine `docs/interview-prep-notes.md`** if you started one in class. Drop anything you can't defend; add anything you can. Study guide section 06 has the format.
 5. Refine your pipeline diagram if needed — see the [pipeline diagram reference](pipeline-whiteboard-tutorial.md).

@@ -88,7 +88,7 @@ The last 5 minutes is feedback time. The instructor walks through how you did, g
 
 ## 05 Practice Prompts (rehearse with Claude Code)
 
-**Practice with humans first; AI is the fallback.** The best rehearsal partners are the ones who have to listen to you — a classmate, a friend, a roommate, a parent, a sibling. Claude Code is what you reach for when you don't have a human handy, not because it's better. The parent test is your quality bar: can a non-technical person who loves you follow your project walkthrough end-to-end? If they get lost, you've over-jargoned, and the interviewer will too. Aim to clear the parent test before May 11.
+**Practice with humans first; AI is the fallback.** The best rehearsal partners are the ones who have to listen to you — a classmate, a friend, a roommate, a parent, a sibling. Claude Code is what you reach for when you don't have a human handy, not because it's better. The parent test is your quality bar: can a non-technical person who cares about you follow your project walkthrough end-to-end? If they get lost, you've over-jargoned, and the interviewer will too. Aim to clear the parent test before May 11.
 
 These prompts turn Claude Code into a rehearsal partner against your actual repo and your portfolio JD when no human is available. Paste them into a Claude Code session opened in your portfolio repo. The `@` references load files into context — they only work if the file exists at the path shown.
 
@@ -344,7 +344,7 @@ The recording is reviewed only by the instructor.
 
 ## 09 Study Tips
 
-- **Practice on humans, not just classmates.** Form a study group of 2–3 people, then keep going: a roommate, a parent, a friend in a different major. The best test is whether a non-technical person who loves you can follow your project walkthrough — the parent test. If they get lost, the interviewer will too. AI rehearsal is the fallback when no human is available, not the headline.
+- **Practice on humans, not just classmates.** Form a study group of 2–3 people, then keep going: a roommate, a parent, a friend in a different major. The best test is whether a non-technical person who cares about you can follow your project walkthrough — the parent test. If they get lost, the interviewer will too. AI rehearsal is the fallback when no human is available, not the headline.
 - **Practice your elevator pitch out loud, not in your head.** Record yourself once.
 - **Whiteboard from memory.** Close the laptop. Draw the pipeline. Compare to the L10 diagram afterward. Repeat until you can do it without consulting.
 - **Rehearse without notes.** If you can't deliver "Tell me about yourself" without reading, you can't deliver it under pressure.
